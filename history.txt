@@ -88,3 +88,7 @@ Changed to OS 4 headers.
 Fixed the emulator warnings from moving gadgets offscreen.
 Releasing as 1.1.1
 
+2/4/2002
+
+Justification and hyphenation from Florian Deckert 
+(fdeckert@club-internet.fr).
