@@ -112,13 +112,13 @@ Boolean UtilOSIsAtLeast(Byte reqMajor, Byte reqMinor)
 ////////////////////////////////////////////////////////////////////////////////
 static void StartApp()
 {
-    VoidHand appStateHandle = MemHandleNew(sizeof(*appStatePtr));
     Word prefsSize = 0;
 #ifdef ENABLE_SEARCH
     CharPtr searchPtr = NULL;
 #endif
     DWord newDepth = 1;
 
+    appStatePtr = (struct APP_STATE_STR *) MemPtrNew(sizeof(*appStatePtr));
     if (UtilOSIsAtLeast(3,0))
     {
         DWord depth;
@@ -129,7 +129,6 @@ static void StartApp()
             ErrFatalDisplay("No 1-bit mode!");
     }
 
-    appStatePtr = MemHandleLock(appStateHandle);
     if (noPreferenceFound == PrefGetAppPreferences(appId, PREF_APPSTATE, NULL, &prefsSize, true)
         || prefsSize != sizeof(*appStatePtr))
         InitAppState();
