@@ -75,7 +75,8 @@ release: $(ZIPS) $(PRCS)
 	cp $(ZIPS) $(PRCS) $(OUTPUTDIR)
 
 $(PROGNAME)_%.zip: $(PROGNAME)_%.prc 
-	$(ZIP) -j $@ $^ $(GNUTURDS)
+	$(ZIP) -j $@ $^ $(GNUTURDS) \
+                $(wildcard hyphen_db/CSpotRun_hyphen_$*.pdb)
 
 $(PROGNAME)_%.prc: cspotrun.def %.resstamp $(PROGNAME) 
 	$(BUILDPRC) cspotrun.def -o $@ $(PROGNAME) *.bin 
