@@ -45,7 +45,8 @@ static void         _setLineHeight();
 static void         _scrollUpIfLastPage();
 static DWord        _fixStoryLen(Word *recLens);
 static void         _postDecodeProcessing();
-static void         _drawPage(RectanglePtr boundsPtr, Boolean drawOffscreenPart);
+static void         _drawPage(RectanglePtr boundsPtr,
+                              Boolean drawOnscreenPart, Boolean drawOffscreenPart);
 static void         _setApparentTextBounds();
 static Boolean      _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos, Boolean caseSensitive);
 static void         _rewindToStartOfWord();
@@ -219,7 +220,7 @@ void Doc_drawPage()
     WinSetDrawWindow(osPageWindow);
     WinEraseWindow();
 
-    _drawPage(&_apparentTextBounds, false);
+    _drawPage(&_apparentTextBounds, true, false);
 
     WinSetDrawWindow(screenWindow);
 
@@ -465,7 +466,8 @@ int Doc_translatePageButton(int dir)
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-static void _drawPage(RectanglePtr boundsPtr, Boolean drawOffscreenPart)
+static void _drawPage(RectanglePtr boundsPtr,
+                        Boolean drawOnscreenPart, Boolean drawOffscreenPart)
 {
     int        y = 0;
     int        charsOnRow = 0;
@@ -503,7 +505,7 @@ static void _drawPage(RectanglePtr boundsPtr, Boolean drawOffscreenPart)
     p = & _decodeBuf[_docPrefs.location.ch];
 
 #ifdef ENABLE_AUTOSCROLL
-    if(drawOffscreenPart)
+    if(!drawOnscreenPart)
     {
 		int offscreenLines = linesToShow - (boundsPtr->extent.y) / _lineHeight;
         offscreenLines ++; //Because we really want the last onscreen line too.
@@ -862,7 +864,7 @@ void Doc_prepareForPixelScrolling()
     WinSetDrawWindow(osPageWindow);
     WinEraseWindow();
 
-    _drawPage(&_apparentTextBounds, true);
+    _drawPage(&_apparentTextBounds, true, true);
 
     WinSetDrawWindow(w);
 
@@ -898,7 +900,7 @@ void Doc_pixelScroll()
     {
         Doc_linesDown(1);
         WinEraseWindow();
-        _drawPage(&_apparentTextBounds, true);
+        _drawPage(&_apparentTextBounds, true, true);
         _pixelOffset = 0;
     }
 
