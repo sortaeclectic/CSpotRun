@@ -49,9 +49,11 @@ static void         _scrollUpIfLastPage();
 static DWord        _fixStoryLen(Word *recLens);
 static void         _postDecodeProcessing();
 static void         _drawPage(RectanglePtr boundsPtr,
-                              Boolean drawOnscreenPart, Boolean drawOffscreenPart);
+                              Boolean drawOnscreenPart,
+                              Boolean drawOffscreenPart);
 static void         _setApparentTextBounds();
-static Boolean      _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos, Boolean caseSensitive);
+static Boolean      _findString(CharPtr haystack, CharPtr needle,
+                                WordPtr foundPos, Boolean caseSensitive);
 static void         _rewindToStartOfWord();
 static void         _movePastWord();
 static Boolean      _onLastPage();
@@ -61,14 +63,15 @@ static Boolean      _onLastPage();
 ////////////////////////////////////////////////////////////////////////////////
 struct RECORD0_STR
 {
-    Byte    crap;               //Because wVersion was 1026 (1024+2) in one doc when it should have been 2.
+    Byte    crap;               //Because wVersion was 1026 (1024+2) in one doc
+                                //    when it should have been 2.
     Byte    wVersion;           // 1=plain text, 2=compressed
     Word    wSpare;             //??
     DWord   munged_dwStoryLen;  // in bytes, when decompressed.
                                 //Appears to be wrong in some DOCs.
     Word    munged_wNumRecs;    // text records only; equals tDocHeader.wNumRecs-1.
-                                //Use this, because AportisDoc adds records beyond these.
-                                //Appears to be too big in some DOCs.
+                                //Use this, because AportisDoc adds records beyond
+                                //these. Appears to be too big in some DOCs.
     Word    wRecSize;           // usually 0x1000
     DWord   dwSpare2;           //??
 };
@@ -85,10 +88,11 @@ VoidHand            _decodeBufHandle = NULL;
 
 CharPtr             _decodeBuf = NULL;
 // These describe the state of _decodeBuf
-UShort              _decodeBufLen = 0;            //Size of buffer allocated
-UShort              _decodeLen = 0;               //Characters decoded
-UShort              _recordDecoded = 0;           //The first record held in "_decodeBuf"
-UShort              _decodedRecordLen = 0;        //Characters in record #_recordDecoded which were decoded
+UShort              _decodeBufLen = 0;     //Size of buffer allocated
+UShort              _decodeLen = 0;        //Characters decoded
+UShort              _recordDecoded = 0;    //The first record held in "_decodeBuf"
+UShort              _decodedRecordLen = 0; //Characters in record #_recordDecoded
+                                           //which were decoded
 
 DWord               _fixedStoryLen;
 
@@ -100,7 +104,8 @@ Word                _wNumRecs;
 #ifdef ENABLE_AUTOSCROLL
 static UShort       _pixelOffset = 0;
 static Boolean      _locationChanged = true;
-static UShort       _osExtraForAS; //How many extra rows are added to the osPageWindow
+static UShort       _osExtraForAS; //How many extra rows are added
+                                   //to the osPageWindow
 #endif
 static Boolean      _boundsChanged = true;
 static WinHandle    osPageWindow = NULL;
@@ -135,7 +140,7 @@ void Doc_open(UInt cardNo, LocalID dbID, char name[dmDBNameLength])
     ErrFatalDisplayIf(!_record0Ptr, "c");
 
     //allocate decode buffer
-    _decodeBufLen = _record0Ptr->wRecSize + 640; // needs to hold a record + 1 page + \0.
+    _decodeBufLen = _record0Ptr->wRecSize + 640; // needs to hold a record+1 page+\0.
     _decodeBufHandle = MemHandleNew(_decodeBufLen);
     ErrFatalDisplayIf(!_decodeBufHandle, "d");
     _decodeBuf = MemHandleLock(_decodeBufHandle);
@@ -162,7 +167,8 @@ void Doc_open(UInt cardNo, LocalID dbID, char name[dmDBNameLength])
     DocPrefs_loadPrefs(name, &_docPrefs);
 
     //if location is bad, go to beginning.
-    if (_docPrefs.location.record > _wNumRecs || _docPrefs.location.ch >= _recLens[_docPrefs.location.record-1])
+    if (_docPrefs.location.record > _wNumRecs
+        || _docPrefs.location.ch >= _recLens[_docPrefs.location.record-1])
     {
         _docPrefs.location.record = _docPrefs.location.ch = 0;
     }
@@ -263,7 +269,6 @@ void Doc_drawPage()
                         0,
                         _apparentTextBounds.extent.y-1,
                         _docPrefs.orient);
-
     }
 #endif
 }
@@ -312,9 +317,11 @@ void Doc_linesUp(Word linesToMove)
         //Try to wrap back a whole page.
         firstCharIndex = lastCharIndex;
         if (firstCharIndex != 0)
-            FntWordWrapReverseNLines(_decodeBuf, _apparentTextBounds.extent.x, &linesToMove, &firstCharIndex);
+            FntWordWrapReverseNLines(_decodeBuf, _apparentTextBounds.extent.x,
+                                     &linesToMove, &firstCharIndex);
 
-        //If that only got back to the beginning of the decode buffer and it wasn't the first record...
+        //If that only got back to the beginning of the decode buffer
+        //and it wasn't the first record...
         if (firstCharIndex == 0 && _docPrefs.location.record > 1)
         {
             // Move current position to start of prev record and load
@@ -322,7 +329,8 @@ void Doc_linesUp(Word linesToMove)
             _docPrefs.location.ch = 0;
             _loadCurrentRecord();
 
-            //Adjust lastCharIndex to same char in the newly loaded buffer and try to find the firstCharIndex again.
+            //Adjust lastCharIndex to same char in the newly loaded buffer
+            //and try to find the firstCharIndex again.
             lastCharIndex += _decodedRecordLen;
         }
         //else we found the top of the page.
@@ -363,7 +371,6 @@ void Doc_scroll(int dir, enum TAP_ACTION_ENUM ta)
     _locationChanged = true;
 #endif
 }
-
 
 void Doc_setBounds(RectanglePtr bounds)
 {
@@ -461,7 +468,8 @@ Boolean Doc_inBottomHalf(int screenX, int screenY)
     int y = screenY - _textGadgetBounds.topLeft.y;
     int x = screenX - _textGadgetBounds.topLeft.x;
     OrientationType a = (ORIENTATION_COUNT-_docPrefs.orient)%ORIENTATION_COUNT;
-    int ymax = RotateY(_textGadgetBounds.extent.x, _textGadgetBounds.extent.y, a);
+    int ymax = RotateY(_textGadgetBounds.extent.x,
+                       _textGadgetBounds.extent.y, a);
     y = RotateY(x,y,a);
 
     if (ymax<0)
@@ -489,14 +497,15 @@ int Doc_translatePageButton(int dir)
 //
 ////////////////////////////////////////////////////////////////////////////////
 static void _drawPage(RectanglePtr boundsPtr,
-                        Boolean drawOnscreenPart, Boolean drawOffscreenPart)
+                      Boolean drawOnscreenPart,
+                      Boolean drawOffscreenPart)
 {
-    int        y;
-    int        charsOnRow = 0;
-    char    *p;
-    int        linesToShow;
+    int       y;
+    int       charsOnRow = 0;
+    char*     p;
+    int       linesToShow;
     WinHandle osLineWindow = NULL;
-    Word    errorWord;
+    Word      errorWord;
     RectangleType osLineBounds;
     FontID    oldFont = FntGetFont();
     WinHandle destWindow = WinGetDrawWindow();
@@ -510,7 +519,9 @@ static void _drawPage(RectanglePtr boundsPtr,
     osLineBounds.topLeft.x = osLineBounds.topLeft.y = 0;
     osLineBounds.extent.x = boundsPtr->extent.x;
     osLineBounds.extent.y = FntBaseLine()+FntDescenderHeight();
-    osLineWindow = WinCreateOffscreenWindow(osLineBounds.extent.x, osLineBounds.extent.y, genericFormat, &errorWord);
+    osLineWindow = WinCreateOffscreenWindow(osLineBounds.extent.x,
+                                            osLineBounds.extent.y,
+                                            genericFormat, &errorWord);
     ErrFatalDisplayIf(NULL == osLineWindow, "f");
 
     //Set drawing to go to the osLine window
@@ -537,9 +548,10 @@ static void _drawPage(RectanglePtr boundsPtr,
     if(!drawOnscreenPart)
     {
         int offscreenLines = linesToShow - (boundsPtr->extent.y) / _lineHeight;
-        offscreenLines += 2 ; //Because we really want the last onscreen line too.
+        offscreenLines += 2 ; //Because we want the last onscreen line too.
         // skip past onscreen lines
-        while((linesToShow > offscreenLines) && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
+        while((linesToShow > offscreenLines)
+                && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
         {
             y += _lineHeight;
             p += charsOnRow;
@@ -551,14 +563,17 @@ static void _drawPage(RectanglePtr boundsPtr,
     {
         WinEraseRectangle(&osLineBounds, 0);
         TT_WinDrawChars(p, charsOnRow, 0, 0);
-        //Copy the osLine in in an ORing kind of way.  This preserves lowercase extenders of previous line.
-        WinCopyRectangle(osLineWindow, destWindow, &osLineBounds, boundsPtr->topLeft.x, y, scrOR);
+        //Copy the osLine in in an ORing kind of way.
+        //This preserves lowercase extenders of previous line.
+        WinCopyRectangle(osLineWindow, destWindow, &osLineBounds,
+                         boundsPtr->topLeft.x, y, scrOR);
         y += _lineHeight;
         p += charsOnRow;
         linesToShow--;
     }
 //    WinDrawLine(boundsPtr->topLeft.x, boundsPtr->topLeft.y+boundsPtr->extent.y-1,
-//                    boundsPtr->topLeft.x+boundsPtr->extent.x, boundsPtr->topLeft.y+boundsPtr->extent.y-1);
+//                boundsPtr->topLeft.x+boundsPtr->extent.x,
+//                boundsPtr->topLeft.y+boundsPtr->extent.y-1);
 
     WinSetDrawWindow(destWindow);
     WinDeleteWindow(osLineWindow, false);
@@ -654,7 +669,9 @@ static void _loadCurrentRecord()
     {
         UInt recToLoad = _docPrefs.location.record;
 
-        _decodeLen = _decodedRecordLen = decodeRecord(_dbRef, _record0Ptr->wVersion, _decodeBuf, recToLoad, _decodeBufLen-1);
+        _decodeLen = _decodedRecordLen = decodeRecord(_dbRef, _record0Ptr->wVersion,
+                                                      _decodeBuf,
+                                                      recToLoad, _decodeBufLen-1);
         _recordDecoded = _docPrefs.location.record;
         //If this is the last record, make the null appear to belong to this record
         if (recToLoad == _wNumRecs)
@@ -664,9 +681,13 @@ static void _loadCurrentRecord()
         //Otherwise load more records
         else
         {
-            //While there are remaining records, and space to fill in the buffer, decode next records.
+            //While there are remaining records, and space to fill in buffer,
+            //decode next records.
             while (++recToLoad <= _wNumRecs && _decodeLen < _decodeBufLen-1)
-                _decodeLen += decodeRecord(_dbRef, _record0Ptr->wVersion, &_decodeBuf[_decodeLen], recToLoad, (_decodeBufLen-1) - _decodeLen);
+                _decodeLen += decodeRecord(_dbRef, _record0Ptr->wVersion,
+                                           &_decodeBuf[_decodeLen],
+                                           recToLoad,
+                                           (_decodeBufLen-1) - _decodeLen);
         }
         _decodeBuf[_decodeLen] = '\0';
         _postDecodeProcessing();
@@ -698,7 +719,8 @@ static DWord _fixStoryLen(Word *recLens)
         storyLen += _decodedRecordLen;
         recLens[i] = _decodedRecordLen;
 */
-        storyLen += (recLens[i] = decodedRecordLen(_dbRef, _record0Ptr->wVersion, i+1));
+        recLens[i] = decodedRecordLen(_dbRef, _record0Ptr->wVersion, i+1);
+        storyLen += recLens[i];
     }
     recLens[_wNumRecs-1]++;//for the null at the end of the last record.
     storyLen++;
@@ -722,7 +744,8 @@ static void _postDecodeProcessing()
 
 
 #ifdef ENABLE_SEARCH
-void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop, Boolean caseSensitive, Word formId)
+void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop,
+                  Boolean caseSensitive, Word formId)
 {
     struct DOC_LOCATION_STR posBeforeSearch;
     struct DOC_LOCATION_STR startOfSearch;
@@ -744,7 +767,8 @@ void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop, Boolean ca
     {
         //Doc_linesDown(1);//So we don't find it again if we are sitting on it.
 
-        int fnord = FntWordWrap(&_decodeBuf[_docPrefs.location.ch], _apparentTextBounds.extent.x);
+        int fnord = FntWordWrap(&_decodeBuf[_docPrefs.location.ch],
+                                _apparentTextBounds.extent.x);
         _docPrefs.location.ch += fnord;
     }
 
@@ -755,7 +779,8 @@ void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop, Boolean ca
         _loadCurrentRecord();
 
         //If we found it, move to after find.
-        if (_findString(&_decodeBuf[_docPrefs.location.ch], searchString, &foundPos, caseSensitive))
+        if (_findString(&_decodeBuf[_docPrefs.location.ch], searchString,
+                        &foundPos, caseSensitive))
         {
             _docPrefs.location.ch += foundPos;
             found = true;
@@ -798,8 +823,10 @@ void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop, Boolean ca
 
 }
 
-//_findString works a lot like FindStrInStr. Except correctly. And optionally case-sensitively.
-static Boolean _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos, Boolean caseSensitive)
+//_findString works a lot like FindStrInStr. Except correctly.
+//And optionally case-sensitively.
+static Boolean _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos,
+                           Boolean caseSensitive)
 {
     UInt    needleLen = StrLen(needle);
     UInt    haystackLen = StrLen(haystack);
@@ -808,7 +835,8 @@ static Boolean _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos, B
 
     if (! caseSensitive)
     {
-        //FindStrInStr will only find the search string if is at the beginning of a word. So, it will
+        //FindStrInStr will only find the search string if is at
+        //the beginning of a word. So, it will
         //find "foo" in "foobar" but not in "barfoo".
         //Really should just write our own FindStrInStr...
 
@@ -854,7 +882,8 @@ static void _rewindToStartOfWord()
 {
     WordPtr attrs = GetCharAttr();
 
-    while (_docPrefs.location.ch>0 && ! IsSpace(attrs, _decodeBuf[_docPrefs.location.ch-1]))
+    while (_docPrefs.location.ch>0
+           && ! IsSpace(attrs, _decodeBuf[_docPrefs.location.ch-1]))
     {
         _docPrefs.location.ch--;
     }
@@ -944,7 +973,8 @@ void Doc_pixelScroll()
     _pixelOffset++;
 
     // Shift the spare row at the bottom of the offscreen image up.
-    // todo: We don't need to shift it all, since the visible screen is scrolled below.
+    // todo: We don't need to shift it all, since the visible screen
+    // is scrolled below.
     rect = _apparentTextBounds;
     rect.extent.y += _osExtraForAS;
     WinScrollRectangle(&rect, up, 1, &vacated);
