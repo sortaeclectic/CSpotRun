@@ -45,13 +45,14 @@ struct UCGUI_ELEM_STR
                                   AUTOSCROLL_GADGET_COUNT + \
                                   FONT_BUTTON_COUNT + \
                                   ROTATION_BUTTON_COUNT + \
-                                  SEARCH_BUTTON_COUNT + BMK_UC_COUNT)
+                                  SEARCH_BUTTON_COUNT + BMK_UC_COUNT + \
+                                  JUSTIFY_GADGET_COUNT)
 
 
 #define DEFAULT_UCGUI_WORD (0xFFFF - (1<<11) - (1<<12))
 
 //Note that these get added in this order!
-static const struct UCGUI_ELEM_STR gElements[UCGUI_ELEM_COUNT] =
+static const struct UCGUI_ELEM_STR gElements[] =
 {
     {pushID_font0,            1<<5, stringID_ucguiFonts},//0x020},
     {pushID_font1,            1<<6, 0},//0x040},
@@ -65,10 +66,12 @@ static const struct UCGUI_ELEM_STR gElements[UCGUI_ELEM_COUNT] =
     {gadgetID_lineSpacing1,    1<<3, 0},//0x008},
     {gadgetID_lineSpacing2,    1<<4, 0},//0x010},
 
+    {gadgetID_justify,      1<<15, stringID_ucguiJustify}, // 2^15  
+
 #ifdef ENABLE_AUTOSCROLL
     {gadgetID_autoScroll,      1<<13, stringID_ucguiAutoScroll}, // 2^13
 #endif
-
+    
 #ifdef ENABLE_SEARCH
     {buttonID_search,        1<<11, stringID_ucguiSearch},
     {buttonID_searchAgain,    1<<12, stringID_ucguiSearchAgain},

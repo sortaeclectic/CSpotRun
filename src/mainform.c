@@ -40,6 +40,7 @@ static Boolean    _MainFormHandleEvent(EventType *e);
 static void        HandleDocSelect(int documentIndex);
 
 static void        _drawLineSpacingGadgets();
+static void        _drawJustifyGadget();
 static void        _drawLineSpacingGadget(int index);
 static void        _changeLineSpacing(int index);
 
@@ -51,6 +52,9 @@ static void        _popupBmkEd(void);
 #ifdef ENABLE_AUTOSCROLL
 static void         _drawAutoScrollGadget();
 #endif
+
+static void         _changeJustification();
+static void         _changeHyphenation();
 
 static void        _openDefaultDoc();
 static void        _deleteDoc();
@@ -94,16 +98,16 @@ static Boolean _MainFormHandleEvent(EventType *e)
     Err err;
 
     _setHandyPointers();
-    switch(e->eType)    
+    switch(e->eType)
     {
     case ctlSelectEvent:
-        if (IS_FONTSELECT_PUSHID(e->data.ctlSelect.controlID)) 
+        if (IS_FONTSELECT_PUSHID(e->data.ctlSelect.controlID))
         {
             int i = FONTSELECT_PUSHID_TO_INDEX(e->data.ctlSelect.controlID);
             FS_changeFont(i);
             return true;
         }
-        
+
         switch (e->data.ctlSelect.controlID)
         {
 #ifdef ENABLE_ROTATION
@@ -119,7 +123,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
             FrmPopupForm(formID_search);
             return true;
         case buttonID_searchAgain:
-            Doc_doSearch(searchStringHandle, false, 
+            Doc_doSearch(searchStringHandle, false,
                          appStatePtr->caseSensitive, formID_main);
             return true;
 #endif
@@ -138,16 +142,16 @@ static Boolean _MainFormHandleEvent(EventType *e)
             return true;
 #ifdef ENABLE_BMK
         case listID_bmk:
-		    a = BmkGetAction(e->data.popSelect.selection);
-		    if(a == A_NEW) {
-			    FrmPopupForm(formID_bmkName);
-			    return true;
-		    } else if(a == A_EDIT) {
+            a = BmkGetAction(e->data.popSelect.selection);
+            if(a == A_NEW) {
+                FrmPopupForm(formID_bmkName);
+                return true;
+            } else if(a == A_EDIT) {
                 _popupBmkEd();
-			    return true;
-		    }
-		    
-		    BmkGoTo(e->data.popSelect.selection, 1);
+                return true;
+            }
+
+            BmkGoTo(e->data.popSelect.selection, 1);
                     Doc_drawPage();
                     _updatePercent();
                     return true;
@@ -164,7 +168,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
             return true;
         case menuitemID_searchAgain:
             MenuEraseStatus(NULL);
-            Doc_doSearch(searchStringHandle, false, 
+            Doc_doSearch(searchStringHandle, false,
                          appStatePtr->caseSensitive, formID_main);
             return true;
 #endif
@@ -203,8 +207,8 @@ static Boolean _MainFormHandleEvent(EventType *e)
             return true;
         case menuitemID_percent:
             MenuEraseStatus(NULL);
-            CtlHitControl(FrmGetObjectPtr(formPtr,  
-                                          FrmGetObjectIndex(formPtr, 
+            CtlHitControl(FrmGetObjectPtr(formPtr,
+                                          FrmGetObjectIndex(formPtr,
                                                             popupID_percent)));
             return true;
 #ifdef ENABLE_ROTATION
@@ -217,20 +221,31 @@ static Boolean _MainFormHandleEvent(EventType *e)
             _rotate(1);
             return true;
 #endif
-            
+
 #ifdef ENABLE_BMK
-		case menuitemID_bmkAdd:
+        case menuitemID_bmkAdd:
             MenuEraseStatus(NULL);
-		    FrmPopupForm(formID_bmkName);
-		    return true;
-            
-		case menuitemID_bmkEd:
-		    MenuEraseStatus(NULL);
+            FrmPopupForm(formID_bmkName);
+            return true;
+
+        case menuitemID_bmkEd:
+            MenuEraseStatus(NULL);
             _popupBmkEd();
-		    return true;
+            return true;
+#endif
+        case menuitemID_justify:
+            MenuEraseStatus(NULL);
+            _changeJustification();
+            return true;
+
+#ifdef ENABLE_HYPHEN
+        case menuitemID_hyphen:
+            MenuEraseStatus(NULL);
+            _changeHyphenation();
+            return true;
 #endif
         }
-        
+
         MenuEraseStatus(NULL);
         if (IS_FONTSELECT_MENUID(e->data.menu.itemID))
         {
@@ -238,15 +253,15 @@ static Boolean _MainFormHandleEvent(EventType *e)
             FS_updateFontButtons(formPtr);
             return true;
         }
-        if (e->data.menu.itemID >= menuitemID_lineSpacing0 
-            && e->data.menu.itemID < 
+        if (e->data.menu.itemID >= menuitemID_lineSpacing0
+            && e->data.menu.itemID <
                  (menuitemID_lineSpacing0 + LINE_SPACING_GADGET_COUNT))
         {
-            _changeLineSpacing(e->data.ctlSelect.controlID 
+            _changeLineSpacing(e->data.ctlSelect.controlID
                                - menuitemID_lineSpacing0);
             return true;
         }
-        
+
         break;
     case frmUpdateEvent:
         if (e->data.frmUpdate.formID == formID_main)
@@ -254,7 +269,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
 #ifdef ENABLE_BMK
             _redrawBmkList();
 #endif
-            
+
             FrmDrawForm(formPtr);
             Doc_drawPage();
             _updatePercent();
@@ -262,6 +277,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
 #ifdef ENABLE_AUTOSCROLL
             _drawAutoScrollGadget();
 #endif
+            _drawJustifyGadget();
             return true;
         }
         break;
@@ -274,16 +290,16 @@ static Boolean _MainFormHandleEvent(EventType *e)
         if (RctPtInRectangle (e->screenX, e->screenY, Doc_getGadgetBounds()))
         {
             Boolean inBottomHalf = Doc_inBottomHalf(e->screenX, e->screenY);
-            _scroll(inBottomHalf ? PAGEDIR_DOWN : PAGEDIR_UP, 
+            _scroll(inBottomHalf ? PAGEDIR_DOWN : PAGEDIR_UP,
                     appStatePtr->tapAction);
             return true;
         }
         // If user clicked on a line spacing doodad
         for (i = 0; i < LINE_SPACING_GADGET_COUNT; i++)
         {
-            index = FrmGetObjectIndex(formPtr, gadgetID_lineSpacing0+i);    
+            index = FrmGetObjectIndex(formPtr, gadgetID_lineSpacing0+i);
             FrmGetObjectBounds (formPtr, index, &r);
-            if (RctPtInRectangle (e->screenX, e->screenY, &r) 
+            if (RctPtInRectangle (e->screenX, e->screenY, &r)
                 && Ucgui_gadgetVisible(formPtr, index))
             {
                 _changeLineSpacing(i);
@@ -291,12 +307,18 @@ static Boolean _MainFormHandleEvent(EventType *e)
             }
         }
 #ifdef ENABLE_AUTOSCROLL
-        index = FrmGetObjectIndex(formPtr, gadgetID_autoScroll);    
+        index = FrmGetObjectIndex(formPtr, gadgetID_autoScroll);
         FrmGetObjectBounds (formPtr, index, &r);
         if ( RctPtInRectangle (e->screenX, e->screenY, &r)
              && Ucgui_gadgetVisible(formPtr, index))  {
             MainForm_ToggleAutoScroll();
             return true;
+        }
+        index = FrmGetObjectIndex(formPtr, gadgetID_justify);
+        FrmGetObjectBounds (formPtr, index, &r);
+        if ( RctPtInRectangle (e->screenX, e->screenY, &r)
+             && Ucgui_gadgetVisible(formPtr, index))  {
+            _changeJustification();
         }
 #endif
     }
@@ -318,7 +340,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
     case frmCloseEvent:
         HandleFormCloseEvent();
         return false;
-        
+
 #ifdef ENABLE_BMK
     case bmkNameFrmOkEvt:
         /* add the bookmark, new name is in 'bmkName' */
@@ -327,7 +349,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
             BmkReportError(err);
         _redrawBmkList();
         return true;
-        
+
     case bmkRedrawListEvt:
         Doc_drawPage();
         _updatePercent();
@@ -342,23 +364,23 @@ static void    HandleDocSelect(int documentIndex)
 {
     Doc_close();
     _documentIndex = documentIndex;
-    
+
     Doc_open(DocList_getCardNo(documentIndex),
              DocList_getID(documentIndex), DocList_getTitle(documentIndex));
-    
+
     /* When the doc was opened, prefs changed.
      * Set the document popup label
-     * Changed popup trigger to simply "Doc", otherwise it resizes 
+     * Changed popup trigger to simply "Doc", otherwise it resizes
      * which causes UCGUI funkiness. */
-    
+
     FS_updateFontButtons(formPtr);
-    
+
     /* set menu accroding to the document mode */
     if(Doc_getDbMode() == dmModeReadOnly)
         FrmSetMenu(formPtr, menuID_main_ro);
     else
         FrmSetMenu(formPtr, menuID_main);
-    
+
     FrmUpdateForm(formID_main, 0);
 }
 
@@ -366,17 +388,17 @@ static void    HandleDocSelect(int documentIndex)
 static void _setHandyPointers()
 {
     formPtr = FrmGetActiveForm();
-    
-    docListPtr = FrmGetObjectPtr(formPtr, 
+
+    docListPtr = FrmGetObjectPtr(formPtr,
                                  FrmGetObjectIndex(formPtr, listID_doc));
 #ifdef ENABLE_BMK
     bmkListIndex = FrmGetObjectIndex(formPtr, listID_bmk);
     bmkListPtr = FrmGetObjectPtr(formPtr, bmkListIndex);
 #endif
-    docPopupPtr = FrmGetObjectPtr(formPtr, 
+    docPopupPtr = FrmGetObjectPtr(formPtr,
                                   FrmGetObjectIndex(formPtr, popupID_doc));
-    percentPopupPtr = FrmGetObjectPtr(formPtr, 
-                                      FrmGetObjectIndex(formPtr, 
+    percentPopupPtr = FrmGetObjectPtr(formPtr,
+                                      FrmGetObjectIndex(formPtr,
                                                         popupID_percent));
 }
 
@@ -400,13 +422,13 @@ static void _openDefaultDoc()
     int index;
     char name[dmDBNameLength];
     DocPrefs_getRecentDocName(name);
-    
+
     index = DocList_getIndex(name);
-    
+
     // If doc not found, open the first one
     if (index < 0 && DocList_getDocCount())
         index = 0;
-    
+
     if (index >= 0)
     {
         LstSetSelection(docListPtr, index);
@@ -416,13 +438,13 @@ static void _openDefaultDoc()
     {
         EventType    newEvent;
         MemHandle    noDocsH;
-        
+
         // No documents installed here!
         noDocsH = DmGetResource(strRsc, stringID_noDocs);
         FrmCustomAlert(alertID_error, (Char*) MemHandleLock(noDocsH), " ", " ");
         MemHandleUnlock(noDocsH);
         DmReleaseResource(noDocsH);
-        
+
         // Start the App app (from page 72 of ref2.pdf)
         newEvent.eType = keyDownEvent;
         newEvent.data.keyDown.chr = launchChr;
@@ -451,11 +473,11 @@ static void _layoutForm()
 {
     RectangleType textBounds;
     _setHandyPointers();
-    
-    Ucgui_layout(formPtr, 
+
+    Ucgui_layout(formPtr,
                  appStatePtr->hideControls ? 0 : appStatePtr->UCGUIBits);
 
-    FrmGetObjectBounds(formPtr, 
+    FrmGetObjectBounds(formPtr,
                        FrmGetObjectIndex(formPtr, gadgetID_text), &textBounds);
     Doc_setBounds(&textBounds);
 }
@@ -477,32 +499,32 @@ static void _drawAutoScrollGadget()
 
     if(autoScrollEnabled) // show pause
     {
-        WinDrawLine(bounds.topLeft.x + 2, 
-                    bounds.topLeft.y + 3, 
-                    bounds.topLeft.x + 2, 
+        WinDrawLine(bounds.topLeft.x + 2,
+                    bounds.topLeft.y + 3,
+                    bounds.topLeft.x + 2,
                     bounds.topLeft.y + bounds.extent.y - 3);
-        WinDrawLine(bounds.topLeft.x + bounds.extent.x - 3, 
-                    bounds.topLeft.y + 3, 
-                    bounds.topLeft.x + bounds.extent.x - 3, 
+        WinDrawLine(bounds.topLeft.x + bounds.extent.x - 3,
+                    bounds.topLeft.y + 3,
+                    bounds.topLeft.x + bounds.extent.x - 3,
                     bounds.topLeft.y + bounds.extent.y - 3);
     }
     else // show play
     {
-        WinDrawLine(bounds.topLeft.x + 2, 
-                    bounds.topLeft.y + 3, 
-                    bounds.topLeft.x + 2, 
+        WinDrawLine(bounds.topLeft.x + 2,
+                    bounds.topLeft.y + 3,
+                    bounds.topLeft.x + 2,
                     bounds.topLeft.y + bounds.extent.y - 3);
-        WinDrawLine(bounds.topLeft.x + 3, 
-                    bounds.topLeft.y + 4, 
-                    bounds.topLeft.x + 3, 
+        WinDrawLine(bounds.topLeft.x + 3,
+                    bounds.topLeft.y + 4,
+                    bounds.topLeft.x + 3,
                     bounds.topLeft.y + bounds.extent.y - 4);
-        WinDrawLine(bounds.topLeft.x + 4, 
-                    bounds.topLeft.y + 5, 
-                    bounds.topLeft.x + 4, 
+        WinDrawLine(bounds.topLeft.x + 4,
+                    bounds.topLeft.y + 5,
+                    bounds.topLeft.x + 4,
                     bounds.topLeft.y + bounds.extent.y - 5);
-        WinDrawLine(bounds.topLeft.x + 5, 
-                    bounds.topLeft.y + 6, 
-                    bounds.topLeft.x + 5, 
+        WinDrawLine(bounds.topLeft.x + 5,
+                    bounds.topLeft.y + 6,
+                    bounds.topLeft.x + 5,
                     bounds.topLeft.y + bounds.extent.y - 6);
     }
 }
@@ -538,7 +560,7 @@ void MainForm_UpdateAutoScroll()
         }
         else
         {
-            Doc_linesDown(1);
+            Doc_linesDown (1, true);
             Doc_drawPage();
         }
         _updatePercent();
@@ -568,7 +590,7 @@ static void _drawLineSpacingGadget(int i)
     int row;
 
     Int16 index = FrmGetObjectIndex(formPtr, gadgetID_lineSpacing0+i);
-    
+
     if (!Ucgui_gadgetVisible(formPtr, index))
         return;
 
@@ -583,24 +605,49 @@ static void _drawLineSpacingGadget(int i)
         Boolean rowOn;
         rowOn = (row > 0)
             && (row < bounds.extent.y-1)
-            && (0 == ((row-selectableLineSpacings[i]+4) 
+            && (0 == ((row-selectableLineSpacings[i]+4)
                       % (4-selectableLineSpacings[i])));
         if (rowOn)
-            WinDrawGrayLine(bounds.topLeft.x, 
-                            bounds.topLeft.y+row, 
-                            bounds.topLeft.x+bounds.extent.x-1, 
+            WinDrawGrayLine(bounds.topLeft.x,
+                            bounds.topLeft.y+row,
+                            bounds.topLeft.x+bounds.extent.x-1,
                             bounds.topLeft.y+row);
         else
             if (isSelected)
-                WinDrawLine(bounds.topLeft.x, 
-                            bounds.topLeft.y+row, 
-                            bounds.topLeft.x+bounds.extent.x-1, 
+                WinDrawLine(bounds.topLeft.x,
+                            bounds.topLeft.y+row,
+                            bounds.topLeft.x+bounds.extent.x-1,
                             bounds.topLeft.y+row);
             else
-                WinEraseLine(bounds.topLeft.x, 
-                             bounds.topLeft.y+row, 
-                             bounds.topLeft.x+bounds.extent.x-1, 
+                WinEraseLine(bounds.topLeft.x,
+                             bounds.topLeft.y+row,
+                             bounds.topLeft.x+bounds.extent.x-1,
                              bounds.topLeft.y+row);
+    }
+}
+
+//
+// Draw the justify gadget
+//
+static void _drawJustifyGadget()
+{
+    RectangleType bounds;
+
+    Int16 index = FrmGetObjectIndex(formPtr, gadgetID_justify);
+
+    if (!Ucgui_gadgetVisible(formPtr, index))
+        return;
+
+    FrmGetObjectBounds(formPtr, index, &bounds);
+
+
+    if (Doc_getJustify()) {
+        WinDrawRectangleFrame(roundFrame, &bounds);
+        WinDrawChar('J', bounds.topLeft.x + 1, bounds.topLeft.y + 1);
+    }
+    else {
+        WinDrawRectangleFrame(roundFrame, &bounds);
+        WinDrawChar('L', bounds.topLeft.x + 1, bounds.topLeft.y + 1);
     }
 }
 
@@ -612,11 +659,11 @@ static void    _updatePercent()
 
 static void _deleteDoc()
 {
-    if (0 == FrmCustomAlert(alertID_confirmDelete, 
+    if (0 == FrmCustomAlert(alertID_confirmDelete,
                             DocList_getTitle(_documentIndex), " ", " "))
     {
         Doc_close();
-        DmDeleteDatabase(DocList_getCardNo(_documentIndex), 
+        DmDeleteDatabase(DocList_getCardNo(_documentIndex),
                          DocList_getID(_documentIndex));
         _documentIndex = -1;
         DocList_freeList();
@@ -639,6 +686,27 @@ static void _changeLineSpacing(int index)
     _drawLineSpacingGadgets();
 }
 
+//
+// Inverse Justification state
+//
+static void _changeJustification()
+{
+    Doc_invertJustify();
+    Doc_drawPage();
+    _drawJustifyGadget();
+}
+
+#ifdef ENABLE_HYPHEN
+//
+// Inverse Hyphenation state
+//
+static void _changeHyphenation()
+{
+    Doc_invertHyphen();
+    Doc_drawPage();
+}
+#endif
+
 #ifdef ENABLE_ROTATION
 static void        _rotate(int dir)
 {
@@ -653,26 +721,26 @@ static void        _rotate(int dir)
 #ifdef ENABLE_BMK
 void _redrawBmkList(void)
 {
-	RectangleType r;
-	RectangleType rf;
-	Err err;
+    RectangleType r;
+    RectangleType rf;
+    Err err;
 
-	err = BmkPopulateList(bmkListPtr, 1, 1);
-	if(err)
-		BmkReportError(err);
+    err = BmkPopulateList(bmkListPtr, 1, 1);
+    if(err)
+        BmkReportError(err);
 
-	FrmGetFormBounds(formPtr, &rf);
-	FrmGetObjectBounds(formPtr, bmkListIndex, &r);
-	r.topLeft.y = rf.extent.y - r.extent.y;
-	FrmSetObjectBounds(formPtr, bmkListIndex, &r);
+    FrmGetFormBounds(formPtr, &rf);
+    FrmGetObjectBounds(formPtr, bmkListIndex, &r);
+    r.topLeft.y = rf.extent.y - r.extent.y;
+    FrmSetObjectBounds(formPtr, bmkListIndex, &r);
 }
 
 void _popupBmkEd(void)
 {
-	if(Doc_getDbMode() == dmModeReadWrite)
-		FrmPopupForm(formID_bmkEd);
-	else
-		FrmPopupForm(formID_bmkEd_ro);
+    if(Doc_getDbMode() == dmModeReadWrite)
+        FrmPopupForm(formID_bmkEd);
+    else
+        FrmPopupForm(formID_bmkEd_ro);
 }
 #endif
 

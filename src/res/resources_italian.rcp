@@ -90,6 +90,9 @@ begin
     "$$FONT 2"="Carattere 2"
     "$$FONT 3"="Carattere 3"
     "$$FONT 4"="Carattere 4"
+
+    "$$HYPHEN"="Hyphenation"
+    "$$JUSTIFY"="Justification"
     
     "$$FIND"="Trova"
     "$$FIND AGAIN"="Trova Successivo"

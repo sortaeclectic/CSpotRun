@@ -91,6 +91,8 @@ begin
     "$$LINE SPACING 3"="Line Spacing 3"
     "$$ROTATE RIGHT"="Rotate Right"
     "$$ROTATE LEFT"="Rotate Left"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
     "$$OPTIONS"="Options"
     "$$TOGGLE CONTROLS"="Toggle Controls    "
     "$$CONTROLSDDD"="Controls..."

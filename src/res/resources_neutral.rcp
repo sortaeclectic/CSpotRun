@@ -45,6 +45,7 @@ BEGIN
 #ifdef ENABLE_AUTOSCROLL
     GADGET ID gadgetID_autoScroll   AT (1 1  8 PREVHEIGHT) NONUSABLE
 #endif
+    GADGET ID gadgetID_justify   AT (1 1  7 PREVHEIGHT) NONUSABLE
 
     POPUPTRIGGER "99%" popupID_percent AT (1 1  AUTO AUTO) LEFTANCHOR NONUSABLE
     LIST "$$TOP" "10%" "20%" "30%" "40%" "50%" "60%" "70%" "80%" "90%" "$$BOTTOM" ID listID_percent AT (1 1  PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 11
@@ -80,8 +81,8 @@ BEGIN
     TITLE "$$CONFIGURE CONTROLS"
 
 #ifdef ENABLE_AUTOSCROLL
-    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@156-3 50 AUTO) 
-    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@156-3 50 AUTO) 
+    BUTTON "Ok"        ID buttonID_ok        AT (center@120 BOTTOM@156-18 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@120 BOTTOM@156-3 50 AUTO) 
 #else
     BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@146-3 50 AUTO) 
     BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@146-3 50 AUTO) 
@@ -107,6 +108,7 @@ BEGIN
 #ifdef ENABLE_BMK
     CHECKBOX "" ID checkboxID_UCGUI0+14 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR
 #endif
+    CHECKBOX "" ID checkboxID_UCGUI0+15 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR
 
     FIELD ID fieldID_UCGUI0+0 AT (0 0 70 30) USABLE NONEDITABLE DYNAMICSIZE rightalign
     FIELD ID fieldID_UCGUI0+1 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE DYNAMICSIZE rightalign
@@ -122,6 +124,8 @@ BEGIN
 #ifdef ENABLE_BMK
     FIELD ID fieldID_UCGUI0+8 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
 #endif
+    
+    FIELD ID fieldID_UCGUI0+9 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
 END
 
 #ifdef ENABLE_AUTOSCROLL
@@ -285,6 +289,10 @@ BEGIN
         MENUITEM SEPARATOR 
         MENUITEM "$$AUTOSCROLL"      menuitemID_autoScroll      "U"
 #endif
+        MENUITEM "$$JUSTIFY"		menuitemID_justify		"J"
+#ifdef ENABLE_HYPHEN
+        MENUITEM "$$HYPHEN"			menuitemID_hyphen		"H"
+#endif
 #ifdef ENABLE_ROTATION
         MENUITEM SEPARATOR
         MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
@@ -334,6 +342,8 @@ BEGIN
         MENUITEM SEPARATOR 
         MENUITEM "$$AUTOSCROLL"      menuitemID_autoScroll      "U"
 #endif
+        MENUITEM "$$JUSTIFY"		menuitemID_justify		"J"
+        MENUITEM "$$HYPHEN"			menuitemID_hyphen		"H"
 #ifdef ENABLE_ROTATION
         MENUITEM SEPARATOR
         MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
@@ -424,4 +434,5 @@ STRING ID stringID_noDocs          "$$NO DOCS"
     STRING ID	stringID_bmkDocNotOpened "$$BMK DOC NOT OPENED"
 #endif
 
+STRING ID stringID_ucguiJustify          "$$JUSTIFY" 
 

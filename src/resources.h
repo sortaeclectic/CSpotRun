@@ -45,6 +45,9 @@
     #define menuitemID_bmkAdd   	1236
 #endif
 
+    #define menuitemID_justify  1237
+    #define menuitemID_hyphen  1238
+
 #define    listID_doc            1301
 #define    listID_percent        1302
 
@@ -123,6 +126,9 @@
     #define AUTOSCROLL_GADGET_COUNT 0
 #endif
 
+    #define gadgetID_justify  1805
+    #define JUSTIFY_GADGET_COUNT  1
+
 #define alertID_about            1900
 #define alertID_error            1901
 #define alertID_confirmDelete    1902
@@ -184,3 +190,4 @@
     #define stringID_bmkDocNotOpened	2118
 #endif
 
+    #define stringID_ucguiJustify 2119

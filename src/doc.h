@@ -7,19 +7,22 @@
 #define PAGEDIR_UP      (-1)
 #define PAGEDIR_DOWN    (+1)
 
-void            Doc_open(UInt16 cardNo, 
-                         LocalID dbID, 
+void            Doc_open(UInt16 cardNo,
+                         LocalID dbID,
                          char name[dmDBNameLength]);
 void            Doc_close();
 void            Doc_drawPage();
 void            Doc_scroll(int dir, enum TAP_ACTION_ENUM ta);
-Boolean         Doc_linesDown(UInt16 linesToMove);
+Boolean         Doc_linesDown(UInt16 linesToMove, Boolean quick);
 void            Doc_linesUp(UInt16 linesToMove);
 void            Doc_setBounds(RectanglePtr bounds);
 RectanglePtr    Doc_getGadgetBounds();
 void            Doc_setFont(FontID f);
 void            Doc_setPosition(UInt32 pos);
 void            Doc_setPercent(UInt16 per);
+void            Doc_invertJustify();
+void            Doc_invertHyphen();
+UInt16          Doc_getJustify();
 UInt32          Doc_getPosition();
 UInt16          Doc_getPercent();
 void            Doc_setLineHeightAdjust(UInt16 i);
@@ -30,9 +33,9 @@ OrientationType Doc_getOrientation();
 Boolean         Doc_inBottomHalf();
 int             Doc_translatePageButton(int dir);
 void            Doc_makeSettingsDefault();
-void            Doc_doSearch(MemHandle searchStringHandle, 
-                             Boolean searchFromTop, 
-                             Boolean caseSensitive, 
+void            Doc_doSearch(MemHandle searchStringHandle,
+                             Boolean searchFromTop,
+                             Boolean caseSensitive,
                              UInt16 formId);
 void            Doc_prepareForPixelScrolling();
 

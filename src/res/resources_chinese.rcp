@@ -90,6 +90,8 @@ begin
     "$$ROTATE RIGHT"="順時針旋轉"
     "$$ROTATE LEFT"="逆時針旋轉"
     "$$OPTIONS"="選項"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
     "$$TOGGLE CONTROLS"="切換控制列"
     "$$CONTROLSDDD"="控制列內容…"
     "$$PREFERENCESDDD"="參數設定…"

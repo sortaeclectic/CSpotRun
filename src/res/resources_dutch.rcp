@@ -82,7 +82,9 @@ begin
     "$$FONT 2"="Lettertype 2"
     "$$FONT 3"="Lettertype 3"
     "$$FONT 4"="Lettertype 4"
-    
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+
     "$$FIND"="Zoek"
     "$$FIND AGAIN"="Zoek Opnieuw"
     "$$FINDDDD"="Zoek..."

@@ -95,6 +95,9 @@ begin
     "$$ROTATE RIGHT"="Girar à Direita"
     "$$ROTATE LEFT"="Girar à Esquerda"
     "$$OPTIONS"="Opções"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+
     "$$TOGGLE CONTROLS"="Controles Visíveis?"
     "$$CONTROLSDDD"="Controles..."
     "$$PREFERENCESDDD"="Preferências..."

@@ -92,6 +92,8 @@ begin
     "$$ROTATE RIGHT"="Rotace vpravo"
     "$$ROTATE LEFT"="Rotace vlevo"
     "$$OPTIONS"="Možnosti"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
     "$$TOGGLE CONTROLS"="Zobrazit/skrýt ovládání "
     "$$CONTROLSDDD"="Ovládací prvky..."
     "$$PREFERENCESDDD"="Nastavení..."

@@ -32,13 +32,19 @@
 
 #define min(a,b) ((a)<(b)?(a):(b))
 
-#define WORD_MAX 0xFFFF /* USHRT_MAX is coming from a Linux header, 
-			 * not a Palm one.*/
+#define WORD_MAX 0xFFFF /* USHRT_MAX is coming from a Linux header,
+             * not a Palm one.*/
 
 static void         _loadCurrentRecord();
 static void         _setLineHeight();
 static void         _scrollUpIfLastPage();
+
+#ifdef SUPER0
+static UInt32       _fixStoryLen(UInt16 *recLens, Boolean force);
+#else
 static UInt32       _fixStoryLen(UInt16 *recLens);
+#endif
+
 static void         _postDecodeProcessing();
 static void         _drawPage(RectanglePtr boundsPtr,
                               Boolean drawOnscreenPart,
@@ -55,21 +61,26 @@ static Boolean      _onLastPage();
  * name would make you expect. */
 struct RECORD0_STR
 {
-    UInt8 crap; /* This byte should be part of the version. But 
-                 * I'm going to ignore it because (with it) wVersion 
-                 * was 1026 (1024+2) in one doc when it should have 
+    UInt8 crap; /* This byte should be part of the version. But
+                 * I'm going to ignore it because (with it) wVersion
+                 * was 1026 (1024+2) in one doc when it should have
                  * been 2. */
     UInt8 wVersion; /* 1=plain text, 2=compressed */
     UInt16 wSpare;  /* ? */
     UInt32 munged_dwStoryLen; /* in bytes, when decompressed.
                                * Appears to be wrong in some DOCs. */
-    UInt16 munged_wNumRecs;  /* text records only; 
+    UInt16 munged_wNumRecs;  /* text records only;
                               * equals tDocHeader.wNumRecs-1.
                               * Use this, because bookmark records follow
-                              * beyond these. Appears to be too big in some 
+                              * beyond these. Appears to be too big in some
                               * DOCs. */
     UInt16 wRecSize;         /* usually 0x1000 */
+#ifdef SUPER0
+    UInt32  dwCurrentPosition;
+    UInt16  wRecordsSize[1];    // len of each decoded record
+#else
     UInt32 dwSpare2;         /* ? */
+#endif
 };
 
 typedef struct Doc {
@@ -78,9 +89,9 @@ typedef struct Doc {
     struct RECORD0_STR* record0Ptr;
 
     /* decodeBuf is the hunk of memory we decompress into */
-    MemHandle           decodeBufHandle;    
+    MemHandle           decodeBufHandle;
     Char*               decodeBuf;
-    
+
     /* These describe the state of decodeBuf */
     UInt16 decodeBufLen;     /* Size of buffer allocated */
     UInt16 decodeLen;        /* Characters decoded */
@@ -94,9 +105,15 @@ typedef struct Doc {
 
     /* _dbRef and wNumRecs are referenced from the bookmarks subsystem */
     DmOpenRef dbRef;
-    UInt16    numRecs; /* see record0's wNumRecs */ 
-    UInt16    dbMode;  
+    UInt16    numRecs; /* see record0's wNumRecs */
+    UInt16    dbMode;
 } Doc;
+
+// Drawing table
+#define MAX_DISPLAY_LINE 32
+static Char*        _draw_buf[MAX_DISPLAY_LINE];            // Beginin of each line on screen
+static UInt16       _draw_buf_len;          // number of lines in buffer
+static Boolean      _bLastPage;             // Am I displaying the last page ?
 
 Doc gDoc;
 
@@ -138,43 +155,43 @@ void Doc_open(UInt16 cardNo, LocalID dbID, char name[dmDBNameLength])
 
     gDoc.dbMode = dmModeReadWrite;
     if(dbAttrs & dmHdrAttrReadOnly)
-        gDoc.dbMode = dmModeReadOnly;    
-    
+        gDoc.dbMode = dmModeReadOnly;
+
     //Open Db
     gDoc.dbRef = DmOpenDatabase(cardNo, dbID, gDoc.dbMode);
     ErrFatalDisplayIf(!gDoc.dbRef, "a");
-    
+
     //lock record0
     gDoc.record0Handle = DmQueryRecord(gDoc.dbRef, 0);
     ErrFatalDisplayIf(!gDoc.record0Handle, "b");
-    
+
     gDoc.record0Ptr = (struct RECORD0_STR *) MemHandleLock(gDoc.record0Handle);
     ErrFatalDisplayIf(!gDoc.record0Ptr, "c");
-    
+
     //allocate decode buffer
-    gDoc.decodeBufLen 
+    gDoc.decodeBufLen
         = gDoc.record0Ptr->wRecSize + 640; // needs to hold a record+1 page+\0.
     gDoc.decodeBufHandle = MemHandleNew(gDoc.decodeBufLen);
     ErrFatalDisplayIf(!gDoc.decodeBufHandle, "d");
     gDoc.decodeBuf = MemHandleLock(gDoc.decodeBufHandle);
     ErrFatalDisplayIf(!gDoc.decodeBuf, "e");
-    
+
     //I saw a document with wNumRecs was too big. Kill me now.
-    gDoc.numRecs 
+    gDoc.numRecs
         = min(gDoc.record0Ptr->munged_wNumRecs, DmNumRecords(gDoc.dbRef) - 1);
-    
+
     //allocate record len array
     gDoc.recLensHandle = MemHandleNew(gDoc.numRecs*sizeof(*gDoc.recLens));
     ErrFatalDisplayIf(!gDoc.recLensHandle, "q");
-    
+
     gDoc.recLens = MemHandleLock(gDoc.recLensHandle);
     ErrFatalDisplayIf(!gDoc.recLens, "r");
-    
-    gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens);
-    
+
+    gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens, false);
+
     //load prefs for this document
     DocPrefs_loadPrefs(name, &_docPrefs);
-    
+
     //if location is bad, go to beginning.
     if (_docPrefs.location.record > gDoc.numRecs
         || _docPrefs.location.ch >= gDoc.recLens[_docPrefs.location.record-1])
@@ -196,21 +213,21 @@ void Doc_close()
         /* close bookmarks first */
         BmkCloseDoc();
 #endif
-        
+
         DocPrefs_savePrefs(&_docPrefs);
-        
+
         //Free decode buffer
         MemHandleUnlock(gDoc.decodeBufHandle); //gDoc.decodeBuf = NULL;
         MemHandleFree(gDoc.decodeBufHandle); gDoc.decodeBufHandle = NULL;
         gDoc.decodeBufLen = 0;
-        
+
         //unlock record0
         MemHandleUnlock(gDoc.record0Handle); gDoc.record0Ptr = NULL;
-        gDoc.record0Handle = NULL;        
-        
+        gDoc.record0Handle = NULL;
+
         MemHandleUnlock(gDoc.recLensHandle); gDoc.recLens = NULL;
         MemHandleFree(gDoc.recLensHandle); gDoc.recLensHandle = NULL;
-        
+
         //Close Db
         DmCloseDatabase(gDoc.dbRef); gDoc.dbRef = NULL;
     }
@@ -222,15 +239,18 @@ void Doc_close()
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//
+////////////////////////////////////////////////////////////////////////////////
 void Doc_drawPage()
 {
     UInt16        errorUInt16;
     WinHandle   screenWindow = NULL;
-    
+
     screenWindow = WinGetDrawWindow();
-    
+
     Doc_pixelScrollClear(false);
-    
+
     if(_boundsChanged == true)
     {
         if(osPageWindow)
@@ -247,18 +267,18 @@ void Doc_drawPage()
                                                 &errorUInt16);
 #endif
         ErrFatalDisplayIf(NULL == osPageWindow, "f1");
-        
+
         _boundsChanged = false;
     }
-    
+
     // Actual draw process, happens to osPageWindow
     WinSetDrawWindow(osPageWindow);
     WinEraseWindow();
-    
+
     _drawPage(&_apparentTextBounds, true, false);
-    
+
     WinSetDrawWindow(screenWindow);
-    
+
     if (_docPrefs.orient == angle0)
     {
 #ifdef ENABLE_AUTOSCROLL
@@ -282,52 +302,67 @@ void Doc_drawPage()
 #endif
 }
 
-Boolean Doc_linesDown(UInt16 linesToMove)
+//
+// Scroll down n linesToMove
+//  Quick=true : use table of displayed lines
+//  Quick=false : browse the text line per line
+//
+Boolean Doc_linesDown(UInt16 linesToMove, Boolean quick)
 {
     char*    p;
     FontID oldFont;
-    
-    if (_onLastPage())
-        return false;
-    
-    oldFont = FntGetFont();
-    FntSetFont(_docPrefs.font);
-    
-    p = & gDoc.decodeBuf[_docPrefs.location.ch];
-    
-    // advance p through linesToShow lines of worth of characters
-    while(linesToMove--)
-        p += FntWordWrap(p, _apparentTextBounds.extent.x);
-    
+
+    if (quick) {
+        if (_bLastPage) return false;
+        p = _draw_buf[linesToMove];
+    } else {
+        if (_onLastPage())
+            return false;
+
+        oldFont = FntGetFont();
+        FntSetFont(_docPrefs.font);
+
+        p = & gDoc.decodeBuf[_docPrefs.location.ch];
+
+        // advance p through linesToShow lines of worth of characters
+        while(linesToMove--)
+            p += (_docPrefs.justify && _docPrefs.hyphen) ? Hyphen_FntWordWrap(p, _apparentTextBounds.extent.x) : FntWordWrap (p, _apparentTextBounds.extent.x);
+
+        //_scrollUpIfLastPage();
+
+        FntSetFont(oldFont);
+    }
+
     // Advance the current location by how far we advanced p
     _docPrefs.location.ch += (p - & gDoc.decodeBuf[_docPrefs.location.ch]);
     _loadCurrentRecord();
-    
-    FntSetFont(oldFont);
-    
+
     return true;
 }
 
+//
+// Scroll up n linesToMove
+//
 void Doc_linesUp(UInt16 linesToMove)
 {
     FontID    oldFont;
     UInt16    firstCharIndex;
     UInt16    lastCharIndex;
-    
+
     oldFont = FntGetFont();
     FntSetFont(_docPrefs.font);
-    
+
     lastCharIndex = _docPrefs.location.ch;
-    
+
     while(true)
     {
         //Try to wrap back a whole page.
         firstCharIndex = lastCharIndex;
         if (firstCharIndex != 0)
-            FntWordWrapReverseNLines(gDoc.decodeBuf, 
+            FntWordWrapReverseNLines(gDoc.decodeBuf,
                                      _apparentTextBounds.extent.x,
                                      &linesToMove, &firstCharIndex);
-        
+
         //If that only got back to the beginning of the decode buffer
         //and it wasn't the first record...
         if (firstCharIndex == 0 && _docPrefs.location.record > 1)
@@ -351,10 +386,13 @@ void Doc_linesUp(UInt16 linesToMove)
     }
 }
 
+//
+// Scroll the document
+//
 void Doc_scroll(int dir, enum TAP_ACTION_ENUM ta)
 {
     UInt16 linesToScroll = 0;
-    
+
     switch (ta)
     {
     case TA_PAGE:
@@ -371,7 +409,7 @@ void Doc_scroll(int dir, enum TAP_ACTION_ENUM ta)
     }
 
     if (dir == PAGEDIR_DOWN)
-        Doc_linesDown(linesToScroll);
+        Doc_linesDown(linesToScroll, true);
     else
         Doc_linesUp(linesToScroll);
 
@@ -383,7 +421,7 @@ void Doc_scroll(int dir, enum TAP_ACTION_ENUM ta)
 void Doc_setBounds(RectanglePtr bounds)
 {
     MemMove(&_textGadgetBounds, bounds, sizeof(*bounds));
-    
+
     _setApparentTextBounds();
 }
 
@@ -425,6 +463,30 @@ UInt16 Doc_getLineHeightAdjust()
     return _docPrefs.lineHeightAdjust;
 }
 
+//
+// Change justification state of this Doc
+//
+void Doc_invertJustify()
+{
+    _docPrefs.justify = !_docPrefs.justify;
+}
+
+//
+// Return justification state
+//
+UInt16 Doc_getJustify()
+{
+    return _docPrefs.justify;
+}
+
+//
+// Change Hyphenation state of this Doc
+//
+void Doc_invertHyphen()
+{
+    _docPrefs.hyphen = !_docPrefs.hyphen;
+}
+
 UInt32 Doc_getPosition()
 {
     UInt32    pos = 0;
@@ -433,10 +495,10 @@ UInt32 Doc_getPosition()
     //Add up previous records
     for (i=1; i<((int)_docPrefs.location.record); i++)
         pos+=gDoc.recLens[i-1];
-    
+
     //Add in this partial record
     pos += (UInt32)_docPrefs.location.ch;
-    
+
     return pos;
 }
 
@@ -454,19 +516,19 @@ void Doc_setPosition(UInt32 pos)
     //Add up record lens to find right record.
     for (i=1; prevRecsLen<=pos; i++)
         prevRecsLen += gDoc.recLens[i-1];
-    
+
     _docPrefs.location.record = i-1;
-    
+
     prevRecsLen -= gDoc.recLens[_docPrefs.location.record-1];
     _docPrefs.location.ch=pos-prevRecsLen;
-    
+
     _loadCurrentRecord();
 
     // Insure that page doesn't start in mid-line.
     if (pos != 0)
     {
         Doc_linesUp(1);
-        Doc_linesDown(1);
+        Doc_linesDown(1, false);
     }
     _scrollUpIfLastPage();
 
@@ -490,10 +552,10 @@ Boolean Doc_inBottomHalf(int screenX, int screenY)
     int ymax = RotateY(_textGadgetBounds.extent.x,
                        _textGadgetBounds.extent.y, a);
     y = RotateY(x,y,a);
-    
+
     if (ymax<0)
         y += _apparentTextBounds.extent.y;
-    
+
     return y > _apparentTextBounds.extent.y/2;
 #else
     return screenY > (_textGadgetBounds.topLeft.y + _textGadgetBounds.extent.y/2);
@@ -539,7 +601,7 @@ static void _drawPage(RectanglePtr boundsPtr,
                                             osLineBounds.extent.y,
                                             genericFormat, &errorUInt16);
     ErrFatalDisplayIf(NULL == osLineWindow, "f");
-    
+
     //Set drawing to go to the osLine window
     WinSetDrawWindow(osLineWindow);
 #ifdef ENABLE_AUTOSCROLL
@@ -556,41 +618,69 @@ static void _drawPage(RectanglePtr boundsPtr,
         linesToShow = (boundsPtr->extent.y + _osExtraForAS) / _lineHeight + 1;
     else
         linesToShow = (boundsPtr->extent.y) / _lineHeight;
-    
+
     y = boundsPtr->topLeft.y - _pixelOffset;
+
     p = & gDoc.decodeBuf[_docPrefs.location.ch];
-    
+    _draw_buf_len=0;
+
 #ifdef ENABLE_AUTOSCROLL
     if(!drawOnscreenPart)
     {
         int offscreenLines = linesToShow - (boundsPtr->extent.y) / _lineHeight;
         offscreenLines += 2 ; //Because we want the last onscreen line too.
+
         // skip past onscreen lines
-        while((linesToShow > offscreenLines)
-              && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
+        _draw_buf_len = linesToShow - offscreenLines;
+        if (_draw_buf_len > 0)
         {
-            y += _lineHeight;
-            p += charsOnRow;
-            linesToShow--;
+            y += _lineHeight * _draw_buf_len;
+            p = _draw_buf[_draw_buf_len+1];
+            linesToShow -= _draw_buf_len;
         }
     }
 #endif
-    while(linesToShow && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
+
+    // draw each line and memorize line in _draw_buf
+
+    while(linesToShow)
     {
+        // find the end of the line.
+        charsOnRow = (_docPrefs.justify && _docPrefs.hyphen) ? Hyphen_FntWordWrap(p, boundsPtr->extent.x) : FntWordWrap (p, boundsPtr->extent.x);
+
+        if (!charsOnRow) break;
+
         WinEraseRectangle(&osLineBounds, 0);
-        TT_WinDrawChars(p, charsOnRow, 0, 0);
+
+        if (_docPrefs.justify)
+            Justify_WinDrawChars(p, charsOnRow, 0, 0, boundsPtr->extent.x);
+        else
+            Tab_WinDrawChars(p, charsOnRow, 0, 0);
+
+        _draw_buf[_draw_buf_len++] = p; // memorize line position
+        ErrFatalDisplayIf ((_draw_buf_len>MAX_DISPLAY_LINE), "Too many lines");
+
         //Copy the osLine in in an ORing kind of way.
         //This preserves lowercase extenders of previous line.
+
         WinCopyRectangle(osLineWindow, destWindow, &osLineBounds,
                          boundsPtr->topLeft.x, y, winOverlay);
+
         y += _lineHeight;
         p += charsOnRow;
         linesToShow--;
     }
+
+    // Am I at the end of the doc ?
+    _bLastPage = (*p == 0);
+
+    // Memorise last line
+    _draw_buf[_draw_buf_len++] = p; // status of last line + 1
+
     //    WinDrawLine(boundsPtr->topLeft.x, boundsPtr->topLeft.y+boundsPtr->extent.y-1,
     //                boundsPtr->topLeft.x+boundsPtr->extent.x,
     //                boundsPtr->topLeft.y+boundsPtr->extent.y-1);
-    
+
     WinSetDrawWindow(destWindow);
     WinDeleteWindow(osLineWindow, false);
     osLineWindow = NULL;
@@ -602,26 +692,27 @@ static Boolean _onLastPage()
     char*    p;
     int        linesToShow;
     FontID oldFont;
-    
+
     oldFont = FntGetFont();
     FntSetFont(_docPrefs.font);
-    
+
     //See if the terminating null is on this page
     linesToShow = _apparentTextBounds.extent.y/_lineHeight;
     p = & gDoc.decodeBuf[_docPrefs.location.ch];
     while(linesToShow--)
-        p += FntWordWrap(p, _apparentTextBounds.extent.x);
-    
+        p += (_docPrefs.justify && _docPrefs.hyphen) ? Hyphen_FntWordWrap(p, _apparentTextBounds.extent.x) : FntWordWrap (p, _apparentTextBounds.extent.x);
+
     FntSetFont(oldFont);
-    
-    return (*p == NULL);
+
+    _bLastPage = (*p == 0);
+    return _bLastPage;
 }
 
 static void _scrollUpIfLastPage()
 {
     if (_docPrefs.location.ch == 0 && _docPrefs.location.record == 0)
         return;
-    
+
     //if it was, go to end and page up.
     if (_onLastPage())
     {
@@ -657,12 +748,12 @@ static void _setApparentTextBounds()
 static void _setLineHeight()
 {
     FontID oldFont;
-    
+
     oldFont = FntGetFont();
     FntSetFont(_docPrefs.font);
     _lineHeight = FntLineHeight() - _docPrefs.lineHeightAdjust;
     FntSetFont(oldFont);
-    
+
     _boundsChanged = true;
 #ifdef ENABLE_AUTOSCROLL
     _osExtraForAS = _lineHeight;
@@ -677,13 +768,21 @@ static void _loadCurrentRecord()
     if (gDoc.recordDecoded != _docPrefs.location.record)
     {
         UInt16 recToLoad = _docPrefs.location.record;
-        
-        gDoc.decodeLen = gDoc.decodedRecordLen 
+
+        gDoc.decodeLen = gDoc.decodedRecordLen
                    = decodeRecord(gDoc.dbRef, gDoc.record0Ptr->wVersion,
                                   gDoc.decodeBuf,
                                   recToLoad, gDoc.decodeBufLen-1);
+
+        // Compare this decoded len to the one stored in the RECORD0
+        // If we find a bug, recompute the table to fix it directly in the RECORD0
+        if (gDoc.decodeLen != gDoc.recLens[recToLoad - 1]) {
+            gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens, true);
+        }
+
         gDoc.recordDecoded = _docPrefs.location.record;
-        /* If this is the last record, make the null appear to belong 
+
+        /* If this is the last record, make the null appear to belong
          * to this record */
         if (recToLoad == gDoc.numRecs)
         {
@@ -694,9 +793,9 @@ static void _loadCurrentRecord()
         {
             /* While there are remaining records, and space to fill in buffer,
              * decode next records. */
-            while (++recToLoad <= gDoc.numRecs 
+            while (++recToLoad <= gDoc.numRecs
                    && gDoc.decodeLen < gDoc.decodeBufLen-1)
-                gDoc.decodeLen 
+                gDoc.decodeLen
                     += decodeRecord(gDoc.dbRef, gDoc.record0Ptr->wVersion,
                                     &gDoc.decodeBuf[gDoc.decodeLen],
                                     recToLoad,
@@ -719,6 +818,67 @@ static void _loadCurrentRecord()
     }
 }
 
+//
+// Compute the total space of the dos
+//  Fill the recLens table with the len of each record
+//  Extract this from the record0 if available
+//  force =true to force rebuild of the table
+#ifdef SUPER0
+static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
+{
+    UInt32 storyLen = 0;
+    UInt16 i, *a, *b;
+
+    // Compute just the first record
+
+    if (!force)
+        i = decodedRecordLen(gDoc.dbRef, gDoc.record0Ptr->wVersion, 1);
+
+    // look if the wRecordsSize if filled and complete
+    if ((!force)
+        && (MemPtrSize (gDoc.record0Ptr) >= sizeof(struct RECORD0_STR))
+        && (gDoc.record0Ptr->wRecordsSize[0])
+        && (i == gDoc.record0Ptr->wRecordsSize[0])
+        )
+    {
+        a = recLens;
+        b = &gDoc.record0Ptr->wRecordsSize[0];
+        for (i = gDoc.numRecs-1; i; i--) {
+            *(a++) = *b;
+            storyLen += *(b++);
+        }
+    }
+    else {
+        // Compute it and fill the table
+        MemHandleUnlock(gDoc.record0Handle);
+
+        // Resize record0 to hold the table
+        gDoc.record0Handle = DmResizeRecord(gDoc.dbRef, 0,
+                (UInt32)(sizeof (struct RECORD0_STR)
+                + gDoc.numRecs*sizeof(UInt16)));
+        ErrFatalDisplayIf(!gDoc.record0Handle, "DmResizeRecord");
+
+        gDoc.record0Ptr = (struct RECORD0_STR *)MemHandleLock(gDoc.record0Handle);
+        ErrFatalDisplayIf(!gDoc.record0Ptr, "c");
+
+        for (i = 0; i < gDoc.numRecs; i++)
+        {
+            recLens[i] = decodedRecordLen(gDoc.dbRef, gDoc.record0Ptr->wVersion, i+1);
+            storyLen += recLens[i];
+        }
+
+        DmWrite (gDoc.record0Ptr,
+                 sizeof (struct RECORD0_STR) - sizeof(UInt16),
+                 recLens,
+                 sizeof(UInt16)*gDoc.numRecs);
+
+        DmReleaseRecord(gDoc.dbRef, 0, false);
+    }
+    recLens[gDoc.numRecs - 1]++;//for the null at the end of the last record.
+
+    return ++storyLen;
+}
+#else
 static UInt32 _fixStoryLen(UInt16 *recLens)
 {
     UInt32 storyLen = 0;
@@ -726,15 +886,16 @@ static UInt32 _fixStoryLen(UInt16 *recLens)
 
     for (i = 0; i < gDoc.numRecs; i++)
     {
-        recLens[i] = decodedRecordLen(gDoc.dbRef, 
+        recLens[i] = decodedRecordLen(gDoc.dbRef,
                                       gDoc.record0Ptr->wVersion, i+1);
         storyLen += recLens[i];
     }
     recLens[gDoc.numRecs-1]++;//for the null at the end of the last record.
     storyLen++;
-    
+
     return storyLen;
 }
+#endif
 
 static void _postDecodeProcessing()
 {
@@ -760,9 +921,9 @@ void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
     Boolean found = false;
     UInt16 stopAfterRecord = WORD_MAX;
     Boolean giveUp = false;
-    
+
     MemMove(&posBeforeSearch, &_docPrefs.location, sizeof(posBeforeSearch));
-    
+
     //Either start from top or current location.
     if (searchFromTop)
     {
@@ -780,9 +941,9 @@ void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
     while(!found && !giveUp)
     {
         UInt16 foundPos;
-        
+
         _loadCurrentRecord();
-        
+
         //If we found it, move to after find.
         if (_findString(&gDoc.decodeBuf[_docPrefs.location.ch], searchString,
                         &foundPos, caseSensitive))
@@ -815,12 +976,12 @@ void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
         _movePastWord();
         _loadCurrentRecord();
         Doc_linesUp(1);
-        
+
         FrmUpdateForm(formId, 0);
     }
     else
     {
-        MemMove(&_docPrefs.location, 
+        MemMove(&_docPrefs.location,
                 &posBeforeSearch, sizeof(posBeforeSearch));
         _loadCurrentRecord();
         _locationChanged = true;
@@ -830,7 +991,7 @@ void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
 
 //_findString works a lot like FindStrInStr. Except correctly.
 //And optionally case-sensitively.
-static Boolean _findString(Char* haystack, Char* needle, 
+static Boolean _findString(Char* haystack, Char* needle,
                            UInt16* foundPos,
                            Boolean caseSensitive)
 {
@@ -845,21 +1006,21 @@ static Boolean _findString(Char* haystack, Char* needle,
         //the beginning of a word. So, it will
         //find "foo" in "foobar" but not in "barfoo".
         //Really should just write our own FindStrInStr...
-        
+
         const UInt8* convTable = GetCharCaselessValue();
         Char* clNeedle = (Char*) MemHandleLock(MemHandleNew(needleLen+1));
         Char* clHaystack = (Char*) MemPtrNew(haystackLen+1); //yuck.
         Boolean toReturn;
         UInt16    i;
-        
+
         for(i = 0; i < needleLen; i++)
             clNeedle[i] = convTable[(int) needle[i]];
         clNeedle[i]='\0';
-        
+
         for(i = 0; i < haystackLen; i++)
             clHaystack[i] = convTable[(int)haystack[i]];
         clHaystack[i]='\0';
-        
+
         haystack = clHaystack;
         needle = clNeedle;
     }
@@ -887,7 +1048,7 @@ static Boolean _findString(Char* haystack, Char* needle,
 static void _rewindToStartOfWord()
 {
     const UInt16* attrs = GetCharAttr();
-    
+
     while (_docPrefs.location.ch>0
            && ! IsSpace(attrs, gDoc.decodeBuf[_docPrefs.location.ch-1]))
     {
@@ -965,7 +1126,7 @@ void Doc_pixelScroll()
     // if scrolled enough to draw a line, scroll down 1 and draw the page.
     if(_pixelOffset == _lineHeight)
     {
-        if (! Doc_linesDown(1))
+        if (! Doc_linesDown(1, true))
         {
             WinSetDrawWindow(drawWindow);
             return;

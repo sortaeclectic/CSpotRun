@@ -36,7 +36,7 @@ static int decodeFromBuffer(UInt8* decodeTo, UInt8* decodeFrom, int decodeFromLe
 static int decodeLen(UInt8* decodeFrom, int recordIndex);
 static const char unknownCompressionMessage[] = "Unknown record compression type! ";
 
-int decodedRecordLen(DmOpenRef dbRef, UInt16 compressionType, int recordIndex)
+UInt16 decodedRecordLen(DmOpenRef dbRef, UInt16 compressionType, int recordIndex)
 {
     MemHandle    recordHandle = NULL;
     int            recordLen = 0;
@@ -64,7 +64,8 @@ int decodedRecordLen(DmOpenRef dbRef, UInt16 compressionType, int recordIndex)
 
     MemHandleUnlock(recordHandle);
 
-    return decodedLen;}
+    return decodedLen;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //

@@ -33,6 +33,7 @@
 #ifdef ENABLE_SEARCH
 #include "searchform.h"
 #endif
+#include "tabbedtext.h"
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags);
 static void StartApp();
@@ -48,6 +49,8 @@ Boolean     searchFromTop;
 #endif
 
 #define FORCE_1BIT_MODE 
+
+void savePDB (MemPtr cmdPBP);
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
@@ -160,6 +163,11 @@ static void StartApp()
 #endif
 
     FrmGotoForm(formID_main);
+
+#ifdef ENABLE_HYPHEN
+    // extract hyphenation tables
+    LockHyphenResource();
+#endif    
 }
 
 static void InitAppState()
@@ -189,6 +197,11 @@ static void StopApp()
 #endif
     FrmCloseAllForms();
 
+#ifdef ENABLE_HYPHEN
+    // extract hyphenation tables
+    UnlockHyphenResource();
+#endif
+    
 #ifdef ENABLE_BMK
     BmkStop();
 #endif

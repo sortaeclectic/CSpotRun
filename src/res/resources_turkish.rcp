@@ -113,6 +113,8 @@ begin
     "$$FONT 2"="Font 2"
     "$$FONT 3"="Font 3"
     "$$FONT 4"="Font 4"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
     
     "$$FIND"="Ara"
     "$$FIND AGAIN"="Tekrar Ara"

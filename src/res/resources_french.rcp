@@ -68,6 +68,8 @@ begin
     "$$LINE SPACING 3"="Interligne 3"
     "$$ROTATE RIGHT"="Basculer à droite"
     "$$ROTATE LEFT"="Basculer à gauche"
+    "$$JUSTIFY"="Justifié"
+    "$$HYPHEN"="Césure"
 
     "$$OPTIONS"="Options"
     "$$TOGGLE CONTROLS"="Plein écran"

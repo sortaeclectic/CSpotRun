@@ -81,6 +81,7 @@ begin
     "$$PAGE"="Sida"
     "$$HALF PAGE"="\xBD sida"
     "$$LINE"="Rad"
+    "$$JUSTIFY"="Justify"
 
     "$$TOP"="Start"
     "$$BOTTOM"="Slut"
@@ -105,6 +106,9 @@ begin
     "$$FONT 2"="Typsnitt 2"
     "$$FONT 3"="Typsnitt 3"
     "$$FONT 4"="Typsnitt 4"
+
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
 
     "$$FIND"="Sök"
     "$$FIND AGAIN"="Sök igen"

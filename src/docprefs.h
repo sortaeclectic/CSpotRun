@@ -15,11 +15,13 @@ struct DOC_PREFS_STR
     UInt16            lineHeightAdjust;
     struct DOC_LOCATION_STR location;
     UInt16            orient;
-    UInt16            spare[10-1];
+    UInt16          justify;
+    UInt16          hyphen;
+    UInt16            spare[10-3];
 };
 
 
-#define DEFAULT_DOCPREFS {"dummy", stdFont, 1, {1, 0}, angle0, {}}
+#define DEFAULT_DOCPREFS {"dummy", stdFont, 1, {1, 0}, angle0, 0, 0, {}}
 
 void DocPrefs_loadPrefs(char name[dmDBNameLength], struct DOC_PREFS_STR * prefs);
 void DocPrefs_savePrefs(struct DOC_PREFS_STR * prefs);

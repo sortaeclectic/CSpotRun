@@ -75,6 +75,8 @@ begin
     "$$CONTROLSDDD"="Symbole..."
     "$$PREFERENCESDDD"="Einstellungen..."
     "$$ABOUTDDD"="CSpotRun Info...    "
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
 
     "$$FIND"="Suchen"
     "$$FIND AGAIN"="Weitersuchen"

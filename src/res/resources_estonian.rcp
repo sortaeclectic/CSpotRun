@@ -84,7 +84,9 @@ begin
     "$$FONT 2"="Kirjatüüp 2"
     "$$FONT 3"="Kirjatüüp 3"
     "$$FONT 4"="Kirjatüüp 4"
-    
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+   
     "$$FIND"="Otsi"
     "$$FIND AGAIN"="Otsi uuesti"
     "$$FINDDDD"="Otsi..."

@@ -76,6 +76,8 @@ begin
     "$$CONTROLSDDD"="Controles..."
     "$$PREFERENCESDDD"="Preferencias..."
     "$$ABOUTDDD"="Sobre CSpotRun..."
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
 
     "$$FIND"="Buscar Texto"
     "$$FIND AGAIN"="Repetir búsqueda"
