@@ -167,7 +167,7 @@ void _updateAutoScrollSpeed(int which, int selection)
     }
     else if(which == ATYPE_LINE)
     {
-        appStatePtr->autoScrollSpeed1 = ((selection + 1) * 10);
+        appStatePtr->autoScrollSpeed1 = ((selection + 2) * 10);
 
         StrPrintF(scrollSpeedString1, "%d", appStatePtr->autoScrollSpeed1);
 
