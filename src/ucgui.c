@@ -82,7 +82,6 @@ static const struct UCGUI_ELEM_STR gElements[UCGUI_ELEM_COUNT] =
 #endif
 };
 
-#define OS2_UCGUI_MASK (~((UInt16)0x100))
 #define GAP_AFTER_MASK (1<<8 | 1<<4 | 1<<10)
 
 static void     moveListToPopup(FormPtr formPtr, UInt16 popupID, UInt16 listID);
@@ -137,14 +136,14 @@ void Ucgui_layout(FormPtr formPtr, UInt16 visibleControlMask)
 
     for (i=0; i<UCGUI_ELEM_COUNT; i++)
     {
-        UInt16            objectIndex =    FrmGetObjectIndex(formPtr, gElements[i].id);
-        void*            objectPtr =        FrmGetObjectPtr(formPtr, objectIndex);
-        //FormObjectKind    objectType =    FrmGetObjectType(formPtr, objectIndex);
-        RectangleType   objectBounds;
+        UInt16 objectIndex =  FrmGetObjectIndex(formPtr, gElements[i].id);
+        void* objectPtr =  FrmGetObjectPtr(formPtr, objectIndex);
+        RectangleType objectBounds;
 
         FrmGetObjectBounds(formPtr, objectIndex, &objectBounds);
 
-        if((visibleControlMask & gElements[i].bitmask) && isControlAllowed(gElements[i].id))
+        if((visibleControlMask & gElements[i].bitmask) 
+           && isControlAllowed(gElements[i].id))
         {
             if (x+1+objectBounds.extent.x > 160)
             {
@@ -169,7 +168,6 @@ void Ucgui_layout(FormPtr formPtr, UInt16 visibleControlMask)
         formBounds.extent.y-=2; //Because selectors paint outside their bounds?
 
     formBounds.topLeft.x = formBounds.topLeft.y = 0;
-    //formBounds.extent.y=(formBounds.extent.y*3)/4;//xxx for testing
     FrmSetObjectBounds(formPtr, FrmGetObjectIndex(formPtr, gadgetID_text), &formBounds);
 
     moveListToPopup(formPtr, popupID_doc, listID_doc);
@@ -188,7 +186,8 @@ static void moveListToPopup(FormPtr formPtr, UInt16 popupID, UInt16 listID)
 
 static Boolean isControlAllowed(UInt16 id)
 {
-    if (IS_FONTSELECT_PUSHID(id) && ! FS_fontIsLegal(FS_getFontByIndex(FONTSELECT_PUSHID_TO_INDEX(id))))
+    if (IS_FONTSELECT_PUSHID(id) 
+        && ! FS_fontIsLegal(FS_getFontByIndex(FONTSELECT_PUSHID_TO_INDEX(id))))
         return false;
     else
         return true;
