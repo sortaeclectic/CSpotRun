@@ -29,7 +29,7 @@ ICONTEXT = $(PROGNAME)
 
 OBJS = pilotmain.o mainform.o doclist.o doc.o \
 		decode.o docprefs.o tabbedtext.o controlsform.o \
-		fontselect.o ucgui.o rotate.o prefsform.o searchform.o \
+		ucgui.o rotate.o prefsform.o searchform.o \
 		bmk.o bmknamefrm.o bmkedfrm.o \
 		cspotrun-sections.o
 
@@ -130,10 +130,8 @@ doclist.o: app.h appstate.h doc.h doclist.h docprefs.h rotate.h
 doc.o: appstate.h bmk.h decode.h doc.h docprefs.h mainform.h resources.h
 doc.o: rotate.h segments.h tabbedtext.h
 docprefs.o: appstate.h doclist.h docprefs.h rotate.h
-fontselect.o: appstate.h doc.h docprefs.h fontselect.h resources.h rotate.h
 mainform.o: app.h appstate.h bmk.h bmknamefrm.h callback.h doc.h doclist.h
-mainform.o: docprefs.h fontselect.h mainform.h resources.h rotate.h segments.h
-mainform.o: ucgui.h
+mainform.o: docprefs.h mainform.h resources.h rotate.h segments.h ucgui.h
 pilotmain.o: app.h appstate.h bmkedfrm.h bmk.h bmknamefrm.h controlsform.h
 pilotmain.o: decode.h docprefs.h mainform.h prefsform.h resources.h
 pilotmain.o: searchform.h segments.h tabbedtext.h ucgui.h
@@ -143,4 +141,4 @@ rotate.o: app.h rotate.h
 searchform.o: app.h appstate.h callback.h doc.h docprefs.h mainform.h
 searchform.o: resources.h rotate.h searchform.h
 tabbedtext.o: segments.h tabbedtext.h
-ucgui.o: appstate.h docprefs.h fontselect.h resources.h ucgui.h
+ucgui.o: appstate.h docprefs.h resources.h ucgui.h

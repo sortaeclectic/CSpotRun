@@ -24,10 +24,7 @@
     #define menuitemID_searchAgain    1207
 #endif
 
-#define menuitemID_font0    1210
-#define menuitemID_font1    1211
-#define menuitemID_font2    1212
-#define menuitemID_font3    1213
+#define menuitemID_font    1210
 #define menuitemID_lineSpacing0    1220
 #define menuitemID_lineSpacing1    1221
 #define menuitemID_lineSpacing2    1222
@@ -138,11 +135,8 @@
     #define alertID_bmkSort        1905
 #endif
 
-#define FONT_BUTTON_COUNT 4
-#define pushID_font0        2000
-#define pushID_font1        2001
-#define pushID_font2        2002
-#define pushID_font3        2003
+#define FONT_BUTTON_COUNT 1
+#define pushID_font        2000
 #ifdef ENABLE_SEARCH
     #define pushID_searchDown       2005
 #endif

@@ -22,7 +22,6 @@
 #include "resources.h"
 #include "ucgui.h"
 #include "appstate.h"
-#include "fontselect.h"
 
 struct UCGUI_ELEM_STR
 {
@@ -54,10 +53,7 @@ struct UCGUI_ELEM_STR
 //Note that these get added in this order!
 static const struct UCGUI_ELEM_STR gElements[] =
 {
-    {pushID_font0,            1<<5, stringID_ucguiFonts},//0x020},
-    {pushID_font1,            1<<6, 0},//0x040},
-    {pushID_font2,            1<<7, 0},//0x080},
-    {pushID_font3,            1<<8, 0},//0x100},
+    {pushID_font,            1<<5, stringID_ucguiFonts},//0x020},
 #ifdef ENABLE_ROTATION
     {buttonID_rotateLeft,    1<<9, stringID_ucguiRotate},//0x020},
     {buttonID_rotateRight,    1<<10, 0},//0x020},
@@ -85,7 +81,7 @@ static const struct UCGUI_ELEM_STR gElements[] =
 #endif
 };
 
-#define GAP_AFTER_MASK (1<<8 | 1<<4 | 1<<10)
+#define GAP_AFTER_MASK (1<<5 | 1<<8 | 1<<4 | 1<<10)
 
 static void     moveListToPopup(FormPtr formPtr, UInt16 popupID, UInt16 listID);
 static Boolean  isControlAllowed(UInt16 id);
@@ -189,10 +185,6 @@ static void moveListToPopup(FormPtr formPtr, UInt16 popupID, UInt16 listID)
 
 static Boolean isControlAllowed(UInt16 id)
 {
-    if (IS_FONTSELECT_PUSHID(id)
-        && ! FS_fontIsLegal(FS_getFontByIndex(FONTSELECT_PUSHID_TO_INDEX(id))))
-        return false;
-    else
-        return true;
+    return true;
 }
 

@@ -102,4 +102,8 @@ Digital Rights Management (DRM) from Greg Weeks
 
 Went multisegment, so that the debug version will link again.
 
+2/10/2002
+
+Changed font selection to use FontSelect() instead of using
+a single control per font.
 

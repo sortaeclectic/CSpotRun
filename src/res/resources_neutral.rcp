@@ -25,12 +25,9 @@ NOFRAME
 USABLE
 MENUID menuID_main
 BEGIN
-    PUSHBUTTON "A" ID pushID_font0    AT (1 1 10 12) GROUP 1 FONT 0 NONUSABLE
-    PUSHBUTTON "A" ID pushID_font1    AT (1 1 PREVWIDTH PREVHEIGHT) GROUP 1 FONT 1 NONUSABLE
-    PUSHBUTTON "A" ID pushID_font2    AT (1 1 PREVWIDTH PREVHEIGHT) GROUP 1 FONT 2 NONUSABLE
-    PUSHBUTTON "A" ID pushID_font3    AT (1 1 PREVWIDTH PREVHEIGHT) GROUP 1 FONT 7 NONUSABLE
+    SELECTORTRIGGER "A" ID pushID_font    AT (1 1 AUTO 12) FONT 0 NONUSABLE
 #ifdef ENABLE_ROTATION
-    BUTTON "\03" ID buttonID_rotateLeft  AT (1 1 PREVWIDTH PREVHEIGHT) NOFRAME FONT 3 NONUSABLE
+    BUTTON "\03" ID buttonID_rotateLeft  AT (1 1 10 PREVHEIGHT) NOFRAME FONT 3 NONUSABLE
     BUTTON "\04" ID buttonID_rotateRight AT (1 1 PREVWIDTH PREVHEIGHT) NOFRAME FONT 3 NONUSABLE
 #endif    
 #ifdef ENABLE_SEARCH
@@ -277,10 +274,7 @@ BEGIN
     END    
     PULLDOWN "$$VIEW"
     BEGIN
-        MENUITEM "$$FONT 1"          menuitemID_font0           "1"
-        MENUITEM "$$FONT 2"          menuitemID_font1           "2"
-        MENUITEM "$$FONT 3"          menuitemID_font2           "3"
-        MENUITEM "$$FONT 4"          menuitemID_font3           "4"
+        MENUITEM "$$FONTS"     menuitemID_font            "1"
         MENUITEM SEPARATOR 
         MENUITEM "$$LINE SPACING 1"  menuitemID_lineSpacing0
         MENUITEM "$$LINE SPACING 2"  menuitemID_lineSpacing1
@@ -330,10 +324,7 @@ BEGIN
     END    
     PULLDOWN "$$VIEW"
     BEGIN
-        MENUITEM "$$FONT 1"          menuitemID_font0           "1"
-        MENUITEM "$$FONT 2"          menuitemID_font1           "2"
-        MENUITEM "$$FONT 3"          menuitemID_font2           "3"
-        MENUITEM "$$FONT 4"          menuitemID_font3           "4"
+        MENUITEM "$$FONT"          menuitemID_font           "1"
         MENUITEM SEPARATOR 
         MENUITEM "$$LINE SPACING 1"  menuitemID_lineSpacing0
         MENUITEM "$$LINE SPACING 2"  menuitemID_lineSpacing1

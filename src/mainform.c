@@ -30,7 +30,6 @@
 #include "doc.h"
 #include "docprefs.h"
 #include "ucgui.h"
-#include "fontselect.h"
 #include "bmk.h"
 #include "bmknamefrm.h"
 
@@ -92,6 +91,22 @@ Boolean MainFormHandleEvent(EventType *e)
     return handled;
 }
 
+static void selectFont()
+{
+    FontID oldFont = Doc_getFont();
+    FontID newFont;
+    if (UtilOSIsAtLeast(3, 0)) {
+        newFont = FontSelect(oldFont);
+        if (oldFont == newFont)
+            return;
+    } else {
+        if ((newFont = (oldFont + 1)) > largeFont)
+            newFont = 0;
+    }
+    Doc_setFont(newFont);
+    Doc_drawPage();
+}
+
 static Boolean _MainFormHandleEvent(EventType *e)
 {
     int a;
@@ -101,15 +116,11 @@ static Boolean _MainFormHandleEvent(EventType *e)
     switch(e->eType)
     {
     case ctlSelectEvent:
-        if (IS_FONTSELECT_PUSHID(e->data.ctlSelect.controlID))
-        {
-            int i = FONTSELECT_PUSHID_TO_INDEX(e->data.ctlSelect.controlID);
-            FS_changeFont(i);
-            return true;
-        }
-
         switch (e->data.ctlSelect.controlID)
         {
+        case pushID_font:
+            selectFont();
+            return true;
 #ifdef ENABLE_ROTATION
         case buttonID_rotateLeft:
             _rotate(-1);
@@ -244,15 +255,13 @@ static Boolean _MainFormHandleEvent(EventType *e)
             _changeHyphenation();
             return true;
 #endif
+        case menuitemID_font:
+            MenuEraseStatus(NULL);
+            selectFont();
+            return true;
         }
 
         MenuEraseStatus(NULL);
-        if (IS_FONTSELECT_MENUID(e->data.menu.itemID))
-        {
-            FS_changeFont(FONTSELECT_MENUID_TO_INDEX(e->data.menu.itemID));
-            FS_updateFontButtons(formPtr);
-            return true;
-        }
         if (e->data.menu.itemID >= menuitemID_lineSpacing0
             && e->data.menu.itemID <
                  (menuitemID_lineSpacing0 + LINE_SPACING_GADGET_COUNT))
@@ -372,8 +381,6 @@ static void    HandleDocSelect(int documentIndex)
      * Set the document popup label
      * Changed popup trigger to simply "Doc", otherwise it resizes
      * which causes UCGUI funkiness. */
-
-    FS_updateFontButtons(formPtr);
 
     /* set menu accroding to the document mode */
     if(Doc_getDbMode() == dmModeReadOnly)
