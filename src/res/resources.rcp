@@ -34,7 +34,6 @@ begin
     "$$ROTATE"="Rotate"
     "$$SPACING"="Spacing"
     "$$GOTO PER"="Goto %"
-    "$$PICK DOC"="Pick Doc"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         "© 1998-1999 Bill Clagett\n"\
@@ -104,6 +103,8 @@ begin
     "$$SEARCH FROM TOP"="Search from top"
     "$$CASE SENSITIVE"="Case sensitive"
 /*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
     "$$SC GOTO PER"="G"
     "$$SC PICK DOC"="D"
     "$$SC FONT 1"="1"
@@ -127,19 +128,17 @@ end
 TRANSLATION "french"
 begin
     "$$DOC"="Doc"
-
     "$$FONTS"="Polices"
     "$$CONFIGURE CONTROLS"="Configuration des boutons"
     "$$ROTATE"="Rotation"
     "$$SPACING"="Interlignes"
     "$$GOTO PER"="Aller à %"
-    "$$PICK DOC"="Choisir un document"
+    "$$PICK DOC"="Choisir"
 
     "$$GLOBAL PREFERENCES"="Préférences"
     "$$SWAP UPDOWN"="Inverser boutons haut/bas"
-
     "$$SHOW PREV LINE"="Ligne de la page précédente"
-    "$$TAP ACTION"="Tappe :"
+    "$$TAP ACTION"="Tape :"
     "$$PAGE"="Page"
     "$$HALF PAGE"="1/2 page"
     "$$LINE"="Ligne"
@@ -147,9 +146,8 @@ begin
     "$$TOP"="Début"
     "$$BOTTOM"="Fin"
 
-    "$$PICK DOC"="Choisir"
-    "$$DELETE DOC"="Supprimer le document"
-    "$$MAKE DEFAULT"="Enregistrer les options"
+    "$$DELETE DOC"="Supprimer"
+    "$$MAKE DEFAULT"="Sauvegarder"
 
     "$$VIEW"="Vue"
     "$$FONT 1"="Police 1"
@@ -161,6 +159,7 @@ begin
     "$$LINE SPACING 3"="Interligne 3"
     "$$ROTATE RIGHT"="Basculer à droite"
     "$$ROTATE LEFT"="Basculer à gauche"
+
     "$$OPTIONS"="Options"
     "$$TOGGLE CONTROLS"="Plein écran"
     "$$CONTROLSDDD"="Boutons..."
@@ -191,7 +190,7 @@ begin
         "lorsque le texte est en vue latérale.\n\n"\
         "L'option \'Ligne de la page précédente\' est utile pour garder à l'écran "\
         "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
-        "L'option \'Tappe' définit l'ampleur de défilement du texte lorsque "\
+        "L'option \'Tape' définit l'ampleur de défilement du texte lorsque "\
         "le stylet touche le document à l'écran."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
@@ -233,7 +232,6 @@ begin
     "$$TOP"="Comienzo"
     "$$BOTTOM"="Final"
 
-    "$$PICK DOC"="Elegir Documento    "
     "$$DELETE DOC"="Borrar Documento"
     "$$MAKE DEFAULT"="Memorizar las opciones    "
 
@@ -315,7 +313,6 @@ begin
     "$$TOP"="Anfang"
     "$$BOTTOM"="Ende"
 
-    "$$PICK DOC"="Dok auswählen    "
     "$$DELETE DOC"="Dok löschen"
     "$$MAKE DEFAULT"="Als Vorgabewerte    "
     "$$VIEW"="Ansicht"
@@ -555,15 +552,14 @@ VERSION 1 "@@CSR_VERSION@@"
 STRING ID stringID_controlsHelp    "$$CONTROLS HELP"                                
 STRING ID stringID_globalPrefsHelp "$$GLOBAL PREFS HELP"
                                     
-STRING ID    stringID_ucguiFonts            "$$FONTS"
-STRING ID    stringID_ucguiRotate        "$$ROTATE"
-STRING ID    stringID_ucguiSpacing        "$$SPACING"
-STRING ID    stringID_ucguiGotoPerc        "$$GOTO PER"
-STRING ID    stringID_ucguiPickDoc        "$$PICK DOC"
+STRING ID stringID_ucguiFonts      "$$FONTS"
+STRING ID stringID_ucguiRotate     "$$ROTATE"
+STRING ID stringID_ucguiSpacing    "$$SPACING"
+STRING ID stringID_ucguiGotoPerc   "$$GOTO PER"
+STRING ID stringID_ucguiPickDoc    "$$PICK DOC"
+STRING ID stringID_noDocs          "$$NO DOCS" 
 #ifdef ENABLE_SEARCH
     STRING ID    stringID_ucguiSearch        "$$FIND"
-    STRING ID    stringID_ucguiSearchAgain    "$$FIND AGAIN"
+    STRING ID    stringID_ucguiSearchAgain   "$$FIND AGAIN"
 #endif
-
-STRING ID    stringID_noDocs            "$$NO DOCS" 
 
