@@ -50,10 +50,6 @@ begin
         "http://www.pobox.com/~wtc/palmos/cspotrun/\n\n"\
         ""\
         "Contributors:\n\n"\
-        "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
-        "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
-        "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
-        "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$CONTROLS HELP"="Each checkbox corresponds to an on-screen control. "\
@@ -196,9 +192,6 @@ begin
       ""\
       "Contributors:\n\n"\
       "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
-      "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
-      "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
-      "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
       "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$DELETE PROMPT"="Supprimer définitivement \"^1\" ?"
@@ -272,8 +265,8 @@ begin
     "$$GOTO PER"="Ir a %"
     "$$PICK DOC"="Elegir Doc"
 #ifdef ENABLE_AUTOSCROLL
-    "$$AUTOSCROLL"="Pasar p'aginas autom'aticamente"
-    "$$AUTOSCROLLSPEED"="Velocidad de las p'aginas:"
+    "$$AUTOSCROLL"="Pasar páginas automáticamente"
+    "$$AUTOSCROLLSPEED"="Velocidad de las páginas:"
 #endif
 
     "$$GLOBAL PREFERENCES"="Preferencias Globales"
@@ -328,9 +321,6 @@ begin
       "http://www.pobox.com/~wtc/palmos/cspotrun/"\
       ""\
       "Contributors:\n\n"\
-      "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
-      "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
-      "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
       "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
       "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
       
@@ -350,12 +340,10 @@ begin
         "Use \'Mostrar línea anterior\', para repetir una línea individual "\
         "de la página anterior cuando cambia de página.\n\n"\
         "\'Acción al tocar\' controla cuánto se mueve la página cuando toca la pantalla con el lápiz óptico.\n\n"\
-        "Use la opci'on  \'Velocidad de las p'aginas\' para
-	controlar la velocidad de lectura. Los n'umeros "\
-        "est'an en cent'esimas de segundo. 60-80 es la velocidad
-	recomendada."
+        "Use la opción  \'Velocidad de las páginas\' para controlar la velocidad de lectura. Los números "\
+        "están en centésimas de segundo. 60-80 es la velocidad recomendada."
         
-    "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor    pruebe CSpotRun"\
+    "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor pruebe CSpotRun"\
         "de nuevo, después de instalar al menos un documento."
 
     "$$ERROR ALERT"="Oops!"
@@ -427,10 +415,7 @@ begin
         "http://www.pobox.com/~wtc/palmos/cspotrun/"\
         ""\
         "Contributors:\n\n"\
-        "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
         "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
-        "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
-        "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$DELETE PROMPT"="Dokument \"^1\" endgültig löschen?"
@@ -485,10 +470,7 @@ begin
         "http://www.pobox.com/~wtc/palmos/cspotrun/\n\n"\
         ""\
         "Contributors:\n\n"\
-        "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
-        "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
         "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
-        "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela. "\
@@ -691,13 +673,13 @@ BEGIN
     CHECKBOX "$$SWAP UPDOWN"    ID checkboxID_reversePageButtons    AT (5 15 auto auto) USABLE LEFTANCHOR 
     CHECKBOX "$$SHOW PREV LINE"    ID checkboxID_showLine                AT (PREVLEFT PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
     
-    LABEL "$$TAP ACTION" ID 9000 AT (10 PREVBOTTOM+2)
-    PUSHBUTTON "$$PAGE"        ID pushID_tapAction0    AT (prevright+4 prevtop auto auto) GROUP 69
-    PUSHBUTTON "$$HALF PAGE"    ID pushID_tapAction0+1    AT (prevright+1 prevtop auto auto) GROUP 69
-    PUSHBUTTON "$$LINE"        ID pushID_tapAction0+2    AT (prevright+1 prevtop auto auto) GROUP 69
+    LABEL "$$TAP ACTION"     ID 9000 AT (5 PREVBOTTOM+2)
+    PUSHBUTTON "$$PAGE"      ID pushID_tapAction0    AT (prevright+4 prevtop auto auto) GROUP 69
+    PUSHBUTTON "$$HALF PAGE" ID pushID_tapAction0+1  AT (prevright+1 prevtop auto auto) GROUP 69
+    PUSHBUTTON "$$LINE"      ID pushID_tapAction0+2  AT (prevright+1 prevtop auto auto) GROUP 69
 
 #ifdef ENABLE_AUTOSCROLL
-    LABEL "$$AUTOSCROLLSPEED" ID 9002 AT (28 PREVBOTTOM+2)
+    LABEL "$$AUTOSCROLLSPEED" ID 9002 AT (5 PREVBOTTOM+2)
 
     POPUPTRIGGER "60" popupID_autoScrollSpeed AT (PREVRIGHT+1 PREVTOP AUTO AUTO) LEFTANCHOR
     LIST "40" "50" "60" "70" "80" "90" "100" "110" "120" "130" "140" "150" ID listID_autoScrollSpeed AT (PREVLEFT PREVTOP PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 12
