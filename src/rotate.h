@@ -16,7 +16,8 @@ typedef enum ORIENTATION_ENUM OrientationType;
 #define isSideways(r) ((r)==angle90 || (r) == angle270)
 
 #ifdef ENABLE_AUTOSCROLL
-void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, int ow, int oh, OrientationType a);
+void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, OrientationType a);
+void RotScrollRectangleUp(RectangleType *rect, OrientationType o);
 #else
 void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a);
 #endif

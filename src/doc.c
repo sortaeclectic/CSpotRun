@@ -45,7 +45,7 @@ static void         _setLineHeight();
 static void         _scrollUpIfLastPage();
 static DWord        _fixStoryLen(Word *recLens);
 static void         _postDecodeProcessing();
-static void         _drawPage(RectanglePtr boundsPtr, WinHandle destWindow);
+static void         _drawPage(RectanglePtr boundsPtr, Boolean drawExtra);
 static void         _setApparentTextBounds();
 static Boolean      _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos, Boolean caseSensitive);
 static void         _rewindToStartOfWord();
@@ -77,8 +77,8 @@ VoidHand            _decodeBufHandle = NULL;
 CharPtr             _decodeBuf = NULL;
 // These describe the state of _decodeBuf
 UShort              _decodeBufLen = 0;            //Size of buffer allocated
-UShort              _decodeLen = 0;                //Characters decoded
-UShort              _recordDecoded = 0;            //The first record held in "_decodeBuf"
+UShort              _decodeLen = 0;               //Characters decoded
+UShort              _recordDecoded  0;            //The first record held in "_decodeBuf"
 UShort              _decodedRecordLen = 0;        //Characters in record #_recordDecoded which were decoded
 
 DWord               _fixedStoryLen;
@@ -89,10 +89,11 @@ UShort              _lineHeight = 0;
 
 #ifdef ENABLE_AUTOSCROLL
 static UShort       _pixelOffset = 0;
-static Boolean      _boundsChanged = true;
 static Boolean      _locationChanged = true;
-static WinHandle    osPageWindow = NULL;
+static UShort       _osExtraForAS; //How many extra rows are added to the osPageWindow
 #endif
+static Boolean      _boundsChanged = true;
+static WinHandle    osPageWindow = NULL;
 
 struct DOC_PREFS_STR _docPrefs = DEFAULT_DOCPREFS;
 
@@ -191,71 +192,57 @@ void Doc_drawPage()
 {
     Word        errorWord;
     WinHandle   screenWindow = NULL;
-#ifndef ENABLE_AUTOSCROLL
-    WinHandle   osPageWindow = NULL;
-#endif
 
     screenWindow = WinGetDrawWindow();
 
-#ifdef ENABLE_AUTOSCROLL
     if(_boundsChanged == true)
     {
         if(osPageWindow)
             WinDeleteWindow(osPageWindow, false);
-#endif
-        osPageWindow = WinCreateOffscreenWindow(_apparentTextBounds.extent.x,
 #ifdef ENABLE_AUTOSCROLL
-                        _apparentTextBounds.extent.y + _lineHeight,
-#else
-                        _apparentTextBounds.extent.y,
-#endif
+        osPageWindow = WinCreateOffscreenWindow(_apparentTextBounds.extent.x,
+                        _apparentTextBounds.extent.y + _osExtraForAS,
                         screenFormat,
                         &errorWord);
+#else
+        osPageWindow = WinCreateOffscreenWindow(_apparentTextBounds.extent.x,
+                        _apparentTextBounds.extent.y,
+                        screenFormat,
+                        &errorWord);
+#endif
         ErrFatalDisplayIf(NULL == osPageWindow, "f1");
 
-#ifdef ENABLE_AUTOSCROLL
         _boundsChanged = false;
     }
-#endif
 
     // Actual draw process, happens to osPageWindow
     WinSetDrawWindow(osPageWindow);
-#ifdef ENABLE_AUTOSCROLL
-    if(!MainForm_AutoScrollEnabled())
-#endif
-        WinEraseWindow();
+    WinEraseWindow();
 
-    _drawPage(&_apparentTextBounds, osPageWindow);
+    _drawPage(&_apparentTextBounds, false);
 
     WinSetDrawWindow(screenWindow);
 
     if (_docPrefs.orient == angle0)
     {
 #ifdef ENABLE_AUTOSCROLL
-        WinCopyRectangle(osPageWindow, screenWindow, &_apparentTextBounds, 0, 0, scrCopy);
+        WinCopyRectangle(osPageWindow, screenWindow, &_apparentTextBounds,
+                        _textGadgetBounds.topLeft.x, _textGadgetBounds.topLeft.y,
+                        scrCopy);
 #else
         WinRestoreBits(osPageWindow,
                         _textGadgetBounds.topLeft.x,
                         _textGadgetBounds.topLeft.y);
-        osPageWindow = NULL;
 #endif
     }
 #ifdef ENABLE_ROTATION
     else
     {
         RotCopyWindow(osPageWindow,
-                        _textGadgetBounds.topLeft.x,
-                        _textGadgetBounds.topLeft.y,
-#ifdef ENABLE_AUTOSCROLL
-                        _apparentTextBounds.extent.x,
-                        _apparentTextBounds.extent.y,
-#endif
+                        0,
+                        _apparentTextBounds.extent.y-1,
                         _docPrefs.orient);
 
-#ifndef ENABLE_AUTOSCROLL
-        WinDeleteWindow(osPageWindow, false);
-        osPageWindow = NULL;
-#endif
     }
 #endif
 }
@@ -296,14 +283,7 @@ void Doc_linesUp(Word linesToMove)
     FntSetFont(_docPrefs.font);
 
     lastCharIndex = _docPrefs.location.ch;
-/*
-    //Prev page will end at end of this page's first line.
-    if (!_onLastPage())
-    {
-        lastCharIndex += FntWordWrap(&_decodeBuf[_docPrefs.location.ch], _apparentTextBounds.extent.x);//xxx-1;
-        linesToMove++; //Because we are starting one line past start of page.
-    }
-*/
+
     while(true)
     {
         //Try to wrap back a whole page.
@@ -485,7 +465,7 @@ int Doc_translatePageButton(int dir)
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-static void _drawPage(RectanglePtr boundsPtr, WinHandle destWindow)
+static void _drawPage(RectanglePtr boundsPtr, Boolean drawExtra)
 {
     int        y = 0;
     int        charsOnRow = 0;
@@ -496,6 +476,7 @@ static void _drawPage(RectanglePtr boundsPtr, WinHandle destWindow)
     Word    errorWord;
     RectangleType osLineBounds;
     FontID    oldFont = FntGetFont();
+    WinHandle destWindow = WinGetDrawWindow();
 
     if (!_dbRef)
         return;
@@ -513,43 +494,35 @@ static void _drawPage(RectanglePtr boundsPtr, WinHandle destWindow)
     WinSetDrawWindow(osLineWindow);
     WinEraseRectangle(boundsPtr, 0);
 
-#ifdef ENABLE_AUTOSCROLL
-    linesToShow = (boundsPtr->extent.y + _lineHeight) / _lineHeight;
-#else
-    linesToShow = boundsPtr->extent.y / _lineHeight;
-#endif
+    if(drawExtra)
+        linesToShow = (boundsPtr->extent.y + _osExtraForAS) / _lineHeight;
+    else
+        linesToShow = (boundsPtr->extent.y) / _lineHeight;
+
     y = boundsPtr->topLeft.y;
     p = & _decodeBuf[_docPrefs.location.ch];
 
 #ifdef ENABLE_AUTOSCROLL
     if(MainForm_AutoScrollEnabled())
     {
-        // skip paste all but the last line
-        while((linesToShow-- > 1) && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
+        // skip past all but the last line
+        while((linesToShow > 1) && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
         {
             y += _lineHeight;
             p += charsOnRow;
+            linesToShow--;
         }
-
-        // get number of characters to draw and draw the last line to double buffer.
-        charsOnRow = FntWordWrap(p, boundsPtr->extent.x);
+    }
+#endif
+    while(linesToShow && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
+    {
         WinEraseRectangle(&osLineBounds, 0);
         TT_WinDrawChars(p, charsOnRow, 0, 0);
         //Copy the osLine in in an ORing kind of way.  This preserves lowercase extenders of previous line.
         WinCopyRectangle(osLineWindow, destWindow, &osLineBounds, boundsPtr->topLeft.x, y, scrOR);
-    }
-    else
-#endif
-    {
-        while(linesToShow-- && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
-        {
-            WinEraseRectangle(&osLineBounds, 0);
-            TT_WinDrawChars(p, charsOnRow, 0, 0);
-            //Copy the osLine in in an ORing kind of way.  This preserves lowercase extenders of previous line.
-            WinCopyRectangle(osLineWindow, destWindow, &osLineBounds, boundsPtr->topLeft.x, y, scrOR);
-            y += _lineHeight;
-            p += charsOnRow;
-        }
+        y += _lineHeight;
+        p += charsOnRow;
+        linesToShow--;
     }
 //    WinDrawLine(boundsPtr->topLeft.x, boundsPtr->topLeft.y+boundsPtr->extent.y-1,
 //                    boundsPtr->topLeft.x+boundsPtr->extent.x, boundsPtr->topLeft.y+boundsPtr->extent.y-1);
@@ -616,8 +589,8 @@ static void _setApparentTextBounds()
     }
 #endif
 
-#ifdef ENABLE_AUTOSCROLL
     _boundsChanged = true;
+#ifdef ENABLE_AUTOSCROLL
     _locationChanged = true;
 #endif
 }
@@ -631,8 +604,9 @@ static void _setLineHeight()
     _lineHeight = FntLineHeight() - _docPrefs.lineHeightAdjust;
     FntSetFont(oldFont);
 
-#ifdef ENABLE_AUTOSCROLL
     _boundsChanged = true;
+#ifdef ENABLE_AUTOSCROLL
+    _osExtraForAS = _lineHeight;
     _locationChanged = true;
 #endif
 }
@@ -874,53 +848,56 @@ static void _movePastWord()
 #ifdef ENABLE_AUTOSCROLL
 void Doc_pixelScroll()
 {
-    RectangleType   rect = _apparentTextBounds;
-    WinHandle       drawWindow;
-
-    // if scrolled enough to draw a line
-    if(_pixelOffset == _lineHeight)
-    {
-        // scroll down 1 and draw the page.
-        Doc_linesDown(1);
-        Doc_drawPage();
-
-        // reset offset and store new location
-        _pixelOffset = 0;
-    }
-
-
-    // shift double buffer up one, using actual buffer height
-    rect.extent.y += _lineHeight;
-    WinCopyRectangle(osPageWindow, osPageWindow, &rect, 0, -1, scrCopy);
-
-    // make a 1 pixel thick rect at bottom of double buffer
-    rect.topLeft.y  = rect.extent.y - 1;
-    rect.extent.y   = 1;
+    RectangleType rect;
+    WinHandle     drawWindow;
+    RectangleType vacated;
 
     drawWindow = WinGetDrawWindow();
     WinSetDrawWindow(osPageWindow);
 
-    // clear last line of double buffer
-    WinEraseRectangle(&rect, 0);
+    // increment pixel offset
+    _pixelOffset++;
+
+    // if scrolled enough to draw a line, scroll down 1 and draw the page.
+    if(_pixelOffset == _lineHeight)
+    {
+        Doc_linesDown(1);
+        _drawPage(&_apparentTextBounds, true);
+        _pixelOffset = 0;
+    }
+
+    // Shift the spare row at the bottom of the offscreen image up.
+    // todo: We don't need to shift it all, since the visible screen is scrolled below.
+    rect = _apparentTextBounds;
+    rect.extent.y += _osExtraForAS;
+    WinScrollRectangle(&rect, up, 1, &vacated);
+
     WinSetDrawWindow(drawWindow);
 
-    // draw double buffer to main display
     if (_docPrefs.orient == angle0)
     {
-        WinCopyRectangle(osPageWindow, drawWindow, &_apparentTextBounds, 0, 0, scrCopy);
+        RectangleType fromRect;
+        WinScrollRectangle(&_textGadgetBounds, up, 1, &vacated);
+        //Now fill in the gap at the bottom
+        fromRect.extent.x = _apparentTextBounds.extent.x;
+        fromRect.extent.y = _lineHeight;
+        fromRect.topLeft.x = 0;
+        fromRect.topLeft.y = _apparentTextBounds.extent.y-fromRect.extent.y;
+        WinCopyRectangle(osPageWindow, drawWindow, &fromRect,
+                         _textGadgetBounds.topLeft.x + fromRect.topLeft.x,
+                         _textGadgetBounds.topLeft.y + fromRect.topLeft.y,
+                         scrCopy);
     }
     else
     {
+        RotScrollRectangleUp(&_textGadgetBounds, _docPrefs.orient);
+        // RotCopyWindow might copy a few rows before the row you tell it to,
+        // since it needs to start on a pyte boundary. I think.
         RotCopyWindow(osPageWindow,
-                        _textGadgetBounds.topLeft.x,
-                        _textGadgetBounds.topLeft.y,
-                        _apparentTextBounds.extent.x,
-                        _apparentTextBounds.extent.y,
+                        _apparentTextBounds.extent.y-1-_lineHeight,
+                        _apparentTextBounds.extent.y-1,
                         _docPrefs.orient);
     }
-
-    // increment pixel offset
-    _pixelOffset += 1;
 }
 
 void Doc_pixelScrollClear()

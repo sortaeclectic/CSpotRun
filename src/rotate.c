@@ -50,11 +50,7 @@ int RotateY(int x, int y, OrientationType a)
 //
 // This is going to hurt a little. Try to relax.
 
-#ifdef ENABLE_AUTOSCROLL
-void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, int ow, int oh, OrientationType a)
-#else
-void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
-#endif
+void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, OrientationType a)
 {
     register Pyte  fromPyte;
     int toX, toY;               //writing to
@@ -92,13 +88,8 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
         toRowPytes = (toWindowH->gDeviceP->rowBytes * 8) / BITS_PER_PYTE;
         fromBpp = fromWindowH->gDeviceP->pixelSize;
         toBpp = toWindowH->gDeviceP->pixelSize;
-#ifdef ENABLE_AUTOSCROLL
-        fromWidth = ow;
-        fromHeight = oh;
-#else
         fromWidth = fromWindowH->displayWidthV20;
         fromHeight = fromWindowH->displayHeightV20;
-#endif
         toWidth = toWindowH->displayWidthV20;
         toHeight = toWindowH->displayHeightV20;
     }
@@ -107,15 +98,10 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
         //OS2
         SWord x,y;
 
-#ifdef ENABLE_AUTOSCROLL
-        fromWidth = ow;
-        fromHeight = oh;
-#else
         WinSetDrawWindow(fromWindowH);
         WinGetWindowExtent(&x,&y);
         fromWidth = x;
         fromHeight = y;
-#endif
 
         WinSetDrawWindow(toWindowH);
         WinGetWindowExtent(&x,&y);
@@ -127,6 +113,8 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
         toBpp = 1;
         toRowPytes = (20 * 8) / BITS_PER_PYTE;
     }
+
+    fromHeight = stopRow + 1;
 
     toBlackBits = ~((~(Pyte)0x0) << toBpp);
 
@@ -144,12 +132,16 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
     else
         dToPyte = 0;
 
+    if (a == angle90 || a == angle270)
+        while ((startRow * toBpp) % BITS_PER_PYTE)
+            startRow--;
+
     startingFromBitMask = ~((~(Pyte)0x0)>>fromBpp);
-    for (fromY=0; fromY < fromHeight; fromY++)
+    for (fromY=startRow; fromY < fromHeight; fromY++)
     {
         fromX = 0;
-        toX    = X_ROTATE(0, fromY, a)+xOffset+ox;
-        toY    = Y_ROTATE(0, fromY, a)+yOffset+oy;
+        toX    = X_ROTATE(0, fromY, a)+xOffset;
+        toY    = Y_ROTATE(0, fromY, a)+yOffset;
 
         //If the not sideways, and only this pixel were on, toByte would be equal to
         //toBitMask. Note that upon moving to the pixels to the immediate left or right,
@@ -231,5 +223,28 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
     }
 }
 
+void RotScrollRectangleUp(RectangleType *rect, OrientationType o)
+{
+	DirectionType dir;
+	RectangleType vacated;
 
+	switch (o)
+	{
+		case angle0:
+		    dir = up;
+		    break;
+		case angle90:
+		    dir = right;
+		    break;
+		case angle180:
+		    dir = down;
+		    break;
+		case angle270:
+		    dir = left;
+		    break;
+	}
+
+	WinScrollRectangle(rect, dir, 1, &vacated);
+
+}
 #endif

@@ -156,7 +156,6 @@ static void EventLoop()
     EventType e;
     FormType *pfrm;
     Word err;
-    Long timeout;
 #ifdef ENABLE_AUTOSCROLL
     Boolean autoScrollStopped = false;
 #endif
@@ -165,13 +164,17 @@ static void EventLoop()
     {
 #ifdef ENABLE_AUTOSCROLL
         if(MainForm_AutoScrollEnabled())
+            //todo: Time between frames is autoScrollSpeed+timeittakestodraw
+            //Should subtract the time since last scroll from the timeout here
+            //so that it will scroll at the same speed on future superfast Palm
+            //devices.
             EvtGetEvent(&e, appStatePtr->autoScrollSpeed);
         else
             EvtGetEvent(&e, evtWaitForever);
 
         // use Hard button 2 to toggle AutoScroll
-        if((e.eType == keyDownEvent)&&(e.data.keyDown.chr == hard2Chr)&&
-           (!(e.data.keyDown.modifiers & poweredOnKeyMask)))
+        if((e.eType == keyDownEvent)&&(e.data.keyDown.chr == hard2Chr)
+           && (!(e.data.keyDown.modifiers & poweredOnKeyMask)))
         {
             MainForm_ToggleAutoScroll();
             continue;

@@ -26,7 +26,7 @@
 #include "mainform.h"
 #include "callback.h"
 #include "app.h"
-#include "doclist.h"    
+#include "doclist.h"
 #include "rotate.h"
 #include "appstate.h"
 #include "doc.h"
@@ -247,8 +247,8 @@ static Boolean _MainFormHandleEvent(EventType *e)
                 FrmGetObjectBounds (formPtr, FrmGetObjectIndex (formPtr, gadgetID_autoScroll), &r);
                 if (RctPtInRectangle (e->screenX, e->screenY, &r))
                 {
-                  MainForm_ToggleAutoScroll();
-                  return true;
+                    MainForm_ToggleAutoScroll();
+                    return true;
                 }
 #endif
             }
