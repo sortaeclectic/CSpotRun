@@ -133,6 +133,10 @@ void Ucgui_layout(FormPtr formPtr, Word visibleControlMask)
         else
         {
             FrmHideObject(formPtr, objectIndex);
+            //Moving things offscreen is pretty lame. Unfortunately, this is
+            //the only thing that currently prevents the gadgets from being
+            //drawn. Need to store some enabled/disabled state somewhere
+            //instead.
             FrmSetObjectPosition(formPtr, objectIndex, 50, 200+i*2*rowHeight);
         }
         if (GAP_AFTER_MASK & gElements[i].bitmask)

@@ -21,6 +21,9 @@
 // http://www.concentric.net/~rbram/makedoc7.cpp
 // Is this documented elsewhere?
 
+// todo: I should have pulled out the drawing stuff to another object. "DocGadget.c"
+// or something. If anyone does any big changes to this code, I strongly recommend
+// making this split. Wish I'd done it right in the first place. -bill
 
 #include <Common.h>
 #include <System/SysAll.h>
