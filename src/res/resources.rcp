@@ -418,8 +418,8 @@ begin
     "$$SPACING"="Espaçamento"
     "$$GOTO PER"="Ir para %"
 #ifdef ENABLE_AUTOSCROLL
-    "$$AUTOSCROLL"="Auto Scroll"
-    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+    "$$AUTOSCROLL"="Auto Rolagem"
+    "$$AUTOSCROLLSPEED"="Veloc. de Auto Rolagem:"
 #endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -436,14 +436,14 @@ begin
                       "Considere esconder os controles que raramente usa. "\
                       "Perceba que todos os controles tem itens de menu equivalentes."
     "$$GLOBAL PREFS HELP"="Use a opção \'Alternar pág.acima/pág.abaixo\' para reverter a "\
-                                    "função dos botões página acima e página abaixo quando a "\
-                                    "tela está rotacionada.\n\n"\
-                                    "Use a opção \'Mostre linha da página anterior\' para repetir a última "\
-                                    "linha da página anterior quando avançar uma página.\n\n"\
-                                    "A escolha de \'Ação de toque\' controla que ação é executada quando "\
-                                    "você toca a tela.\n\n"\
-                                    "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
-                                    "are in 100ths of a second. 60-80 is the recommended speed."
+                             "função dos botões página acima e página abaixo quando a "\
+                             "tela está rotacionada.\n\n"\
+                             "Use a opção \'Mostre linha da página anterior\' para repetir a última "\
+                             "linha da página anterior quando avançar uma página.\n\n"\
+                             "A escolha de \'Ação de toque\' controla que ação é executada quando "\
+                             "você toca a tela.\n\n"\
+                             "Use a opção \'Veloc. de Auto Rolagem\' para controlar a velocidade de rolagem automática. Os números "\
+                             "estão em centésimos de segundo. 60-80 é a velocidade recomendada."
     "$$NO DOCS"="Não há arquivos DOC instalados!\n\nPor favor tente novamente o CSpotRun depois de instalar um ou dois documentos."
 
     "$$ERROR ALERT"="Oops!"
