@@ -107,3 +107,7 @@ Went multisegment, so that the debug version will link again.
 Changed font selection to use FontSelect() instead of using
 a single control per font.
 
+2/27/2002
+
+Added Norwegian from Knut Zakariassen [jobb@zakariassen.net]
+
