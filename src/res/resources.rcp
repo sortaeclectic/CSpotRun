@@ -64,7 +64,7 @@ begin
                           "Nastavením \'Uka øádku z pøedchozí strany\' zachováte "\
                           "pøi posunu o stránku viditelnou jednu øádku ze stránky pøedchozí.\n\n"\
                           "Nastavením \'uknutí\' zvolíte, jaká akce se vykoná, "\
-                          "kdy uknete na displej.\n\n"
+                          "kdy uknete na displej.\n\n"\
                           "\'Rychlost samoposuvu\' nastaví rychlost automatického "\
                           "posunu v setinách vteøiny. Lze doporuèit 60-80."
     "$$NO DOCS"="Nenašel jsem ádné DOC databáze!\n\nZkuste spustit CSpotRun znovu a po nainstalování jednoho èi dvou dokumentù."
