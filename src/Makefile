@@ -96,7 +96,7 @@ $(PROGNAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@
 
 resources.zip:
-	$(ZIP) -j $@ $(RCPS) 
+	$(ZIP) $@ $(RCPS) 
 
 clean:
 	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(RESDIR)/resources.rcp $(LANGUAGES) $(ZIPS) 
