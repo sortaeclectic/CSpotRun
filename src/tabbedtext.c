@@ -42,9 +42,6 @@ void Tab_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y)
     static Int16 wordX;     //x where current word started
     static char c;
 
-    if (!attrs)
-        attrs = GetCharAttr();
-
     tooFar = &chars[len];
 
     wordStart = chars;
@@ -52,7 +49,7 @@ void Tab_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y)
     while (chars < tooFar)
     {
         c = *chars;
-        if (!IsCntrl(attrs, c))
+        if (!TxtGlueCharIsCntrl(c))
             chars++;
         else
         {

@@ -20,6 +20,7 @@
 
 #include <PalmOS.h>
 #include <Core/System/CharAttr.h>
+#include <PalmOSGlue.h>
 #include "appstate.h"
 #include "rotate.h"
 #include "doc.h"
@@ -1043,19 +1044,11 @@ static Boolean _findString(Char* haystack, Char* needle,
 
 static void _movePastWord()
 {
-    const UInt16* attrs = GetCharAttr();
-
-    while (! IsSpace(attrs, gDoc.decodeBuf[_docPrefs.location.ch])
+    while (! TxtGlueCharIsSpace(gDoc.decodeBuf[_docPrefs.location.ch])
             && '\0' != gDoc.decodeBuf[_docPrefs.location.ch])
     {
         _docPrefs.location.ch++;
     }
-    /*
-    while (IsSpace(attrs, gDoc.decodeBuf[_docPrefs.location.ch]))
-    {
-        _docPrefs.location.ch++;
-    }
-    */
 }
 #endif
 
