@@ -40,7 +40,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Samoposuv"
     "$$AUTOSCROLLSPEED"="Rychlost samoposuvu:"
-    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
+    "$$TOGGLE AUTOSCROLL"="Samoposuv ovládat adres.tlaè."
 #endif
     "$$GOTO PER"="Jdi na %"
 
