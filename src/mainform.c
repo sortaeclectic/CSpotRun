@@ -415,11 +415,14 @@ static void _drawAutoScrollGadget()
 
 void MainForm_ToggleAutoScroll()
 {
-    Doc_pixelScrollClear(false);
-    if (!autoScrollEnabled)
-       Doc_prepareForPixelScrolling();
-
     autoScrollEnabled = ! autoScrollEnabled;
+
+    if (autoScrollEnabled) {
+        //If line scrolling, force pixel offset to 0, even if no move.
+        Doc_pixelScrollClear(ATYPE_LINE == appStatePtr->autoScrollType);
+        //Draw the partial line
+        Doc_prepareForPixelScrolling();
+    }
 
     _drawAutoScrollGadget();
 }

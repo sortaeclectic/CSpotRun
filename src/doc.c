@@ -196,6 +196,8 @@ void Doc_drawPage()
 
     screenWindow = WinGetDrawWindow();
 
+    Doc_pixelScrollClear(false);
+
     if(_boundsChanged == true)
     {
         if(osPageWindow)
@@ -471,9 +473,8 @@ int Doc_translatePageButton(int dir)
 static void _drawPage(RectanglePtr boundsPtr,
                         Boolean drawOnscreenPart, Boolean drawOffscreenPart)
 {
-    int        y = 0;
+    int        y;
     int        charsOnRow = 0;
-    int        offsetFromLocation = 0;
     char    *p;
     int        linesToShow;
     WinHandle osLineWindow = NULL;
@@ -511,7 +512,7 @@ static void _drawPage(RectanglePtr boundsPtr,
     else
         linesToShow = (boundsPtr->extent.y) / _lineHeight;
 
-    y = boundsPtr->topLeft.y;
+    y = boundsPtr->topLeft.y - _pixelOffset;
     p = & _decodeBuf[_docPrefs.location.ch];
 
 #ifdef ENABLE_AUTOSCROLL
@@ -865,9 +866,6 @@ void Doc_prepareForPixelScrolling()
     RectangleType fromRect;
     WinHandle w;
 
-    if (_pixelOffset)
-        return;
-
     //Draw the partial line at the bottom of the screen.
 
     w = WinGetDrawWindow();
@@ -915,8 +913,8 @@ void Doc_pixelScroll()
             return;
         }
         WinEraseWindow();
-        _drawPage(&_apparentTextBounds, false, true);
         _pixelOffset = 0;
+        _drawPage(&_apparentTextBounds, false, true);
     }
 
     // increment pixel offset

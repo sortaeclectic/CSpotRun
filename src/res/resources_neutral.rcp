@@ -110,7 +110,7 @@ BEGIN
 END
 
 #ifdef ENABLE_AUTOSCROLL
-FORM ID formID_globalPrefs AT (2 26 156 116)
+FORM ID formID_globalPrefs AT (2 42 156 116)
 #else
 FORM ID formID_globalPrefs AT (2 72 156 86)
 #endif

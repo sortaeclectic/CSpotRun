@@ -141,7 +141,8 @@ void Ucgui_layout(FormPtr formPtr, Word visibleControlMask)
 
     //basterdizing formBounds
     formBounds.extent.y = y;
-    if (y < 160) formBounds.extent.y--; //Because selectors paint outside their bounds?
+    if (y < 160)
+        formBounds.extent.y-=2; //Because selectors paint outside their bounds?
 
     formBounds.topLeft.x = formBounds.topLeft.y = 0;
     //formBounds.extent.y=(formBounds.extent.y*3)/4;//xxx for testing
