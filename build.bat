@@ -4,7 +4,7 @@ pushd .
 
 set V1=0
 set V2=9
-set V3=9
+set V3=10
 
 set TAG=CSPOTRUN_%V1%_%V2%_%V3%
 set SRCZIP=CSpotRunSrc%V1%p%V2%p%V3%.zip
