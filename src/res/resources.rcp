@@ -51,8 +51,7 @@ begin
         "GNU General Public License (GPL). Mùžete ji nalézt "\
         "na: http://www.gnu.org/copyleft/gpl.html\n\n"\
         "Zdrojový kód a poslední verze jsou k dispozici na: "\
-        "32768.com/cspotrun/."\
-        ""\
+        "32768.com/cspotrun/.\n\n"\
         "Contributors:\n\n"\
         "Ivo Panáèek\nIvo.Panacek@regionet.cz\nCzech translation\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
