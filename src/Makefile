@@ -35,8 +35,11 @@ STDDEP = Makefile resources.h app.h appstate.h callback.h
 CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH ENABLE_AUTOSCROLL ENABLE_BMK
 DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt)) -DNON_INTERNATIONAL 
 
+ifdef DEBUG
 CFLAGS = -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
-#CFLAGS = -O2 $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
+else
+CFLAGS = -O2 $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
+endif
 
 RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) defined[tmp[s]]=""; d=0}\
 					{\
@@ -102,7 +105,8 @@ clean:
 	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(RESDIR)/resources.rcp $(LANGUAGES) $(ZIPS) 
 
 depend:
-	makedepend -Y -- $(CFLAGS) -- *.c 
+	makedepend -Y -- $(CFLAGS) -- *.c
+
 # DO NOT DELETE
 
 
@@ -115,14 +119,7 @@ controlsform.o: mainform.h resources.h ucgui.h
 decode.o: decode.h
 doclist.o: app.h appstate.h doc.h doclist.h docprefs.h rotate.h
 doc.o: appstate.h bmk.h decode.h doc.h docprefs.h mainform.h resources.h
-doc.o: rotate.h tabbedtext.h /usr/include/bits/local_lim.h
-doc.o: /usr/include/bits/posix1_lim.h /usr/include/bits/posix2_lim.h
-doc.o: /usr/include/bits/stdio_lim.h /usr/include/bits/wordsize.h
-doc.o: /usr/include/bits/xopen_lim.h /usr/include/features.h
-doc.o: /usr/include/gnu/stubs.h /usr/include/limits.h
-doc.o: /usr/include/linux/limits.h /usr/include/sys/cdefs.h
-doc.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/limits.h
-doc.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/syslimits.h
+doc.o: rotate.h tabbedtext.h
 docprefs.o: appstate.h doclist.h docprefs.h rotate.h
 fontselect.o: appstate.h doc.h docprefs.h fontselect.h resources.h rotate.h
 mainform.o: app.h appstate.h bmk.h bmknamefrm.h callback.h doc.h doclist.h
