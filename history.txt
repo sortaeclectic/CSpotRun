@@ -64,3 +64,6 @@ Always switch into 1-bit mode.
 
 Chinese translation from Chen-hsiung Chan (frankch@waru.life.nthu.edu.tw).
 
+2/27/2000
+
+Released as 1.0
