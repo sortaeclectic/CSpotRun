@@ -37,7 +37,9 @@ begin
                                     "The \'tap action\' choice controls what action is performed with you "\
                                     "tap on the screen.\n\n"\
                                     "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
-                                    "are in 100ths of a second. 15-20 is the recommended speed."
+                                    "are in 100ths of a second. 15-20 is the recommended speed. "\
+                                    "While autoscrolling, the page up and page down "\
+                                    "buttons can be used to adjust the speed."
     "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
 
     "$$ERROR ALERT"="Oops!"
