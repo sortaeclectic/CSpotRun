@@ -1,7 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998-2002  by Bill Clagett (wtc@pobox.com)
+ * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
  *
  * 27 Apr 2001, added bookmarks support, Alexey Raschepkin (apr@direct.ru)
  *
@@ -20,7 +19,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <PalmOS.h>
+#include <Common.h>
+#include <System/SysAll.h>
+#include <System/SysEvtMgr.h>
+#include <UI/UIAll.h>
+#include <List.h>
 
 #include "resources.h"
 #include "callback.h"
@@ -30,167 +33,127 @@
 
 #ifdef ENABLE_BMK
 
-static Boolean  _BmkEdFormHandleEvent(EventType *e);
+static Boolean	_BmkEdFormHandleEvent(EventType *e);
 
-
-static FormPtr  formPtr;
-static ListPtr  listPtr;
+FormPtr	formPtr;
+ListPtr	listPtr;
 
 Boolean BmkEdFormHandleEvent(EventType *e)
 {
-    Boolean        handled = false;
+	Boolean        handled = false;
 
-    CALLBACK_PROLOGUE
-    handled = _BmkEdFormHandleEvent(e);
-    CALLBACK_EPILOGUE
+	CALLBACK_PROLOGUE
+	handled = _BmkEdFormHandleEvent(e);
+	CALLBACK_EPILOGUE
 
-    return handled;
+	return handled;
 }
 
 
 /*
  * this form works with the bookmark list and so before
  * returning to any other form it should enqueue
- * bmkRedrawListEvt to give a chance any other user of
+ * bmkListRedrawEvt to give a chance any other user of
  * the bookmark subsystem redraw their lists
  */
 static Boolean _BmkEdFormHandleEvent(EventType *e)
 {
-    EventType listRedrawEvt;
-    Err err;
-    /* sel is static because it needs to keep selection */
-    /* position after returning from the bmknamefrm */
-    static Int16 sel = noListSelection;
+	EventType listRedrawEvt = {bmkListRedrawEvt, 0, 0, 0, {}};
+	UInt16 sel;
+	Err err;
 
-    MemSet(&listRedrawEvt, sizeof(listRedrawEvt), 0);
-    listRedrawEvt.eType = bmkRedrawListEvt;
+	switch(e->eType)
+	{
+	case ctlSelectEvent:
+		switch (e->data.ctlSelect.controlID)
+		{
+		case buttonID_cancel:
+			EvtAddEventToQueue(&listRedrawEvt);
+			/* FrmUpdateForm(formID_main, 0); */
+			FrmReturnToForm(0);
+			return true;
 
-    switch(e->eType)
-    {
-    case ctlSelectEvent:
-        switch (e->data.ctlSelect.controlID)
-        {
-        case buttonID_cancel:
-            EvtAddEventToQueue(&listRedrawEvt);
-            FrmReturnToForm(0);
-            return true;
+		case buttonID_bmkGoTo:
+			sel = LstGetSelection(listPtr);
+			if(sel == noListSelection)
+				return true;
 
-        case buttonID_bmkGoTo:
-            sel = LstGetSelection(listPtr);
-            if(sel == noListSelection)
-                return true;
+			BmkGoTo(sel, 0);
+			FrmUpdateForm(formID_main, 0);
+			FrmReturnToForm(0);
+			return true;
 
-            BmkGoTo(sel, 0);
-            EvtAddEventToQueue(&listRedrawEvt);
-            FrmReturnToForm(0);
-#if 0
-/*
- * this form update causes flashing on some roms
- * after returning to the main form
- * think this is because update event is enqueued
- * twice, once by the os and then by FrmUpdateForm()
- */
-            FrmUpdateForm(formID_main, 0);
-#endif
-            return true;
+		case buttonID_bmkDelete:
+			sel = LstGetSelection(listPtr);
+			if(sel == noListSelection)
+				return true;
 
-        case buttonID_bmkDelete:
-            sel = LstGetSelection(listPtr);
-            if(sel == noListSelection)
-                return true;
+			err = BmkDelete(sel);
+			goto RET_REDRAW;
 
-            err = BmkDelete(sel);
+		case buttonID_bmkRename:
+			sel = LstGetSelection(listPtr);
+			if(sel == noListSelection)
+				return true;
+			bmkCurSel = sel;
+		    	FrmPopupForm(formID_bmkName);
+			return true;
 
-            /* if current list selection is 0  */
-            /* then, since sel is unsigned,    */
-            /* substricting of 1 will wrap sel */
-            /* and it will hold 0xffff which is */
-            /* equal to 'noListSelection'      */
-            if(sel == LstGetNumberOfItems(listPtr) - 1)
-                sel--;
+		case buttonID_bmkMoveUp:
+			sel = LstGetSelection(listPtr);
+			if(sel == noListSelection)
+				return true;
 
-            goto RET_REDRAW;
+			err = BmkMove(MOVE_UP, sel);
 
-        case buttonID_bmkRename:
-            sel = LstGetSelection(listPtr);
-            if(sel == noListSelection)
-                return true;
-                FrmPopupForm(formID_bmkName);
-            return true;
+			if(!err)
+				LstSetSelection(listPtr, sel ? sel - 1 : 0);
 
-        case buttonID_bmkMoveUp:
-            sel = LstGetSelection(listPtr);
-            if(sel == noListSelection)
-                return true;
+			goto RET_REDRAW;
 
-            err = BmkMove(MOVE_UP, sel);
+		case buttonID_bmkMoveDown:
+			sel = LstGetSelection(listPtr);
+			if(sel == noListSelection)
+				return true;
 
-            if(!err) sel = sel ? --sel : 0;
+			if(sel == LstGetNumberOfItems(listPtr) - 1)
+				return true;
 
-            goto RET_REDRAW;
+			err = BmkMove(MOVE_DOWN, sel);
 
-        case buttonID_bmkMoveDown:
-            sel = LstGetSelection(listPtr);
-            if(sel == noListSelection)
-                return true;
+			if(!err)
+				LstSetSelection(listPtr, sel + 1);
 
-            if(sel == LstGetNumberOfItems(listPtr) - 1)
-                return true;
-
-            err = BmkMove(MOVE_DOWN, sel);
-
-            if(!err) sel++;
-
-            goto RET_REDRAW;
-
-        case buttonID_bmkSort:
-    {
-        int s = FrmAlert(alertID_bmkSort);
-        if (s < 2) {
-            err = BmkSort(s == 0 ? SORT_NAME : SORT_POS);
-            if(err)
-            BmkReportError(err);
-                goto RET_REDRAW;
-        } else
-            return true;
-    }
-        case buttonID_bmkDelAll:
-            if (FrmAlert(alertID_bmkConfirmDel) == 0) {
-             err = BmkDeleteAll();
-                 goto RET_REDRAW;
-        }
-        return true;
-        }
-        break;
+			goto RET_REDRAW;
+		}
+		break;
 
 
-    case frmOpenEvent:
-        sel = noListSelection;
-        formPtr = FrmGetActiveForm();
-        listPtr = FrmGetObjectPtr(formPtr,
-            FrmGetObjectIndex(formPtr, listID_bmkEd));
-        BmkPopulateList(listPtr, 0, 0);
-        FrmDrawForm(formPtr);
-        return true;
+	case frmOpenEvent:
+		formPtr = FrmGetActiveForm();
+		listPtr = FrmGetObjectPtr(formPtr,
+			FrmGetObjectIndex(formPtr, listID_bmkEd));
+		BmkPopulateList(listPtr, 0, 0);
+		FrmDrawForm(formPtr);
+		return true;
 
-    case bmkNameFrmOkEvt:
-        /* rename the bookmark, new name is in 'bmkName' */
-        err = BmkRename(sel, bmkName);
-        goto RET_REDRAW;
-    }
-
-    return false;
+	case bmkListRedrawEvt:
+		err = 0;
+		goto RET_REDRAW;
+	}
+	
+	return false;
 
 RET_REDRAW:
-    if(!err) {
-        err = BmkPopulateList(listPtr, 0, 0);
-        LstDrawList(listPtr);
-        LstSetSelection(listPtr, sel);
-    } else {
-        BmkReportError(err);
-    }
+	if(!err) {
+		err = BmkPopulateList(listPtr, 0, 0);
+		LstDrawList(listPtr);
+	}
 
-    return true;
+	if(err)
+		BmkReportError(err);
+
+	return true;
 }
 
 

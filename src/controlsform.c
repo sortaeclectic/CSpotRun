@@ -98,7 +98,7 @@ static void HandleFormOpenEvent()
 {
     int i;
     RectangleType ctlBounds;
-    int y = 5;
+    int y = 3;
     int x = 5;
     int fieldCount = 0;
 
@@ -115,7 +115,7 @@ static void HandleFormOpenEvent()
             UShort    fieldIndex = FrmGetObjectIndex(formPtr, fieldID);
 
             x = 5;
-            y += 15;
+            y += 13;
 
             //Set text of label
             //FldSetTextPtr((FieldPtr)FrmGetObjectPtr(formPtr, fieldIndex), UcguiElems[i].groupTitle);

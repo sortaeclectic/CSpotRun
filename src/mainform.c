@@ -33,6 +33,7 @@
 #include "docprefs.h"
 #include "ucgui.h"
 #include "fontselect.h"
+#include "bmk.h"
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,6 +46,10 @@ static void        HandleDocSelect(int documentIndex);
 static void        _drawLineSpacingGadgets();
 static void        _drawLineSpacingGadget(int index);
 static void        _changeLineSpacing(int index);
+
+#ifdef ENABLE_BMK
+static void        _repositionBmkList(void);
+#endif
 
 #ifdef ENABLE_AUTOSCROLL
 static void         _drawAutoScrollGadget();
@@ -61,8 +66,11 @@ static void        _rotate(int dir);
 
 FormPtr     formPtr;
 ListPtr     docListPtr;
+ListPtr     bmkListPtr;
 ControlPtr  docPopupPtr;
 ControlPtr  percentPopupPtr;
+
+UInt16      bmkListIndex;
 
 Char        percentString[] = "xxx%";
 UShort      selectableLineSpacings[LINE_SPACING_GADGET_COUNT] = {0, 1, 2};
@@ -89,6 +97,9 @@ Boolean MainFormHandleEvent(EventType *e)
 
 static Boolean _MainFormHandleEvent(EventType *e)
 {
+    int a;
+    Err err;
+
     _setHandyPointers();
     switch(e->eType)
     {
@@ -131,6 +142,22 @@ static Boolean _MainFormHandleEvent(EventType *e)
                     Doc_drawPage();
                     _updatePercent();
                     return true;
+#ifdef ENABLE_BMK
+                case listID_bmk:
+		    a = BmkGetAction(e->data.popSelect.selection);
+		    if(a == A_NEW) {
+			    FrmPopupForm(formID_bmkName);
+			    return true;
+		    } else if(a == A_EDIT) {
+			    FrmPopupForm(formID_bmkEd);
+			    return true;
+		    }
+		    
+		    BmkGoTo(e->data.popSelect.selection, 1);
+                    Doc_drawPage();
+                    _updatePercent();
+                    return true;
+#endif
             }
             break;
         case menuEvent:
@@ -193,6 +220,32 @@ static Boolean _MainFormHandleEvent(EventType *e)
                     _rotate(1);
                     return true;
 #endif
+
+#ifdef ENABLE_BMK
+		case menuitemID_bmkAdd:
+                    MenuEraseStatus(NULL);
+		    FrmPopupForm(formID_bmkName);
+		    return true;
+
+		case menuitemID_bmkEd:
+		    MenuEraseStatus(NULL);
+		    FrmPopupForm(formID_bmkEd);
+		    return true;
+
+		case menuitemID_bmkSort:
+		    MenuEraseStatus(NULL);
+		    FrmPopupForm(formID_bmkSort);
+		    return true;
+
+		case menuitemID_bmkDelAll:
+		    MenuEraseStatus(NULL);
+
+                    if (FrmAlert(alertID_bmkConfirmDel) == 0) {
+		        BmkDeleteAll();
+                        FrmUpdateForm(formID_main, 0);
+		    }
+		    return true;
+#endif
             }
 
             MenuEraseStatus(NULL);
@@ -220,6 +273,12 @@ static Boolean _MainFormHandleEvent(EventType *e)
                 _drawAutoScrollGadget();
 #endif
 
+#ifdef ENABLE_BMK
+		err = BmkPopulateList(bmkListPtr, 1, 1);
+		if(err)
+			BmkReportError(err);
+		_repositionBmkList();
+#endif
                 return true;
             }
             break;
@@ -270,6 +329,15 @@ static Boolean _MainFormHandleEvent(EventType *e)
         case frmCloseEvent:
             HandleFormCloseEvent();
             return false;
+
+#ifdef ENABLE_BMK
+	case bmkListRedrawEvt:
+	    err = BmkPopulateList(bmkListPtr, 1, 1);
+	    if(err)
+                BmkReportError(err);
+            _repositionBmkList();
+	    return true;
+#endif
     }
     return false;
 }
@@ -279,11 +347,13 @@ static void    HandleDocSelect(int documentIndex)
     Doc_close();
     _documentIndex = documentIndex;
 
-    Doc_open(DocList_getCardNo(documentIndex), DocList_getID(documentIndex), DocList_getTitle(documentIndex));
+    Doc_open(DocList_getCardNo(documentIndex),
+        DocList_getID(documentIndex), DocList_getTitle(documentIndex));
 
     // When the doc was opened, prefs changed.
 
-    //Set the document popup label //Changed popup trigger to simply "Doc", otherwise it resizes which causes UCGUI funkiness.
+    //Set the document popup label
+    //Changed popup trigger to simply "Doc", otherwise it resizes which causes UCGUI funkiness.
     //CtlSetLabel(docPopupPtr, DocList_getTitle(documentIndex));
 
 
@@ -298,6 +368,10 @@ static void _setHandyPointers()
     formPtr = FrmGetActiveForm();
 
     docListPtr = FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, listID_doc));
+#ifdef ENABLE_BMK
+    bmkListIndex = FrmGetObjectIndex(formPtr, listID_bmk);
+    bmkListPtr = FrmGetObjectPtr(formPtr, bmkListIndex);
+#endif
     docPopupPtr = FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_doc));
     percentPopupPtr = FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_percent));
 }
@@ -538,3 +612,17 @@ static void        _rotate(int dir)
     Doc_drawPage();
 }
 #endif
+
+#ifdef ENABLE_BMK
+void _repositionBmkList(void)
+{
+	RectangleType r;
+	RectangleType rf;
+
+	FrmGetFormBounds(formPtr, &rf);
+	FrmGetObjectBounds(formPtr, bmkListIndex, &r);
+	r.topLeft.y = rf.extent.y - r.extent.y;
+	FrmSetObjectBounds(formPtr, bmkListIndex, &r);
+}
+#endif
+

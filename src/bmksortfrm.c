@@ -2,7 +2,7 @@
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
  * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
  *
- * 26 Apr 2001, added bookmarks support, Alexey Raschepkin (apr@direct.ru)
+ * 28 Apr 2001, added bookmarks support, Alexey Raschepkin (apr@direct.ru)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,63 +26,53 @@
 
 #include "resources.h"
 #include "callback.h"
-#include "bmknamefrm.h"
+#include "bmksortfrm.h"
 #include "bmk.h"
 
 #ifdef ENABLE_BMK
 
-/* bookmark current selection, should be set before */
-/* opening this form, if not set (-1 by default)    */
-/* then new bookmark will be added, otherwise       */
-/* this value regarded as a selection in the list   */
-/* the corresponding bookmark will be renamed       */
-int bmkCurSel = -1;
-
-static Boolean  _BmkNameFormHandleEvent(EventType *e);
+static Boolean  _BmkSortFormHandleEvent(EventType *e);
 
 FormPtr     formPtr;
-FieldPtr    nameFieldPtr;
 
-Boolean BmkNameFormHandleEvent(EventType *e)
+Boolean BmkSortFormHandleEvent(EventType *e)
 {
     Boolean        handled = false;
 
     CALLBACK_PROLOGUE
-    handled = _BmkNameFormHandleEvent(e);
+    handled = _BmkSortFormHandleEvent(e);
     CALLBACK_EPILOGUE
 
     return handled;
 }
 
-static Boolean _BmkNameFormHandleEvent(EventType *e)
+static Boolean _BmkSortFormHandleEvent(EventType *e)
 {
     EventType listRedrawEvt = {bmkListRedrawEvt, 0, 0, 0, {}};
-    Err err = 0;
+    Err err;
 
     switch(e->eType)
     {
     case ctlSelectEvent:
         switch (e->data.ctlSelect.controlID)
         {
-        case buttonID_ok:
-            if(bmkCurSel != -1) {
-                err = BmkRename(bmkCurSel,
-                    FldGetTextPtr(nameFieldPtr));
-            } else {
-                err = BmkAdd(FldGetTextPtr(nameFieldPtr), 0);
-            }
+        case buttonID_cancel:
+            FrmReturnToForm(0);
+            return true;
 
+        case buttonID_bmkSortPosition:
+            err = BmkSort(SORT_POS);
             if(err)
                 BmkReportError(err);
-
-            bmkCurSel = -1;
-
             EvtAddEventToQueue(&listRedrawEvt);
             FrmReturnToForm(0);
             return true;
 
-        case buttonID_cancel:
-            bmkCurSel = -1;
+        case buttonID_bmkSortName:
+            err = BmkSort(SORT_NAME);
+            if(err)
+                BmkReportError(err);
+            EvtAddEventToQueue(&listRedrawEvt);
             FrmReturnToForm(0);
             return true;
         }
@@ -90,15 +80,9 @@ static Boolean _BmkNameFormHandleEvent(EventType *e)
 
     case frmOpenEvent:
         formPtr = FrmGetActiveForm();
-            nameFieldPtr = FrmGetObjectPtr(formPtr,
-            FrmGetObjectIndex(formPtr, fieldID_bmkName));
-        FldSetMaxChars(nameFieldPtr, BMK_NAME_SIZE);
         FrmDrawForm(formPtr);
-        FrmSetFocus(formPtr,
-            FrmGetObjectIndex(formPtr, fieldID_bmkName));
         return true;
     }
-
     return false;
 }
 

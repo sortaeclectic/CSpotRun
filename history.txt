@@ -75,3 +75,7 @@ Estonian translation from Rauno Varblas (raunov@yahoo.com).
 Italian translation from Mad IP Adress (badipadress@yahoo.com).
 Polish translation from Slawomir Lipski (slawek@altkom.com.pl).
 More Dutch work from Robbert Flipse (robbert@flipse-partners.nl).
+
+6/16/2001
+
+Bookmarks from Alexey Raschepkin (apr@direct.ru).

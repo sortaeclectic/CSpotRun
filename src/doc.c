@@ -37,6 +37,7 @@
 #include "decode.h"
 #include "docprefs.h"
 #include "tabbedtext.h"
+#include "bmk.h"
 #include <limits.h>
 
 #define WORD_MAX USHRT_MAX
@@ -57,6 +58,13 @@ static Boolean      _findString(CharPtr haystack, CharPtr needle,
 static void         _rewindToStartOfWord();
 static void         _movePastWord();
 static Boolean      _onLastPage();
+
+
+/*
+ * _dbRef and _wNumRecs are referenced from the bookmarks subsystem
+ */
+DmOpenRef           _dbRef = NULL;
+Word                _wNumRecs;
 
 ////////////////////////////////////////////////////////////////////////////////
 // private data
@@ -83,7 +91,6 @@ struct RECORD0_STR
 
 VoidHand            _record0Handle = NULL;
 struct RECORD0_STR* _record0Ptr = NULL;
-DmOpenRef           _dbRef = NULL;
 VoidHand            _decodeBufHandle = NULL;
 
 CharPtr             _decodeBuf = NULL;
@@ -99,7 +106,6 @@ DWord               _fixedStoryLen;
 RectangleType       _textGadgetBounds;
 RectangleType       _apparentTextBounds;
 UShort              _lineHeight = 0;
-Word                _wNumRecs;
 
 #ifdef ENABLE_AUTOSCROLL
 static UShort       _pixelOffset = 0;
@@ -129,7 +135,11 @@ void Doc_open(UInt cardNo, LocalID dbID, char name[dmDBNameLength])
     ErrFatalDisplayIf(_dbRef != NULL, "g");
 
     //Open Db
+#ifdef ENABLE_BMK
+    _dbRef = DmOpenDatabase(cardNo, dbID, dmModeReadWrite);
+#else
     _dbRef = DmOpenDatabase(cardNo, dbID, dmModeReadOnly);
+#endif
     ErrFatalDisplayIf(!_dbRef, "a");
 
     //lock record0
@@ -176,7 +186,6 @@ void Doc_open(UInt cardNo, LocalID dbID, char name[dmDBNameLength])
     _setLineHeight(); //line height is dependent on the docPrefs.
     _setApparentTextBounds(); //rotation is from docPrefs.
     _loadCurrentRecord();
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -187,6 +196,11 @@ void Doc_close()
     //If a document is open...
     if (_dbRef != NULL)
     {
+#ifdef ENABLE_BMK
+	/* close bookmarks first */
+        BmkCloseDoc();
+#endif
+    
         DocPrefs_savePrefs(&_docPrefs);
 
         //Free decode buffer
@@ -417,7 +431,7 @@ UShort Doc_getLineHeightAdjust()
     return _docPrefs.lineHeightAdjust;
 }
 
-UInt Doc_getPercent()
+DWord Doc_getPosition()
 {
     DWord    pos = 0;
     int i;
@@ -429,12 +443,17 @@ UInt Doc_getPercent()
     //Add in this partial record
     pos += (DWord)_docPrefs.location.ch;
 
+    return pos;
+}
+
+UInt Doc_getPercent()
+{
+    DWord    pos = Doc_getPosition();
     return (100 * pos) / (_fixedStoryLen-1);
 }
 
-void Doc_setPercent(UInt per)
+void Doc_setPosition(DWord pos)
 {
-    DWord pos = (per * (_fixedStoryLen-1)) / 100;
     DWord prevRecsLen = 0;
     Word i;
 
@@ -450,7 +469,7 @@ void Doc_setPercent(UInt per)
     _loadCurrentRecord();
 
     // Insure that page doesn't start in mid-line.
-    if (per != 0)
+    if (pos != 0)
     {
         Doc_linesUp(1);
         Doc_linesDown(1);
@@ -460,6 +479,12 @@ void Doc_setPercent(UInt per)
 #ifdef ENABLE_AUTOSCROLL
     _locationChanged = true;
 #endif
+}
+
+void Doc_setPercent(UInt per)
+{
+    DWord pos = (per * (_fixedStoryLen-1)) / 100;
+    Doc_setPosition(pos);
 }
 
 Boolean Doc_inBottomHalf(int screenX, int screenY)

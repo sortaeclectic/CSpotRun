@@ -27,11 +27,12 @@ ICONTEXT = $(PROGNAME)
 
 OBJS = pilotmain.o mainform.o doclist.o doc.o \
 		decode.o docprefs.o tabbedtext.o controlsform.o \
-		fontselect.o ucgui.o rotate.o prefsform.o searchform.o
+		fontselect.o ucgui.o rotate.o prefsform.o searchform.o \
+		bmk.o bmknamefrm.o bmkedfrm.o bmksortfrm.o
 
 STDDEP = Makefile resources.h app.h appstate.h callback.h
 
-CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH ENABLE_AUTOSCROLL
+CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH ENABLE_AUTOSCROLL ENABLE_BMK
 DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt)) -DNON_INTERNATIONAL 
 
 #CFLAGS = -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
@@ -100,10 +101,11 @@ resources.zip:
 clean:
 	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(RESDIR)/resources.rcp $(LANGUAGES) $(ZIPS) 
 
-pilotmain.o:    pilotmain.c $(STDDEP) mainform.h controlsform.h ucgui.h prefsform.h docprefs.h searchform.h
-mainform.o:     mainform.c $(STDDEP) mainform.h doclist.h rotate.h doc.h docprefs.h ucgui.h fontselect.h
+pilotmain.o:    pilotmain.c $(STDDEP) mainform.h controlsform.h ucgui.h prefsform.h docprefs.h searchform.h \
+		bmknamefrm.h bmkedfrm.h bmksortfrm.h bmk.h
+mainform.o:     mainform.c $(STDDEP) mainform.h doclist.h rotate.h doc.h docprefs.h ucgui.h fontselect.h bmk.h
 doclist.o:      doclist.c $(STDDEP) doclist.h rotate.h doc.h
-doc.o:          doc.c $(STDDEP) doc.h rotate.h mainform.h decode.h docprefs.h tabbedtext.h
+doc.o:          doc.c $(STDDEP) doc.h rotate.h mainform.h decode.h docprefs.h tabbedtext.h bmk.h
 decode.o:       decode.c $(STDDEP) decode.h
 docprefs.o:     docprefs.c $(STDDEP) docprefs.h doclist.h rotate.h
 tabbedtext.o:   tabbedtext.c $(STDDEP) tabbedtext.h
@@ -113,3 +115,8 @@ ucgui.o:        ucgui.c $(STDDEP) ucgui.h fontselect.h
 rotate.o:       rotate.c $(STDDEP) rotate.h
 prefsform.o:    prefsform.c $(STDDEP) prefsform.h ucgui.h mainform.h controlsform.h
 searchform.o:   searchform.c  $(STDDEP) searchform.h mainform.h doc.h
+bmknamefrm.o:	bmknamefrm.c $(STDDEP) bmknamefrm.h bmk.h
+bmkedfrm.o:	bmkedfrm.c $(STDDEP) bmkedfrm.h bmk.h bmknamefrm.h
+bmksortfrm.o:	bmksortfrm.c $(STDDEP) bmksortfrm.h bmk.h
+bmk.o:		bmk.c $(STDDEP) bmk.h doc.h
+

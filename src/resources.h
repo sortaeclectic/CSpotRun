@@ -5,6 +5,12 @@
     #define    formID_search            1003
 #endif
 
+#ifdef ENABLE_BMK
+    #define formID_bmkName	1004
+    #define formID_bmkEd        1005
+    #define formID_bmkSort      1006
+#endif
+
 #define menuID_main             1200
 #define menuitemID_delete        1201
 #define menuitemID_about           1202
@@ -32,6 +38,13 @@
 #define menuitemID_rotateLeft    1233
 #define menuitemID_globalPrefs    1234
 
+#ifdef ENABLE_BMK
+    #define menuitemID_bmkEd		1235
+    #define menuitemID_bmkDelAll	1236
+    #define menuitemID_bmkSort		1237
+    #define menuitemID_bmkAdd		1238
+#endif
+
 #define    listID_doc            1301
 #define    listID_percent        1302
 
@@ -40,12 +53,21 @@
     #define    listID_autoScrollSpeed1   1304
 #endif
 
+#ifdef ENABLE_BMK
+    #define    listID_bmk	1305
+    #define    listID_bmkEd	1306
+#endif
+
 #define popupID_doc            1401
 #define popupID_percent        1402
 
 #ifdef ENABLE_AUTOSCROLL
     #define popupID_autoScrollSpeed0 1403
     #define popupID_autoScrollSpeed1 1404
+#endif
+
+#ifdef ENABLE_BMK
+    #define popupID_bmk		1405
 #endif
 
 
@@ -67,9 +89,23 @@
     #define SEARCH_BUTTON_COUNT 0
 #endif
 
+#ifdef ENABLE_BMK
+    #define buttonID_bmkGoTo		1506
+    #define buttonID_bmkMoveUp		1507
+    #define buttonID_bmkMoveDown	1508
+    #define buttonID_bmkRename		1511
+    #define buttonID_bmkDelete		1512
+    #define buttonID_bmkSortPosition	1513
+    #define buttonID_bmkSortName	1514
+#endif
+
 #define fieldID_UCGUI0            1700
 #ifdef ENABLE_SEARCH
     #define fieldID_searchString    1750
+#endif
+
+#ifdef ENABLE_BMK
+    #define fieldID_bmkName	 1755
 #endif
 
 #define    gadgetID_text            1800
@@ -88,6 +124,11 @@
 #define alertID_about            1900
 #define alertID_error            1901
 #define alertID_confirmDelete    1902
+
+#ifdef ENABLE_BMK
+    #define alertID_bmkDupName   1903
+    #define alertID_bmkConfirmDel 1904
+#endif
 
 #define FONT_BUTTON_COUNT 4
 #define pushID_font0        2000
@@ -132,3 +173,12 @@
 #ifdef ENABLE_AUTOSCROLL
     #define stringID_ucguiAutoScroll      2111
 #endif
+
+#ifdef ENABLE_BMK
+    #define stringID_ucguiBmk		2112
+    #define stringID_bmkAdd		2113
+    #define stringID_bmkEd		2114
+    #define stringID_noMem		2115
+    #define stringID_bmkDocNotOpened	2118
+#endif
+

@@ -27,6 +27,10 @@
 #include "resources.h"
 #include "mainform.h"
 #include "controlsform.h"
+#include "bmknamefrm.h"
+#include "bmkedfrm.h"
+#include "bmksortfrm.h"
+#include "bmk.h"
 #include "appstate.h"
 #include "ucgui.h"
 #include "prefsform.h"
@@ -115,6 +119,9 @@ static void StartApp()
     CharPtr searchPtr = NULL;
 #endif
     DWord newDepth = 1;
+#ifdef ENABLE_BMK
+    Err err;
+#endif
 
     appStatePtr = (struct APP_STATE_STR *) MemPtrNew(sizeof(*appStatePtr));
     if (UtilOSIsAtLeast(3,0))
@@ -155,6 +162,12 @@ static void StartApp()
     }
 #endif
 
+#ifdef ENABLE_BMK
+    err = BmkStart();
+    if(err)
+	BmkReportError(err);
+#endif
+
     FrmGotoForm(formID_main);
 }
 
@@ -192,6 +205,10 @@ static void StopApp()
     CharPtr searchPtr = NULL;
 #endif
     FrmCloseAllForms();
+
+#ifdef ENABLE_BMK
+    BmkStop();
+#endif
 
     PrefSetAppPreferences(appId, PREF_APPSTATE, versionWord, appStatePtr, sizeof(*appStatePtr), true);
     MemPtrFree(appStatePtr);
@@ -375,7 +392,22 @@ static Boolean AppHandleEvent(EventType *e)
                     newFormEventHandler = SearchFormHandleEvent;
                     break;
 #endif
+
+#ifdef ENABLE_BMK
+		case formID_bmkName:
+		    newFormEventHandler = BmkNameFormHandleEvent;
+		    break;
+
+		case formID_bmkEd:
+		    newFormEventHandler = BmkEdFormHandleEvent;
+		    break;
+
+		case formID_bmkSort:
+		    newFormEventHandler = BmkSortFormHandleEvent;
+		    break;
+#endif
             }
+
             if (newFormEventHandler)
             {
                 frm = FrmInitForm(formId);

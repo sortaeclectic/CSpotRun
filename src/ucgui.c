@@ -36,11 +36,17 @@ struct UCGUI_ELEM_STR
     #define ROTATION_CHOICES 2
 #endif
 
+#ifdef ENABLE_BMK
+    #define BMK_UC_COUNT 1
+#else
+    #define BMK_UC_COUNT 0
+#endif
+
 #define UCGUI_ELEM_COUNT (1 + 1 + LINE_SPACING_GADGET_COUNT + \
                                   AUTOSCROLL_GADGET_COUNT + \
                                   FONT_BUTTON_COUNT + \
                                   ROTATION_BUTTON_COUNT + \
-                                  SEARCH_BUTTON_COUNT)
+                                  SEARCH_BUTTON_COUNT + BMK_UC_COUNT)
 
 
 #define DEFAULT_UCGUI_WORD (0xFFFF - (1<<11) - (1<<12))
@@ -70,7 +76,11 @@ static const struct UCGUI_ELEM_STR gElements[UCGUI_ELEM_COUNT] =
 #endif
 
     {popupID_percent,        1<<1, stringID_ucguiGotoPerc},//0x002},
-    {popupID_doc,            1<<0, stringID_ucguiPickDoc} //0x001},
+    {popupID_doc,            1<<0, stringID_ucguiPickDoc}, //0x001},
+
+#ifdef ENABLE_BMK
+    {popupID_bmk,	1<<14, stringID_ucguiBmk},
+#endif
 };
 
 #define OS2_UCGUI_MASK (~((Word)0x100))

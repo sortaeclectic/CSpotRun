@@ -1,7 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998-2002  by Bill Clagett (wtc@pobox.com)
+ * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
  *
  * 30 Apr 2001, added bookmarks support, Alexey Raschepkin (apr@direct.ru)
  *
@@ -20,7 +19,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <PalmOS.h>
+#include <Common.h>
+#include <System/SysAll.h>
+#include <UI/UIAll.h>
 
 #include "bmk.h"
 #include "appstate.h"
@@ -33,23 +34,28 @@
 /* globals */
 
 static char **      bmkListBuf = NULL;
-static int          bmkLBSize = 0;      /* number of pointers */
-static int          scuts_num = 0;
-
+static int      bmkLBSize = 0;      /* number of pointers */
                         /* in the list buffer */
-static Char*      bmkAddStr = NULL;
-static Char*      bmkEdStr = NULL;
-MemHandle bmkAddStrHandle;
-MemHandle bmkEdStrHandle;
+static CharPtr      bmkAddStr = NULL;
+static CharPtr      bmkEdStr = NULL;
+
+
+/* from doc.c */
+
+extern DmOpenRef    _dbRef;
+
+/* number of text records in the document */
+extern Word     _wNumRecs;
+
 
 /* local functions */
 
 static int  BmkFindByName(char *);
-static int  BmkFindByNameAndPos(char *, UInt32);
+static int  BmkFindByNameAndPos(char *, DWord);
 static Err  DoBmkAdd(char *name);
 
 static Err  DoBmkReplace(UInt16 idx, char *name);
-static Err  DoBmkReplaceWithPos(UInt16 idx, char *name, UInt32 pos);
+static Err  DoBmkReplaceWithPos(UInt16 idx, char *name, DWord pos);
 
 static Err  DoBmkMoveUp(UInt16 idx);
 static Err  DoBmkMoveDown(UInt16 idx);
@@ -59,6 +65,11 @@ static Err  BmkInsertionSort(int);
 static Err  BmkRefillListBuf(void);
 static void BmkClearListBuf(void);
 
+
+/* number of shortcuts in the boomark list on the main form */
+#define SCUTS_NUM   2
+
+
 /*
  * BmkStart()
  * initialize the bookmark subsystem
@@ -67,10 +78,10 @@ Err BmkStart(void)
 {
     Err err;
 
-    bmkAddStrHandle = DmGetResource(strRsc, stringID_bmkAdd);
-    bmkAddStr = (Char*)MemHandleLock(bmkAddStrHandle);
-    bmkEdStrHandle = DmGetResource(strRsc, stringID_bmkEd);
-    bmkEdStr = (Char*)MemHandleLock(bmkEdStrHandle);
+    bmkAddStr = (CharPtr)MemHandleLock(
+            DmGetResource(strRsc, stringID_bmkAdd));
+    bmkEdStr = (CharPtr)MemHandleLock(
+            DmGetResource(strRsc, stringID_bmkEd));
 
     return 0;
 }
@@ -82,18 +93,22 @@ Err BmkStart(void)
  */
 void BmkStop(void)
 {
+    VoidHand h;
+
     BmkClearListBuf();
 
     /* release all string resources */
 
     if(bmkAddStr) {
-        MemHandleUnlock(bmkAddStrHandle);
-        DmReleaseResource(bmkAddStrHandle);
+        h = MemPtrRecoverHandle(bmkAddStr);
+        MemHandleUnlock(h);
+        DmReleaseResource(h);
     }
 
     if(bmkEdStr) {
-        MemHandleUnlock(bmkEdStrHandle);
-        DmReleaseResource(bmkEdStrHandle);
+        h = MemPtrRecoverHandle(bmkEdStr);
+        MemHandleUnlock(h);
+        DmReleaseResource(h);
     }
 }
 
@@ -123,7 +138,7 @@ Err BmkAdd(char *name, int force)
     UInt16 a_ret;
     int f_rec = -1;
 
-    if(!Doc_getDbRef())
+    if(!_dbRef)
         return bmkErrDocNotOpened;
 
     if(!force)
@@ -149,12 +164,12 @@ Err BmkAdd(char *name, int force)
 Err DoBmkAdd(char *name)
 {
     UInt16 idx = dmMaxRecordIndex;
-    MemHandle h;
+    VoidHand h;
     void* p;
     bmk_rec_t b; /* temp copy of the record. */
 
     /* create new record */
-    h = DmNewRecord(Doc_getDbRef(), &idx, sizeof(bmk_rec_t));
+    h = DmNewRecord(_dbRef, &idx, sizeof(bmk_rec_t));
     if(!h)
         return DmGetLastErr();
 
@@ -167,7 +182,7 @@ Err DoBmkAdd(char *name)
     DmWrite(p, 0, &b, sizeof(b));
 
     MemHandleUnlock(h);
-    DmReleaseRecord(Doc_getDbRef(), idx, 0);
+    DmReleaseRecord(_dbRef, idx, 0);
 
     /* update the list buffer */
     BmkClearListBuf();
@@ -186,10 +201,10 @@ Err BmkRename(int sel, char *name)
     bmk_rec_t *b;
     int idx = -1;
 
-    if(!Doc_getDbRef())
+    if(!_dbRef)
         return bmkErrDocNotOpened;
 
-    sel += scuts_num;
+    sel += SCUTS_NUM;
 
     b = (bmk_rec_t *)bmkListBuf[sel];
     idx = BmkFindByNameAndPos(b->name, b->pos);
@@ -202,18 +217,18 @@ Err BmkRename(int sel, char *name)
 }
 
 
-Err DoBmkReplaceWithPos(UInt16 idx, char *name, UInt32 pos)
+Err DoBmkReplaceWithPos(UInt16 idx, char *name, DWord pos)
 {
-    MemHandle h;
+    VoidHand h;
     bmk_rec_t b;
     void* p;
 
-    ErrFatalDisplayIf(Doc_getDbRef() == NULL,
+    ErrFatalDisplayIf(_dbRef == NULL,
         "DoBmkReplaceWithPos: document is not opened");
 
     BmkClearListBuf();
 
-    h = DmGetRecord(Doc_getDbRef(), idx);
+    h = DmGetRecord(_dbRef, idx);
     if(!h)
         return DmGetLastErr();
 
@@ -224,7 +239,7 @@ Err DoBmkReplaceWithPos(UInt16 idx, char *name, UInt32 pos)
     DmWrite(p, 0, &b, sizeof(b));
 
     MemHandleUnlock(h);
-    DmReleaseRecord(Doc_getDbRef(), idx, 0);
+    DmReleaseRecord(_dbRef, idx, 0);
 
     return 0;
 }
@@ -245,10 +260,10 @@ Err BmkDelete(int sel)
     bmk_rec_t *b;
     int idx = -1;
 
-    if(!Doc_getDbRef())
+    if(!_dbRef)
         return bmkErrDocNotOpened;
 
-    sel += scuts_num;
+    sel += SCUTS_NUM;
 
     b = (bmk_rec_t *)bmkListBuf[sel];
     idx = BmkFindByNameAndPos(b->name, b->pos);
@@ -257,7 +272,7 @@ Err BmkDelete(int sel)
         return DmGetLastErr();
 
     BmkClearListBuf();
-    return DmRemoveRecord(Doc_getDbRef(), (UInt16)idx);
+    return DmRemoveRecord(_dbRef, (UInt16)idx);
 }
 
 
@@ -271,14 +286,14 @@ Err BmkDeleteAll(void)
     UInt16 i, rn;
     Err err;
 
-    if(!Doc_getDbRef())
+    if(!_dbRef)
         return bmkErrDocNotOpened;
 
     BmkClearListBuf();
 
-    rn = DmNumRecords(Doc_getDbRef());
-    for(i = Doc_getNumRecs() + 1; i < rn; rn--) {
-        err = DmRemoveRecord(Doc_getDbRef(), i);
+    rn = DmNumRecords(_dbRef);
+    for(i = _wNumRecs + 1; i < rn; rn--) {
+        err = DmRemoveRecord(_dbRef, i);
         if(err)
             return err;
     }
@@ -297,10 +312,10 @@ Err BmkMove(int action, int sel)
     bmk_rec_t *b;
     int idx = -1;
 
-    if(!Doc_getDbRef())
+    if(!_dbRef)
         return bmkErrDocNotOpened;
 
-    sel += scuts_num;
+    sel += SCUTS_NUM;
 
     b = (bmk_rec_t *)bmkListBuf[sel];
     idx = BmkFindByNameAndPos(b->name, b->pos);
@@ -328,7 +343,7 @@ Err BmkMove(int action, int sel)
 
 Err BmkSort(int action)
 {
-    if(!Doc_getDbRef())
+    if(!_dbRef)
         return bmkErrDocNotOpened;
 
     BmkClearListBuf();
@@ -353,8 +368,8 @@ Err DoBmkMoveUp(UInt16 idx)
     bmk_rec_t *b;
     Err err = 0;
 
-    if(idx > Doc_getNumRecs() + 1)
-        err = DmMoveRecord(Doc_getDbRef(), idx, idx - 1);
+    if(idx > _wNumRecs + 1)
+        err = DmMoveRecord(_dbRef, idx, idx - 1);
 
     return err;
 }
@@ -366,9 +381,9 @@ Err DoBmkMoveDown(UInt16 idx)
     bmk_rec_t *b;
     Err err = 0;
 
-    rn = DmNumRecords(Doc_getDbRef());
+    rn = DmNumRecords(_dbRef);
     if(idx < rn - 1)
-        err = DmMoveRecord(Doc_getDbRef(), idx, idx + 2);
+        err = DmMoveRecord(_dbRef, idx, idx + 2);
 
     return err;
 }
@@ -383,43 +398,37 @@ Err DoBmkMoveDown(UInt16 idx)
  */
 Err BmkRefillListBuf(void)
 {
-    MemHandle h;
+    VoidHand h;
     UInt16 rn, i;
     bmk_rec_t *b;
     Err err = 0;
 
-    ErrFatalDisplayIf(Doc_getDbRef() == NULL,
+    ErrFatalDisplayIf(_dbRef == NULL,
         "BmkRefillListBuf: document is not opened");
 
     if(bmkLBSize)
         return 0;
 
-    rn = DmNumRecords(Doc_getDbRef());
+    rn = DmNumRecords(_dbRef);
 
     /* allocate memory for the list buffer */
     /* take into account shortcut pointers */
     if(bmkListBuf)
         MemPtrFree(bmkListBuf);
 
-    h = MemHandleNew((rn - Doc_getNumRecs() - 1 + 2) * sizeof(char *));
+    h = MemHandleNew((rn - _wNumRecs - 1 + 2) * sizeof(char *));
     if(!h)
         return memErrNotEnoughSpace;
     bmkListBuf = MemHandleLock(h);
 
     /* add pointers to 'add' and 'edit' strings */
-    if(Doc_getDbMode() == dmModeReadWrite) {
-        *bmkListBuf     = bmkAddStr;
-        bmkLBSize++;
-    }
-
-    *(bmkListBuf + bmkLBSize)   = bmkEdStr;
-    bmkLBSize++;
-
-    scuts_num = bmkLBSize;
+    *bmkListBuf     = bmkAddStr;
+    *(bmkListBuf + 1)   = bmkEdStr;
+    bmkLBSize += 2;
 
     /* add pointers to bookmark names to the list buffer */
-    for(i = Doc_getNumRecs() + 1; i < rn; i++) {
-        b = (bmk_rec_t *)MemHandleLock(DmQueryRecord(Doc_getDbRef(), i));
+    for(i = _wNumRecs + 1; i < rn; i++) {
+        b = (bmk_rec_t *)MemHandleLock(DmQueryRecord(_dbRef, i));
         if(!b) {
             err = DmGetLastErr();
             goto ERR;
@@ -447,7 +456,7 @@ Err BmkPopulateList(ListPtr l, int shortcuts, int resize)
 {
     Err err = 0;
 
-    if(!Doc_getDbRef())
+    if(!_dbRef)
         return bmkErrDocNotOpened;
 
     err = BmkRefillListBuf();
@@ -458,11 +467,11 @@ Err BmkPopulateList(ListPtr l, int shortcuts, int resize)
     if(shortcuts)
         LstSetListChoices(l, bmkListBuf, bmkLBSize);
     else
-        LstSetListChoices(l, bmkListBuf + scuts_num,
-                bmkLBSize - scuts_num);
+        LstSetListChoices(l, bmkListBuf + SCUTS_NUM,
+                bmkLBSize - SCUTS_NUM);
 
     if(resize)
-        LstSetHeight(l, shortcuts ? bmkLBSize : bmkLBSize - scuts_num);
+        LstSetHeight(l, shortcuts ? bmkLBSize : bmkLBSize - SCUTS_NUM);
 
     return 0;
 }
@@ -491,7 +500,7 @@ void BmkClearListBuf(void)
 
     MemPtrFree(bmkListBuf);
     bmkListBuf = NULL;
-    bmkLBSize = scuts_num = 0;
+    bmkLBSize = 0;
     return;
 }
 
@@ -528,7 +537,7 @@ void BmkGoTo(int selection, int shortcuts)
         "BmkGoTo: bmk list buffer doesn't exist");
 
     if(!shortcuts)
-        selection += scuts_num;
+        selection += SCUTS_NUM;
 
     b = (bmk_rec_t *)bmkListBuf[selection];
     Doc_setPosition(b->pos);
@@ -545,12 +554,12 @@ int BmkFindByName(char *name)
     UInt16 rn, i;
     bmk_rec_t *b;
 
-    ErrFatalDisplayIf(Doc_getDbRef() == NULL,
+    ErrFatalDisplayIf(_dbRef == NULL,
         "BmkFindByName: document is not opened");
 
-    rn = DmNumRecords(Doc_getDbRef());
-    for(i = Doc_getNumRecs() + 1; i < rn; i++) {
-        b = (bmk_rec_t *)MemHandleLock(DmQueryRecord(Doc_getDbRef(), i));
+    rn = DmNumRecords(_dbRef);
+    for(i = _wNumRecs + 1; i < rn; i++) {
+        b = (bmk_rec_t *)MemHandleLock(DmQueryRecord(_dbRef, i));
         if(!b)
             return -1;
 
@@ -566,17 +575,17 @@ int BmkFindByName(char *name)
 }
 
 
-int BmkFindByNameAndPos(char *name, UInt32 pos)
+int BmkFindByNameAndPos(char *name, DWord pos)
 {
     UInt16 rn, i;
     bmk_rec_t *b;
 
-    ErrFatalDisplayIf(Doc_getDbRef() == NULL,
+    ErrFatalDisplayIf(_dbRef == NULL,
         "BmkFindByNameAndPos: document is not opened");
 
-    rn = DmNumRecords(Doc_getDbRef());
-    for(i = Doc_getNumRecs() + 1; i < rn; i++) {
-        b = (bmk_rec_t *)MemHandleLock(DmQueryRecord(Doc_getDbRef(), i));
+    rn = DmNumRecords(_dbRef);
+    for(i = _wNumRecs + 1; i < rn; i++) {
+        b = (bmk_rec_t *)MemHandleLock(DmQueryRecord(_dbRef, i));
         if(!b)
             return -1;
 
@@ -598,17 +607,17 @@ Err BmkInsertionSort(int action)
     bmk_rec_t *b1, *b2;
     Err err = 0;
 
-    ErrFatalDisplayIf(Doc_getDbRef() == NULL,
+    ErrFatalDisplayIf(_dbRef == NULL,
         "BmkInsertionSort: document is not opened");
 
-    n = DmNumRecords(Doc_getDbRef());
-    for(i = Doc_getNumRecs() + 2; i < n; i++) {
-        b1 = (bmk_rec_t *)MemHandleLock(DmQueryRecord(Doc_getDbRef(), i));
+    n = DmNumRecords(_dbRef);
+    for(i = _wNumRecs + 2; i < n; i++) {
+        b1 = (bmk_rec_t *)MemHandleLock(DmQueryRecord(_dbRef, i));
 
         j = i;
-        while(j > (Doc_getNumRecs() + 1)) {
+        while(j > (_wNumRecs + 1)) {
             b2 = (bmk_rec_t *)MemHandleLock(
-                    DmQueryRecord(Doc_getDbRef(), j - 1));
+                    DmQueryRecord(_dbRef, j - 1));
 
             if(action == SORT_NAME)
                 cmp = StrCompare(b2->name, b1->name) > 0;
@@ -625,7 +634,7 @@ Err BmkInsertionSort(int action)
 
         MemPtrUnlock(b1);
 
-        if((err = DmMoveRecord(Doc_getDbRef(), i, j)))
+        if((err = DmMoveRecord(_dbRef, i, j)))
             return err;
     }
 
@@ -635,8 +644,8 @@ Err BmkInsertionSort(int action)
 
 void BmkReportError(Err e)
 {
-    MemHandle    errH;
-    Int16 stringID = -1;
+    VoidHand    errH;
+    Int stringID = -1;
     char s[20] = "Error: 0x";
     char d[9];
 
@@ -653,7 +662,7 @@ void BmkReportError(Err e)
     if(stringID != -1) {
         errH = DmGetResource(strRsc, stringID);
         FrmCustomAlert(alertID_error,
-                (Char*) MemHandleLock(errH), " ", " ");
+                (CharPtr) MemHandleLock(errH), " ", " ");
         MemHandleUnlock(errH);
         DmReleaseResource(errH);
     } else {
