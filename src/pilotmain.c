@@ -156,6 +156,9 @@ static void EventLoop()
     FormType *pfrm;
     Word err;
     Long timeout;
+#ifdef ENABLE_AUTOSCROLL
+    Boolean stopAutoScroll = false;
+#endif
     do
     {
 #ifdef ENABLE_AUTOSCROLL
@@ -180,8 +183,7 @@ static void EventLoop()
             }
             else if(e.eType == penDownEvent)
             {
-                MainForm_ToggleAutoScroll();
-                continue;
+                stopAutoScroll = true;
             }
         }
 #else
@@ -193,6 +195,14 @@ static void EventLoop()
                 if (!AppHandleEvent(&e))
                     FrmDispatchEvent(&e);
 
+#ifdef ENABLE_AUTOSCROLL
+        if (stopAutoScroll)
+        {
+            stopAutoScroll = false;
+			if (MainForm_AutoScrollEnabled())
+                MainForm_ToggleAutoScroll();
+        }
+#endif
     } while(e.eType != appStopEvent);
 }
 

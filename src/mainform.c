@@ -240,7 +240,6 @@ static Boolean _MainFormHandleEvent(EventType *e)
                         return true;
                     }
                 }
-
 #ifdef ENABLE_AUTOSCROLL
                 FrmGetObjectBounds (formPtr, FrmGetObjectIndex (formPtr, gadgetID_autoScroll), &r);
                 if (RctPtInRectangle (e->screenX, e->screenY, &r))
@@ -249,10 +248,8 @@ static Boolean _MainFormHandleEvent(EventType *e)
                     return true;
                 }
 #endif
-
-                 break;
             }
-             break;
+            break;
         case keyDownEvent:
             switch (e->data.keyDown.chr)
             {
@@ -394,7 +391,7 @@ static void _drawAutoScrollGadget()
     FrmGetObjectBounds(formPtr, FrmGetObjectIndex(formPtr, gadgetID_autoScroll), &bounds);
 
     WinEraseRectangle(&bounds, 0);
-    WinDrawRectangleFrame(rectangleFrame, &bounds);
+    WinDrawRectangleFrame(roundFrame, &bounds);
 
     if(autoScrollEnabled) // show pause
     {
@@ -412,7 +409,7 @@ static void _drawAutoScrollGadget()
 
 void MainForm_ToggleAutoScroll()
 {
-    autoScrollEnabled = autoScrollEnabled? false: true;
+    autoScrollEnabled = ! autoScrollEnabled;
 
     _drawAutoScrollGadget();
 }
