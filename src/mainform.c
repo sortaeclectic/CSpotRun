@@ -80,9 +80,6 @@ int         _documentIndex = -1;
 static Boolean      autoScrollEnabled = false;
 #endif
 
-/* from doc.c */
-extern UInt16  _dbMode;
-
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -357,7 +354,7 @@ static void    HandleDocSelect(int documentIndex)
     FS_updateFontButtons(formPtr);
 
     /* set menu accroding to the document mode */
-    if(_dbMode == dmModeReadOnly)
+    if(Doc_getDbMode() == dmModeReadOnly)
         FrmSetMenu(formPtr, menuID_main_ro);
     else
         FrmSetMenu(formPtr, menuID_main);
@@ -645,7 +642,7 @@ void _redrawBmkList(void)
 
 void _popupBmkEd(void)
 {
-	if(_dbMode == dmModeReadWrite)
+	if(Doc_getDbMode() == dmModeReadWrite)
 		FrmPopupForm(formID_bmkEd);
 	else
 		FrmPopupForm(formID_bmkEd_ro);

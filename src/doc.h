@@ -31,6 +31,10 @@ void            Doc_makeSettingsDefault();
 void            Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop, Boolean caseSensitive, UInt16 formId);
 void            Doc_prepareForPixelScrolling();
 
+UInt16 Doc_getDbMode();
+DmOpenRef Doc_getDbRef();
+UInt16 Doc_getNumRecs();
+
 #ifdef ENABLE_AUTOSCROLL
 void            Doc_pixelScroll();
 void            Doc_pixelScrollClear(Boolean forceReset);

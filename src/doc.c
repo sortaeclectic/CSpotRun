@@ -18,14 +18,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-// The format of record 0 was taken from
-// http://www.concentric.net/~rbram/makedoc7.cpp
-// Is this documented elsewhere?
-
-// todo: I should have pulled out the drawing stuff to another object. "DocGadget.c"
-// or something. If anyone does any big changes to this code, I strongly recommend
-// making this split. Wish I'd done it right in the first place. -bill
-
 #include <PalmOS.h>
 #include <Core/System/CharAttr.h>
 #include "appstate.h"
@@ -43,13 +35,10 @@
 #define WORD_MAX 0xFFFF /* USHRT_MAX is coming from a Linux header, 
 			 * not a Palm one.*/
 
-////////////////////////////////////////////////////////////////////////////////
-// private functions
-////////////////////////////////////////////////////////////////////////////////
 static void         _loadCurrentRecord();
 static void         _setLineHeight();
 static void         _scrollUpIfLastPage();
-static UInt32        _fixStoryLen(UInt16 *recLens);
+static UInt32       _fixStoryLen(UInt16 *recLens);
 static void         _postDecodeProcessing();
 static void         _drawPage(RectanglePtr boundsPtr,
                               Boolean drawOnscreenPart,
@@ -61,50 +50,55 @@ static void         _rewindToStartOfUInt16();
 static void         _movePastWord();
 static Boolean      _onLastPage();
 
-
-/*
- * _dbRef and _wNumRecs are referenced from the bookmarks subsystem
- */
-DmOpenRef          _dbRef = NULL;
-UInt16             _wNumRecs;
-UInt16             _dbMode = dmModeReadWrite;
-
-////////////////////////////////////////////////////////////////////////////////
-// private data
-////////////////////////////////////////////////////////////////////////////////
+/* RECORD0_STR describes the format of record 0 in a doc database.
+ * Don't use fields labelled "munged", as aren't exactly what the
+ * name would make you expect. */
 struct RECORD0_STR
 {
-    UInt8    crap;               //Because wVersion was 1026 (1024+2) in one doc
-                                //    when it should have been 2.
-    UInt8    wVersion;           // 1=plain text, 2=compressed
-    UInt16    wSpare;             //??
-    UInt32   munged_dwStoryLen;  // in bytes, when decompressed.
-                                //Appears to be wrong in some DOCs.
-    UInt16    munged_wNumRecs;    // text records only; equals tDocHeader.wNumRecs-1.
-                                //Use this, because AportisDoc adds records beyond
-                                //these. Appears to be too big in some DOCs.
-    UInt16    wRecSize;           // usually 0x1000
-    UInt32   dwSpare2;           //??
+    UInt8 crap; /* This byte should be part of the version. But 
+                 * I'm going to ignore it because (with it) wVersion 
+                 * was 1026 (1024+2) in one doc when it should have 
+                 * been 2. */
+    UInt8 wVersion; /* 1=plain text, 2=compressed */
+    UInt16 wSpare;  /* ? */
+    UInt32 munged_dwStoryLen; /* in bytes, when decompressed.
+                               * Appears to be wrong in some DOCs. */
+    UInt16 munged_wNumRecs;  /* text records only; 
+                              * equals tDocHeader.wNumRecs-1.
+                              * Use this, because bookmark records follow
+                              * beyond these. Appears to be too big in some 
+                              * DOCs. */
+    UInt16 wRecSize;         /* usually 0x1000 */
+    UInt32 dwSpare2;         /* ? */
 };
 
-//This is crap.
-//Should have a document structure to pass to the document functions, object style.
+typedef struct Doc {
+    /* Record 0 of the document database */
+    MemHandle           record0Handle;
+    struct RECORD0_STR* record0Ptr;
 
-//Also, the drawing stuff should be a seperate object. DocGadget, or something.
+    /* decodeBuf is the hunk of memory we decompress into */
+    MemHandle           decodeBufHandle;    
+    Char*               decodeBuf;
+    
+    /* These describe the state of decodeBuf */
+    UInt16 decodeBufLen;     /* Size of buffer allocated */
+    UInt16 decodeLen;        /* Characters decoded */
+    UInt16 recordDecoded;    /* The first record held in "decodeBuf" */
+    UInt16 decodedRecordLen; /* Characters in record #recordDecoded
+                              * which were decoded */
 
-MemHandle            _record0Handle = NULL;
-struct RECORD0_STR* _record0Ptr = NULL;
-MemHandle            _decodeBufHandle = NULL;
+    UInt32     fixedStoryLen;
+    MemHandle  recLensHandle;
+    UInt16    *recLens;
 
-Char*             _decodeBuf = NULL;
-// These describe the state of _decodeBuf
-UInt16              _decodeBufLen = 0;     //Size of buffer allocated
-UInt16              _decodeLen = 0;        //Characters decoded
-UInt16              _recordDecoded = 0;    //The first record held in "_decodeBuf"
-UInt16              _decodedRecordLen = 0; //Characters in record #_recordDecoded
-                                           //which were decoded
+    /* _dbRef and wNumRecs are referenced from the bookmarks subsystem */
+    DmOpenRef dbRef;
+    UInt16    numRecs; /* see record0's wNumRecs */ 
+    UInt16    dbMode;  
+} Doc;
 
-UInt32               _fixedStoryLen;
+Doc gDoc;
 
 RectangleType       _textGadgetBounds;
 RectangleType       _apparentTextBounds;
@@ -113,81 +107,77 @@ UInt16              _lineHeight = 0;
 #ifdef ENABLE_AUTOSCROLL
 static UInt16       _pixelOffset = 0;
 static Boolean      _locationChanged = true;
-static UInt16       _osExtraForAS; //How many extra rows are added
-                                   //to the osPageWindow
+static UInt16       _osExtraForAS; /* How many extra rows are added
+                                    * to the osPageWindow */
 #endif
 static Boolean      _boundsChanged = true;
 static WinHandle    osPageWindow = NULL;
 
 struct DOC_PREFS_STR _docPrefs = DEFAULT_DOCPREFS;
 
-MemHandle        _recLensHandle    = NULL;
-UInt16            *_recLens        = NULL;
+UInt16 Doc_getDbMode() {return gDoc.dbMode;}
+DmOpenRef Doc_getDbRef() {return gDoc.dbRef;}
+UInt16 Doc_getNumRecs() {return gDoc.numRecs;}
 
 void Doc_makeSettingsDefault()
 {
     MemMove(&appStatePtr->defaultDocPrefs, &_docPrefs, sizeof(_docPrefs));
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Doc_open
-////////////////////////////////////////////////////////////////////////////////
 void Doc_open(UInt16 cardNo, LocalID dbID, char name[dmDBNameLength])
 {
     UInt16 dbAttrs = 0;
 
-    ErrFatalDisplayIf(_dbRef != NULL, "g");
+    ErrFatalDisplayIf(gDoc.dbRef != NULL, "g");
+
+    MemSet(&gDoc, sizeof(gDoc), 0);
 
     // check if the db is read-only
     DmDatabaseInfo(cardNo, dbID, NULL, &dbAttrs, NULL, NULL,
                    NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
-    _dbMode = dmModeReadWrite;
+    gDoc.dbMode = dmModeReadWrite;
     if(dbAttrs & dmHdrAttrReadOnly)
-        _dbMode = dmModeReadOnly;    
+        gDoc.dbMode = dmModeReadOnly;    
     
     //Open Db
-    _dbRef = DmOpenDatabase(cardNo, dbID, _dbMode);
-    ErrFatalDisplayIf(!_dbRef, "a");
+    gDoc.dbRef = DmOpenDatabase(cardNo, dbID, gDoc.dbMode);
+    ErrFatalDisplayIf(!gDoc.dbRef, "a");
     
     //lock record0
-    _record0Handle = DmQueryRecord(_dbRef, 0);
-    ErrFatalDisplayIf(!_record0Handle, "b");
+    gDoc.record0Handle = DmQueryRecord(gDoc.dbRef, 0);
+    ErrFatalDisplayIf(!gDoc.record0Handle, "b");
     
-    _record0Ptr = (struct RECORD0_STR *) MemHandleLock(_record0Handle);
-    ErrFatalDisplayIf(!_record0Ptr, "c");
+    gDoc.record0Ptr = (struct RECORD0_STR *) MemHandleLock(gDoc.record0Handle);
+    ErrFatalDisplayIf(!gDoc.record0Ptr, "c");
     
     //allocate decode buffer
-    _decodeBufLen = _record0Ptr->wRecSize + 640; // needs to hold a record+1 page+\0.
-    _decodeBufHandle = MemHandleNew(_decodeBufLen);
-    ErrFatalDisplayIf(!_decodeBufHandle, "d");
-    _decodeBuf = MemHandleLock(_decodeBufHandle);
-    ErrFatalDisplayIf(!_decodeBuf, "e");
-    
-    //initialize decode buffer to be empty
-    _decodeLen = 0;
-    _decodedRecordLen = 0;
-    _recordDecoded = 0;
+    gDoc.decodeBufLen 
+        = gDoc.record0Ptr->wRecSize + 640; // needs to hold a record+1 page+\0.
+    gDoc.decodeBufHandle = MemHandleNew(gDoc.decodeBufLen);
+    ErrFatalDisplayIf(!gDoc.decodeBufHandle, "d");
+    gDoc.decodeBuf = MemHandleLock(gDoc.decodeBufHandle);
+    ErrFatalDisplayIf(!gDoc.decodeBuf, "e");
     
     //I saw a document with wNumRecs was too big. Kill me now.
-    _wNumRecs = min(_record0Ptr->munged_wNumRecs, DmNumRecords(_dbRef) - 1);
+    gDoc.numRecs 
+        = min(gDoc.record0Ptr->munged_wNumRecs, DmNumRecords(gDoc.dbRef) - 1);
     
     //allocate record len array
-    _recLensHandle =    MemHandleNew(_wNumRecs*sizeof(*_recLens));
-    ErrFatalDisplayIf(!_recLensHandle, "q");
+    gDoc.recLensHandle = MemHandleNew(gDoc.numRecs*sizeof(*gDoc.recLens));
+    ErrFatalDisplayIf(!gDoc.recLensHandle, "q");
     
-    _recLens =            MemHandleLock(_recLensHandle);
-    ErrFatalDisplayIf(!_recLens, "r");
+    gDoc.recLens = MemHandleLock(gDoc.recLensHandle);
+    ErrFatalDisplayIf(!gDoc.recLens, "r");
     
-    _fixedStoryLen = _fixStoryLen(_recLens);
+    gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens);
     
     //load prefs for this document
     DocPrefs_loadPrefs(name, &_docPrefs);
     
     //if location is bad, go to beginning.
-    if (_docPrefs.location.record > _wNumRecs
-        || _docPrefs.location.ch >= _recLens[_docPrefs.location.record-1])
+    if (_docPrefs.location.record > gDoc.numRecs
+        || _docPrefs.location.ch >= gDoc.recLens[_docPrefs.location.record-1])
     {
         _docPrefs.location.record = _docPrefs.location.ch = 0;
     }
@@ -197,13 +187,10 @@ void Doc_open(UInt16 cardNo, LocalID dbID, char name[dmDBNameLength])
     _loadCurrentRecord();
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 void Doc_close()
 {
     //If a document is open...
-    if (_dbRef != NULL)
+    if (gDoc.dbRef != NULL)
     {
 #ifdef ENABLE_BMK
         /* close bookmarks first */
@@ -213,19 +200,19 @@ void Doc_close()
         DocPrefs_savePrefs(&_docPrefs);
         
         //Free decode buffer
-        MemHandleUnlock(_decodeBufHandle); //_decodeBuf = NULL;
-        MemHandleFree(_decodeBufHandle); _decodeBufHandle = NULL;
-        _decodeBufLen = 0;
+        MemHandleUnlock(gDoc.decodeBufHandle); //gDoc.decodeBuf = NULL;
+        MemHandleFree(gDoc.decodeBufHandle); gDoc.decodeBufHandle = NULL;
+        gDoc.decodeBufLen = 0;
         
         //unlock record0
-        MemHandleUnlock(_record0Handle); _record0Ptr = NULL;
-        _record0Handle = NULL;        
+        MemHandleUnlock(gDoc.record0Handle); gDoc.record0Ptr = NULL;
+        gDoc.record0Handle = NULL;        
         
-        MemHandleUnlock(_recLensHandle); _recLens = NULL;
-        MemHandleFree(_recLensHandle); _recLensHandle = NULL;
+        MemHandleUnlock(gDoc.recLensHandle); gDoc.recLens = NULL;
+        MemHandleFree(gDoc.recLensHandle); gDoc.recLensHandle = NULL;
         
         //Close Db
-        DmCloseDatabase(_dbRef); _dbRef = NULL;
+        DmCloseDatabase(gDoc.dbRef); gDoc.dbRef = NULL;
     }
 
     if (osPageWindow)
@@ -306,18 +293,16 @@ Boolean Doc_linesDown(UInt16 linesToMove)
     oldFont = FntGetFont();
     FntSetFont(_docPrefs.font);
     
-    p = & _decodeBuf[_docPrefs.location.ch];
+    p = & gDoc.decodeBuf[_docPrefs.location.ch];
     
     // advance p through linesToShow lines of worth of characters
     while(linesToMove--)
         p += FntWordWrap(p, _apparentTextBounds.extent.x);
     
     // Advance the current location by how far we advanced p
-    _docPrefs.location.ch += (p - & _decodeBuf[_docPrefs.location.ch]);
+    _docPrefs.location.ch += (p - & gDoc.decodeBuf[_docPrefs.location.ch]);
     _loadCurrentRecord();
     
-    //_scrollUpIfLastPage();
-
     FntSetFont(oldFont);
     
     return true;
@@ -339,7 +324,8 @@ void Doc_linesUp(UInt16 linesToMove)
         //Try to wrap back a whole page.
         firstCharIndex = lastCharIndex;
         if (firstCharIndex != 0)
-            FntWordWrapReverseNLines(_decodeBuf, _apparentTextBounds.extent.x,
+            FntWordWrapReverseNLines(gDoc.decodeBuf, 
+                                     _apparentTextBounds.extent.x,
                                      &linesToMove, &firstCharIndex);
         
         //If that only got back to the beginning of the decode buffer
@@ -353,7 +339,7 @@ void Doc_linesUp(UInt16 linesToMove)
 
             //Adjust lastCharIndex to same char in the newly loaded buffer
             //and try to find the firstCharIndex again.
-            lastCharIndex += _decodedRecordLen;
+            lastCharIndex += gDoc.decodedRecordLen;
         }
         //else we found the top of the page.
         else
@@ -375,7 +361,7 @@ void Doc_scroll(int dir, enum TAP_ACTION_ENUM ta)
         linesToScroll = _apparentTextBounds.extent.y / _lineHeight;
         if (appStatePtr->showPreviousLine)
             linesToScroll--;
-            break;
+        break;
     case TA_HALFPAGE:
         linesToScroll = (_apparentTextBounds.extent.y / _lineHeight) / 2;
         break;
@@ -446,7 +432,7 @@ UInt32 Doc_getPosition()
 
     //Add up previous records
     for (i=1; i<((int)_docPrefs.location.record); i++)
-        pos+=_recLens[i-1];
+        pos+=gDoc.recLens[i-1];
     
     //Add in this partial record
     pos += (UInt32)_docPrefs.location.ch;
@@ -457,7 +443,7 @@ UInt32 Doc_getPosition()
 UInt16 Doc_getPercent()
 {
     UInt32    pos = Doc_getPosition();
-    return (100 * pos) / (_fixedStoryLen-1);
+    return (100 * pos) / (gDoc.fixedStoryLen-1);
 }
 
 void Doc_setPosition(UInt32 pos)
@@ -467,11 +453,11 @@ void Doc_setPosition(UInt32 pos)
 
     //Add up record lens to find right record.
     for (i=1; prevRecsLen<=pos; i++)
-        prevRecsLen += _recLens[i-1];
+        prevRecsLen += gDoc.recLens[i-1];
     
     _docPrefs.location.record = i-1;
     
-    prevRecsLen -= _recLens[_docPrefs.location.record-1];
+    prevRecsLen -= gDoc.recLens[_docPrefs.location.record-1];
     _docPrefs.location.ch=pos-prevRecsLen;
     
     _loadCurrentRecord();
@@ -491,7 +477,7 @@ void Doc_setPosition(UInt32 pos)
 
 void Doc_setPercent(UInt16 per)
 {
-    UInt32 pos = (per * (_fixedStoryLen-1)) / 100;
+    UInt32 pos = (per * (gDoc.fixedStoryLen-1)) / 100;
     Doc_setPosition(pos);
 }
 
@@ -504,7 +490,7 @@ Boolean Doc_inBottomHalf(int screenX, int screenY)
     int ymax = RotateY(_textGadgetBounds.extent.x,
                        _textGadgetBounds.extent.y, a);
     y = RotateY(x,y,a);
-
+    
     if (ymax<0)
         y += _apparentTextBounds.extent.y;
     
@@ -526,9 +512,6 @@ int Doc_translatePageButton(int dir)
     return dir;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 static void _drawPage(RectanglePtr boundsPtr,
                       Boolean drawOnscreenPart,
                       Boolean drawOffscreenPart)
@@ -543,7 +526,7 @@ static void _drawPage(RectanglePtr boundsPtr,
     FontID    oldFont = FntGetFont();
     WinHandle destWindow = WinGetDrawWindow();
 
-    if (!_dbRef)
+    if (!gDoc.dbRef)
         return;
 
     FntSetFont(_docPrefs.font);
@@ -575,7 +558,7 @@ static void _drawPage(RectanglePtr boundsPtr,
         linesToShow = (boundsPtr->extent.y) / _lineHeight;
     
     y = boundsPtr->topLeft.y - _pixelOffset;
-    p = & _decodeBuf[_docPrefs.location.ch];
+    p = & gDoc.decodeBuf[_docPrefs.location.ch];
     
 #ifdef ENABLE_AUTOSCROLL
     if(!drawOnscreenPart)
@@ -614,11 +597,6 @@ static void _drawPage(RectanglePtr boundsPtr,
     FntSetFont(oldFont);
 }
 
-//#include "resources.h"
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
-
 static Boolean _onLastPage()
 {
     char*    p;
@@ -630,7 +608,7 @@ static Boolean _onLastPage()
     
     //See if the terminating null is on this page
     linesToShow = _apparentTextBounds.extent.y/_lineHeight;
-    p = & _decodeBuf[_docPrefs.location.ch];
+    p = & gDoc.decodeBuf[_docPrefs.location.ch];
     while(linesToShow--)
         p += FntWordWrap(p, _apparentTextBounds.extent.x);
     
@@ -647,10 +625,10 @@ static void _scrollUpIfLastPage()
     //if it was, go to end and page up.
     if (_onLastPage())
     {
-        char* p = & _decodeBuf[_docPrefs.location.ch];
+        char* p = & gDoc.decodeBuf[_docPrefs.location.ch];
         while (*p)
             p++;
-        _docPrefs.location.ch += (p - & _decodeBuf[_docPrefs.location.ch]);
+        _docPrefs.location.ch += (p - & gDoc.decodeBuf[_docPrefs.location.ch]);
         _loadCurrentRecord();
         Doc_scroll(PAGEDIR_UP, TA_PAGE);
     }
@@ -692,49 +670,50 @@ static void _setLineHeight()
 #endif
 }
 
-////////////////////////////////////////////////////////////////////////////////
 // If you change _docPrefs.location, call this
-////////////////////////////////////////////////////////////////////////////////
 static void _loadCurrentRecord()
 {
-    //If current record not _decodeBuf, decode it.
-    if (_recordDecoded != _docPrefs.location.record)
+    //If current record not gDoc.decodeBuf, decode it.
+    if (gDoc.recordDecoded != _docPrefs.location.record)
     {
         UInt16 recToLoad = _docPrefs.location.record;
         
-        _decodeLen = _decodedRecordLen 
-                   = decodeRecord(_dbRef, _record0Ptr->wVersion,
-                                  _decodeBuf,
-                                  recToLoad, _decodeBufLen-1);
-        _recordDecoded = _docPrefs.location.record;
-        //If this is the last record, make the null appear to belong to this record
-        if (recToLoad == _wNumRecs)
+        gDoc.decodeLen = gDoc.decodedRecordLen 
+                   = decodeRecord(gDoc.dbRef, gDoc.record0Ptr->wVersion,
+                                  gDoc.decodeBuf,
+                                  recToLoad, gDoc.decodeBufLen-1);
+        gDoc.recordDecoded = _docPrefs.location.record;
+        /* If this is the last record, make the null appear to belong 
+         * to this record */
+        if (recToLoad == gDoc.numRecs)
         {
-            _decodedRecordLen++;
+            gDoc.decodedRecordLen++;
         }
         //Otherwise load more records
         else
         {
-            //While there are remaining records, and space to fill in buffer,
-            //decode next records.
-            while (++recToLoad <= _wNumRecs && _decodeLen < _decodeBufLen-1)
-                _decodeLen += decodeRecord(_dbRef, _record0Ptr->wVersion,
-                                           &_decodeBuf[_decodeLen],
-                                           recToLoad,
-                                           (_decodeBufLen-1) - _decodeLen);
+            /* While there are remaining records, and space to fill in buffer,
+             * decode next records. */
+            while (++recToLoad <= gDoc.numRecs 
+                   && gDoc.decodeLen < gDoc.decodeBufLen-1)
+                gDoc.decodeLen 
+                    += decodeRecord(gDoc.dbRef, gDoc.record0Ptr->wVersion,
+                                    &gDoc.decodeBuf[gDoc.decodeLen],
+                                    recToLoad,
+                                    (gDoc.decodeBufLen-1) - gDoc.decodeLen);
         }
-        _decodeBuf[_decodeLen] = '\0';
+        gDoc.decodeBuf[gDoc.decodeLen] = '\0';
         _postDecodeProcessing();
 
         //if location is not in this record, do it over
-        if (_docPrefs.location.ch >= _decodedRecordLen)
+        if (_docPrefs.location.ch >= gDoc.decodedRecordLen)
             _loadCurrentRecord();
     }
     //If current location is in the next record, normalize
-    else if (_docPrefs.location.ch >= _decodedRecordLen)
+    else if (_docPrefs.location.ch >= gDoc.decodedRecordLen)
     {
-        ErrFatalDisplayIf(_docPrefs.location.record+1>_wNumRecs, "sheez");
-        _docPrefs.location.ch -= _decodedRecordLen;
+        ErrFatalDisplayIf(_docPrefs.location.record+1>gDoc.numRecs, "sheez");
+        _docPrefs.location.ch -= gDoc.decodedRecordLen;
         _docPrefs.location.record++;
         _loadCurrentRecord();
     }
@@ -745,19 +724,13 @@ static UInt32 _fixStoryLen(UInt16 *recLens)
     UInt32 storyLen = 0;
     UInt16 i;
 
-    for (i = 0; i < _wNumRecs; i++)
+    for (i = 0; i < gDoc.numRecs; i++)
     {
-        /*
-        _docPrefs.location.ch = 0;
-        _docPrefs.location.record = i+1;
-        _loadCurrentRecord();
-        storyLen += _decodedRecordLen;
-        recLens[i] = _decodedRecordLen;
-        */
-        recLens[i] = decodedRecordLen(_dbRef, _record0Ptr->wVersion, i+1);
+        recLens[i] = decodedRecordLen(gDoc.dbRef, 
+                                      gDoc.record0Ptr->wVersion, i+1);
         storyLen += recLens[i];
     }
-    recLens[_wNumRecs-1]++;//for the null at the end of the last record.
+    recLens[gDoc.numRecs-1]++;//for the null at the end of the last record.
     storyLen++;
     
     return storyLen;
@@ -765,8 +738,8 @@ static UInt32 _fixStoryLen(UInt16 *recLens)
 
 static void _postDecodeProcessing()
 {
-    Char* tooFar = &_decodeBuf[_decodeLen];
-    Char* p = _decodeBuf;
+    Char* tooFar = &gDoc.decodeBuf[gDoc.decodeLen];
+    Char* p = gDoc.decodeBuf;
 
     do
     {
@@ -783,10 +756,10 @@ void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
 {
     struct DOC_LOCATION_STR posBeforeSearch;
     struct DOC_LOCATION_STR startOfSearch;
-    Char*        searchString = MemHandleLock(searchStringHandle);
-    Boolean        found = false;
-    UInt16        stopAfterRecord = WORD_MAX;
-    Boolean        giveUp = false;
+    Char* searchString = MemHandleLock(searchStringHandle);
+    Boolean found = false;
+    UInt16 stopAfterRecord = WORD_MAX;
+    Boolean giveUp = false;
     
     MemMove(&posBeforeSearch, &_docPrefs.location, sizeof(posBeforeSearch));
     
@@ -799,9 +772,7 @@ void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
     }
     else
     {
-        //Doc_linesDown(1);//So we don't find it again if we are sitting on it.
-
-        int fnord = FntWordWrap(&_decodeBuf[_docPrefs.location.ch],
+        int fnord = FntWordWrap(&gDoc.decodeBuf[_docPrefs.location.ch],
                                 _apparentTextBounds.extent.x);
         _docPrefs.location.ch += fnord;
     }
@@ -813,7 +784,7 @@ void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
         _loadCurrentRecord();
         
         //If we found it, move to after find.
-        if (_findString(&_decodeBuf[_docPrefs.location.ch], searchString,
+        if (_findString(&gDoc.decodeBuf[_docPrefs.location.ch], searchString,
                         &foundPos, caseSensitive))
         {
             _docPrefs.location.ch += foundPos;
@@ -831,7 +802,7 @@ void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
 
                 _docPrefs.location.ch = 0;
                 _docPrefs.location.record++;
-                if (_docPrefs.location.record > _wNumRecs)
+                if (_docPrefs.location.record > gDoc.numRecs)
                     _docPrefs.location.record = 1;
             }
         }
@@ -841,10 +812,9 @@ void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
 
     if (found && formId)
     {
-        //_loadCurrentRecord();
-        //_rewindToStartOfWord();
-        _movePastWord();_loadCurrentRecord();Doc_linesUp(1);
-        //_loadCurrentRecord();Doc_linesDown(1);Doc_linesUp(1);
+        _movePastWord();
+        _loadCurrentRecord();
+        Doc_linesUp(1);
         
         FrmUpdateForm(formId, 0);
     }
@@ -919,7 +889,7 @@ static void _rewindToStartOfWord()
     const UInt16* attrs = GetCharAttr();
     
     while (_docPrefs.location.ch>0
-           && ! IsSpace(attrs, _decodeBuf[_docPrefs.location.ch-1]))
+           && ! IsSpace(attrs, gDoc.decodeBuf[_docPrefs.location.ch-1]))
     {
         _docPrefs.location.ch--;
     }
@@ -929,13 +899,13 @@ static void _movePastWord()
 {
     const UInt16* attrs = GetCharAttr();
 
-    while (! IsSpace(attrs, _decodeBuf[_docPrefs.location.ch])
-            && '\0' != _decodeBuf[_docPrefs.location.ch])
+    while (! IsSpace(attrs, gDoc.decodeBuf[_docPrefs.location.ch])
+            && '\0' != gDoc.decodeBuf[_docPrefs.location.ch])
     {
         _docPrefs.location.ch++;
     }
     /*
-    while (IsSpace(attrs, _decodeBuf[_docPrefs.location.ch]))
+    while (IsSpace(attrs, gDoc.decodeBuf[_docPrefs.location.ch]))
     {
         _docPrefs.location.ch++;
     }
