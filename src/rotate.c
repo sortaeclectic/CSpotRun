@@ -22,6 +22,7 @@
 #include <UI/UIAll.h>
 #include <UI/ScrDriverNew.h>
 #include "rotate.h"
+#include "app.h"
 
 typedef Word Pyte;
 #define BITS_PER_PYTE (8 * sizeof(Pyte))
@@ -37,6 +38,15 @@ typedef Word Pyte;
 static int sinTable[] = {0,  1,  0, -1};
 static int cosTable[] = {1,  0, -1,  0};
 
+//OS35 features
+#ifndef sysTrapBmpGetBits
+#define sysTrapBmpGetBits    0xA376  /* was BltGetBitsAddr */
+extern void *BmpGetBits(BitmapType *bitmapP) SYS_TRAP(sysTrapBmpGetBits);
+#define sysTrapWinGetBitmap  0xA3A2
+extern BitmapType *WinGetBitmap (WinHandle winHandle) SYS_TRAP(sysTrapWinGetBitmap);
+typedef Int16               Coord;
+#endif /* sysTrapBmpGetBits */
+
 int RotateY(int x, int y, OrientationType a)
 {
     return Y_ROTATE(x,y,a);
@@ -49,44 +59,68 @@ int RotateY(int x, int y, OrientationType a)
 //
 // This is going to hurt a little. Try to relax.
 
+Pyte* windowBits(WinHandle win)
+{
+    if (UtilOSIsAtLeast(3, 5)) {
+        BitmapType *bmp = WinGetBitmap(win);
+        return BmpGetBits(bmp);
+    } else {
+        return win->displayAddrV20;
+    }
+}
+
 void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, OrientationType a)
 {
     register Pyte  fromPyte;
-    int toX, toY;               //writing to
-    unsigned int fromX, fromY;  //copying from
+    Coord toX, toY;               //writing to
+    Coord fromX, fromY;  //copying from
     int xOffset, yOffset;       //Base delta to the lower right hand corner pixel's coordinates
     WinHandle toWindowH = WinGetDrawWindow();
 
-    Pyte* to =      toWindowH->displayAddrV20;
-    Pyte* from =    fromWindowH->displayAddrV20;
+    Pyte* to =      NULL;
+    Pyte* from =    NULL;
     Pyte* fromPtr;
     int   dToXdFromY, dToYdFromY; //Change in to coords per change in from y coords
 
     Pyte v;
     Pyte* toPyte;
 
-    int fromBpp;
-    int toBpp;
-    unsigned int fromWidth, fromHeight;
-    unsigned int toWidth, toHeight;
+    const int fromBpp = 1;
+    const int toBpp = 1;
+    Coord fromWidth, fromHeight;
+    Coord toWidth, toHeight;
     unsigned int fromRowPytes;
     unsigned int toRowPytes;
 
     int         dToXdx, dToYdx;
     int         dToPyte;
-    Pyte        toBitMask;
-    Pyte        fromBitMask;
-    Pyte        startingFromBitMask;
-    int         pyteCol = -1;
-    Pyte        toBlackBits;
+    Pyte       toBitMask;
+    Pyte       fromBitMask;
+    Pyte       startingFromBitMask;
+    int          pyteCol = -1;
+    Pyte       toBlackBits;
 
-    if (fromWindowH->gDeviceP)
+    to = windowBits(toWindowH);
+    from = windowBits(fromWindowH);
+
+    if (UtilOSIsAtLeast(3, 5)) {
+        BitmapType *bmp;
+
+        bmp = WinGetBitmap(fromWindowH);
+        fromRowPytes = (bmp->rowBytes * 8) / BITS_PER_PYTE;
+        fromWidth = bmp->width;
+        fromHeight = bmp->height;
+
+        bmp = WinGetBitmap(toWindowH);
+        toRowPytes = (bmp->rowBytes * 8) / BITS_PER_PYTE;
+        toWidth = bmp->width;
+        toHeight = bmp->height;
+    }
+    else if (fromWindowH->gDeviceP)
     {
         //OS3
         fromRowPytes = (fromWindowH->gDeviceP->rowBytes * 8) / BITS_PER_PYTE;
         toRowPytes = (toWindowH->gDeviceP->rowBytes * 8) / BITS_PER_PYTE;
-        fromBpp = fromWindowH->gDeviceP->pixelSize;
-        toBpp = toWindowH->gDeviceP->pixelSize;
         fromWidth = fromWindowH->displayWidthV20;
         fromHeight = fromWindowH->displayHeightV20;
         toWidth = toWindowH->displayWidthV20;
@@ -107,9 +141,7 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
         toWidth = x;
         toHeight = y;
 
-        fromBpp = 1;
         fromRowPytes =  (20 * 8) / BITS_PER_PYTE;
-        toBpp = 1;
         toRowPytes = (20 * 8) / BITS_PER_PYTE;
     }
 
@@ -230,26 +262,26 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
 
 void RotScrollRectangleUp(RectangleType *rect, OrientationType o)
 {
-	DirectionType dir = up; //Initialized only to make the compiler happy.
-	RectangleType vacated;
+    DirectionType dir = up; //Initialized only to make the compiler happy.
+    RectangleType vacated;
 
-	switch (o)
-	{
-		case angle0:
-		    dir = up;
-		    break;
-		case angle90:
-		    dir = right;
-		    break;
-		case angle180:
-		    dir = down;
-		    break;
-		case angle270:
-		    dir = left;
-		    break;
-	}
+    switch (o)
+    {
+        case angle0:
+            dir = up;
+            break;
+        case angle90:
+            dir = right;
+            break;
+        case angle180:
+            dir = down;
+            break;
+        case angle270:
+            dir = left;
+            break;
+    }
 
-	WinScrollRectangle(rect, dir, 1, &vacated);
+    WinScrollRectangle(rect, dir, 1, &vacated);
 
 }
 #endif

@@ -212,14 +212,14 @@ static Boolean _MainFormHandleEvent(EventType *e)
         case frmUpdateEvent:
             if (e->data.frmUpdate.formID == formID_main)
             {
-                WinEraseWindow();
                 FrmDrawForm(formPtr);
-                Doc_drawPage();
+				Doc_drawPage();
                 _updatePercent();
                 _drawLineSpacingGadgets();
 #ifdef ENABLE_AUTOSCROLL
                 _drawAutoScrollGadget();
 #endif
+
                 return true;
             }
             break;

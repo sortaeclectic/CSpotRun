@@ -22,6 +22,7 @@
 #include <Common.h>
 #include <System/SysAll.h>
 #include <UI/UIAll.h>
+#include <UI/ScrDriverNew.h>
 #include <KeyMgr.h>
 #include <SysEvtMgr.h>
 #include "app.h"
@@ -91,6 +92,22 @@ DWord PilotMain(Word cmd, Ptr cmdPBP, Word launchFlags)
     return 0;
 }
 
+Boolean UtilOSIsAtLeast(Byte reqMajor, Byte reqMinor)
+{
+	DWord romVersion;
+	Byte major, minor;
+
+	FtrGet(sysFtrCreator, sysFtrNumROMVersion, &romVersion);
+	major = sysGetROMVerMajor(romVersion);
+	minor = sysGetROMVerMinor(romVersion);
+
+	if (major > reqMajor)
+		return true;
+	if (major == reqMajor && minor >= reqMinor)
+		return true;
+	return false;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -101,6 +118,18 @@ static void StartApp()
 #ifdef ENABLE_SEARCH
     CharPtr searchPtr = NULL;
 #endif
+    DWord newDepth = 1;
+
+	if (UtilOSIsAtLeast(3,0))
+	{
+		DWord depth;
+		ScrDisplayMode(scrDisplayModeGetSupportedDepths, NULL, NULL, &depth, NULL);
+		if (depth & 0x1)
+			ScrDisplayMode(scrDisplayModeSet, NULL, NULL, &newDepth, NULL);
+		else
+		    ErrFatalDisplay("No 1-bit mode!");
+	}
+
     appStatePtr = MemHandleLock(appStateHandle);
     if (noPreferenceFound == PrefGetAppPreferences(appId, PREF_APPSTATE, NULL, &prefsSize, true)
         || prefsSize != sizeof(*appStatePtr))
@@ -177,6 +206,8 @@ static void StopApp()
     MemHandleUnlock(searchStringHandle);
     MemHandleFree(searchStringHandle);
 #endif
+    if (UtilOSIsAtLeast(3,0))
+    	ScrDisplayMode(scrDisplayModeSetToDefaults, NULL, NULL, NULL, NULL);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
