@@ -27,7 +27,7 @@ endif
 
 APPID = CSBR
 LANGUAGES = chinese czech dutch english estonian french \
-            german italian polish polish1250 polish8859-2\
+            german italian no_NO polish polish1250 polish8859-2\
             pt_BR pt_PT turkish sv_SE \
             spanish  
 
