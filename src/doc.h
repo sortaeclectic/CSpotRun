@@ -30,5 +30,5 @@ void            Doc_prepareForPixelScrolling();
 
 #ifdef ENABLE_AUTOSCROLL
 void            Doc_pixelScroll();
-void            Doc_pixelScrollClear();
+void            Doc_pixelScrollClear(Boolean forceReset);
 #endif

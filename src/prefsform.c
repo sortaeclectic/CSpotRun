@@ -158,7 +158,7 @@ static void  _guiToPrefs()
 #ifdef ENABLE_AUTOSCROLL
     appStatePtr->autoScrollButton = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_toggleAsAddButt)));
 
-    Doc_pixelScrollClear();
+    Doc_pixelScrollClear(true);
     Doc_prepareForPixelScrolling();
     Doc_drawPage();
 #endif

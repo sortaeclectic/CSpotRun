@@ -273,9 +273,6 @@ Boolean Doc_linesDown(Word linesToMove)
 
     FntSetFont(oldFont);
 
-#ifdef ENABLE_AUTOSCROLL
-    _locationChanged = true;
-#endif
     return true;
 }
 
@@ -316,9 +313,6 @@ void Doc_linesUp(Word linesToMove)
             return;
         }
     }
-#ifdef ENABLE_AUTOSCROLL
-    _locationChanged = true;
-#endif
 }
 
 void Doc_scroll(int dir, enum TAP_ACTION_ENUM ta)
@@ -523,7 +517,7 @@ static void _drawPage(RectanglePtr boundsPtr,
 #ifdef ENABLE_AUTOSCROLL
     if(!drawOnscreenPart)
     {
-		int offscreenLines = linesToShow - (boundsPtr->extent.y) / _lineHeight;
+        int offscreenLines = linesToShow - (boundsPtr->extent.y) / _lineHeight;
         offscreenLines += 2 ; //Because we really want the last onscreen line too.
         // skip past onscreen lines
         while((linesToShow > offscreenLines) && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
@@ -962,10 +956,10 @@ void Doc_pixelScroll()
     }
 }
 
-void Doc_pixelScrollClear()
+void Doc_pixelScrollClear(Boolean forceReset)
 {
     // if location has changed since last pixel scroll, reset scroll offset
-    if(_locationChanged)
+    if(_locationChanged || forceReset)
     {
         _pixelOffset = 0;
         _locationChanged = false;

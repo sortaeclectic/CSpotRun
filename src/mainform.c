@@ -213,7 +213,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
             if (e->data.frmUpdate.formID == formID_main)
             {
                 FrmDrawForm(formPtr);
-				Doc_drawPage();
+                Doc_drawPage();
                 _updatePercent();
                 _drawLineSpacingGadgets();
 #ifdef ENABLE_AUTOSCROLL
@@ -371,6 +371,8 @@ static void HandleFormCloseEvent()
 
 void MainForm_UCGUIChanged()
 {
+    _setHandyPointers();
+    FrmEraseForm(formPtr);
     _layoutForm();
     FrmUpdateForm(formID_main, 0);
 }
@@ -413,7 +415,7 @@ static void _drawAutoScrollGadget()
 
 void MainForm_ToggleAutoScroll()
 {
-    Doc_pixelScrollClear();
+    Doc_pixelScrollClear(false);
     if (!autoScrollEnabled)
        Doc_prepareForPixelScrolling();
 
