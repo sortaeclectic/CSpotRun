@@ -18,7 +18,7 @@ begin
     "$$AUTOSCROLL"="Auto-Bildlauf"
     "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
     "$$PIXEL"="Pixel"
-    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
+    "$$TOGGLE AUTOSCROLL"="Auto-Bildlauf mit Adreßbuchknopf"
 #endif
 
     "$$GLOBAL PREFERENCES"="Allgemeine Einstellungen"
@@ -70,9 +70,9 @@ begin
         "Die Quelltexte und die aktuellste Version sind hier verfügbar:"\
         "http://32768.com/cspotrun/"\
         ""\
-        "Contributors:\n\n"\
-        "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
+        "Beiträge von:\n\n"\
+        "Arne Nickel\narne.nickel@gmx.de\nDeutsche Übersetzung\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-Bildlauf\n"
 
     "$$DELETE PROMPT"="Dokument \"^1\" endgültig löschen?"
     "$$CONFIRM DELETE"="Löschen bestätigen"
