@@ -79,3 +79,12 @@ More Dutch work from Robbert Flipse (robbert@flipse-partners.nl).
 6/16/2001
 
 Bookmarks from Alexey Raschepkin (apr@direct.ru).
+Released as 1.1
+
+12/12/2001
+
+Tidied up menus by moving some bookmark stuff.
+Changed to OS 4 headers.
+Fixed the emulator warnings from moving gadgets offscreen.
+Releasing as 1.1.1
+
