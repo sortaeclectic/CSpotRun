@@ -36,6 +36,8 @@ RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) def
 					{\
 						if ($$0 ~ "\#ifdef") \
 							{stack[d]=($$2 in defined); d++;} \
+						else if ($$0 ~ "\#ifndef") \
+							{stack[d]=!($$2 in defined); d++;} \
 						else if ($$0 ~ "\#else") \
 							{stack[d-1]=!stack[d-1];} \
 						else if ($$0 ~ "\#endif") \
