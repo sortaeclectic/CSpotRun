@@ -21,8 +21,8 @@
  * CONTRIBUTORS:
  *    French translation: Vincent Poty (vincent.poty@bigfoot.com)
  *    German translation: Arne Nickel (arne.nickel@gmx.de)
- *    Spanish translation: Marcelo Rinesi (rinesi@espacio.com.ar)
  *    Portugues translation: Rui A. Rebelo (rui.rebe@zaz.com.br)
+ *    Spanish translation: Marcelo Rinesi (rinesi@espacio.com.ar)
  */
 
 #include "fixed_resources.h"
@@ -48,7 +48,13 @@ begin
         "find it at: http://www.gnu.org/copyleft/gpl.html\n\n"\
         "The source code and the latest version is available at: "\
         "http://www.pobox.com/~wtc/palmos/cspotrun/\n\n"\
-        "Fnord."
+        ""\
+        "Contributors:\n\n"\
+        "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
+        "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
+        "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
+        "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$CONTROLS HELP"="Each checkbox corresponds to an on-screen control. "\
                                 "Select the controls which you want to be visible.\n\n"\
@@ -83,7 +89,6 @@ begin
     "$$LINE SPACING 1"="Line Spacing 1    "
     "$$LINE SPACING 2"="Line Spacing 2"
     "$$LINE SPACING 3"="Line Spacing 3"
-    "$$LINE SPACING 4"="Line Spacing 4"
     "$$ROTATE RIGHT"="Rotate Right"
     "$$ROTATE LEFT"="Rotate Left"
     "$$OPTIONS"="Options"
@@ -170,7 +175,6 @@ begin
     "$$LINE SPACING 1"="Interligne 1"
     "$$LINE SPACING 2"="Interligne 2"
     "$$LINE SPACING 3"="Interligne 3"
-//  "$$LINE SPACING 4"="Interligne 4"
     "$$ROTATE RIGHT"="Basculer à droite"
     "$$ROTATE LEFT"="Basculer à gauche"
 
@@ -188,7 +192,14 @@ begin
       "termes de la Licence Publique Générale GNU (GPL). Vous "\
       "pouvez trouver celle-ci sur www.gnu.org/copyleft/gpl.html .\n\n"\
       "Le code source et la dernière version sont disponibles sur "\
-      "www.pobox.com/~wtc/palmos/cspotrun/."
+      "www.pobox.com/~wtc/palmos/cspotrun/."\
+      ""\
+      "Contributors:\n\n"\
+      "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
+      "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
+      "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
+      "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
+      "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$DELETE PROMPT"="Supprimer définitivement \"^1\" ?"
     "$$CONFIRM DELETE"="Confirmer la suppression"
@@ -207,7 +218,7 @@ begin
         "L'option \'Tape' définit l'ampleur de défilement du texte lorsque "\
         "le stylet touche le document à l'écran.\n\n"\
         "Le champ \'Vitesse de défilement\' spécifie la vitesse de défilement"\
-         automatique du texte en 100èmes de seconde (60-80 sont des valeurs recommandées)."
+        "automatique du texte en 100èmes de seconde (60-80 sont des valeurs recommandées)."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
                 "Essayez à nouveau CSpotRun après avoir installé un ou "\
@@ -314,7 +325,15 @@ begin
       "bajo la GNU General Public License (GPL). Puede "\
       "encontrarla en: http://www.gnu.org/copyleft/gpl.html\n\n"\
       "El código fuente y la última versión están en: "\
-      "http://www.pobox.com/~wtc/palmos/cspotrun/"
+      "http://www.pobox.com/~wtc/palmos/cspotrun/"\
+      ""\
+      "Contributors:\n\n"\
+      "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
+      "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
+      "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
+      "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
+      "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
+      
 
     "$$DELETE PROMPT"="¿Borrar permanentemente \"^1\"?"
     "$$CONFIRM DELETE"="Confirmar borrado"
@@ -403,7 +422,14 @@ begin
         "GNU General Public License (GPL) veröffentlicht. Hinweise "\
         "hierzu finden sich unter: http://www.gnu.org/copyleft/gpl.html.\n\n"\
         "Die Quelltexte und die aktuellste Version sind hier verfügbar:"\
-        "http://www.pobox.com/~wtc/palmos/cspotrun/"
+        "http://www.pobox.com/~wtc/palmos/cspotrun/"\
+        ""\
+        "Contributors:\n\n"\
+        "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
+        "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
+        "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
+        "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$DELETE PROMPT"="Dokument \"^1\" endgültig löschen?"
     "$$CONFIRM DELETE"="Löschen bestätigen"
@@ -454,7 +480,14 @@ begin
         "a GNU General Public License (GPL). Você poderá "\
         "encontrá-la em: http://www.gnu.org/copyleft/gpl.html\n\n"\
         "O código fonte e a última versão podem ser encontrados em: "\
-        "http://www.pobox.com/~wtc/palmos/cspotrun/\n\n"
+        "http://www.pobox.com/~wtc/palmos/cspotrun/\n\n"\
+        ""\
+        "Contributors:\n\n"\
+        "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
+        "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
+        "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
+        "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela. "\
                       "Selecione o controle que você deseja que fique visível.\n\n"\
@@ -489,7 +522,6 @@ begin
     "$$LINE SPACING 1"="Entrelinha 1"
     "$$LINE SPACING 2"="Entrelinha 2"
     "$$LINE SPACING 3"="Entrelinha 3"
-    "$$LINE SPACING 4"="Entrelinha 4"
     "$$ROTATE RIGHT"="Girar à Direita"
     "$$ROTATE LEFT"="Girar à Esquerda"
     "$$OPTIONS"="Opções"
