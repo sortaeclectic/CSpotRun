@@ -46,7 +46,7 @@ void Tab_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y)
     tooFar = &chars[len];
 
     wordStart = chars;
-    wordX = (*chars != ' ') ? x : x+mediumSize;
+    wordX = (*chars != ' ') ? x : (x+mediumSize-1);
         
     while (chars < tooFar)
     {
