@@ -101,22 +101,31 @@ resources.zip:
 clean:
 	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(RESDIR)/resources.rcp $(LANGUAGES) $(ZIPS) 
 
-pilotmain.o:    pilotmain.c $(STDDEP) mainform.h controlsform.h ucgui.h prefsform.h docprefs.h searchform.h \
-		bmknamefrm.h bmkedfrm.h bmksortfrm.h bmk.h
-mainform.o:     mainform.c $(STDDEP) mainform.h doclist.h rotate.h doc.h docprefs.h ucgui.h fontselect.h bmk.h
-doclist.o:      doclist.c $(STDDEP) doclist.h rotate.h doc.h
-doc.o:          doc.c $(STDDEP) doc.h rotate.h mainform.h decode.h docprefs.h tabbedtext.h bmk.h
-decode.o:       decode.c $(STDDEP) decode.h
-docprefs.o:     docprefs.c $(STDDEP) docprefs.h doclist.h rotate.h
-tabbedtext.o:   tabbedtext.c $(STDDEP) tabbedtext.h
-controlsform.o: controlsform.c $(STDDEP) controlsform.h ucgui.h mainform.h
-fontselect.o:   fontselect.c $(STDDEP) fontselect.h rotate.h doc.h
-ucgui.o:        ucgui.c $(STDDEP) ucgui.h fontselect.h
-rotate.o:       rotate.c $(STDDEP) rotate.h
-prefsform.o:    prefsform.c $(STDDEP) prefsform.h ucgui.h mainform.h controlsform.h
-searchform.o:   searchform.c  $(STDDEP) searchform.h mainform.h doc.h
-bmknamefrm.o:	bmknamefrm.c $(STDDEP) bmknamefrm.h bmk.h
-bmkedfrm.o:	bmkedfrm.c $(STDDEP) bmkedfrm.h bmk.h bmknamefrm.h
-bmksortfrm.o:	bmksortfrm.c $(STDDEP) bmksortfrm.h bmk.h
-bmk.o:		bmk.c $(STDDEP) bmk.h doc.h
+depend:
+	makedepend -Y -- $(CFLAGS) -- *.c 
+# DO NOT DELETE
 
+bmk.o: bmk.h appstate.h docprefs.h doc.h rotate.h resources.h
+bmkedfrm.o: resources.h callback.h bmkedfrm.h bmknamefrm.h bmk.h
+bmknamefrm.o: resources.h callback.h bmknamefrm.h bmk.h
+bmksortfrm.o: resources.h callback.h bmksortfrm.h bmk.h
+controlsform.o: resources.h callback.h app.h appstate.h docprefs.h
+controlsform.o: controlsform.h ucgui.h mainform.h
+decode.o: decode.h
+doc.o: appstate.h docprefs.h rotate.h doc.h resources.h mainform.h decode.h
+doc.o: tabbedtext.h bmk.h
+doclist.o: app.h doclist.h rotate.h appstate.h docprefs.h doc.h
+docprefs.o: doclist.h rotate.h docprefs.h appstate.h
+fontselect.o: resources.h appstate.h docprefs.h rotate.h fontselect.h doc.h
+mainform.o: resources.h mainform.h callback.h app.h doclist.h rotate.h
+mainform.o: appstate.h docprefs.h doc.h ucgui.h fontselect.h bmk.h
+pilotmain.o: app.h resources.h mainform.h controlsform.h bmknamefrm.h
+pilotmain.o: bmkedfrm.h bmksortfrm.h bmk.h appstate.h docprefs.h ucgui.h
+pilotmain.o: prefsform.h searchform.h
+prefsform.o: resources.h callback.h app.h appstate.h docprefs.h
+prefsform.o: controlsform.h ucgui.h mainform.h doc.h rotate.h
+rotate.o: rotate.h app.h
+searchform.o: resources.h callback.h app.h appstate.h docprefs.h searchform.h
+searchform.o: mainform.h doc.h rotate.h
+tabbedtext.o: tabbedtext.h
+ucgui.o: resources.h ucgui.h appstate.h docprefs.h fontselect.h
