@@ -796,7 +796,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Oto. Kaydýrma"
     "$$AUTOSCROLLSPEED"="Otomatik Kaydýrma Hýzý:"
-    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
+    "$$TOGGLE AUTOSCROLL"="Oto.Kaydýrma için Adres Butonu"
 #endif
     "$$GOTO PER"="%\'ye Git"
 
@@ -828,7 +828,9 @@ begin
                                     "\'týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
                                     "ne yapýlmasý gerektiðini belirler.\n\n"\
                                     "\'Otomatik Kaydýrma Hýzý\' seçeneði ile otomatik kaydýrmanýn hýzýný ayarlayabilirsiniz. "\
-                                    "100 sayýsý saniyede 1 satýr kaydýrmaya karþý düþer, 15-20 tavsiye edilen deðerlerdir."
+                                    "Sayýlar saniyenin 100 de 1 ine karþý düþmekte olup, 15-20 tavsiye edilen deðerlerdir.\n\n"\
+                                    "\'Oto.Kaydýrma için Adres Butonu\' seçeneði aktif ise Otomatik Kaydýrma çalýþýrken Adres Defteri butonu ile durdurup devam ettirebilirsiniz."
+
     "$$NO DOCS"="Þu anda hiç DOC database yok!\n\nLütfen en az bir doküman yükledikten sonra CSpotRun\'ý yeniden çalýþtýrýn."
 
     "$$ERROR ALERT"="Amanýnnn !"
@@ -851,7 +853,7 @@ begin
     "$$LINE SPACING 3"="Satýr Aralýðý 3"
     "$$ROTATE RIGHT"="Saða Döndür"
     "$$ROTATE LEFT"="Sola Döndür"
-    "$$OPTIONS"="Seçenekler"
+    "$$OPTIONS"="Seçimler"
     "$$TOGGLE CONTROLS"="Kontroller Var/Yok "
     "$$CONTROLSDDD"="Kontroller..."
     "$$PREFERENCESDDD"="Tercihler..."
