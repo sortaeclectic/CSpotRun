@@ -574,7 +574,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
     "$$AUTOSCROLLSPEED"="Veloc. de Auto Rolagem:"
-    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
+    "$$TOGGLE AUTOSCROLL"="Auto Rolagem no botão Addr. Book"
 #endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -587,8 +587,8 @@ begin
         "http://32768.com/cspotrun/\n\n"\
         ""\
         "Contributors:\n\n"\
-        "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
+        "Rui A. Rebelo\nrui.rebe@zaz.com.br\nTradução para português\n\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto Rolagem\n"
 
     "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela. "\
                       "Selecione o controle que você deseja que fique visível.\n\n"\
