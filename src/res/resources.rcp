@@ -22,6 +22,7 @@
  *    French translation: Vincent Poty (vincent.poty@bigfoot.com)
  *    German translation: Arne Nickel (arne.nickel@gmx.de)
  *    Spanish translation: Marcelo Rinesi (rinesi@espacio.com.ar)
+ *    Portugues translation: Rui A. Rebelo (rui.rebe@zaz.com.br)
  */
 
 #include "fixed_resources.h"
@@ -67,7 +68,7 @@ begin
 
     "$$TAP ACTION"="Tap action"
     "$$PAGE"="Page"
-    "$$HALF PAGE"="1/2 Page"
+    "$$HALF PAGE"="\xBD Page"
     "$$LINE"="Line"
 
     "$$TOP"="Top"
@@ -142,7 +143,7 @@ begin
     "$$SHOW PREV LINE"="Ligne de la page précédente"
     "$$TAP ACTION"="Tape :"
     "$$PAGE"="Page"
-    "$$HALF PAGE"="1/2 page"
+    "$$HALF PAGE"="\xBD page"
     "$$LINE"="Ligne"
 
     "$$TOP"="Début"
@@ -230,7 +231,7 @@ begin
     "$$SHOW PREV LINE"="Mostrar línea anterior"
     "$$TAP ACTION"="Acción al tocar"
     "$$PAGE"="Pág"
-    "$$HALF PAGE"="1/2 Pág"
+    "$$HALF PAGE"="\xBD Pág"
     "$$LINE"="Línea"
 
     "$$TOP"="Comienzo"
@@ -314,7 +315,7 @@ begin
     "$$SHOW PREV LINE"="Zeige Zeile der vorigen Seite"
     "$$TAP ACTION"="Tippen"
     "$$PAGE"="Seite"
-    "$$HALF PAGE"="1/2 Seite"
+    "$$HALF PAGE"="\xBD Seite"
     "$$LINE"="Zeile"
 
     "$$TOP"="Anfang"
@@ -397,7 +398,7 @@ begin
         "© 1998-1999 Bill Clagett\n"\
         "wtc@pobox.com\n\n"\
         "O código fonte para este programa é distribuído sob "\
-        "a Licença Pública Geral GNU (GPL). Você poderá "\
+        "a GNU General Public License (GPL). Você poderá "\
         "encontrá-la em: http://www.gnu.org/copyleft/gpl.html\n\n"\
         "O código fonte e a última versão podem ser encontrados em: "\
         "http://www.pobox.com/~wtc/palmos/cspotrun/\n\n"
@@ -406,11 +407,11 @@ begin
                       "Selecione o controle que você deseja que fique visível.\n\n"\
                       "Considere esconder os controles que raramente usa. "\
                       "Perceba que todos os controles tem itens de menu equivalentes."
-    "$$GLOBAL PREFS HELP"="Use a opção \'Mudar cima/baixo quando deitado\' para reverter a"\
+    "$$GLOBAL PREFS HELP"="Use a opção \'Alternar pág.acima/pág.abaixo\' para reverter a "\
                                     "função dos botões página acima e página abaixo quando a "\
                                     "tela está rotacionada.\n\n"\
                                     "Use a opção \'Mostre linha da página anterior\' para repetir a última "\
-                                    "linha da página anterior quando você avança uma página.\n\n"\
+                                    "linha da página anterior quando avançar uma página.\n\n"\
                                     "A escolha de \'Ação de toque\' controla que ação é executada quando "\
                                     "você toca a tela."
     "$$NO DOCS"="Não há arquivos DOC instalados!\n\nPor favor tente novamente o CSpotRun depois de instalar um ou dois documentos."
@@ -419,21 +420,21 @@ begin
 
     "$$DELETE PROMPT"="Deletar definitivamente \"^1\"?"
     "$$GLOBAL PREFERENCES"="Preferências Globais"
-    "$$SWAP UPDOWN"="Mudar cima/baixo quando deitado"
+    "$$SWAP UPDOWN"="Alternar pág.acima/pág.abaixo"
     "$$SHOW PREV LINE"="Mostra linha da página anterior"
 
     "$$TAP ACTION"="Ação de toque"
-    "$$PAGE"="Página"
-    "$$HALF PAGE"="1/2 Página"
+    "$$PAGE"="Pág."
+    "$$HALF PAGE"="\xBD Pág."
     "$$LINE"="Linha"
 
     "$$TOP"="Topo"
     "$$BOTTOM"="Fundo"
 
-    "$$LINE SPACING 1"="Espaçamento de Linha 1"
-    "$$LINE SPACING 2"="Espaçamento de Linha 2"
-    "$$LINE SPACING 3"="Espaçamento de Linha 3"
-    "$$LINE SPACING 4"="Espaçamento de Linha 4"
+    "$$LINE SPACING 1"="Entrelinha 1"
+    "$$LINE SPACING 2"="Entrelinha 2"
+    "$$LINE SPACING 3"="Entrelinha 3"
+    "$$LINE SPACING 4"="Entrelinha 4"
     "$$ROTATE RIGHT"="Girar à Direita"
     "$$ROTATE LEFT"="Girar à Esquerda"
     "$$OPTIONS"="Opções"
@@ -442,8 +443,8 @@ begin
     "$$PREFERENCESDDD"="Preferências..."
     "$$ABOUTDDD"="Sobre..."
     "$$PICK DOC"="Escolher Doc"
-    "$$DELETE DOC"="Apagar Doc"
-    "$$CONFIRM DELETE"="Confirma Deleção"
+    "$$DELETE DOC"="Deletar Doc"
+    "$$CONFIRM DELETE"="Confirmar Deleção"
     "$$CANCEL"="Cancelar"
     "$$MAKE DEFAULT"="Tornar Ajustes Padrão"
     "$$VIEW"="Ver"
@@ -452,15 +453,15 @@ begin
     "$$FONT 3"="Fonte 3"
     "$$FONT 4"="Fonte 4"
     
-    "$$FIND"="Procurar"
-    "$$FIND AGAIN"="Procurar novamente"
-    "$$FINDDDD"="Procurar..."
-    "$$FIND IN DOCUMENT"="Procurar no Documento"
-    "$$FIND PROMPT"="Procurar:"
-    "$$SEARCH FROM TOP"="Procure a partir do topo"
+    "$$FIND"="Buscar"
+    "$$FIND AGAIN"="Buscar de novo"
+    "$$FINDDDD"="Buscar..."
+    "$$FIND IN DOCUMENT"="Buscar no Documento"
+    "$$FIND PROMPT"="Buscar:"
+    "$$SEARCH FROM TOP"="Busque a partir do topo"
     "$$CASE SENSITIVE"="Sensível a caixa"
-    "$$FIND BUTTON"="E"
-    "$$FIND AGAIN BUTTON"="EN"
+    "$$FIND BUTTON"="B"
+    "$$FIND AGAIN BUTTON"="BN"
 
 /*
     // Want to internationalize the menu shortcuts.
