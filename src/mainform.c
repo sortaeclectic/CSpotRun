@@ -131,7 +131,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
                 case menuitemID_search:
                     MenuEraseStatus(NULL);
                     FrmPopupForm(formID_search);
-                    break;
+                    return true;
                 case menuitemID_searchAgain:
                     MenuEraseStatus(NULL);
                     Doc_doSearch(searchStringHandle, false, appStatePtr->caseSensitive, formID_main);
