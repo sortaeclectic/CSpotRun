@@ -424,6 +424,7 @@ void MainForm_UpdateAutoScroll()
         EvtResetAutoOffTimer();
         Doc_linesDown(1);
         Doc_drawPage();
+        _updatePercent();
     }
 }
 
