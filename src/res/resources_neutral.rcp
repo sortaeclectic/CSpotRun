@@ -273,7 +273,7 @@ BEGIN
 #endif
 #ifdef ENABLE_BMK
 		MENUITEM SEPARATOR
-		MENUITEM "$$ADD BOOKMARK"    menuitemID_bmkAdd			"N"
+		MENUITEM "$$ADD BOOKMARK"    menuitemID_bmkAdd			"M"
 		MENUITEM "$$EDIT BOOKMARKS"  menuitemID_bmkEd			"B"
 		MENUITEM "$$DEL ALL BOOKMARKS" menuitemID_bmkDelAll
 		MENUITEM "$$SORT BOOKMARKS"  menuitemID_bmkSort
