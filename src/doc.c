@@ -284,8 +284,10 @@ void Doc_drawPage()
     if (_docPrefs.orient == angle0)
     {
 #ifdef ENABLE_AUTOSCROLL
-        WinCopyRectangle(osPageWindow, screenWindow, &_apparentTextBounds,
-                         _textGadgetBounds.topLeft.x, _textGadgetBounds.topLeft.y,
+        WinCopyRectangle(osPageWindow, screenWindow, 
+                         &_apparentTextBounds,
+                         _textGadgetBounds.topLeft.x,
+                         _textGadgetBounds.topLeft.y,
                         winPaint);
 #else
         WinRestoreBits(osPageWindow,
@@ -328,7 +330,9 @@ Boolean Doc_linesDown(UInt16 linesToMove, Boolean quick)
 
         // advance p through linesToShow lines of worth of characters
         while(linesToMove--)
-            p += (_docPrefs.justify && _docPrefs.hyphen) ? Hyphen_FntWordWrap(p, _apparentTextBounds.extent.x) : FntWordWrap (p, _apparentTextBounds.extent.x);
+            p += (_docPrefs.justify && _docPrefs.hyphen) 
+                ? Hyphen_FntWordWrap(p, _apparentTextBounds.extent.x) 
+                : FntWordWrap (p, _apparentTextBounds.extent.x);
 
         //_scrollUpIfLastPage();
 
@@ -338,7 +342,7 @@ Boolean Doc_linesDown(UInt16 linesToMove, Boolean quick)
     // Advance the current location by how far we advanced p
     _docPrefs.location.ch += (p - & gDoc.decodeBuf[_docPrefs.location.ch]);
     _loadCurrentRecord();
-
+  
     return true;
 }
 
@@ -350,7 +354,8 @@ void Doc_linesUp(UInt16 linesToMove)
     FontID    oldFont;
     UInt16    firstCharIndex;
     UInt16    lastCharIndex;
-
+    UInt16  linesRemain;
+    
     oldFont = FntGetFont();
     FntSetFont(_docPrefs.font);
 
@@ -358,13 +363,17 @@ void Doc_linesUp(UInt16 linesToMove)
 
     while(true)
     {
+        linesRemain = linesToMove;
+        
         //Try to wrap back a whole page.
         firstCharIndex = lastCharIndex;
         if (firstCharIndex != 0)
             FntWordWrapReverseNLines(gDoc.decodeBuf,
                                      _apparentTextBounds.extent.x,
-                                     &linesToMove, &firstCharIndex);
+                                     &linesRemain, &firstCharIndex);
 
+        linesToMove -= linesRemain;
+        
         //If that only got back to the beginning of the decode buffer
         //and it wasn't the first record...
         if (firstCharIndex == 0 && _docPrefs.location.record > 1)
@@ -560,7 +569,8 @@ Boolean Doc_inBottomHalf(int screenX, int screenY)
 
     return y > _apparentTextBounds.extent.y/2;
 #else
-    return screenY > (_textGadgetBounds.topLeft.y + _textGadgetBounds.extent.y/2);
+    return screenY > (_textGadgetBounds.topLeft.y 
+                      + _textGadgetBounds.extent.y/2);
 #endif
 }
 
@@ -581,6 +591,7 @@ static void _drawPage(RectanglePtr boundsPtr,
                       Boolean drawOffscreenPart)
 {
     int       y;
+    Boolean     leadingSpace;
     int       charsOnRow = 0;
     char*     p;
     int       linesToShow;
@@ -645,9 +656,16 @@ static void _drawPage(RectanglePtr boundsPtr,
         _draw_buf_len = linesToShow - offscreenLines;
         if (_draw_buf_len > 0)
         {
+            int i;
+                
+            // scroll the _draw_buff buffer
+            for (i=0; i < MAX_DISPLAY_LINE-1; i++)
+                _draw_buf[i] = _draw_buf[i + 1];
+            
             y += _lineHeight * _draw_buf_len;
-            p = _draw_buf[_draw_buf_len+1];
+            p = _draw_buf[_draw_buf_len];
             linesToShow -= _draw_buf_len;
+
         }
     }
 #endif
@@ -656,9 +674,24 @@ static void _drawPage(RectanglePtr boundsPtr,
 
     while(linesToShow)
     {
-        // find the end of the line.
-        charsOnRow = (_docPrefs.justify && _docPrefs.hyphen) ? Hyphen_FntWordWrap(p, boundsPtr->extent.x) : FntWordWrap (p, boundsPtr->extent.x);
+        leadingSpace = false;
 
+        // if the line start with a space, replace it by an - to correctly compute
+        // the len of the line
+        //  -> FntWordWrap seems to affect only  a 1 pixel len to a leading space
+        
+        if (*p == ' ') {
+            *p = '-';
+            leadingSpace = true;
+        }
+            
+        // find the end of the line.
+        charsOnRow = (_docPrefs.justify && _docPrefs.hyphen) ?
+                    Hyphen_FntWordWrap(p, boundsPtr->extent.x) :
+                    FntWordWrap (p, boundsPtr->extent.x);
+
+        if (leadingSpace) *p = ' ';
+        
         if (!charsOnRow) break;
 
         WinEraseRectangle(&osLineBounds, 0);
@@ -1139,15 +1172,24 @@ void Doc_pixelScroll()
     // if scrolled enough to draw a line, scroll down 1 and draw the page.
     if(_pixelOffset == _lineHeight)
     {
+        UInt16 i = _docPrefs.location.record;
+        
         if (! Doc_linesDown(1, true))
         {
             WinSetDrawWindow(drawWindow);
             return;
         }
+
         WinEraseWindow();
         _pixelOffset = 0;
-        _drawPage(&_apparentTextBounds, false, true);
+
+        // If I changed of record I need to redraw the full screen to rebuild the _draw_buf cache
+        if (i != _docPrefs.location.record)
+            _drawPage(&_apparentTextBounds, true, true);
+        else
+            _drawPage(&_apparentTextBounds, false, true);
     }
+
 
     // increment pixel offset
     _pixelOffset++;

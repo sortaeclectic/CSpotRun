@@ -27,6 +27,7 @@
 #define TAB_PIXELS (160/8)    //to match AportisDoc
 
 const UInt16* attrs = NULL;
+static UInt16 mediumSize = 0;
 
 //
 // Draw tabulated text
@@ -40,10 +41,13 @@ void Tab_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y)
     static Int16 wordX;     //x where current word started
     static char c;
 
+    if (!mediumSize) mediumSize = TxtGlueCharWidth('-');
+
     tooFar = &chars[len];
 
     wordStart = chars;
-    wordX = x;
+    wordX = (*chars != ' ') ? x : x+mediumSize;
+        
     while (chars < tooFar)
     {
         c = *chars;
@@ -90,6 +94,8 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
     static Int16 eol;
     static char bHyphen;    // Is end of word hyphenated
 
+    if (!mediumSize) mediumSize = TxtGlueCharWidth('-');
+    
     eol = 0;
     bHyphen=0;
 
@@ -121,19 +127,18 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
     if (( (*p) != '-') && TxtGlueCharIsAlpha((UInt8)chars[len]))
         bHyphen=1;
 
-    // take care of leading spaces & tabs
+    // take care of leading tab and space
     p = chars;
     switch (*p) {
-        case ' ':
         case '\t':
-            while (((*p) == ' ') || (*p) == '\t') { len--; p++; };
             extend -= TAB_PIXELS;
             x += TAB_PIXELS;
-            break;
 
-        default:
-            p = chars;    // jump over the first char
+        case ' ':
+            x += mediumSize;
+            extend -= mediumSize;
     }
+
 
     old = start[0] = p;
     
@@ -182,7 +187,7 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
 
     // If hyphenation, add the size of the hyphen
     if (bHyphen)
-        wlength += TxtGlueCharWidth('-');
+        wlength += mediumSize;
 
     // if a bug in the length
     if (wlength > extend) {

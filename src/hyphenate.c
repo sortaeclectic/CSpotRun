@@ -61,12 +61,16 @@ UInt16 Hyphen_FntWordWrap (Char* chars, UInt16 extend)
             lenx--;     // Remove trailing space
     }
 
-
     // compute string len in pixels
-    remainx = extend - FntCharsWidth(chars, lenx);
+    // take care of leading tab
+    if (*chars == '\t') {
+        remainx = extend - FntCharsWidth(chars+1, lenx-1) - 160/8;
+    }
+    else  
+        remainx = extend - FntCharsWidth(chars, lenx);
 
     // convert remaining pixels to remaining chars
-    remainx = remainx/TxtCharWidth('a');
+    remainx = remainx/TxtGlueCharWidth('a');
 
     // don't try hiphenation if less than 4 chars
     if (remainx<4) return len;
