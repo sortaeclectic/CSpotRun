@@ -14,11 +14,6 @@ RESDIR = ./res
 GNUTURDS = ../copying.txt ../readme.txt
 PROGNAME = CSpotRun
 
-#CSpotRun crashes on exit when it is in flash. This happens after our
-#PilotMain() is done. So I'm guessing that it's during the cleanup
-#of the build-prc-generated inter-segment goop. I suspect that using
-#multilink instead would fix this. Unfortunately, this doesn't link 
-#yet. Someone should fix it.
 #USE_MULTILINK = yup 
 
 ifndef VERSION
