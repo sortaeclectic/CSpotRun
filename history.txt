@@ -3,5 +3,24 @@
 Changed license to GPL. Original version by Bill Clagett (wtc@pobox.com). 
 Spanish translation by Marcelo Rinesi (rinesi@espacio.com.ar). 
 German translation by Arne Nickel (anickel@edm.de).
+Released as 0.6
 
- 
+10/24/1999
+
+Fixed bug in rotate.c causing crash on OS2.
+Released as 0.6.1
+
+11/12/1999
+
+Added searching.
+Added French translation from Vincent Poty (vincent.poty@bigfoot.com)
+Changed rotation code to work in Words instead of Bytes.
+Released as 0.8
+
+11/16/1999
+
+Added Portuguese translation from Rui A. Rebelo. 
+Fixed the stray beep when opening the the find dialog with a menu.
+
+11/17/1999
+Released as 0.8.1 
