@@ -144,8 +144,8 @@ begin
     "$$GOTO PER"="Aller à %"
     "$$PICK DOC"="Choisir"
 #ifdef ENABLE_AUTOSCROLL
-    "$$AUTOSCROLL"="Auto Scroll"
-    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+    "$$AUTOSCROLL"="Défilement"
+    "$$AUTOSCROLLSPEED"="Vitesse de défilement :"
 #endif
 
     "$$GLOBAL PREFERENCES"="Préférences"
@@ -160,7 +160,7 @@ begin
     "$$BOTTOM"="Fin"
 
     "$$DELETE DOC"="Supprimer"
-    "$$MAKE DEFAULT"="Sauvegarder"
+    "$$MAKE DEFAULT"="Enregistrer"
 
     "$$VIEW"="Vue"
     "$$FONT 1"="Police 1"
@@ -170,6 +170,7 @@ begin
     "$$LINE SPACING 1"="Interligne 1"
     "$$LINE SPACING 2"="Interligne 2"
     "$$LINE SPACING 3"="Interligne 3"
+//  "$$LINE SPACING 4"="Interligne 4"
     "$$ROTATE RIGHT"="Basculer à droite"
     "$$ROTATE LEFT"="Basculer à gauche"
 
@@ -205,8 +206,8 @@ begin
         "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
         "L'option \'Tape' définit l'ampleur de défilement du texte lorsque "\
         "le stylet touche le document à l'écran.\n\n"\
-        "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
-        "are in 100ths of a second. 60-80 is the recommended speed."
+        "Le champ \'Vitesse de défilement\' spécifie la vitesse de défilement"\
+         automatique du texte en 100èmes de seconde (60-80 sont des valeurs recommandées)."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
                 "Essayez à nouveau CSpotRun après avoir installé un ou "\
@@ -223,7 +224,30 @@ begin
     "$$CASE SENSITIVE"="Respecter la casse"
     "$$FIND BUTTON"="C"
     "$$FIND AGAIN BUTTON"="S"
-
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    // List of shortcuts: A B C D E G L M N O P S T V 1 2 3 4
+    "$$SC GOTO PER"="A"         // Aller
+    "$$SC PICK DOC"="O"         // Ouvrir
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"    // Large
+    "$$SC LINESPACING 2"="M"    // Moyen
+    "$$SC LINESPACING 3"="N"    // 
+//  "$$SC LINESPACING 4"=" "    // 
+//  "$$SC AUTOSCROLL"="V"       // Défilement (>)
+    "$$SC ROTATE RIGHT"="D"     // Droite
+    "$$SC ROTATE LEFT"="G"      // Gauche
+    "$$SC SEARCHDDD"="C"        // Chercher
+    "$$SC SEARCH AGAIN"="S"     // Suivant
+    "$$SC TOGGLE CONTROLS"="T"  // Ecran total
+    "$$SC MAKE DEFAULT"="E"     // Enregistrer
+    "$$SC CONTROLSDDD"="B"      // Boutons
+    "$$SC PREFERENCESDDD"="P"   // Préférences
+*/    
 end
 
 TRANSLATION "spanish"
