@@ -56,15 +56,15 @@ begin
 
     "$$CONTROLS HELP"="Kadı checkbox odpovídá ovládacímu prvku na displeji. "\
                       "Vyberte si prvky, které chcete mít viditelné.\n\n"\
-                      "Zvate, zda neskrıt ty prvky, které uíváte zøídka.. "\
-                      "Vimnìte si, e vechny prvky mají odpovídající poloky v menu."
+                      "Zvate, zda neskrıt ty prvky, které uíváte zøídka. "\
+                      "Všimnìte si, e všechny prvky mají odpovídající poloky v menu."
     "$$GLOBAL PREFS HELP"=" Nastavením \'Pøehodit nahoru/dolu\' "\
                           "se zamìní tlaèítka nahoru a dolu v situaci, kdy "\
                           "je obrazovka pøevrácena.\n\n"\
                           "Nastavením \'Uka øádku z pøedchozí strany\' zachováte "\
                           "pøi posunu o stránku viditelnou jednu øádku ze stránky pøedchozí.\n\n"\
                           "Nastavením \'uknutí\' zvolíte, jaká akce se vykoná, "\
-                          "kdy uknete na displej.\n\n"\
+                          "kdy uknete na displej.\n\n"
                           "\'Rychlost samoposuvu\' nastaví rychlost automatického "\
                           "posunu v setinách vteøiny. Lze doporuèit 60-80."
     "$$NO DOCS"="Nenašel jsem ádné DOC databáze!\n\nZkuste spustit CSpotRun znovu a po nainstalování jednoho èi dvou dokumentù."
@@ -78,7 +78,7 @@ begin
 
     "$$TAP ACTION"="uknutí"
     "$$PAGE"="Strana"
-    "$$HALF PAGE"="1/2 Strana"
+    "$$HALF PAGE"="Pùlstr."
     "$$LINE"="Øádka"
 
     "$$TOP"="Zaèátek"
@@ -112,8 +112,8 @@ begin
     "$$FIND PROMPT"="Hledat:"
     "$$SEARCH FROM TOP"="Hledat od zaèátku"
     "$$CASE SENSITIVE"="Rozlišovat písmena"
-    "$$FIND BUTTON"="F"
-    "$$FIND AGAIN BUTTON"="FA"
+    "$$FIND BUTTON"="H"
+    "$$FIND AGAIN BUTTON"="HD"
 /*
     // Want to internationalize the menu shortcuts.
     // Need to fix pilrc to do this.
