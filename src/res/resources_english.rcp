@@ -40,7 +40,7 @@ begin
                                     "are in 100ths of a second. 15-20 is the recommended speed. "\
                                     "While autoscrolling, the page up and page down "\
                                     "buttons can be used to adjust the speed.\n\n"\
-                                    "The \'Auto Scroll Type\` choice determines whether text \"
+                                    "The \'Auto Scroll Type\` choice determines whether text "\
                                     "advances by pixel or by line."
 
                                     

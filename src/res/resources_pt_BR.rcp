@@ -1,6 +1,7 @@
 /*
  * CONTRIBUTORS:
  *    Portuguese (BR) translation: Rui A. Rebelo (rui.rebe@zaz.com.br)
+ *    Portuguese (PT) translation: Carlos Morgado (chbm@chbm.nu)
  */
 
 TRANSLATION "pt_BR"
@@ -13,9 +14,9 @@ begin
     "$$GOTO PER"="Ir para %"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
-    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Ajustes de Auto rolagem:"
     "$$PIXEL"="Pixel"
-    "$$TOGGLE AUTOSCROLL"="Auto Rolagem no botão Addr. Book"
+    "$$TOGGLE AUTOSCROLL"="Auto rolagem no botão Addr. Book"
 #endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -31,9 +32,9 @@ begin
         "Rui A. Rebelo\nrui.rebe@zaz.com.br\nTradução para português\n\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto Rolagem\n"
 
-    "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela. "\
+    "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela."\
                       "Selecione o controle que você deseja que fique visível.\n\n"\
-                      "Considere esconder os controles que raramente usa. "\
+                      "Considere esconder os controles que raramente usa."\
                       "Perceba que todos os controles tem itens de menu equivalentes."
     "$$GLOBAL PREFS HELP"="Use a opção \'Alternar pág.acima/pág.abaixo\' para reverter a "\
                              "função dos botões página acima e página abaixo quando a "\

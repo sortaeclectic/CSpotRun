@@ -14,7 +14,7 @@ begin
     "$$PICK DOC"="Choisir"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Défilement"
-    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Mode et vitesse de défilement"
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="M/A défilement par bouton 'Adr.'"
 #endif
@@ -82,8 +82,9 @@ begin
         "\"Adresses\" de l'appareil pour démarrer ou arrêter le défilement automatique.\n\n"\
         "L'option \"Tape\" définit l'ampleur de défilement du texte lorsque "\
         "le stylet touche le document à l'écran.\n\n"\
-        "Le champ \"Vitesse de défilement\" spécifie la vitesse de défilement "\
-        "automatique du texte en 100èmes de seconde (15-25 sont des valeurs recommandées)."
+        "Les options \"Mode et vitesse de défilement\" permettent de choisir un défilement "\
+        "automatique du texte par ligne ou par pixel, et de fixer sa vitesse (valeurs en "\
+        "100èmes de seconde)."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
                 "Essayez à nouveau CSpotRun après avoir installé un ou "\
