@@ -9,7 +9,6 @@
     #define formID_bmkName	1004
     #define formID_bmkEd        1005
     #define formID_bmkEd_ro     1006
-    #define formID_bmkSort      1007
 #endif
 
 #define menuID_main             1200
@@ -42,9 +41,7 @@
 
 #ifdef ENABLE_BMK
     #define menuitemID_bmkEd		1235
-    #define menuitemID_bmkDelAll	1236
-    #define menuitemID_bmkSort		1237
-    #define menuitemID_bmkAdd		1238
+    #define menuitemID_bmkAdd   	1236
 #endif
 
 #define    listID_doc            1301
@@ -99,6 +96,8 @@
     #define buttonID_bmkDelete		1512
     #define buttonID_bmkSortPosition	1513
     #define buttonID_bmkSortName	1514
+    #define buttonID_bmkSort		1515
+    #define buttonID_bmkDelAll	        1516
 #endif
 
 #define fieldID_UCGUI0            1700
@@ -126,10 +125,10 @@
 #define alertID_about            1900
 #define alertID_error            1901
 #define alertID_confirmDelete    1902
-
 #ifdef ENABLE_BMK
-    #define alertID_bmkDupName   1903
+    #define alertID_bmkDupName    1903
     #define alertID_bmkConfirmDel 1904
+    #define alertID_bmkSort        1905
 #endif
 
 #define FONT_BUTTON_COUNT 4

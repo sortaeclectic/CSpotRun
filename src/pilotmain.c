@@ -29,7 +29,6 @@
 #include "controlsform.h"
 #include "bmknamefrm.h"
 #include "bmkedfrm.h"
-#include "bmksortfrm.h"
 #include "bmk.h"
 #include "appstate.h"
 #include "ucgui.h"
@@ -403,9 +402,6 @@ static Boolean AppHandleEvent(EventType *e)
 		    newFormEventHandler = BmkEdFormHandleEvent;
 		    break;
 
-		case formID_bmkSort:
-		    newFormEventHandler = BmkSortFormHandleEvent;
-		    break;
 #endif
             }
 

@@ -28,7 +28,7 @@ ICONTEXT = $(PROGNAME)
 OBJS = pilotmain.o mainform.o doclist.o doc.o \
 		decode.o docprefs.o tabbedtext.o controlsform.o \
 		fontselect.o ucgui.o rotate.o prefsform.o searchform.o \
-		bmk.o bmknamefrm.o bmkedfrm.o bmksortfrm.o
+		bmk.o bmknamefrm.o bmkedfrm.o 
 
 STDDEP = Makefile resources.h app.h appstate.h callback.h
 
@@ -113,7 +113,6 @@ depend:
 bmkedfrm.o: bmkedfrm.h bmk.h bmknamefrm.h callback.h resources.h
 bmknamefrm.o: bmk.h bmknamefrm.h callback.h resources.h
 bmk.o: appstate.h bmk.h doc.h docprefs.h resources.h rotate.h
-bmksortfrm.o: bmk.h bmksortfrm.h callback.h resources.h
 controlsform.o: app.h appstate.h callback.h controlsform.h docprefs.h
 controlsform.o: mainform.h resources.h ucgui.h
 decode.o: decode.h
@@ -124,7 +123,7 @@ docprefs.o: appstate.h doclist.h docprefs.h rotate.h
 fontselect.o: appstate.h doc.h docprefs.h fontselect.h resources.h rotate.h
 mainform.o: app.h appstate.h bmk.h bmknamefrm.h callback.h doc.h doclist.h
 mainform.o: docprefs.h fontselect.h mainform.h resources.h rotate.h ucgui.h
-pilotmain.o: app.h appstate.h bmkedfrm.h bmk.h bmknamefrm.h bmksortfrm.h
+pilotmain.o: app.h appstate.h bmkedfrm.h bmk.h bmknamefrm.h
 pilotmain.o: controlsform.h docprefs.h mainform.h prefsform.h resources.h
 pilotmain.o: searchform.h ucgui.h
 prefsform.o: app.h appstate.h callback.h controlsform.h doc.h docprefs.h

@@ -236,20 +236,6 @@ static Boolean _MainFormHandleEvent(EventType *e)
 		    MenuEraseStatus(NULL);
                     _popupBmkEd();
 		    return true;
-
-		case menuitemID_bmkSort:
-		    MenuEraseStatus(NULL);
-		    FrmPopupForm(formID_bmkSort);
-		    return true;
-
-		case menuitemID_bmkDelAll:
-		    MenuEraseStatus(NULL);
-
-                    if (FrmAlert(alertID_bmkConfirmDel) == 0) {
-		        BmkDeleteAll();
-                        _redrawBmkList();
-		    }
-		    return true;
 #endif
             }
 
