@@ -46,6 +46,6 @@ Option to disable hard button scrolling control from Daniel Zahn (sclug@sclug.or
 Scrolling tweaking by Bill for the rotated case.
 sysAppLaunchCmdOpenDB support from Zack Hobson (zack@cnation.com).
 Turkish translation from Selcuk Demiray (sdemiray@bigfoot.com).
-pt_PT tranlation from Carlos Morgado (chbm@terra.nebula.org).
+pt_PT tranlation from Carlos Morgado (chbm@chbm.nu).
 Renamed existing Portuguese translation to pt_BR.
 Fixed little memory stomper in the upside-down case.
