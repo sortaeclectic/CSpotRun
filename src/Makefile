@@ -76,7 +76,7 @@ $(PROGNAME)_%.prc: %.resstamp code.stamp
 	$(BUILDPRC) $@ $(ICONTEXT) $(APPID) *.grc *.bin ;
 
 %.resstamp: $(RESDIR)/fixed_resources.rcp fixed_resources.h $(RESDIR)/*.bmp 
-	$(PILRC) -I $(RESDIR) -q -L $* $(RESDIR)/fixed_resources.rcp  ; 
+	$(PILRC) -I $(RESDIR) -q -L $* $(RESDIR)/fixed_resources.rcp  > /dev/null; 
 	touch $@
 
 code.stamp: $(PROGNAME)
