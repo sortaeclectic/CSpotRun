@@ -36,16 +36,16 @@ static UInt16 hyphenate(unsigned char *word, UInt16 room, UInt16 hlevel, UInt16 
 void Tab_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y)
 {
     static char *tooFar;    //pointer to past the end of chars
-    static char *wordStart; //pointer to first char of current 
+    static char *wordStart; //pointer to first char of current
                             //word (a "word" being a tab-free chunk of text)
     static Int16 wordX;     //x where current word started
     static char c;
-    
+
     if (!attrs)
         attrs = GetCharAttr();
-    
+
     tooFar = &chars[len];
-    
+
     wordStart = chars;
     wordX = x;
     while (chars < tooFar)
@@ -83,17 +83,17 @@ static char *_ascii(Char c)
 //
 void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 extend)
 {
-	// find out an array of words with their len
-	static char *start[16];	// start of the word
-	static Int16 ulen[16];	// width in char
-    static UInt16 wlen[16];	// width in pixel
-	static UInt16 wlength;	// length of all words
-	static char *p,  *old;
-	static Int16 i, j, wordx;
-	static UInt16 space, leave;
-	static Int16 eol;
+    // find out an array of words with their len
+    static char *start[16]; // start of the word
+    static Int16 ulen[16];  // width in char
+    static UInt16 wlen[16]; // width in pixel
+    static UInt16 wlength;  // length of all words
+    static char *p,  *old;
+    static Int16 i, j, wordx;
+    static UInt16 space, leave;
+    static Int16 eol;
     static char bHyphen;    // Is end of word hyphenated
-    
+
     eol = 0;
     bHyphen=0;
 
@@ -103,10 +103,10 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
         WinDrawChars(_ascii(chars[i]), 2, x, y);
         x += 12;
     }
- 
+
     return;
 */
-    
+
     // if CR/LF at end of line, just draw the line
     p = chars + len - 1;
     switch (*p) {
@@ -124,14 +124,14 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
     // if the char next to the last one is an alpha, then we make hyphenation
     if (( (*p) != '-') && TxtCharIsAlpha(chars[len]))
         bHyphen=1;
-        
-	old = start[0] = chars;
-	i=0;
+
+    old = start[0] = chars;
+    i=0;
     wlength=0;
 
     // count and memorize words
     wordx=len;
-	for (p = chars+1; --wordx; p++) {
+    for (p = chars+1; --wordx; p++) {
         switch (*p) {
             case '\t':
                 Tab_WinDrawChars (chars, len, x, y);
@@ -139,35 +139,35 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
             case ' ':
                 // find out multiple spaces
                 if (p[-1] == ' ') continue;
-                
+
                 // find the end of the word and record the len
-       			start[i+1] = p+1;
-    			ulen[i]= p - old;                       // len in bytes minus the space
-    			wlen[i]= FntCharsWidth(old, ulen[i]);   // len in pixels minus the space
-    			wlength += wlen[i];                     // total length in pixel
-            
-    			i++;
+                start[i+1] = p+1;
+                ulen[i]= p - old;                       // len in bytes minus the space
+                wlen[i]= FntCharsWidth(old, ulen[i]);   // len in pixels minus the space
+                wlength += wlen[i];                     // total length in pixel
+
+                i++;
 
                 // security
-        		if (i > 15) {
+                if (i > 15) {
                     Tab_WinDrawChars (chars, len, x, y);
-                    return;                  
-        		}
-        		
-    			old = p+1;
-                break;             
-		}
-	}
-	ulen[i]= p - old;
-	wlen[i]= FntCharsWidth(old, ulen[i]);
-	wlength += wlen[i];
-	i++;
+                    return;
+                }
+
+                old = p+1;
+                break;
+        }
+    }
+    ulen[i]= p - old;
+    wlen[i]= FntCharsWidth(old, ulen[i]);
+    wlength += wlen[i];
+    i++;
 
     // if only one word, draw it
-	if (i<2) {
+    if (i<2) {
         WinDrawChars(chars, len, x, y);
         return;
-	}
+    }
 
     // If hyphenation, add the size of the hyphen
     if (bHyphen)
@@ -178,27 +178,27 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
         WinDrawChars(chars, len, x, y);
         return;
     }
-    
-    // compute spacing and pixels remaining
-	space = (extend - wlength)/(i-1);
-	leave = (extend - wlength)%(i-1);
 
-	// drawing justified words
-	wordx = x;
-	for (j=0; j<i; j++) {
+    // compute spacing and pixels remaining
+    space = (extend - wlength)/(i-1);
+    leave = (extend - wlength)%(i-1);
+
+    // drawing justified words
+    wordx = x;
+    for (j=0; j<i; j++) {
         WinDrawChars(start[j], ulen[j], wordx, y);
 
-		wordx += (wlen[j] + space);
-    
-		if (leave)  {
-			leave--;    // remaining pixels to distribute
-			wordx++;
-		};
-	}
-	
+        wordx += (wlen[j] + space);
+
+        if (leave)  {
+            leave--;    // remaining pixels to distribute
+            wordx++;
+        };
+    }
+
     // if hyphenation draw the hyphen
     if (bHyphen)
-        WinDrawChar('-', wordx-space, y);  
+        WinDrawChar('-', wordx-space, y);
 }
 
 /*********************************************************************
@@ -212,12 +212,7 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
 
 static Boolean _noHyphen;   // if the hyphen database available
 
-static MemHandle _mh_hyf_distance,  // handles on hyphenation tables
-    _mh_hyf_num,
-    _mh_hyf_next,
-    _mh_trie_char,
-    _mh_trie_link,
-    _mh_trie_op;
+static DmOpenRef _hyphenDbRef;
 
 
 UInt16 Hyphen_FntWordWrap (Char* chars, UInt16 extend)
@@ -225,14 +220,14 @@ UInt16 Hyphen_FntWordWrap (Char* chars, UInt16 extend)
     static UInt16 len,lenx;   // len int bytes
     static Int16 remainx;  // pixels remaining
     static char *next;  // begin of next word
-    static char *p; 
+    static char *p;
     static UInt16 next_len;// len in bytes of the next word
     static UInt16 next_lenx;// len in pixels of the hiphenation
 
     lenx = len = FntWordWrap(chars, extend);
 
     if (_noHyphen) return len;
-    
+
     switch (chars[len-1]) {
         case '\r':
         case '\n':
@@ -241,20 +236,20 @@ UInt16 Hyphen_FntWordWrap (Char* chars, UInt16 extend)
             lenx--;     // Remove trailing space
     }
 
-    
+
     // compute string len in pixels
     remainx = extend - FntCharsWidth(chars, lenx);
 
     // convert remaining pixels to remaining chars
     remainx = remainx/TxtCharWidth('a');
-    
+
     // don't try hiphenation if less than 4 chars
     if (remainx<4) return len;
 
     // begin of the next word, return if end of string
     next = chars + len ;
     if (*next == 0) return len;
-  
+
     // len of the next word
     next_len=0;
     for (p=next; (*p) && (*p) != ' '; p++)  next_len++;
@@ -309,19 +304,18 @@ UInt16 Hyphen_FntWordWrap (Char* chars, UInt16 extend)
 #define DEL (unsigned char)127
 
 //
-// Extract hyphen tables lookup 
+// Extract hyphen tables lookup
 //
-void LockHyphenResource (MemPtr cmdPBP)
+void LockHyphenResource ()
 {
     UInt16      cardNo=0;
-    DmOpenRef   hyph;
     LocalID lID;
     DmSearchStateType    searchState;
 
 #ifdef SAVE_HYPHEN_PDB
     savePDB ();
 #else
-    
+
     lID = DmFindDatabase (cardNo, "CSpotRun_hyphen");
     if (!lID) {
         _noHyphen = true;
@@ -330,46 +324,48 @@ void LockHyphenResource (MemPtr cmdPBP)
 
     _noHyphen=false;
 
-    hyph = DmOpenDatabase (cardNo, lID, dmModeReadOnly);
-    
-    _mh_hyf_distance = DmQueryRecord (hyph, 0); 
-    hyf_distance = (unsigned char *) MemHandleLock(_mh_hyf_distance);
+    _hyphenDbRef = DmOpenDatabase (cardNo, lID, dmModeReadOnly);
 
-    _mh_hyf_num = DmQueryRecord (hyph, 1);
-    hyf_num = (unsigned char *) MemHandleLock(_mh_hyf_num);
+    hyf_distance = (unsigned char *) MemHandleLock(DmGetRecord(_hyphenDbRef, 0));
+    hyf_num = (unsigned char *) MemHandleLock(DmGetRecord(_hyphenDbRef, 1));
+    hyf_next = (unsigned char *) MemHandleLock(DmGetRecord(_hyphenDbRef, 2));
+    trie_char = (unsigned char *) MemHandleLock(DmGetRecord(_hyphenDbRef, 3));
+    trie_link = (unsigned short *) MemHandleLock(DmGetRecord(_hyphenDbRef, 4));
+    trie_op = (unsigned char *) MemHandleLock(DmGetRecord(_hyphenDbRef, 5));
 
-    _mh_hyf_next = DmQueryRecord (hyph, 2);
-    hyf_next = (unsigned char *) MemHandleLock(_mh_hyf_next);
 
-    _mh_trie_char = DmQueryRecord (hyph, 3);
-    trie_char = (unsigned char *) MemHandleLock(_mh_trie_char);
-
-    _mh_trie_link = DmQueryRecord (hyph, 4);
-    trie_link = (unsigned short *) MemHandleLock(_mh_trie_link);
-
-    _mh_trie_op = DmQueryRecord (hyph, 5);
-    trie_op = (unsigned char *) MemHandleLock(_mh_trie_op);
-
-    DmCloseDatabase (hyph);
-#endif    
+#endif
 }
 
 //
-// Release hyphen tables lookup 
+// Release hyphen tables lookup
 //
-void UnlockHyphenResource (MemPtr cmdPBP)
+void UnlockHyphenResource ()
 {
     if (_noHyphen) return;
 
 #ifndef SAVE_HYPHEN_PDB
     _noHyphen=false;
-    
-    MemHandleUnlock(_mh_hyf_distance);
-    MemHandleUnlock(_mh_hyf_num);
-    MemHandleUnlock(_mh_hyf_next);
-    MemHandleUnlock(_mh_trie_char);
-    MemHandleUnlock(_mh_trie_link);
-    MemHandleUnlock(_mh_trie_op);
+
+    MemPtrUnlock(hyf_distance);
+    DmReleaseRecord(_hyphenDbRef, 0, false);
+
+    MemPtrUnlock(hyf_num);
+    DmReleaseRecord(_hyphenDbRef, 1, false);
+
+    MemPtrUnlock(hyf_next);
+    DmReleaseRecord(_hyphenDbRef, 2, false);
+
+    MemPtrUnlock(trie_char);
+    DmReleaseRecord(_hyphenDbRef, 3, false);
+
+    MemPtrUnlock(trie_link);
+    DmReleaseRecord(_hyphenDbRef, 4, false);
+
+    MemPtrUnlock(trie_op);
+    DmReleaseRecord(_hyphenDbRef, 5, false);
+
+    DmCloseDatabase (_hyphenDbRef);
 #endif
 }
 
@@ -387,17 +383,17 @@ void savePDB (MemPtr cmdPBP)
     unsigned short *c;
     DmSearchStateType    searchState;
     UInt16 i;
-    
+
     DmGetNextDatabaseByTypeCreator(true, &searchState, 0, 0, false, &cardNo, &lID);
 
 /*
     lID = DmFindDatabase (cardNo, "CSpotRun_hyphen");
     hyph = DmOpenDatabase (cardNo, lID, dmModeReadOnly);
     ErrFatalDisplayIf(!hyph, "trouve pas");
-    
+
     mh = DmGetRecord (hyph, 0);
     ErrFatalDisplayIf(!mh, "pas de record");
-    
+
     b = (unsigned char *) MemHandleLock(mh);
     for (i=0; i<sizeof(hyf_distance); i++)
         ErrFatalDisplayIf(b[i] != hyf_distance[i], "YA PA BON");
@@ -406,7 +402,7 @@ void savePDB (MemPtr cmdPBP)
 
     mh = DmGetRecord (hyph, 1);
     ErrFatalDisplayIf(!mh, "pas de record 1");
-    
+
     b = (unsigned char *) MemHandleLock(mh);
     for (i=0; i<sizeof(hyf_num); i++)
         ErrFatalDisplayIf(b[i] != hyf_num[i], "YA PA BON hyf_num");
@@ -415,7 +411,7 @@ void savePDB (MemPtr cmdPBP)
 
     mh = DmGetRecord (hyph, 2);
     ErrFatalDisplayIf(!mh, "pas de record 2");
-    
+
     b = (unsigned char *) MemHandleLock(mh);
     for (i=0; i<sizeof(hyf_next); i++)
         ErrFatalDisplayIf(b[i] != hyf_next[i], "YA PA BON hyf_next");
@@ -424,7 +420,7 @@ void savePDB (MemPtr cmdPBP)
 
     mh = DmGetRecord (hyph, 3);
     ErrFatalDisplayIf(!mh, "pas de record 3");
-    
+
     b = (unsigned char *) MemHandleLock(mh);
     for (i=0; i<sizeof(trie_char); i++)
         ErrFatalDisplayIf(b[i] != trie_char[i], "YA PA BON trie_char");
@@ -433,7 +429,7 @@ void savePDB (MemPtr cmdPBP)
 
     mh = DmGetRecord (hyph, 4);
     ErrFatalDisplayIf(!mh, "pas de record 4");
-    
+
     c = (unsigned short *) MemHandleLock(mh);
     for (i=0; i<sizeof(trie_link); i++)
         ErrFatalDisplayIf(c[i] != trie_link[i], "YA PA BON trie_link");
@@ -442,7 +438,7 @@ void savePDB (MemPtr cmdPBP)
 
     mh = DmGetRecord (hyph, 5);
     ErrFatalDisplayIf(!mh, "pas de record 3");
-    
+
     b = (unsigned char *) MemHandleLock(mh);
     for (i=0; i<sizeof(trie_op); i++)
         ErrFatalDisplayIf(b[i] != trie_op[i], "YA PA BON trie_op");
@@ -461,20 +457,20 @@ void savePDB (MemPtr cmdPBP)
     MemHandleUnlock(mh);
     DmReleaseRecord(hyph, i, true);
 
-    i++;    
+    i++;
     mh = DmNewRecord (hyph, &i, sizeof (hyf_num));
     b = (unsigned char *) MemHandleLock(mh);
     DmWrite (b, 0, hyf_num, sizeof(hyf_num));
     MemHandleUnlock(mh);
     DmReleaseRecord(hyph, i, true);
-    
-    i++;    
+
+    i++;
     mh = DmNewRecord (hyph, &i, sizeof (hyf_next));
     b = (unsigned char *) MemHandleLock(mh);
     DmWrite (b, 0, hyf_next, sizeof(hyf_next));
     MemHandleUnlock(mh);
     DmReleaseRecord(hyph, i, true);
-    
+
     i++;
     mh = DmNewRecord (hyph, &i, sizeof (trie_char));
     b = (unsigned char *) MemHandleLock(mh);
@@ -482,7 +478,7 @@ void savePDB (MemPtr cmdPBP)
     MemHandleUnlock(mh);
     DmReleaseRecord(hyph, i, true);
 
-    i++;    
+    i++;
     mh = DmNewRecord (hyph, &i, sizeof (trie_link));
     b = (unsigned char *) MemHandleLock(mh);
     DmWrite (b, 0, trie_link, sizeof(trie_link));
@@ -507,66 +503,66 @@ UInt16 hyphenate(word, room, hlevel, hn)
 unsigned char *word;
 UInt16 room, hlevel, hn;
 {
-	static unsigned char hc[32], hyf[32];
-	static char embflag = 0;
-	static UInt16 i, j, z, l, v, ret;
+    static unsigned char hc[32], hyf[32];
+    static char embflag = 0;
+    static UInt16 i, j, z, l, v, ret;
 
-	if (hn < 5) return(0);
-	if (hn > sizeof(hc)) return(0);
+    if (hn < 5) return(0);
+    if (hn > sizeof(hc)) return(0);
 
     // clear buffer
     MemSet (hyf, sizeof(hyf), 0);
 
-	hc[0] = hc[hn+1] = (unsigned char)DEL;
-	hc[hn+2] = (unsigned char)256;
-	
-	for (j = 0; j<hn; j++)
-		hc[j+1] = (TxtCharIsAlpha(word[j]))? tolower(word[j]) - 1 : (unsigned char)DEL;
+    hc[0] = hc[hn+1] = (unsigned char)DEL;
+    hc[hn+2] = (unsigned char)256;
 
-	for (j = 0; j <= hn - 2; j++) {
-		z = hc[j];
+    for (j = 0; j<hn; j++)
+        hc[j+1] = (TxtCharIsAlpha(word[j]))? tolower(word[j]) - 1 : (unsigned char)DEL;
+
+    for (j = 0; j <= hn - 2; j++) {
+        z = hc[j];
         l = j;
-		while (hc[l] == trie_char[z]) {
-			if (v = trie_op[z]) {
-				do {
-					i = l - hyf_distance[v];
-					if (hyf_num[v] > hyf[i]) hyf[i] = hyf_num[v];
-					v = hyf_next[v];
-				} while (v);
-			}
-			l++;
+        while (hc[l] == trie_char[z]) {
+            if (v = trie_op[z]) {
+                do {
+                    i = l - hyf_distance[v];
+                    if (hyf_num[v] > hyf[i]) hyf[i] = hyf_num[v];
+                    v = hyf_next[v];
+                } while (v);
+            }
+            l++;
             z = trie_link[z] + hc[l];
-		}
-	}
+        }
+    }
 
-	hyf[1] = 0; hyf[hn-1] = 0; hyf[hn] = 0; hyf[hn-2] = 0;
-	for (j = 0; j<hn; j++) {
-		if (!TxtCharIsAlpha(word[j])) {
-			hyf[j+1] = 0;
-			hyf[j+2] = 0;
-			hyf[j] = 0;
-			if (j > 0) hyf[j-1] = 0;
-			if (j > 1) hyf[j-2] = 0;
-			if (embflag == 1) embflag++;
-		}
-		/* hlevel 7 or greater prevents split when non-alpha
-		 * is in the midst of alpha characters */
-		else if (hlevel >= 7) {
-			if (!embflag) embflag++;
-			else if (embflag == 2) return(hn);
-		}
-		/* hlevel 6 or greater prevents split after '-' */
-		if (hlevel <= 5 && word[j] == '-') hyf[j+1] = 1;
-	}
+    hyf[1] = 0; hyf[hn-1] = 0; hyf[hn] = 0; hyf[hn-2] = 0;
+    for (j = 0; j<hn; j++) {
+        if (!TxtCharIsAlpha(word[j])) {
+            hyf[j+1] = 0;
+            hyf[j+2] = 0;
+            hyf[j] = 0;
+            if (j > 0) hyf[j-1] = 0;
+            if (j > 1) hyf[j-2] = 0;
+            if (embflag == 1) embflag++;
+        }
+        /* hlevel 7 or greater prevents split when non-alpha
+         * is in the midst of alpha characters */
+        else if (hlevel >= 7) {
+            if (!embflag) embflag++;
+            else if (embflag == 2) return(hn);
+        }
+        /* hlevel 6 or greater prevents split after '-' */
+        if (hlevel <= 5 && word[j] == '-') hyf[j+1] = 1;
+    }
 
-	ret = 0;
-	for (j = hn-3 ; j > 1; j--) {
-		z = (hc[j]+1 == '-')? j : j+1;
-		if ((hyf[j] % 2) && (z <= room)) {
-			ret = z;
-			break;
-		}
-	}
-	return(ret);
+    ret = 0;
+    for (j = hn-3 ; j > 1; j--) {
+        z = (hc[j]+1 == '-')? j : j+1;
+        if ((hyf[j] % 2) && (z <= room)) {
+            ret = z;
+            break;
+        }
+    }
+    return(ret);
 }
 #endif

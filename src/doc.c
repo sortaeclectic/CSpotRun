@@ -158,7 +158,7 @@ void Doc_open(UInt16 cardNo, LocalID dbID, char name[dmDBNameLength])
     ErrFatalDisplayIf(!gDoc.dbRef, "a");
 
     //lock record0
-    gDoc.record0Handle = DmQueryRecord(gDoc.dbRef, 0);
+    gDoc.record0Handle = DmGetRecord(gDoc.dbRef, 0);
     ErrFatalDisplayIf(!gDoc.record0Handle, "b");
 
     gDoc.record0Ptr = (struct RECORD0_STR *) MemHandleLock(gDoc.record0Handle);
@@ -220,6 +220,8 @@ void Doc_close()
         //unlock record0
         MemHandleUnlock(gDoc.record0Handle); gDoc.record0Ptr = NULL;
         gDoc.record0Handle = NULL;
+
+        DmReleaseRecord(gDoc.dbRef, 0, false);
 
         MemHandleUnlock(gDoc.recLensHandle); gDoc.recLens = NULL;
         MemHandleFree(gDoc.recLensHandle); gDoc.recLensHandle = NULL;
@@ -868,8 +870,6 @@ static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
                  sizeof (struct RECORD0_STR) - sizeof(UInt16),
                  recLens,
                  sizeof(UInt16)*gDoc.numRecs);
-
-        DmReleaseRecord(gDoc.dbRef, 0, false);
     }
     recLens[gDoc.numRecs - 1]++;//for the null at the end of the last record.
 
