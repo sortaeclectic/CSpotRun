@@ -4,3 +4,4 @@ UInt16    Ucgui_getGroupTitle(int i);
 UInt16    Ucgui_getBitmask(int i);
 int     Ucgui_getElementCount();
 void    Ucgui_layout(FormPtr formPtr, UInt16 visibleControlMask);
+Boolean Ucgui_gadgetVisible(FormPtr formPtr, UInt16 objectIndex);

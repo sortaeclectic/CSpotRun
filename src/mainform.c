@@ -272,6 +272,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
             {
                 RectangleType r;
                 int i;
+                Int16 index;
                 // If user clicked on the document
                 if (RctPtInRectangle (e->screenX, e->screenY, Doc_getGadgetBounds()))
                 {
@@ -281,17 +282,20 @@ static Boolean _MainFormHandleEvent(EventType *e)
                 // If user clicked on a line spacing doodad
                 for (i = 0; i < LINE_SPACING_GADGET_COUNT; i++)
                 {
-                    FrmGetObjectBounds (formPtr, FrmGetObjectIndex (formPtr, gadgetID_lineSpacing0+i), &r);
-                    if (RctPtInRectangle (e->screenX, e->screenY, &r))
+                    index = FrmGetObjectIndex(formPtr, gadgetID_lineSpacing0+i);    
+                    FrmGetObjectBounds (formPtr, index, &r);
+                    if (RctPtInRectangle (e->screenX, e->screenY, &r) 
+                        && Ucgui_gadgetVisible(formPtr, index))
                     {
                         _changeLineSpacing(i);
                         return true;
                     }
                 }
 #ifdef ENABLE_AUTOSCROLL
-                FrmGetObjectBounds (formPtr, FrmGetObjectIndex (formPtr, gadgetID_autoScroll), &r);
-                if (RctPtInRectangle (e->screenX, e->screenY, &r))
-                {
+                index = FrmGetObjectIndex(formPtr, gadgetID_autoScroll);    
+                FrmGetObjectBounds (formPtr, index, &r);
+                if ( RctPtInRectangle (e->screenX, e->screenY, &r)
+                     && Ucgui_gadgetVisible(formPtr, index))  {
                     MainForm_ToggleAutoScroll();
                     return true;
                 }
@@ -467,7 +471,12 @@ static void _drawAutoScrollGadget()
 {
     RectangleType bounds;
 
-    FrmGetObjectBounds(formPtr, FrmGetObjectIndex(formPtr, gadgetID_autoScroll), &bounds);
+    Int16 objectIndex = FrmGetObjectIndex(formPtr, gadgetID_autoScroll);
+
+    if (!Ucgui_gadgetVisible(formPtr, objectIndex))
+        return;
+
+    FrmGetObjectBounds(formPtr, objectIndex, &bounds);
 
     WinEraseRectangle(&bounds, 0);
     WinDrawRectangleFrame(roundFrame, &bounds);
@@ -546,7 +555,12 @@ static void _drawLineSpacingGadget(int i)
     Boolean isSelected;
     int row;
 
-    FrmGetObjectBounds(formPtr, FrmGetObjectIndex(formPtr, gadgetID_lineSpacing0+i), &bounds);
+    Int16 index = FrmGetObjectIndex(formPtr, gadgetID_lineSpacing0+i);
+    
+    if (!Ucgui_gadgetVisible(formPtr, index))
+        return;
+
+    FrmGetObjectBounds(formPtr, index, &bounds);
 
     WinDrawRectangleFrame(rectangleFrame, &bounds);
 

@@ -106,6 +106,22 @@ inline UInt16 Ucgui_getBitmask(int i)
     return gElements[i].bitmask;
 }
 
+Boolean Ucgui_gadgetVisible(FormPtr formPtr, UInt16 objectIndex)
+{
+    return NULL != FrmGetGadgetData(formPtr, objectIndex);
+}
+
+static void myShowObject(FormPtr formPtr, UInt16 objectIndex, Boolean show) 
+{
+    if (FrmGetObjectType(formPtr, objectIndex) != frmGadgetObj)
+        if (show)
+            FrmShowObject(formPtr, objectIndex);
+        else
+            FrmHideObject(formPtr, objectIndex);
+    else
+        FrmSetGadgetData(formPtr, objectIndex, show ? (void*)0x1 : NULL );
+}
+
 void Ucgui_layout(FormPtr formPtr, UInt16 visibleControlMask)
 {
     int rowHeight = 12; //xxx
@@ -136,17 +152,12 @@ void Ucgui_layout(FormPtr formPtr, UInt16 visibleControlMask)
                 y -= 1+rowHeight;
             }
             FrmSetObjectPosition(formPtr, objectIndex, x, y);
-            FrmShowObject(formPtr, objectIndex);
+            myShowObject(formPtr, objectIndex, true);
             x += 1+objectBounds.extent.x;
         }
         else
         {
-            FrmHideObject(formPtr, objectIndex);
-            //Moving things offscreen is pretty lame. Unfortunately, this is
-            //the only thing that currently prevents the gadgets from being
-            //drawn. Need to store some enabled/disabled state somewhere
-            //instead.
-            FrmSetObjectPosition(formPtr, objectIndex, 50, 200+i*2*rowHeight);
+            myShowObject(formPtr, objectIndex, false);
         }
         if (GAP_AFTER_MASK & gElements[i].bitmask)
             x+=2;
