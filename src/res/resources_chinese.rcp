@@ -52,6 +52,7 @@ begin
         ""\
         "Contributors:\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
         "Chen-hsiung Chan\nfrankch@waru.life.nthu.edu.tw\nChineseTranslation\n"
     "$$CONTROLS HELP"="每一個選項對應到控制列上的一個控制元件。"\
 				"選取你想顯示出的控制元件。"\

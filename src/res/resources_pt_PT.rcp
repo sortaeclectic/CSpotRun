@@ -56,6 +56,7 @@ begin
         "Contributors:\n\n"\
         "Carlos Morgado\nchbm@chbm.nu\nPortuguese (PT) translation.\n\n"\
         "Rui A. Rebelo\nrui.rebe@zaz.com.br\nOriginal Portuguese translation\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela. "\

@@ -55,6 +55,7 @@ begin
         ""\
         "Contributors:\n\n"\
         "Rui A. Rebelo\nrui.rebe@zaz.com.br\nTradução para português\n\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto Rolagem\n"
 
     "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela."\

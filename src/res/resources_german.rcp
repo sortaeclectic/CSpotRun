@@ -97,6 +97,7 @@ begin
         ""\
         "Beiträge von:\n\n"\
         "Arne Nickel\narne.nickel@gmx.de\nDeutsche Übersetzung\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-Bildlauf\n"
 
     "$$DELETE PROMPT"="Dokument \"^1\" endgültig löschen?"

@@ -26,6 +26,7 @@ begin
         "pod adresem http://32768.com/cspotrun/\n\n"\
         ""\
         "Wspó³praca:\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$CONTROLS HELP"="Ka¿da kratka odpowiada jednemu narzêdziu na ekranie."\

@@ -54,6 +54,7 @@ begin
         ""\
         "Med bidrag från:\n\n"\
         "Jonas Kämpe\njonas@ehand.com\nSvensk översättning\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nTextrullning\n"
 
     "$$CONTROLS HELP"="Varje kryssruta motsvarar en kontroll på skärmen. "\

@@ -87,6 +87,7 @@ begin
       ""\
       "Remerciements à :\n\n"\
       "Vincent Poty\n(vincent.poty@bigfoot.com)\npour la traduction en français\n\n"\
+      "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
       "Daniel Zahn\n(sclug@sclug.org)\npour le défilement automatique\n"
 
     "$$DELETE PROMPT"="Supprimer définitivement \"^1\" ?"
