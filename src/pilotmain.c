@@ -17,12 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
-#include <UI/ScrDriverNew.h>
-#include <KeyMgr.h>
-#include <SysEvtMgr.h>
+#include <PalmOS.h>
 #include "app.h"
 #include "resources.h"
 #include "mainform.h"
@@ -38,7 +33,7 @@
 #include "searchform.h"
 #endif
 
-DWord PilotMain(Word cmd, Ptr cmdPBP, Word launchFlags);
+UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags);
 static void StartApp();
 static void EventLoop();
 static void StopApp();
@@ -47,29 +42,20 @@ static void InitAppState();
 
 struct APP_STATE_STR *appStatePtr;
 #ifdef ENABLE_SEARCH
-VoidHand    searchStringHandle;
+MemHandle   searchStringHandle;
 Boolean     searchFromTop;
-#endif
-
-#ifndef SysAppLaunchCmdOpenDBType
-typedef struct {
-    Word cardNo;
-    LocalID dbID;
-} SysAppLaunchCmdOpenDBType;
-
-#define sysAppLaunchCmdOpenDB 52
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-DWord PilotMain(Word cmd, Ptr cmdPBP, Word launchFlags)
+UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
     if (cmd == sysAppLaunchCmdOpenDB) {
-        Word      cardNo = ((SysAppLaunchCmdOpenDBType*)cmdPBP)->cardNo;
+        UInt16      cardNo = ((SysAppLaunchCmdOpenDBType*)cmdPBP)->cardNo;
         LocalID   dbID = ((SysAppLaunchCmdOpenDBType*)cmdPBP)->dbID;
-        ULong     type, creator;
+        UInt32     type, creator;
 
         // get the type/creator for this DB so we can see if it's a DOC file
         char startupDocName[dmDBNameLength];
@@ -92,10 +78,10 @@ DWord PilotMain(Word cmd, Ptr cmdPBP, Word launchFlags)
     return 0;
 }
 
-Boolean UtilOSIsAtLeast(Byte reqMajor, Byte reqMinor)
+Boolean UtilOSIsAtLeast(UInt8 reqMajor, UInt8 reqMinor)
 {
-    DWord romVersion;
-    Byte major, minor;
+    UInt32 romVersion;
+    UInt8 major, minor;
 
     FtrGet(sysFtrCreator, sysFtrNumROMVersion, &romVersion);
     major = sysGetROMVerMajor(romVersion);
@@ -113,11 +99,11 @@ Boolean UtilOSIsAtLeast(Byte reqMajor, Byte reqMinor)
 ////////////////////////////////////////////////////////////////////////////////
 static void StartApp()
 {
-    Word prefsSize = 0;
+    UInt16 prefsSize = 0;
 #ifdef ENABLE_SEARCH
-    CharPtr searchPtr = NULL;
+    Char* searchPtr = NULL;
 #endif
-    DWord newDepth = 1;
+    UInt32 newDepth = 1;
 #ifdef ENABLE_BMK
     Err err;
 #endif
@@ -125,10 +111,10 @@ static void StartApp()
     appStatePtr = (struct APP_STATE_STR *) MemPtrNew(sizeof(*appStatePtr));
     if (UtilOSIsAtLeast(3,0))
     {
-        DWord depth;
-        ScrDisplayMode(scrDisplayModeGetSupportedDepths, NULL, NULL, &depth, NULL);
+        UInt32 depth;
+        WinScreenMode(winScreenModeGetSupportedDepths, NULL, NULL, &depth, NULL);
         if (depth & 0x1)
-            ScrDisplayMode(scrDisplayModeSet, NULL, NULL, &newDepth, NULL);
+            WinScreenMode(winScreenModeSet, NULL, NULL, &newDepth, NULL);
         else
             ErrFatalDisplay("No 1-bit mode!");
     }
@@ -139,7 +125,7 @@ static void StartApp()
     else
     {
         PrefGetAppPreferences(appId, PREF_APPSTATE, appStatePtr, &prefsSize, true);
-        if (appStatePtr->version != versionWord)
+        if (appStatePtr->version != versionUInt16)
             InitAppState();
     }
     prefsSize = 0;
@@ -155,7 +141,7 @@ static void StartApp()
     else
     {
         searchStringHandle = MemHandleNew(prefsSize);
-        searchPtr = (CharPtr)MemHandleLock(searchStringHandle);
+        searchPtr = (Char*)MemHandleLock(searchStringHandle);
         PrefGetAppPreferences(appId, PREF_SEARCHSTRING, searchPtr, &prefsSize, true);
         MemHandleUnlock(searchStringHandle);
     }
@@ -178,8 +164,8 @@ static void InitAppState()
 {
     MemSet(appStatePtr, sizeof(*appStatePtr), 0);
 
-    appStatePtr->version            = versionWord;
-    appStatePtr->UCGUIBits          = Ucgui_getDefaultWord();
+    appStatePtr->version            = versionUInt16;
+    appStatePtr->UCGUIBits          = Ucgui_getDefaultUInt16();
     appStatePtr->hideControls       = 0;
     appStatePtr->reversePageUpDown  = 0;
     appStatePtr->showPreviousLine   = 1;
@@ -201,7 +187,7 @@ static void InitAppState()
 static void StopApp()
 {
 #ifdef ENABLE_SEARCH
-    CharPtr searchPtr = NULL;
+    Char* searchPtr = NULL;
 #endif
     FrmCloseAllForms();
 
@@ -209,17 +195,17 @@ static void StopApp()
     BmkStop();
 #endif
 
-    PrefSetAppPreferences(appId, PREF_APPSTATE, versionWord, appStatePtr, sizeof(*appStatePtr), true);
+    PrefSetAppPreferences(appId, PREF_APPSTATE, versionUInt16, appStatePtr, sizeof(*appStatePtr), true);
     MemPtrFree(appStatePtr);
 
 #ifdef ENABLE_SEARCH
-    searchPtr = (CharPtr) MemHandleLock(searchStringHandle);
-    PrefSetAppPreferences(appId, PREF_SEARCHSTRING, versionWord, searchPtr, MemHandleSize(searchStringHandle), true);
+    searchPtr = (Char*) MemHandleLock(searchStringHandle);
+    PrefSetAppPreferences(appId, PREF_SEARCHSTRING, versionUInt16, searchPtr, MemHandleSize(searchStringHandle), true);
     MemHandleUnlock(searchStringHandle);
     MemHandleFree(searchStringHandle);
 #endif
     if (UtilOSIsAtLeast(3,0))
-        ScrDisplayMode(scrDisplayModeSetToDefaults, NULL, NULL, NULL, NULL);
+        WinScreenMode(winScreenModeSetToDefaults, NULL, NULL, NULL, NULL);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -230,10 +216,10 @@ static void EventLoop()
 {
     EventType e;
     FormType *pfrm;
-    Word err;
+    UInt16 err;
 #ifdef ENABLE_AUTOSCROLL
     Boolean autoScrollStopped = false;
-    Long lastScrollTime = 0;
+    Int32 lastScrollTime = 0;
 #endif
 
     do
@@ -241,10 +227,10 @@ static void EventLoop()
 #ifdef ENABLE_AUTOSCROLL
         if(MainForm_AutoScrollEnabled())
         {
-            Long now;
-            Long interval;      //Desired time between scrolls.
-            Long elapsed;       //Time since previous start of drawing
-            Long timeToWait;    //Time to wait before nilEvent
+            Int32 now;
+            Int32 interval;      //Desired time between scrolls.
+            Int32 elapsed;       //Time since previous start of drawing
+            Int32 timeToWait;    //Time to wait before nilEvent
 
             //todo: Time between frames is autoScrollSpeed+timeittakestodraw
             //Should subtract the time since last scroll from the timeout here
@@ -370,7 +356,7 @@ static Boolean AppHandleEvent(EventType *e)
     {
         case frmLoadEvent:
         {
-            Word formId;
+            UInt16 formId;
             FormPtr frm;
             FormEventHandlerPtr newFormEventHandler = NULL;
 

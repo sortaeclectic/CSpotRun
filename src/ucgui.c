@@ -17,9 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
+#include <PalmOS.h>
 #include "resources.h"
 #include "ucgui.h"
 #include "appstate.h"
@@ -27,9 +25,9 @@
 
 struct UCGUI_ELEM_STR
 {
-    Word    id;
-    Word    bitmask;
-    Word    groupTitle;
+    UInt16    id;
+    UInt16    bitmask;
+    UInt16    groupTitle;
 };
 
 #ifdef ENABLE_ROTATION
@@ -83,31 +81,31 @@ static const struct UCGUI_ELEM_STR gElements[UCGUI_ELEM_COUNT] =
 #endif
 };
 
-#define OS2_UCGUI_MASK (~((Word)0x100))
+#define OS2_UCGUI_MASK (~((UInt16)0x100))
 #define GAP_AFTER_MASK (1<<8 | 1<<4 | 1<<10)
 
-static void     moveListToPopup(FormPtr formPtr, Word popupID, Word listID);
-static Boolean  isControlAllowed(Word id);
+static void     moveListToPopup(FormPtr formPtr, UInt16 popupID, UInt16 listID);
+static Boolean  isControlAllowed(UInt16 id);
 
-inline Word Ucgui_getDefaultWord() {
-    return (Word) DEFAULT_UCGUI_WORD;
+inline UInt16 Ucgui_getDefaultUInt16() {
+    return (UInt16) DEFAULT_UCGUI_WORD;
 }
 
 inline int Ucgui_getElementCount() {
     return UCGUI_ELEM_COUNT;
 }
 
-inline Word Ucgui_getGroupTitle(int i)
+inline UInt16 Ucgui_getGroupTitle(int i)
 {
     return gElements[i].groupTitle;
 }
 
-inline Word Ucgui_getBitmask(int i)
+inline UInt16 Ucgui_getBitmask(int i)
 {
     return gElements[i].bitmask;
 }
 
-void Ucgui_layout(FormPtr formPtr, Word visibleControlMask)
+void Ucgui_layout(FormPtr formPtr, UInt16 visibleControlMask)
 {
     int rowHeight = 12; //xxx
     int x, y;
@@ -122,7 +120,7 @@ void Ucgui_layout(FormPtr formPtr, Word visibleControlMask)
 
     for (i=0; i<UCGUI_ELEM_COUNT; i++)
     {
-        Word            objectIndex =    FrmGetObjectIndex(formPtr, gElements[i].id);
+        UInt16            objectIndex =    FrmGetObjectIndex(formPtr, gElements[i].id);
         void*            objectPtr =        FrmGetObjectPtr(formPtr, objectIndex);
         //FormObjectKind    objectType =    FrmGetObjectType(formPtr, objectIndex);
         RectangleType   objectBounds;
@@ -166,17 +164,17 @@ void Ucgui_layout(FormPtr formPtr, Word visibleControlMask)
     moveListToPopup(formPtr, popupID_percent, listID_percent);
 }
 
-static void moveListToPopup(FormPtr formPtr, Word popupID, Word listID)
+static void moveListToPopup(FormPtr formPtr, UInt16 popupID, UInt16 listID)
 {
-    SWord x, y;
-    Word listIndex =    FrmGetObjectIndex(formPtr, listID);
-    Word popupIndex =    FrmGetObjectIndex(formPtr, popupID);
+    Int16 x, y;
+    UInt16 listIndex =    FrmGetObjectIndex(formPtr, listID);
+    UInt16 popupIndex =    FrmGetObjectIndex(formPtr, popupID);
 
     FrmGetObjectPosition(formPtr, popupIndex, &x, &y);
     FrmSetObjectPosition(formPtr, listIndex, x, y);
 }
 
-static Boolean isControlAllowed(Word id)
+static Boolean isControlAllowed(UInt16 id)
 {
     if (IS_FONTSELECT_PUSHID(id) && ! FS_fontIsLegal(FS_getFontByIndex(FONTSELECT_PUSHID_TO_INDEX(id))))
         return false;

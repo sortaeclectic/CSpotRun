@@ -17,14 +17,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
-#include <UI/ScrDriverNew.h>
+#include <PalmOS.h>
 #include "rotate.h"
 #include "app.h"
 
-typedef Word Pyte;
+typedef UInt16 Pyte;
 #define BITS_PER_PYTE (8 * sizeof(Pyte))
 
 #define PYTE_WITH_BITS(pos, len, v)    ((v)<<(BITS_PER_PYTE-(len)-(pos)))
@@ -37,15 +34,6 @@ typedef Word Pyte;
 
 static int sinTable[] = {0,  1,  0, -1};
 static int cosTable[] = {1,  0, -1,  0};
-
-//OS35 features
-#ifndef sysTrapBmpGetBits
-#define sysTrapBmpGetBits    0xA376  /* was BltGetBitsAddr */
-extern void *BmpGetBits(BitmapType *bitmapP) SYS_TRAP(sysTrapBmpGetBits);
-#define sysTrapWinGetBitmap  0xA3A2
-extern BitmapType *WinGetBitmap (WinHandle winHandle) SYS_TRAP(sysTrapWinGetBitmap);
-typedef Int16               Coord;
-#endif /* sysTrapBmpGetBits */
 
 int RotateY(int x, int y, OrientationType a)
 {
@@ -116,11 +104,11 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
         toWidth = bmp->width;
         toHeight = bmp->height;
     }
-    else if (fromWindowH->gDeviceP)
+    else if (fromWindowH->bitmapP)
     {
         //OS3
-        fromRowPytes = (fromWindowH->gDeviceP->rowBytes * 8) / BITS_PER_PYTE;
-        toRowPytes = (toWindowH->gDeviceP->rowBytes * 8) / BITS_PER_PYTE;
+        fromRowPytes = (fromWindowH->bitmapP->rowBytes * 8) / BITS_PER_PYTE;
+        toRowPytes = (toWindowH->bitmapP->rowBytes * 8) / BITS_PER_PYTE;
         fromWidth = fromWindowH->displayWidthV20;
         fromHeight = fromWindowH->displayHeightV20;
         toWidth = toWindowH->displayWidthV20;
@@ -129,7 +117,7 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
     else
     {
         //OS2
-        SWord x,y;
+        Int16 x,y;
 
         WinSetDrawWindow(fromWindowH);
         WinGetWindowExtent(&x,&y);
@@ -179,7 +167,7 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
         toX    = X_ROTATE(0, fromY, a)+xOffset;
         toY    = Y_ROTATE(0, fromY, a)+yOffset;
 
-        //If the not sideways, and only this pixel were on, toByte would be equal to
+        //If the not sideways, and only this pixel were on, toUInt8 would be equal to
         //toBitMask. Note that upon moving to the pixels to the immediate left or right,
         //toBitMask just needs to be shifted by toBpp.
         toBitMask = PYTE_WITH_BITS(PIXEL_BIT_INDEX(toX, toBpp), toBpp, toBlackBits);
@@ -216,7 +204,7 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
             if (fromPyte & fromBitMask)
                 *toPyte |= toBitMask;
             //else
-                //*toByte &= ~toBitMask;
+                //*toUInt8 &= ~toBitMask;
 
             if (dToYdx)
             {
@@ -252,7 +240,7 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
 
             if (!(fromBitMask >>= fromBpp))
             {
-                //We left this fromByte, move to the next
+                //We left this fromUInt8, move to the next
                 fromBitMask = startingFromBitMask;
                 fromPtr++;
                 fromPyte = *fromPtr;
@@ -263,22 +251,22 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
 
 void RotScrollRectangleUp(RectangleType *rect, OrientationType o)
 {
-    DirectionType dir = up; //Initialized only to make the compiler happy.
+    WinDirectionType dir = winUp; //Initialized only to make the compiler happy.
     RectangleType vacated;
 
     switch (o)
     {
         case angle0:
-            dir = up;
+            dir = winUp;
             break;
         case angle90:
-            dir = right;
+            dir = winRight;
             break;
         case angle180:
-            dir = down;
+            dir = winDown;
             break;
         case angle270:
-            dir = left;
+            dir = winLeft;
             break;
     }
 

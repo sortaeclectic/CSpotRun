@@ -17,22 +17,22 @@ enum AUTOSCROLL_TYPE_ENUM
 
 struct APP_STATE_STR
 {
-    Word version;
-    Word UCGUIBits;
-    Word hideControls       : 1;
-    Word reversePageUpDown  : 1;
-    Word showPreviousLine   : 1;
+    UInt16 version;
+    UInt16 UCGUIBits;
+    UInt16 hideControls       : 1;
+    UInt16 reversePageUpDown  : 1;
+    UInt16 showPreviousLine   : 1;
 #ifdef ENABLE_AUTOSCROLL
-    Word autoScrollSpeed0   : 8;
-    Word autoScrollSpeed1   : 8;
-    Word autoScrollButton   : 1;
+    UInt16 autoScrollSpeed0   : 8;
+    UInt16 autoScrollSpeed1   : 8;
+    UInt16 autoScrollButton   : 1;
     enum AUTOSCROLL_TYPE_ENUM   autoScrollType;
 #endif
-    Word caseSensitive      : 1;
+    UInt16 caseSensitive      : 1;
     enum TAP_ACTION_ENUM tapAction;
     struct DOC_PREFS_STR defaultDocPrefs;
 };
 
 extern struct APP_STATE_STR *appStatePtr;
-extern VoidHand searchStringHandle;
+extern MemHandle searchStringHandle;
 extern Boolean    searchFromTop;

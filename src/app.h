@@ -1,5 +1,5 @@
-#define versionWord             7
+#define versionUInt16             7
 #define PREF_APPSTATE        1001
 #define PREF_SEARCHSTRING    1002
 
-Boolean UtilOSIsAtLeast(Byte reqMajor, Byte reqMinor); //in pilotmain.c, pending creation of util.c
+Boolean UtilOSIsAtLeast(UInt8 reqMajor, UInt8 reqMinor); //in pilotmain.c, pending creation of util.c

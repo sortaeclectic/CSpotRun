@@ -18,9 +18,7 @@
  */
 
 #ifdef ENABLE_SEARCH
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
+#include <PalmOS.h>
 #include "resources.h"
 #include "callback.h"
 #include "app.h"
@@ -92,7 +90,7 @@ static void HandleFormOpenEvent()
     formPtr = FrmGetActiveForm();
     inputFieldPtr = FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, fieldID_searchString));
 
-    FldSetTextHandle(inputFieldPtr, (Handle) searchStringHandle);
+    FldSetTextHandle(inputFieldPtr, (MemHandle) searchStringHandle);
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_searchFromTop)), false);
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_caseSensitive)), appStatePtr->caseSensitive);
 

@@ -17,9 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
+#include <PalmOS.h>
 #include "doclist.h"
 #include "rotate.h"
 #include "docprefs.h"
@@ -41,7 +39,7 @@ void DocPrefs_savePrefs(struct DOC_PREFS_STR * prefs)
 {
     DmOpenRef                prefDbRef = NULL;
     struct DOC_PREFS_STR    *p = NULL;
-    UInt                    recNo;
+    UInt16                    recNo;
     Boolean                    recFound = false;
 
     //Open Db
@@ -98,7 +96,7 @@ void DocPrefs_savePrefs(struct DOC_PREFS_STR * prefs)
 void DocPrefs_loadPrefs(char name[dmDBNameLength], struct DOC_PREFS_STR * prefsPtr)
 {
     DmOpenRef            prefDbRef = NULL;
-    UInt                i;
+    UInt16                i;
     Boolean                recLoaded = false;
     struct DOC_PREFS_STR *p = NULL;
 
@@ -179,8 +177,8 @@ void DocPrefs_cleanUpPrefs()
 {
     DmOpenRef                prefDbRef = NULL;
     struct DOC_PREFS_STR    *p = NULL;
-    UInt                    recNo;
-    Boolean                    deleteThis;
+    UInt16                   recNo;
+    Boolean                  deleteThis;
 
     //Open Db
     prefDbRef = DmOpenDatabaseByTypeCreator(PERDOC_PREFS_DB_TYPE, appId, dmModeReadWrite);

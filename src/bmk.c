@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
+#include <PalmOS.h>
 
 #include "bmk.h"
 #include "appstate.h"
@@ -38,8 +36,8 @@ static int          bmkLBSize = 0;      /* number of pointers */
 static int          scuts_num = 0;
 
                         /* in the list buffer */
-static CharPtr      bmkAddStr = NULL;
-static CharPtr      bmkEdStr = NULL;
+static Char*      bmkAddStr = NULL;
+static Char*      bmkEdStr = NULL;
 
 
 /* from doc.c */
@@ -48,17 +46,17 @@ extern DmOpenRef    _dbRef;
 extern UInt16       _dbMode;
 
 /* number of text records in the document */
-extern Word     _wNumRecs;
+extern UInt16     _wNumRecs;
 
 
 /* local functions */
 
 static int  BmkFindByName(char *);
-static int  BmkFindByNameAndPos(char *, DWord);
+static int  BmkFindByNameAndPos(char *, UInt32);
 static Err  DoBmkAdd(char *name);
 
 static Err  DoBmkReplace(UInt16 idx, char *name);
-static Err  DoBmkReplaceWithPos(UInt16 idx, char *name, DWord pos);
+static Err  DoBmkReplaceWithPos(UInt16 idx, char *name, UInt32 pos);
 
 static Err  DoBmkMoveUp(UInt16 idx);
 static Err  DoBmkMoveDown(UInt16 idx);
@@ -78,9 +76,9 @@ Err BmkStart(void)
 {
     Err err;
 
-    bmkAddStr = (CharPtr)MemHandleLock(
+    bmkAddStr = (Char*)MemHandleLock(
             DmGetResource(strRsc, stringID_bmkAdd));
-    bmkEdStr = (CharPtr)MemHandleLock(
+    bmkEdStr = (Char*)MemHandleLock(
             DmGetResource(strRsc, stringID_bmkEd));
 
     return 0;
@@ -93,7 +91,7 @@ Err BmkStart(void)
  */
 void BmkStop(void)
 {
-    VoidHand h;
+    MemHandle h;
 
     BmkClearListBuf();
 
@@ -164,7 +162,7 @@ Err BmkAdd(char *name, int force)
 Err DoBmkAdd(char *name)
 {
     UInt16 idx = dmMaxRecordIndex;
-    VoidHand h;
+    MemHandle h;
     void* p;
     bmk_rec_t b; /* temp copy of the record. */
 
@@ -217,9 +215,9 @@ Err BmkRename(int sel, char *name)
 }
 
 
-Err DoBmkReplaceWithPos(UInt16 idx, char *name, DWord pos)
+Err DoBmkReplaceWithPos(UInt16 idx, char *name, UInt32 pos)
 {
-    VoidHand h;
+    MemHandle h;
     bmk_rec_t b;
     void* p;
 
@@ -398,7 +396,7 @@ Err DoBmkMoveDown(UInt16 idx)
  */
 Err BmkRefillListBuf(void)
 {
-    VoidHand h;
+    MemHandle h;
     UInt16 rn, i;
     bmk_rec_t *b;
     Err err = 0;
@@ -581,7 +579,7 @@ int BmkFindByName(char *name)
 }
 
 
-int BmkFindByNameAndPos(char *name, DWord pos)
+int BmkFindByNameAndPos(char *name, UInt32 pos)
 {
     UInt16 rn, i;
     bmk_rec_t *b;
@@ -650,8 +648,8 @@ Err BmkInsertionSort(int action)
 
 void BmkReportError(Err e)
 {
-    VoidHand    errH;
-    Int stringID = -1;
+    MemHandle    errH;
+    Int16 stringID = -1;
     char s[20] = "Error: 0x";
     char d[9];
 
@@ -668,7 +666,7 @@ void BmkReportError(Err e)
     if(stringID != -1) {
         errH = DmGetResource(strRsc, stringID);
         FrmCustomAlert(alertID_error,
-                (CharPtr) MemHandleLock(errH), " ", " ");
+                (Char*) MemHandleLock(errH), " ", " ");
         MemHandleUnlock(errH);
         DmReleaseResource(errH);
     } else {

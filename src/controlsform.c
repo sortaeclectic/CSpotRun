@@ -17,9 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
+#include <PalmOS.h>
 #include "resources.h"
 #include "callback.h"
 #include "app.h"
@@ -36,7 +34,7 @@ static void        HandleFormOpenEvent();
 static void        HandleFormCloseEvent();
 static Boolean    _ControlsFormHandleEvent(EventType *e);
 static void        _setStates();
-static Word        _getStates();
+static UInt16        _getStates();
 
 FormPtr        formPtr;
 
@@ -106,20 +104,20 @@ static void HandleFormOpenEvent()
 
     for (i=0; i<Ucgui_getElementCount(); i++)
     {
-        Word        ctlIndex = FrmGetObjectIndex(formPtr, checkboxID_UCGUI0+i);
+        UInt16        ctlIndex = FrmGetObjectIndex(formPtr, checkboxID_UCGUI0+i);
         ControlPtr    ctlPtr = FrmGetObjectPtr(formPtr, ctlIndex);
 
         if (Ucgui_getGroupTitle(i))
         {
-            Word    fieldID = fieldID_UCGUI0+fieldCount;
-            UShort    fieldIndex = FrmGetObjectIndex(formPtr, fieldID);
+            UInt16    fieldID = fieldID_UCGUI0+fieldCount;
+            UInt16    fieldIndex = FrmGetObjectIndex(formPtr, fieldID);
 
             x = 5;
             y += 13;
 
             //Set text of label
             //FldSetTextPtr((FieldPtr)FrmGetObjectPtr(formPtr, fieldIndex), UcguiElems[i].groupTitle);
-            FldSetTextHandle((FieldPtr)FrmGetObjectPtr(formPtr, fieldIndex), (Handle)DmGetResource(strRsc, Ucgui_getGroupTitle(i)));
+            FldSetTextHandle((FieldPtr)FrmGetObjectPtr(formPtr, fieldIndex), (MemHandle)DmGetResource(strRsc, Ucgui_getGroupTitle(i)));
 
             //Position the label
             FrmSetObjectPosition(formPtr, fieldIndex, x, y);
@@ -152,10 +150,10 @@ static void _setStates()
                         Ucgui_getBitmask(i) & appStatePtr->UCGUIBits);
 }
 
-static Word _getStates()
+static UInt16 _getStates()
 {
     int     i;
-    Word bits = 0;
+    UInt16 bits = 0;
 
     for (i=0; i<Ucgui_getElementCount(); i++)
         if (CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_UCGUI0+i))))
@@ -176,10 +174,10 @@ static void HandleFormCloseEvent()
     {
         if (Ucgui_getGroupTitle(i))
         {
-            Word        fieldID = fieldID_UCGUI0+fieldCount;
-            UShort        fieldIndex = FrmGetObjectIndex(formPtr, fieldID);
+            UInt16        fieldID = fieldID_UCGUI0+fieldCount;
+            UInt16        fieldIndex = FrmGetObjectIndex(formPtr, fieldID);
             FieldPtr    fieldP = (FieldPtr)FrmGetObjectPtr(formPtr, fieldIndex);
-            VoidHand    stringH = (VoidHand)FldGetTextHandle(fieldP);
+            MemHandle    stringH = (MemHandle)FldGetTextHandle(fieldP);
 
             FldSetTextHandle(fieldP, NULL);
             DmReleaseResource(stringH);

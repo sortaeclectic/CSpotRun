@@ -17,10 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <System/SysEvtMgr.h>
-#include <UI/UIAll.h>
+#include <PalmOS.h>
 
 #include "resources.h"
 #include "mainform.h"
@@ -75,7 +72,7 @@ ControlPtr  percentPopupPtr;
 UInt16      bmkListIndex;
 
 Char        percentString[] = "xxx%";
-UShort      selectableLineSpacings[LINE_SPACING_GADGET_COUNT] = {0, 1, 2};
+UInt16      selectableLineSpacings[LINE_SPACING_GADGET_COUNT] = {0, 1, 2};
 int         _documentIndex = -1;
 
 #ifdef ENABLE_AUTOSCROLL
@@ -416,11 +413,11 @@ static void _openDefaultDoc()
     else
     {
         EventType    newEvent;
-        VoidHand    noDocsH;
+        MemHandle    noDocsH;
 
         // No documents installed here!
         noDocsH = DmGetResource(strRsc, stringID_noDocs);
-        FrmCustomAlert(alertID_error, (CharPtr) MemHandleLock(noDocsH), " ", " ");
+        FrmCustomAlert(alertID_error, (Char*) MemHandleLock(noDocsH), " ", " ");
         MemHandleUnlock(noDocsH);
         DmReleaseResource(noDocsH);
 
@@ -593,7 +590,7 @@ static void _deleteDoc()
 
 static void _changeLineSpacing(int index)
 {
-    UShort lineHeightAdjust = selectableLineSpacings[index];
+    UInt16 lineHeightAdjust = selectableLineSpacings[index];
 
     if (Doc_getLineHeightAdjust() != lineHeightAdjust)
     {

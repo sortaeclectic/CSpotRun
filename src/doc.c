@@ -25,10 +25,8 @@
 // or something. If anyone does any big changes to this code, I strongly recommend
 // making this split. Wish I'd done it right in the first place. -bill
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
-#include <UI/CharAttr.h>
+#include <PalmOS.h>
+#include <Core/System/CharAttr.h>
 #include "appstate.h"
 #include "rotate.h"
 #include "doc.h"
@@ -39,6 +37,8 @@
 #include "tabbedtext.h"
 #include "bmk.h"
 
+#define min(a,b) ((a)<(b)?(a):(b))
+
 #define WORD_MAX 0xFFFF /* USHRT_MAX is coming from a Linux header, 
 			 * not a Palm one.*/
 
@@ -48,16 +48,16 @@
 static void         _loadCurrentRecord();
 static void         _setLineHeight();
 static void         _scrollUpIfLastPage();
-static DWord        _fixStoryLen(Word *recLens);
+static UInt32        _fixStoryLen(UInt16 *recLens);
 static void         _postDecodeProcessing();
 static void         _drawPage(RectanglePtr boundsPtr,
                               Boolean drawOnscreenPart,
                               Boolean drawOffscreenPart);
 static void         _setApparentTextBounds();
-static Boolean      _findString(CharPtr haystack, CharPtr needle,
-                                WordPtr foundPos, Boolean caseSensitive);
-static void         _rewindToStartOfWord();
-static void         _movePastWord();
+static Boolean      _findString(Char* haystack, Char* needle,
+                                UInt16* foundPos, Boolean caseSensitive);
+static void         _rewindToStartOfUInt16();
+static void         _movePastUInt16();
 static Boolean      _onLastPage();
 
 
@@ -65,7 +65,7 @@ static Boolean      _onLastPage();
  * _dbRef and _wNumRecs are referenced from the bookmarks subsystem
  */
 DmOpenRef           _dbRef = NULL;
-Word                _wNumRecs;
+UInt16                _wNumRecs;
 UInt16              _dbMode = dmModeReadWrite;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,17 +73,17 @@ UInt16              _dbMode = dmModeReadWrite;
 ////////////////////////////////////////////////////////////////////////////////
 struct RECORD0_STR
 {
-    Byte    crap;               //Because wVersion was 1026 (1024+2) in one doc
+    UInt8    crap;               //Because wVersion was 1026 (1024+2) in one doc
                                 //    when it should have been 2.
-    Byte    wVersion;           // 1=plain text, 2=compressed
-    Word    wSpare;             //??
-    DWord   munged_dwStoryLen;  // in bytes, when decompressed.
+    UInt8    wVersion;           // 1=plain text, 2=compressed
+    UInt16    wSpare;             //??
+    UInt32   munged_dwStoryLen;  // in bytes, when decompressed.
                                 //Appears to be wrong in some DOCs.
-    Word    munged_wNumRecs;    // text records only; equals tDocHeader.wNumRecs-1.
+    UInt16    munged_wNumRecs;    // text records only; equals tDocHeader.wNumRecs-1.
                                 //Use this, because AportisDoc adds records beyond
                                 //these. Appears to be too big in some DOCs.
-    Word    wRecSize;           // usually 0x1000
-    DWord   dwSpare2;           //??
+    UInt16    wRecSize;           // usually 0x1000
+    UInt32   dwSpare2;           //??
 };
 
 //This is crap.
@@ -91,28 +91,28 @@ struct RECORD0_STR
 
 //Also, the drawing stuff should be a seperate object. DocGadget, or something.
 
-VoidHand            _record0Handle = NULL;
+MemHandle            _record0Handle = NULL;
 struct RECORD0_STR* _record0Ptr = NULL;
-VoidHand            _decodeBufHandle = NULL;
+MemHandle            _decodeBufHandle = NULL;
 
-CharPtr             _decodeBuf = NULL;
+Char*             _decodeBuf = NULL;
 // These describe the state of _decodeBuf
-UShort              _decodeBufLen = 0;     //Size of buffer allocated
-UShort              _decodeLen = 0;        //Characters decoded
-UShort              _recordDecoded = 0;    //The first record held in "_decodeBuf"
-UShort              _decodedRecordLen = 0; //Characters in record #_recordDecoded
+UInt16              _decodeBufLen = 0;     //Size of buffer allocated
+UInt16              _decodeLen = 0;        //Characters decoded
+UInt16              _recordDecoded = 0;    //The first record held in "_decodeBuf"
+UInt16              _decodedRecordLen = 0; //Characters in record #_recordDecoded
                                            //which were decoded
 
-DWord               _fixedStoryLen;
+UInt32               _fixedStoryLen;
 
 RectangleType       _textGadgetBounds;
 RectangleType       _apparentTextBounds;
-UShort              _lineHeight = 0;
+UInt16              _lineHeight = 0;
 
 #ifdef ENABLE_AUTOSCROLL
-static UShort       _pixelOffset = 0;
+static UInt16       _pixelOffset = 0;
 static Boolean      _locationChanged = true;
-static UShort       _osExtraForAS; //How many extra rows are added
+static UInt16       _osExtraForAS; //How many extra rows are added
                                    //to the osPageWindow
 #endif
 static Boolean      _boundsChanged = true;
@@ -120,8 +120,8 @@ static WinHandle    osPageWindow = NULL;
 
 struct DOC_PREFS_STR _docPrefs = DEFAULT_DOCPREFS;
 
-VoidHand        _recLensHandle    = NULL;
-Word            *_recLens        = NULL;
+MemHandle        _recLensHandle    = NULL;
+UInt16            *_recLens        = NULL;
 
 void Doc_makeSettingsDefault()
 {
@@ -132,7 +132,7 @@ void Doc_makeSettingsDefault()
 ////////////////////////////////////////////////////////////////////////////////
 // Doc_open
 ////////////////////////////////////////////////////////////////////////////////
-void Doc_open(UInt cardNo, LocalID dbID, char name[dmDBNameLength])
+void Doc_open(UInt16 cardNo, LocalID dbID, char name[dmDBNameLength])
 {
     UInt16 dbAttrs = 0;
 
@@ -237,7 +237,7 @@ void Doc_close()
 
 void Doc_drawPage()
 {
-    Word        errorWord;
+    UInt16        errorUInt16;
     WinHandle   screenWindow = NULL;
 
     screenWindow = WinGetDrawWindow();
@@ -252,12 +252,12 @@ void Doc_drawPage()
         osPageWindow = WinCreateOffscreenWindow(_apparentTextBounds.extent.x,
                         _apparentTextBounds.extent.y + _osExtraForAS,
                         screenFormat,
-                        &errorWord);
+                        &errorUInt16);
 #else
         osPageWindow = WinCreateOffscreenWindow(_apparentTextBounds.extent.x,
                         _apparentTextBounds.extent.y,
                         screenFormat,
-                        &errorWord);
+                        &errorUInt16);
 #endif
         ErrFatalDisplayIf(NULL == osPageWindow, "f1");
 
@@ -277,7 +277,7 @@ void Doc_drawPage()
 #ifdef ENABLE_AUTOSCROLL
         WinCopyRectangle(osPageWindow, screenWindow, &_apparentTextBounds,
                         _textGadgetBounds.topLeft.x, _textGadgetBounds.topLeft.y,
-                        scrCopy);
+                        winPaint);
 #else
         WinRestoreBits(osPageWindow,
                         _textGadgetBounds.topLeft.x,
@@ -295,7 +295,7 @@ void Doc_drawPage()
 #endif
 }
 
-Boolean Doc_linesDown(Word linesToMove)
+Boolean Doc_linesDown(UInt16 linesToMove)
 {
     char*    p;
     FontID oldFont;
@@ -323,11 +323,11 @@ Boolean Doc_linesDown(Word linesToMove)
     return true;
 }
 
-void Doc_linesUp(Word linesToMove)
+void Doc_linesUp(UInt16 linesToMove)
 {
     FontID    oldFont;
-    Word    firstCharIndex;
-    Word    lastCharIndex;
+    UInt16    firstCharIndex;
+    UInt16    lastCharIndex;
 
     oldFont = FntGetFont();
     FntSetFont(_docPrefs.font);
@@ -367,7 +367,7 @@ void Doc_linesUp(Word linesToMove)
 
 void Doc_scroll(int dir, enum TAP_ACTION_ENUM ta)
 {
-    UShort linesToScroll = 0;
+    UInt16 linesToScroll = 0;
 
     switch (ta)
     {
@@ -428,20 +428,20 @@ FontID Doc_getFont()
     return _docPrefs.font;
 }
 
-void Doc_setLineHeightAdjust(UShort i)
+void Doc_setLineHeightAdjust(UInt16 i)
 {
     _docPrefs.lineHeightAdjust = i;
     _setLineHeight();
 }
 
-UShort Doc_getLineHeightAdjust()
+UInt16 Doc_getLineHeightAdjust()
 {
     return _docPrefs.lineHeightAdjust;
 }
 
-DWord Doc_getPosition()
+UInt32 Doc_getPosition()
 {
-    DWord    pos = 0;
+    UInt32    pos = 0;
     int i;
 
     //Add up previous records
@@ -449,21 +449,21 @@ DWord Doc_getPosition()
         pos+=_recLens[i-1];
 
     //Add in this partial record
-    pos += (DWord)_docPrefs.location.ch;
+    pos += (UInt32)_docPrefs.location.ch;
 
     return pos;
 }
 
-UInt Doc_getPercent()
+UInt16 Doc_getPercent()
 {
-    DWord    pos = Doc_getPosition();
+    UInt32    pos = Doc_getPosition();
     return (100 * pos) / (_fixedStoryLen-1);
 }
 
-void Doc_setPosition(DWord pos)
+void Doc_setPosition(UInt32 pos)
 {
-    DWord prevRecsLen = 0;
-    Word i;
+    UInt32 prevRecsLen = 0;
+    UInt16 i;
 
     //Add up record lens to find right record.
     for (i=1; prevRecsLen<=pos; i++)
@@ -489,9 +489,9 @@ void Doc_setPosition(DWord pos)
 #endif
 }
 
-void Doc_setPercent(UInt per)
+void Doc_setPercent(UInt16 per)
 {
-    DWord pos = (per * (_fixedStoryLen-1)) / 100;
+    UInt32 pos = (per * (_fixedStoryLen-1)) / 100;
     Doc_setPosition(pos);
 }
 
@@ -538,7 +538,7 @@ static void _drawPage(RectanglePtr boundsPtr,
     char*     p;
     int       linesToShow;
     WinHandle osLineWindow = NULL;
-    Word      errorWord;
+    UInt16      errorUInt16;
     RectangleType osLineBounds;
     FontID    oldFont = FntGetFont();
     WinHandle destWindow = WinGetDrawWindow();
@@ -554,7 +554,7 @@ static void _drawPage(RectanglePtr boundsPtr,
     osLineBounds.extent.y = FntBaseLine()+FntDescenderHeight();
     osLineWindow = WinCreateOffscreenWindow(osLineBounds.extent.x,
                                             osLineBounds.extent.y,
-                                            genericFormat, &errorWord);
+                                            genericFormat, &errorUInt16);
     ErrFatalDisplayIf(NULL == osLineWindow, "f");
 
     //Set drawing to go to the osLine window
@@ -599,7 +599,7 @@ static void _drawPage(RectanglePtr boundsPtr,
         //Copy the osLine in in an ORing kind of way.
         //This preserves lowercase extenders of previous line.
         WinCopyRectangle(osLineWindow, destWindow, &osLineBounds,
-                         boundsPtr->topLeft.x, y, scrOR);
+                         boundsPtr->topLeft.x, y, winOverlay);
         y += _lineHeight;
         p += charsOnRow;
         linesToShow--;
@@ -664,7 +664,7 @@ static void _setApparentTextBounds()
 #ifdef ENABLE_ROTATION
     if (isSideways(_docPrefs.orient))
     {
-        UShort t = _apparentTextBounds.extent.x;
+        UInt16 t = _apparentTextBounds.extent.x;
         _apparentTextBounds.extent.x = _apparentTextBounds.extent.y;
         _apparentTextBounds.extent.y = t;
     }
@@ -700,7 +700,7 @@ static void _loadCurrentRecord()
     //If current record not _decodeBuf, decode it.
     if (_recordDecoded != _docPrefs.location.record)
     {
-        UInt recToLoad = _docPrefs.location.record;
+        UInt16 recToLoad = _docPrefs.location.record;
 
         _decodeLen = _decodedRecordLen = decodeRecord(_dbRef, _record0Ptr->wVersion,
                                                       _decodeBuf,
@@ -739,10 +739,10 @@ ErrFatalDisplayIf(_docPrefs.location.record+1>_wNumRecs, "sheez");
     }
 }
 
-static DWord _fixStoryLen(Word *recLens)
+static UInt32 _fixStoryLen(UInt16 *recLens)
 {
-    DWord storyLen = 0;
-    Word i;
+    UInt32 storyLen = 0;
+    UInt16 i;
 
     for (i = 0; i < _wNumRecs; i++)
     {
@@ -763,8 +763,8 @@ static DWord _fixStoryLen(Word *recLens)
 
 static void _postDecodeProcessing()
 {
-    CharPtr tooFar = &_decodeBuf[_decodeLen];
-    CharPtr p = _decodeBuf;
+    Char* tooFar = &_decodeBuf[_decodeLen];
+    Char* p = _decodeBuf;
 
     do
     {
@@ -777,14 +777,14 @@ static void _postDecodeProcessing()
 
 
 #ifdef ENABLE_SEARCH
-void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop,
-                  Boolean caseSensitive, Word formId)
+void Doc_doSearch(MemHandle searchStringHandle, Boolean searchFromTop,
+                  Boolean caseSensitive, UInt16 formId)
 {
     struct DOC_LOCATION_STR posBeforeSearch;
     struct DOC_LOCATION_STR startOfSearch;
-    CharPtr        searchString = MemHandleLock(searchStringHandle);
+    Char*        searchString = MemHandleLock(searchStringHandle);
     Boolean        found = false;
-    Word        stopAfterRecord = WORD_MAX;
+    UInt16        stopAfterRecord = WORD_MAX;
     Boolean        giveUp = false;
 
     MemMove(&posBeforeSearch, &_docPrefs.location, sizeof(posBeforeSearch));
@@ -807,7 +807,7 @@ void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop,
 
     while(!found && !giveUp)
     {
-        Word foundPos;
+        UInt16 foundPos;
 
         _loadCurrentRecord();
 
@@ -841,8 +841,8 @@ void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop,
     if (found && formId)
     {
 //        _loadCurrentRecord();
-//        _rewindToStartOfWord();
-        _movePastWord();_loadCurrentRecord();Doc_linesUp(1);
+//        _rewindToStartOfUInt16();
+        _movePastUInt16();_loadCurrentRecord();Doc_linesUp(1);
 //        _loadCurrentRecord();Doc_linesDown(1);Doc_linesUp(1);
 
         FrmUpdateForm(formId, 0);
@@ -858,13 +858,13 @@ void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop,
 
 //_findString works a lot like FindStrInStr. Except correctly.
 //And optionally case-sensitively.
-static Boolean _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos,
+static Boolean _findString(Char* haystack, Char* needle, UInt16* foundPos,
                            Boolean caseSensitive)
 {
-    UInt    needleLen = StrLen(needle);
-    UInt    haystackLen = StrLen(haystack);
+    UInt16    needleLen = StrLen(needle);
+    UInt16    haystackLen = StrLen(haystack);
     Boolean rv;
-    CharPtr foundPtr;
+    Char* foundPtr;
 
     if (! caseSensitive)
     {
@@ -873,11 +873,11 @@ static Boolean _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos,
         //find "foo" in "foobar" but not in "barfoo".
         //Really should just write our own FindStrInStr...
 
-        BytePtr convTable = GetCharCaselessValue();
-        CharPtr clNeedle = (CharPtr) MemHandleLock(MemHandleNew(needleLen+1));
-        CharPtr clHaystack = (CharPtr) MemPtrNew(haystackLen+1); //yuck.
+        const UInt8* convTable = GetCharCaselessValue();
+        Char* clNeedle = (Char*) MemHandleLock(MemHandleNew(needleLen+1));
+        Char* clHaystack = (Char*) MemPtrNew(haystackLen+1); //yuck.
         Boolean toReturn;
-        UInt    i;
+        UInt16    i;
 
         for(i = 0; i < needleLen; i++)
             clNeedle[i] = convTable[(int) needle[i]];
@@ -911,9 +911,9 @@ static Boolean _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos,
     return rv;
 }
 
-static void _rewindToStartOfWord()
+static void _rewindToStartOfUInt16()
 {
-    WordPtr attrs = GetCharAttr();
+    const UInt16* attrs = GetCharAttr();
 
     while (_docPrefs.location.ch>0
            && ! IsSpace(attrs, _decodeBuf[_docPrefs.location.ch-1]))
@@ -922,9 +922,9 @@ static void _rewindToStartOfWord()
     }
 }
 
-static void _movePastWord()
+static void _movePastUInt16()
 {
-    WordPtr attrs = GetCharAttr();
+    const UInt16* attrs = GetCharAttr();
 
     while (! IsSpace(attrs, _decodeBuf[_docPrefs.location.ch])
             && '\0' != _decodeBuf[_docPrefs.location.ch])
@@ -965,7 +965,7 @@ void Doc_prepareForPixelScrolling()
         WinCopyRectangle(osPageWindow, w, &fromRect,
                      _textGadgetBounds.topLeft.x + fromRect.topLeft.x,
                      _textGadgetBounds.topLeft.y + fromRect.topLeft.y,
-                     scrCopy);
+                     winPaint);
     } else {
         RotCopyWindow(osPageWindow,
                     _apparentTextBounds.extent.y-1-fromRect.extent.y,
@@ -983,7 +983,7 @@ void Doc_pixelScroll()
 
     drawWindow = WinGetDrawWindow();
     if (_docPrefs.orient == angle0)
-        WinScrollRectangle(&_textGadgetBounds, up, 1, &vacated);
+        WinScrollRectangle(&_textGadgetBounds, winUp, 1, &vacated);
     else
         RotScrollRectangleUp(&_textGadgetBounds, _docPrefs.orient);
 
@@ -1010,7 +1010,7 @@ void Doc_pixelScroll()
     // is scrolled below.
     rect = _apparentTextBounds;
     rect.extent.y += _osExtraForAS;
-    WinScrollRectangle(&rect, up, 1, &vacated);
+    WinScrollRectangle(&rect, winUp, 1, &vacated);
 
     WinSetDrawWindow(drawWindow);
 
@@ -1025,7 +1025,7 @@ void Doc_pixelScroll()
         WinCopyRectangle(osPageWindow, drawWindow, &fromRect,
                          _textGadgetBounds.topLeft.x + fromRect.topLeft.x,
                          _textGadgetBounds.topLeft.y + fromRect.topLeft.y,
-                         scrCopy);
+                         winPaint);
     }
     else
     {

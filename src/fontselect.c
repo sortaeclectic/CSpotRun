@@ -17,9 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
+#include <PalmOS.h>
 #include "resources.h"
 #include "appstate.h"
 #include "rotate.h"
@@ -39,8 +37,8 @@ void FS_changeFont(int index)
 
 Boolean FS_fontIsLegal(FontID f)
 {
-    DWord romVersion;
-    Byte os;
+    UInt32 romVersion;
+    UInt8 os;
 
     // Disable the bold large font if not on a PalmIII
     FtrGet(sysFtrCreator, sysFtrNumROMVersion, &romVersion);
@@ -60,7 +58,7 @@ void FS_updateFontButtons(FormPtr formPtr)
         CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, pushID_font0+i)), FS_getFontByIndex(i) == Doc_getFont());
 }
 
-FontID FS_getFontByIndex(UShort index)
+FontID FS_getFontByIndex(UInt16 index)
 {
     const int selectableFonts[FONT_BUTTON_COUNT] = {stdFont, boldFont, largeFont, largeBoldFont};
     return selectableFonts[index];

@@ -1,1 +1,1 @@
-void TT_WinDrawChars (CharPtr chars, Word len, SWord x, SWord y);
+void TT_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y);

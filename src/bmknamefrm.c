@@ -19,10 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <System/SysEvtMgr.h>
-#include <UI/UIAll.h>
+#include <PalmOS.h>
 
 #include "resources.h"
 #include "callback.h"
@@ -63,9 +60,11 @@ Boolean BmkNameFormHandleEvent(EventType *e)
  */
 static Boolean _BmkNameFormHandleEvent(EventType *e)
 {
-    EventType bmkNameOkEvt = {bmkNameFrmOkEvt, 0, 0, 0, {}};
+    EventType bmkNameOkEvt;
     Err err = 0;
-    CharPtr fStr;
+    Char* fStr;
+    MemSet(&bmkNameOkEvt, sizeof(bmkNameOkEvt), 0);
+    bmkNameOkEvt.eType = bmkNameFrmOkEvt;
 
     switch(e->eType)
     {

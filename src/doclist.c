@@ -17,9 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
+#include <PalmOS.h>
 #include "app.h"
 #include "doclist.h"
 #include "rotate.h"
@@ -31,12 +29,12 @@
 struct DB_INFO_STR
 {
     char    name[dmDBNameLength]; //includes null, according to DataMgr.h
-    UInt    cardNo;
+    UInt16  cardNo;
 };
 
 struct DB_INFO_STR    *_dbInfoArray = NULL;
 int                    _dbCount = 0;
-UShort*                _map = NULL;
+UInt16*                _map = NULL;
 static char**        _listItemPtrs = NULL;
 
 static void _buildMap();
@@ -55,7 +53,7 @@ void DocList_populateList(ListPtr listPtr)
 {
     Boolean                newSearch = true;
     DmSearchStateType    searchState;
-    UInt            cardNo;
+    UInt16            cardNo;
     LocalID            dbID;
     char            name[dmDBNameLength];
     int                i;
@@ -100,7 +98,7 @@ void DocList_populateList(ListPtr listPtr)
     LstSetHeight(listPtr, _dbCount);
 }
 
-CharPtr DocList_getTitle(int i)
+Char* DocList_getTitle(int i)
 {
 //    ErrFatalDisplayIf(!(i>=0 && i<_dbCount), "h");
     return _dbInfoArray[_map[i]].name;
@@ -110,13 +108,13 @@ LocalID DocList_getID(int i)
 //    ErrFatalDisplayIf(!(i>=0 && i<_dbCount), "i");
     return DmFindDatabase(_dbInfoArray[_map[i]].cardNo, _dbInfoArray[_map[i]].name);
 }
-UInt DocList_getCardNo(int i)
+UInt16 DocList_getCardNo(int i)
 {
 //    ErrFatalDisplayIf(!(i>=0 && i<_dbCount), "j");
     return _dbInfoArray[_map[i]].cardNo;
 }
 
-Int DocList_getIndex(char name[dmDBNameLength])
+Int16 DocList_getIndex(char name[dmDBNameLength])
 {
     int i;
     for (i = 0; i < _dbCount; i++)
@@ -125,7 +123,7 @@ Int DocList_getIndex(char name[dmDBNameLength])
     return -1;
 }
 
-UInt    DocList_getDocCount()
+UInt16    DocList_getDocCount()
 {
     return _dbCount;
 }
@@ -134,7 +132,7 @@ UInt    DocList_getDocCount()
 static void _buildMap()
 {
     int i,j;
-    UShort tmp;
+    UInt16 tmp;
 
     for (i = 0; i < _dbCount; i++)
         _map[i]=i;

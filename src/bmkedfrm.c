@@ -19,11 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <System/SysEvtMgr.h>
-#include <UI/UIAll.h>
-#include <List.h>
+#include <PalmOS.h>
 
 #include "resources.h"
 #include "callback.h"
@@ -59,12 +55,14 @@ Boolean BmkEdFormHandleEvent(EventType *e)
  */
 static Boolean _BmkEdFormHandleEvent(EventType *e)
 {
-    EventType listRedrawEvt = {bmkRedrawListEvt, 0, 0, 0, {}};
+    EventType listRedrawEvt;
     Err err;
-
     /* sel is static because it needs to keep selection */
     /* position after returning from the bmknamefrm */
-    static UInt16 sel = noListSelection;
+    static Int16 sel = noListSelection;
+
+    MemSet(&listRedrawEvt, sizeof(listRedrawEvt), 0);
+    listRedrawEvt.eType = bmkRedrawListEvt;
 
     switch(e->eType)
     {

@@ -17,22 +17,20 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
-#include <UI/UIAll.h>
-#include <UI/CharAttr.h>
+#include <PalmOS.h>
+#include <Core/System/CharAttr.h>
 #include "tabbedtext.h"
 
 #define TAB_PIXELS (160/8)    //to match AportisDoc
 
-WordPtr attrs = NULL;
+UInt16* attrs = NULL;
 
 // Yuck.  But faster...
-void TT_WinDrawChars (CharPtr chars, Word len, SWord x, SWord y)
+void TT_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y)
 {
     static char *tooFar;    //pointer to past the end of chars
     static char *wordStart; //pointer to first char of current word (a "word" being a tab-free chunk of text)
-    static SWord wordX;     //x where current word started
+    static Int16 wordX;     //x where current word started
     static char c;
 
     if (!attrs)

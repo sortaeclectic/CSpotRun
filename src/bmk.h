@@ -4,10 +4,7 @@
 
 #ifdef ENABLE_BMK
 
-#include <Common.h>
-#include <SystemMgr.h>
-#include <UI/List.h>
-
+#include "PalmOS.h"
 
 #define BMK_NAME_SIZE	15
 
@@ -44,7 +41,7 @@
  */
 typedef struct bmk_rec {
 	char	name[16];
-	DWord	pos;
+	UInt32	pos;
 } bmk_rec_t;
 
 

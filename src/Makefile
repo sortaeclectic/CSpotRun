@@ -7,7 +7,7 @@
 # On Windows, I have to set MAKEMODE=UNIX in my environment to make
 # this work.
 
-CC = m68k-palmos-gcc -palmos3.1
+CC = m68k-palmos-gcc -palmos4
 ZIP = zip
 PILRC = pilrc -q
 OBJRES = m68k-palmos-obj-res

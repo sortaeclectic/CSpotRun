@@ -7,5 +7,5 @@
 Boolean FS_fontIsLegal(FontID f);
 void    FS_changeFont(int index);
 void    FS_updateFontButtons(FormPtr formPtr);
-FontID  FS_getFontByIndex(UShort index);
+FontID  FS_getFontByIndex(UInt16 index);
 

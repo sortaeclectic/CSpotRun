@@ -26,19 +26,20 @@
  * http://www.nicholson.com/rhn/pilot/doc.txt
  */
 
-#include <Common.h>
-#include <System/SysAll.h>
+#include <PalmOS.h>
 #include "decode.h"
 
-static int decodeFromBuffer(UCharPtr decodeTo, UCharPtr decodeFrom, int decodeFromLen, int maxDecodeLen);
-static int decodeLen(UCharPtr decodeFrom, int recordIndex);
+#define min(a,b) ((a)<(b)?(a):(b))
+
+static int decodeFromBuffer(UInt8* decodeTo, UInt8* decodeFrom, int decodeFromLen, int maxDecodeLen);
+static int decodeLen(UInt8* decodeFrom, int recordIndex);
 static const char unknownCompressionMessage[] = "Unknown record compression type! ";
 
-int decodedRecordLen(DmOpenRef dbRef, Word compressionType, int recordIndex)
+int decodedRecordLen(DmOpenRef dbRef, UInt16 compressionType, int recordIndex)
 {
-    VoidHand    recordHandle = NULL;
+    MemHandle    recordHandle = NULL;
     int            recordLen = 0;
-    CharPtr        recordPtr = NULL;
+    Char*        recordPtr = NULL;
     int            decodedLen = 0;
 
     if (dbRef == NULL)
@@ -67,11 +68,11 @@ int decodedRecordLen(DmOpenRef dbRef, Word compressionType, int recordIndex)
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-int decodeRecord(DmOpenRef dbRef, Word compressionType, CharPtr decodeTo, int recordIndex, int maxDecodeLen)
+int decodeRecord(DmOpenRef dbRef, UInt16 compressionType, Char* decodeTo, int recordIndex, int maxDecodeLen)
 {
-    VoidHand    recordHandle = NULL;
+    MemHandle    recordHandle = NULL;
     int            recordLen = 0;
-    CharPtr        recordPtr = NULL;
+    Char*        recordPtr = NULL;
     int            decodedLen = 0;
 
     if (dbRef == NULL)
@@ -106,17 +107,17 @@ int decodeRecord(DmOpenRef dbRef, Word compressionType, CharPtr decodeTo, int re
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-static int decodeFromBuffer(UCharPtr decodeTo, UCharPtr decodeFrom, int decodeFromLen, int maxDecodeLen)
+static int decodeFromBuffer(UInt8* decodeTo, UInt8* decodeFrom, int decodeFromLen, int maxDecodeLen)
 {
-    UCharPtr fromTooFar = &decodeFrom[decodeFromLen];
-    UCharPtr toTooFar = &decodeTo[maxDecodeLen];
-    UCharPtr decodeStart = decodeTo;
+    UInt8* fromTooFar = &decodeFrom[decodeFromLen];
+    UInt8* toTooFar = &decodeTo[maxDecodeLen];
+    UInt8* decodeStart = decodeTo;
     unsigned int c;
 
     // These are used only in B commands
     int     windowLen;
     int     windowDist;
-    UCharPtr windowCopyFrom;
+    UInt8* windowCopyFrom;
 
     while(decodeFrom < fromTooFar && decodeTo < toTooFar)
     {
@@ -164,9 +165,9 @@ static int decodeFromBuffer(UCharPtr decodeTo, UCharPtr decodeFrom, int decodeFr
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-static int decodeLen(UCharPtr decodeFrom, int decodeFromLen)
+static int decodeLen(UInt8* decodeFrom, int decodeFromLen)
 {
-    UCharPtr fromTooFar = &decodeFrom[decodeFromLen];
+    UInt8* fromTooFar = &decodeFrom[decodeFromLen];
     unsigned int c;
     int len = 0;
 

@@ -3,18 +3,18 @@
 
 struct DOC_LOCATION_STR
 {
-    UInt record;
-    UInt ch;
+    UInt16 record;
+    UInt16 ch;
 };
 
 struct DOC_PREFS_STR
 {
     char            name[dmDBNameLength];
     FontID            font;
-    UShort            lineHeightAdjust;
+    UInt16            lineHeightAdjust;
     struct DOC_LOCATION_STR location;
-    Word            orient;
-    Word            spare[10-1];
+    UInt16            orient;
+    UInt16            spare[10-1];
 };
 
 
