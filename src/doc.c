@@ -196,6 +196,12 @@ void Doc_close()
         //Close Db
         DmCloseDatabase(_dbRef); _dbRef = NULL;
     }
+
+    if (osPageWindow)
+    {
+        WinDeleteWindow(osPageWindow, false);
+        osPageWindow = NULL;
+    }
 }
 
 void Doc_drawPage()
