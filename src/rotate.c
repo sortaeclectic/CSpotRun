@@ -108,10 +108,26 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
     else if (fromWindowH->bitmapP)
     {
         //OS3
-        fromRowPytes = (fromWindowH->bitmapP->rowBytes * 8) / BITS_PER_PYTE;
-        toRowPytes = (toWindowH->bitmapP->rowBytes * 8) / BITS_PER_PYTE;
+
+        //MyGDeviceType is copied from the GDeviceType
+        //structure in WindowNew.h in the 3.1 SDK.
+        struct MyGDeviceType {
+            void*   baseAddr;        // base address
+            UInt16  width;           // width in pixels
+            UInt16  height;          // height in pixels
+            UInt16  rowBytes;        // rowBytes of display
+            UInt8   pixelSize;       // bits/pixel
+            // There's more crap that we don't care about....
+        };
+        struct MyGDeviceType *fromDeviceP, *toDeviceP;
+
+        fromDeviceP = (struct MyGDeviceType*) fromWindowH->bitmapP;
+        fromRowPytes = (fromDeviceP->rowBytes * 8) / BITS_PER_PYTE;
         fromWidth = fromWindowH->displayWidthV20;
         fromHeight = fromWindowH->displayHeightV20;
+
+        toDeviceP  = (struct MyGDeviceType*) toWindowH->bitmapP;
+        toRowPytes = (toDeviceP->rowBytes * 8) / BITS_PER_PYTE;
         toWidth = toWindowH->displayWidthV20;
         toHeight = toWindowH->displayHeightV20;
     }
