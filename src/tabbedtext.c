@@ -45,13 +45,13 @@ void TT_WinDrawChars (CharPtr chars, Word len, SWord x, SWord y)
     while (chars < tooFar)
     {
         c = *chars;
-        if (IsPrint(attrs, c))
+        if (!IsCntrl(attrs, c))
             chars++;
         else
         {
             WinDrawChars(wordStart, chars-wordStart, wordX, y);
             x += FntCharsWidth(wordStart, chars-wordStart);
-            if(c == '\t')
+            if (c == '\t')
                 x += (TAB_PIXELS - x%TAB_PIXELS);
             chars++;
             wordStart = chars; wordX = x;
