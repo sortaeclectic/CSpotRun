@@ -169,10 +169,12 @@ static Boolean _MainFormHandleEvent(EventType *e)
                     appStatePtr->hideControls = ~appStatePtr->hideControls;
                     MainForm_UCGUIChanged();
                     return true;
+#ifdef ENABLE_AUTOSCROLL
                 case menuitemID_autoScroll:
                     MenuEraseStatus(NULL);
                     MainForm_ToggleAutoScroll();
                     return true;
+#endif
                 case menuitemID_doc:
                     MenuEraseStatus(NULL);
                     CtlHitControl(docPopupPtr);
