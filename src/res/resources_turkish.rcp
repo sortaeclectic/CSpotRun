@@ -10,40 +10,16 @@ begin
     "$$CONFIGURE CONTROLS"="Aktif Kontroller"
     "$$ROTATE"="Döndürme"
     "$$SPACING"="Satýr Aralarý"
+#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Oto. Kaydýrma"
-    "$$AUTOSCROLL TYPE AND SPEED"="Oto. Kaydýrma Tipi ve Hýzý:"
-    "$$PIXEL"="Çizgi"
+    "$$AUTOSCROLLSPEED"="Otomatik Kaydýrma Hýzý:"
     "$$TOGGLE AUTOSCROLL"="Oto.Kaydýrma için Adres Butonu"
+#endif
     "$$GOTO PER"="%\'ye Git"
 
-    "$$BOOKMARKS"="Kýsayollar"
-    "$$BOOKMARKS_TRIGGER"="Kýsayollar"
-    "$$EDIT BOOKMARKS"="Kýsayollar..."
-    "$$EDIT BOOKMARKS LIST"="* Kýsayollar..."
-    "$$DEL ALL BOOKMARKS"="Tüm Kýsayollarý Sil"
-    "$$SORT BOOKMARKS"="Kýsayollarý sýrala..."
-    "$$ADD BOOKMARK"="Kýsayol Ekle..."
-    "$$ADD BOOKMARK LIST"="* Kýsayol Ekle..."
-    "$$ADD BOOKMARK TITLE"="Kýsayol Ekle"
-    "$$NAME BOOKMARK"="Kýsayola isim ver"
-    "$$NAME"="Ýsim"
-    "$$DUP NAME"="Bu isimde bir kýsayol zaten var. Ne yapmak istersiniz?"
-    "$$REPLACE"="Deðiþtir"
-    "$$NEW"="Yeni yarat"
-    "$$MOVE UP"="Yukarý"
-    "$$MOVE DOWN"="Aþaðý"
-    "$$RENAME"="Deðiþtir"
-    "$$DELETE"="Sil"
-    "$$DONE"="Tamam"
-    "$$GOTO"="Git"
-    "$$SORT BOOKMARKS"="Kýsayollarý Sýrala"
-    "$$POSITION"="Pozisyon"
-    "$$SORT BOOKMARKS BY"="Neye göre..."
-    "$$BMK DELETE PROMPT"="Kýsayollarý tamamen sileyim mi?"
-    "$$NO MEMORY"="Yetersiz Hafýza"
-    "$$BMK DOC NOT OPENED"="Doküman açýlamadý"
-
-    "$$ABOUT BODY"=
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+        "© 1998-2000 Bill Clagett\n"\
+        "bill@32768.com\n\n"\
         "Bu programýn kaynak kodu GNU General Public "\
         "License (GPL) kurallarý altýnda daðýtýlmýþtýr "\
         "Þu adresten temin edilebilir: "\
@@ -53,11 +29,7 @@ begin
         ""\
         "Katkýda bulunanlar:\n\n"\
         "Selçuk Demiray\nsdemiray@bigfoot.com\nTürkçe Çeviri\n\n"\
-        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nOtomatik Kaydýrma\n\n"\
-	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
-	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
-
+        "Daniel Zahn\nsclug@sclug.org\nOtomatik Kaydýrma\n"
 
     "$$CONTROLS HELP"="Her kutucuk ekran üzerindeki bir kontrole karþý düþmektedir. "\
                                 "Görülmesini istediðiniz kontrolleri seçiniz.\n\n"\
@@ -70,13 +42,10 @@ begin
                                     "Sayfalar arasý yukarý aþaðý gittiðinizde önceki "\ 
                                     "sayfanýn son satýrýný görmek istiyorsanýz "\   
                                     " \'Önceki sayfadan satýr göster\' seçeneðini  kullanýnýz.\n\n"\
-                                    "\'Týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
+                                    "\'týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
                                     "ne yapýlmasý gerektiðini belirler.\n\n"\
-                                    "\'Oto.Kaydýrma Tipi ve Hýzý\' seçeneði ile otomatik kaydýrmanýn tipini ve hýzýný ayarlayabilirsiniz.\n\n "\
-				    " \'Oto Kaydýrma Tipi\' yazýnýn çizgisel mi yoksa "\
-                                    "satýr satýr mý ilerleyeceðini belirler. "\
-                                    "Çizgi ve Satýr tiplerinde en uygun deðerler sýrasýyla  20 ve 60 olup "\
-                                    "kaydýrma esnasýnda yukarý aþaðý butonlarýna basarak kendinize en uygun hýzý ayarlayabilirsiniz.\n\n"\
+                                    "\'Otomatik Kaydýrma Hýzý\' seçeneði ile otomatik kaydýrmanýn hýzýný ayarlayabilirsiniz. "\
+                                    "Sayýlar saniyenin 100 de 1 ine karþý düþmekte olup, 15-20 tavsiye edilen deðerlerdir.\n\n"\
                                     "\'Oto.Kaydýrma için Adres Butonu\' seçeneði aktif ise Otomatik Kaydýrma çalýþýrken Adres Defteri butonu ile durdurup devam ettirebilirsiniz."
 
     "$$NO DOCS"="Þu anda hiç DOC database yok!\n\nLütfen en az bir doküman yükledikten sonra CSpotRun\'ý yeniden çalýþtýrýn."
@@ -116,8 +85,6 @@ begin
     "$$FONT 2"="Font 2"
     "$$FONT 3"="Font 3"
     "$$FONT 4"="Font 4"
-    "$$JUSTIFY"="Justify"
-    "$$HYPHEN"="Hyphenation"
     
     "$$FIND"="Ara"
     "$$FIND AGAIN"="Tekrar Ara"
@@ -126,8 +93,8 @@ begin
     "$$FIND PROMPT"="Aranan:"
     "$$SEARCH FROM TOP"="Baþlangýçtan itibaren ara"
     "$$CASE SENSITIVE"="Büyük/Küçük harflere duyarlý"
-    "$$FIND BUTTON"="A"
-    "$$FIND AGAIN BUTTON"="TA"
+    "$$FIND BUTTON"="F"
+    "$$FIND AGAIN BUTTON"="FA"
 /*
     // Want to internationalize the menu shortcuts.
     // Need to fix pilrc to do this.

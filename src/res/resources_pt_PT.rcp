@@ -12,40 +12,15 @@ begin
     "$$ROTATE"="Girar"
     "$$SPACING"="Espaçamento"
     "$$GOTO PER"="Ir para %"
-
-    "$$BOOKMARKS"="Marcadroes"
-    "$$BOOKMARKS_TRIGGER"="Marcadroes"
-    "$$EDIT BOOKMARKS"="Marcadores..."
-    "$$EDIT BOOKMARKS LIST"="* Marcadores..."
-    "$$DEL ALL BOOKMARKS"="Apagar todos os Marcadores"
-    "$$SORT BOOKMARKS"="Ordenar Marcadores..."
-    "$$ADD BOOKMARK"="Adicionar Marcador..."
-    "$$ADD BOOKMARK LIST"="* Adicionar Marcador..."
-    "$$ADD BOOKMARK TITLE"="Adicionar Marcador"
-    "$$NAME BOOKMARK"="Nomear Marcador"
-    "$$NAME"="Nome"
-    "$$DUP NAME"="Ja existe um marcador com este nome. O que deseja fazer?"
-    "$$REPLACE"="Substituir"
-    "$$NEW"="Criar nova"
-    "$$MOVE UP"="Subir"
-    "$$MOVE DOWN"="Descer"
-    "$$RENAME"="Renomear"
-    "$$DELETE"="Apagar"
-    "$$DONE"="Ok"
-    "$$GOTO"="IrPara"
-    "$$SORT BOOKMARKS"="Ordenar Marcadores"
-    "$$POSITION"="Posigco"
-    "$$SORT BOOKMARKS BY"="Ordenar Marcadores por..."
-    "$$BMK DELETE PROMPT"="Apagar os marcadores definitivamente?"
-    "$$NO MEMORY"="Memsria Insuficiente"
-    "$$BMK DOC NOT OPENED"="O documento nco esta aberto" 
-
+#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
-    "$$AUTOSCROLL TYPE AND SPEED"="Tipo e Velocidade de AutoRolagem:"
-    "$$PIXEL"="Pixel"
-    "$$TOGGLE AUTOSCROLL"="AutoRolagem c/ botão Addr.Book"
+    "$$AUTOSCROLLSPEED"="Veloc. de Auto Rolagem:"
+    "$$TOGGLE AUTOSCROLL"="Autorolagem com botão Addr. Book "
+#endif
 
-    "$$ABOUT BODY"=
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+        "© 1998-2000 Bill Clagett\n"\
+        "bill@32768.com\n\n"\
         "O código fonte para este programa é distribuído sob "\
         "a GNU General Public License (GPL). Você poderá "\
         "encontrá-la em: http://www.gnu.org/copyleft/gpl.html\n\n"\
@@ -55,11 +30,7 @@ begin
         "Contributors:\n\n"\
         "Carlos Morgado\nchbm@chbm.nu\nPortuguese (PT) translation.\n\n"\
         "Rui A. Rebelo\nrui.rebe@zaz.com.br\nOriginal Portuguese translation\n\n"\
-        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
-	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
-	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
-
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela. "\
                       "Selecione o controle que você deseja que fique visível.\n\n"\
@@ -97,9 +68,6 @@ begin
     "$$ROTATE RIGHT"="Rodar à Direita"
     "$$ROTATE LEFT"="Rodar à Esquerda"
     "$$OPTIONS"="Opções"
-    "$$JUSTIFY"="Justify"
-    "$$HYPHEN"="Hyphenation"
-
     "$$TOGGLE CONTROLS"="Controles Visíveis?"
     "$$CONTROLSDDD"="Controles..."
     "$$PREFERENCESDDD"="Preferências..."

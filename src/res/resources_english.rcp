@@ -5,40 +5,16 @@ begin
     "$$CONFIGURE CONTROLS"="Configure Controls"
     "$$ROTATE"="Rotate"
     "$$SPACING"="Spacing"
+#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Scroll"
-    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
-    "$$PIXEL"="Pixel"
+    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
     "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
+#endif
     "$$GOTO PER"="Goto %"
 
-    "$$BOOKMARKS"="Bookmarks"
-    "$$BOOKMARKS_TRIGGER"="BM"
-    "$$EDIT BOOKMARKS"="Bookmarks..."
-    "$$EDIT BOOKMARKS LIST"="* Bookmarks..."
-    "$$DEL ALL BOOKMARKS"="Del All"
-    "$$SORT BOOKMARKS"="Sort..."
-    "$$ADD BOOKMARK"="Add Bookmark..."
-    "$$ADD BOOKMARK LIST"="* Add Bookmark..."
-    "$$ADD BOOKMARK TITLE"="Add Bookmark"
-    "$$NAME BOOKMARK"="Name Bookmark"
-    "$$NAME"="Name"
-    "$$DUP NAME"="Bookmark with this name already exists. What do you want to do?"
-    "$$REPLACE"="Replace"
-    "$$NEW"="Create New"
-    "$$MOVE UP"="Move Up"
-    "$$MOVE DOWN"="Move Down"
-    "$$RENAME"="Rename"
-    "$$DELETE"="Delete"
-    "$$DONE"="Done"
-    "$$GOTO"="GoTo"
-    "$$SORT BOOKMARKS"="Sort Bookmarks"
-    "$$POSITION"="Position"
-    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..."
-    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?"
-    "$$NO MEMORY"="Not Enough Memory"
-    "$$BMK DOC NOT OPENED"="Document is not opened"
-
-    "$$ABOUT BODY"=
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+        "© 1998-2000 Bill Clagett\n"\
+        "bill@32768.com\n\n"\
         "The source code for this program is distributed under "\
         "the GNU General Public License (GPL). You may "\
         "find it at: http://www.gnu.org/copyleft/gpl.html\n\n"\
@@ -46,10 +22,7 @@ begin
         "http://32768.com/cspotrun/\n\n"\
         ""\
         "Contributors:\n\n"\
-        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
-	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
-        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
 
     "$$CONTROLS HELP"="Each checkbox corresponds to an on-screen control. "\
                                 "Select the controls which you want to be visible.\n\n"\
@@ -63,13 +36,7 @@ begin
                                     "The \'tap action\' choice controls what action is performed with you "\
                                     "tap on the screen.\n\n"\
                                     "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
-                                    "are in 100ths of a second. 15-20 is the recommended speed. "\
-                                    "While autoscrolling, the page up and page down "\
-                                    "buttons can be used to adjust the speed.\n\n"\
-                                    "The \'Auto Scroll Type\` choice determines whether text "\
-                                    "advances by pixel or by line."
-
-                                    
+                                    "are in 100ths of a second. 15-20 is the recommended speed."
     "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
 
     "$$ERROR ALERT"="Oops!"
@@ -92,8 +59,6 @@ begin
     "$$LINE SPACING 3"="Line Spacing 3"
     "$$ROTATE RIGHT"="Rotate Right"
     "$$ROTATE LEFT"="Rotate Left"
-    "$$JUSTIFY"="Justify"
-    "$$HYPHEN"="Hyphenation"
     "$$OPTIONS"="Options"
     "$$TOGGLE CONTROLS"="Toggle Controls    "
     "$$CONTROLSDDD"="Controls..."

@@ -12,40 +12,15 @@ begin
     "$$ROTATE"="Girar"
     "$$SPACING"="Espaçamento"
     "$$GOTO PER"="Ir para %"
-
-    "$$BOOKMARKS"="Bookmarks"
-    "$$BOOKMARKS_TRIGGER"="BM" 
-    "$$EDIT BOOKMARKS"="Bookmarks..."
-    "$$EDIT BOOKMARKS LIST"="* Bookmarks..."
-    "$$DEL ALL BOOKMARKS"="Del All"
-    "$$SORT BOOKMARKS"="Sort..."
-    "$$ADD BOOKMARK"="Add Bookmark..."
-    "$$ADD BOOKMARK LIST"="* Add Bookmark..."
-    "$$ADD BOOKMARK TITLE"="Add Bookmark"
-    "$$NAME BOOKMARK"="Name Bookmark"
-    "$$NAME"="Name"
-    "$$DUP NAME"="Bookmark with this name already exists. What would you want to do?"
-    "$$REPLACE"="Replace"
-    "$$NEW"="Create New"
-    "$$MOVE UP"="Move Up"
-    "$$MOVE DOWN"="Move Down"
-    "$$RENAME"="Rename"
-    "$$DELETE"="Delete"
-    "$$DONE"="Done"
-    "$$GOTO"="GoTo"
-    "$$SORT BOOKMARKS"="Sort Bookmarks"
-    "$$POSITION"="Position"
-    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..."
-    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?"
-    "$$NO MEMORY"="Not Enough Memory"
-    "$$BMK DOC NOT OPENED"="Document is not opened"
-
+#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
-    "$$AUTOSCROLL TYPE AND SPEED"="Ajustes de Auto rolagem:"
-    "$$PIXEL"="Pixel"
-    "$$TOGGLE AUTOSCROLL"="Auto rolagem no botão Addr. Book"
+    "$$AUTOSCROLLSPEED"="Veloc. de Auto Rolagem:"
+    "$$TOGGLE AUTOSCROLL"="Auto Rolagem no botão Addr. Book"
+#endif
 
-    "$$ABOUT BODY"=
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+        "© 1998-2000 Bill Clagett\n"\
+        "bill@32768.com\n\n"\
         "O código fonte para este programa é distribuído sob "\
         "a GNU General Public License (GPL). Você poderá "\
         "encontrá-la em: http://www.gnu.org/copyleft/gpl.html\n\n"\
@@ -54,15 +29,11 @@ begin
         ""\
         "Contributors:\n\n"\
         "Rui A. Rebelo\nrui.rebe@zaz.com.br\nTradução para português\n\n\n"\
-        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto Rolagem\n\n"\
-	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
-	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+        "Daniel Zahn\nsclug@sclug.org\nAuto Rolagem\n"
 
-
-    "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela."\
+    "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela. "\
                       "Selecione o controle que você deseja que fique visível.\n\n"\
-                      "Considere esconder os controles que raramente usa."\
+                      "Considere esconder os controles que raramente usa. "\
                       "Perceba que todos os controles tem itens de menu equivalentes."
     "$$GLOBAL PREFS HELP"="Use a opção \'Alternar pág.acima/pág.abaixo\' para reverter a "\
                              "função dos botões página acima e página abaixo quando a "\
@@ -72,9 +43,7 @@ begin
                              "A escolha de \'Ação de toque\' controla que ação é executada quando "\
                              "você toca a tela.\n\n"\
                              "Use a opção \'Veloc. de Auto Rolagem\' para controlar a velocidade de rolagem automática. Os números "\
-                             "estão em centésimos de segundo. 15-25 é a velocidade recomendada.\nVocê pode usar o botão"\
-                             "Pág.Acima/Pág.Abaixo para regular a velocidade.\n\n"\
-                             "O \'Ajuste de Auto rolagem\' determina se o texto avança por ponto ou linha."
+                             "estão em centésimos de segundo. 15-25 é a velocidade recomendada."
     "$$NO DOCS"="Não há arquivos DOC instalados!\n\nPor favor tente novamente o CSpotRun depois de instalar um ou dois documentos."
 
     "$$ERROR ALERT"="Oops!"
@@ -98,9 +67,6 @@ begin
     "$$ROTATE RIGHT"="Girar à Direita"
     "$$ROTATE LEFT"="Girar à Esquerda"
     "$$OPTIONS"="Opções"
-    "$$JUSTIFY"="Justify"
-    "$$HYPHEN"="Hyphenation"
-
     "$$TOGGLE CONTROLS"="Controles Visíveis?"
     "$$CONTROLSDDD"="Controles..."
     "$$PREFERENCESDDD"="Preferências..."
