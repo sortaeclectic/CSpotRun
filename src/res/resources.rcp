@@ -374,8 +374,8 @@ begin
     "$$GOTO PER"="Ir a %"
     "$$PICK DOC"="Elegir Doc"
 #ifdef ENABLE_AUTOSCROLL
-    "$$AUTOSCROLL"="Pasar páginas automáticamente"
-    "$$AUTOSCROLLSPEED"="Velocidad de las páginas:"
+    "$$AUTOSCROLL"="Autoscroll"
+    "$$AUTOSCROLLSPEED"="Velocidad de autoscroll:"
 #endif
 
     "$$GLOBAL PREFERENCES"="Preferencias Globales"
@@ -429,9 +429,9 @@ begin
       "El código fuente y la última versión están en: "\
       "http://www.pobox.com/~wtc/palmos/cspotrun/"\
       ""\
-      "Contributors:\n\n"\
-      "Marcelo Rinesi\nrinesi@espacio.com.ar\nSpanish translation\n\n"\
-      "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
+      "Contribuciones:\n\n"\
+      "Marcelo Rinesi\nrinesi@espacio.com.ar\nTraducción al español\n\n"\
+      "Daniel Zahn\nsclug@sclug.org\nAuto-scroll\n"
       
 
     "$$DELETE PROMPT"="¿Borrar permanentemente \"^1\"?"
@@ -449,7 +449,7 @@ begin
         "Use \'Mostrar línea anterior\', para repetir una línea individual "\
         "de la página anterior cuando cambia de página.\n\n"\
         "\'Acción al tocar\' controla cuánto se mueve la página cuando toca la pantalla con el lápiz óptico.\n\n"\
-        "Use la opción  \'Velocidad de las páginas\' para controlar la velocidad de lectura. Los números "\
+        "Use la opción  \'Velocidad de autoscroll\' para controlar la velocidad de lectura. Los números "\
         "están en centésimas de segundo. 60-80 es la velocidad recomendada."
         
     "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor pruebe CSpotRun"\
