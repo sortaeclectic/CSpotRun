@@ -78,13 +78,14 @@ begin
         "lorsque le texte est en vue latérale.\n\n"\
         "L'option \"Ligne de la page précédente\" est utile pour garder à l'écran "\
         "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
-        "L'option \"M/A défilement par bouton 'Adr.'\" permet d'utiliser le bouton "\
+        "L'option \"M/A défilement par bouton 'Adr.' \" permet d'utiliser le bouton "\
         "\"Adresses\" de l'appareil pour démarrer ou arrêter le défilement automatique.\n\n"\
         "L'option \"Tape\" définit l'ampleur de défilement du texte lorsque "\
         "le stylet touche le document à l'écran.\n\n"\
         "Les options \"Mode et vitesse de défilement\" permettent de choisir un défilement "\
-        "automatique du texte par ligne ou par pixel, et de fixer sa vitesse (valeurs en "\
-        "100èmes de seconde)."
+        "automatique du texte par ligne ou par pixel et de fixer sa vitesse (valeurs en "\
+        "100èmes de seconde). Cette vitesse peut également être modifiée en cours de "\
+        "défilement grâce aux boutons \"haut\" et \"bas\" de l'appareil."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
                 "Essayez à nouveau CSpotRun après avoir installé un ou "\
