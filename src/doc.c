@@ -519,7 +519,7 @@ static void _drawPage(RectanglePtr boundsPtr,
     {
 		int offscreenLines = linesToShow - (boundsPtr->extent.y) / _lineHeight;
         offscreenLines += 2 ; //Because we really want the last onscreen line too.
-        // skip past all but the last line
+        // skip past onscreen lines
         while((linesToShow > offscreenLines) && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
         {
             y += _lineHeight;
