@@ -121,15 +121,8 @@ static void StartApp()
         UInt32 depth;
         WinScreenMode(winScreenModeGetSupportedDepths,
                       NULL, NULL, &depth, NULL);
-        if (depth & 0x1)
+        if ((depth & 0x1) && RotCanDoRotation())
             WinScreenMode(winScreenModeSet, NULL, NULL, &newDepth, NULL);
-        else
-            /* We used to do this: ErrFatalDisplay("No 1-bit mode!");
-             * ...thinking that that could never happen. But it does on
-             * some Sony and Garmin devices. So instead, we're disabling
-             * rotation, since it doesn't work right in non-1-bit modes.
-             */
-            RotDisableRotation();
     }
 #endif
 
