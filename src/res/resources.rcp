@@ -19,7 +19,7 @@
  
 /*
  * CONTRIBUTORS:
- *    French translation: Vincent Poty (vincent_poty@yahoo.fr)
+ *    French translation: Vincent Poty (vincent.poty@bigfoot.com)
  *    German translation: Arne Nickel (arne.nickel@gmx.de)
  *    Spanish translation: Marcelo Rinesi (rinesi@espacio.com.ar)
  */
@@ -58,6 +58,9 @@ begin
                                     "The \'tap action\' choice controls what action is performed with you "\
                                     "tap on the screen."
     "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
+
+    "$$ERROR ALERT"="Oops!"
+
     "$$DELETE PROMPT"="Permanantly delete \"^1\"?"
     "$$GLOBAL PREFERENCES"="Global Preferences"
     "$$SWAP UPDOWN"="Swap up/down when sideways"
@@ -128,15 +131,15 @@ begin
     "$$FONTS"="Polices"
     "$$CONFIGURE CONTROLS"="Configuration des boutons"
     "$$ROTATE"="Rotation"
-    "$$SPACING"="Espacement"
+    "$$SPACING"="Interlignes"
     "$$GOTO PER"="Aller à %"
-    "$$PICK DOC"="Choix d'un document"
+    "$$PICK DOC"="Choisir un document"
 
-    "$$GLOBAL PREFERENCES"="Options générales"
-    "$$SWAP UPDOWN"="Inverser haut et bas en vue latérale"
+    "$$GLOBAL PREFERENCES"="Préférences"
+    "$$SWAP UPDOWN"="Inverser boutons haut/bas"
 
     "$$SHOW PREV LINE"="Ligne de la page précédente"
-    "$$TAP ACTION"="En tappant"
+    "$$TAP ACTION"="Tappe :"
     "$$PAGE"="Page"
     "$$HALF PAGE"="1/2 page"
     "$$LINE"="Ligne"
@@ -145,7 +148,7 @@ begin
     "$$BOTTOM"="Fin"
 
     "$$PICK DOC"="Choisir"
-    "$$DELETE DOC"="Supprimer"
+    "$$DELETE DOC"="Supprimer le document"
     "$$MAKE DEFAULT"="Enregistrer les options"
 
     "$$VIEW"="Vue"
@@ -183,17 +186,28 @@ begin
         "apparaître. \n\nPensez à cacher les boutons que vous utilisez rarement. "\
         "Chaque bouton a un équivalent dans le menu."
         
-    "$$GLOBAL PREFS HELP"="Utiliser l'option \'Inverser haut et bas en vue latérale\' "\
-        "pour inverser l'effet des boutons \'haut\' et \'bas\' de l'appareil "\
+    "$$GLOBAL PREFS HELP"="L'option \'Inverser boutons haut/bas\' permet "\
+        "d'inverser l'effet des boutons \'haut\' et \'bas\' de l'appareil "\
         "lorsque le texte est en vue latérale.\n\n"\
-        "Utiliser \'Ligne de la page précédente\' pour rappeler à l'écran "\
+        "L'option \'Ligne de la page précédente\' est utile pour garder à l'écran "\
         "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
-        "L'option \'En tappant\' définit l'ampleur de déplacement du texte lorsque "\
+        "L'option \'Tappe' définit l'ampleur de défilement du texte lorsque "\
         "le stylet touche le document à l'écran."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
                 "Essayez à nouveau CSpotRun après avoir installé un ou "\
                 "plusieurs documents au format DOC."
+
+    "$$ERROR ALERT"="Oups !"
+
+    "$$FIND"="Chercher"
+    "$$FIND AGAIN"="Suivant"
+    "$$FINDDDD"="Chercher..."
+    "$$FIND IN DOCUMENT"="Recherche"
+    "$$FIND PROMPT"="Chercher : "
+    "$$SEARCH FROM TOP"="Commencer au début du texte"
+    "$$CASE SENSITIVE"="Respecter la casse"
+
 end
 
 TRANSLATION "spanish"
@@ -274,6 +288,8 @@ begin
         
     "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor    pruebe CSpotRun"\
         "de nuevo, después de instalar al menos un documento."
+
+    "$$ERROR ALERT"="Oops!"
 end
 
 TRANSLATION "german"
@@ -358,6 +374,8 @@ begin
 
     "$$NO DOCS"="Es sind keine Dokumente installiert!\n\nBitte starten Sie CSpotRun erneut,"\
         "nachdem Sie ein oder mehrere Dokumente installiert haben."
+
+    "$$ERROR ALERT"="Oops!"
 end
 
 FORM ID formID_main AT ( 0 0 160 160 )
@@ -479,6 +497,11 @@ BEGIN
         menuitem separator
         MENUITEM "$$PICK DOC"        menuitemID_doc             "D"
         MENUITEM "$$DELETE DOC"      menuitemID_delete    
+#ifdef ENABLE_SEARCH
+        MENUITEM SEPARATOR
+        MENUITEM "$$FINDDDD"         menuitemID_search          "F"
+        MENUITEM "$$FIND AGAIN"      menuitemID_searchAgain     "G"
+#endif
     END    
     PULLDOWN "$$VIEW"
     BEGIN
@@ -494,11 +517,6 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
         MENUITEM "$$ROTATE LEFT"     menuitemID_rotateLeft      "S"
-#endif
-#ifdef ENABLE_SEARCH
-        MENUITEM SEPARATOR
-        MENUITEM "$$FINDDDD"         menuitemID_search          "F"
-        MENUITEM "$$FIND AGAIN"      menuitemID_searchAgain     "G"
 #endif
     END
     PULLDOWN "$$OPTIONS"
@@ -525,7 +543,7 @@ END
 ALERT ID alertID_error
 WARNING
 BEGIN
-  TITLE "Oops!"
+  TITLE "$$ERROR ALERT"
   MESSAGE "^1"
   BUTTONS "Ok"
 END
