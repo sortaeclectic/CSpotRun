@@ -1,5 +1,7 @@
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
- * CSpotRun: A doc-format database reader for the Palm Computing Platform.
+ *
+ * A doc-format database reader for the Palm Computing Platform.
  * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -23,21 +25,22 @@
 
 #define TAB_PIXELS (160/8)    //to match AportisDoc
 
-UInt16* attrs = NULL;
+const UInt16* attrs = NULL;
 
 // Yuck.  But faster...
 void TT_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y)
 {
     static char *tooFar;    //pointer to past the end of chars
-    static char *wordStart; //pointer to first char of current word (a "word" being a tab-free chunk of text)
+    static char *wordStart; //pointer to first char of current 
+                            //word (a "word" being a tab-free chunk of text)
     static Int16 wordX;     //x where current word started
     static char c;
-
+    
     if (!attrs)
         attrs = GetCharAttr();
-
+    
     tooFar = &chars[len];
-
+    
     wordStart = chars;
     wordX = x;
     while (chars < tooFar)
@@ -57,3 +60,5 @@ void TT_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y)
     }
     WinDrawChars(wordStart, chars-wordStart, wordX, y);
 }
+
+

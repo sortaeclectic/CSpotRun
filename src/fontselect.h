@@ -1,3 +1,4 @@
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #define IS_FONTSELECT_MENUID(id)        ((id) >= menuitemID_font0 && (id) < (menuitemID_font0 + FONT_BUTTON_COUNT))
 #define FONTSELECT_MENUID_TO_INDEX(id)    ((id) - menuitemID_font0)
 

@@ -1,3 +1,4 @@
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #define formID_main             1000
 #define formID_controls         1001
 #define    formID_globalPrefs        1002

@@ -1,3 +1,4 @@
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
  * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)

@@ -1,3 +1,4 @@
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #ifndef __CALLBACK_H__
 #define __CALLBACK_H__
 /* This is a workaround for a bug in the current version of gcc:

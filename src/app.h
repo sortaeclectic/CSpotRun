@@ -1,3 +1,4 @@
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #define versionUInt16             7
 #define PREF_APPSTATE        1001
 #define PREF_SEARCHSTRING    1002

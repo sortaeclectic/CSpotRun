@@ -1,3 +1,4 @@
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 void    DocList_populateList(ListPtr l);
 void    DocList_freeList();
 
