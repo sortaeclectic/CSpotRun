@@ -65,11 +65,11 @@ Boolean    searchFromTop;
 
 DWord PilotMain(Word cmd, Ptr cmdPBP, Word launchFlags)
 {
-    Word      cardNo = ((SysAppLaunchCmdOpenDBType*)cmdPBP)->cardNo;
-    LocalID   dbID = ((SysAppLaunchCmdOpenDBType*)cmdPBP)->dbID;
-    ULong                   type, creator;
-
     if (cmd == sysAppLaunchCmdOpenDB) {
+        Word      cardNo = ((SysAppLaunchCmdOpenDBType*)cmdPBP)->cardNo;
+        LocalID   dbID = ((SysAppLaunchCmdOpenDBType*)cmdPBP)->dbID;
+        ULong     type, creator;
+
         // get the type/creator for this DB so we can see if it's a DOC file
         char startupDocName[dmDBNameLength];
         DmDatabaseInfo(cardNo, dbID, startupDocName, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &type, &creator);
