@@ -19,6 +19,7 @@
  
 #include "fixed_resources.h"
 
+
 FORM ID formID_main AT ( 0 0 160 160 )
 NOFRAME
 USABLE
@@ -109,7 +110,7 @@ BEGIN
 END
 
 #ifdef ENABLE_AUTOSCROLL
-FORM ID formID_globalPrefs AT (2 58 156 100)
+FORM ID formID_globalPrefs AT (2 26 156 116)
 #else
 FORM ID formID_globalPrefs AT (2 72 156 86)
 #endif
@@ -123,31 +124,37 @@ BEGIN
 
 
 #ifdef ENABLE_AUTOSCROLL
-    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@100-3 50 AUTO) 
-    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@100-3 50 AUTO) 
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@116-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@116-3 50 AUTO) 
 #else
     BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@86-3 50 AUTO) 
     BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@86-3 50 AUTO) 
 #endif
 
     CHECKBOX "$$SWAP UPDOWN"    ID checkboxID_reversePageButtons    AT (5 15 auto auto) USABLE LEFTANCHOR 
-    CHECKBOX "$$SHOW PREV LINE"    ID checkboxID_showLine                AT (PREVLEFT PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
+    CHECKBOX "$$SHOW PREV LINE" ID checkboxID_showLine              AT (PREVLEFT PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
 
-#ifdef ENABLE_AUTOSCROLL
-    CHECKBOX "$$TOGGLE AUTOSCROLL"  ID checkboxID_toggleAsAddButt AT (5 PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
-#endif
-    
     LABEL "$$TAP ACTION"     ID 9000 AT (5 PREVBOTTOM+2)
     PUSHBUTTON "$$PAGE"      ID pushID_tapAction0    AT (prevright+4 prevtop auto auto) GROUP 69
     PUSHBUTTON "$$HALF PAGE" ID pushID_tapAction0+1  AT (prevright+1 prevtop auto auto) GROUP 69
     PUSHBUTTON "$$LINE"      ID pushID_tapAction0+2  AT (prevright+1 prevtop auto auto) GROUP 69
 
 #ifdef ENABLE_AUTOSCROLL
-    LABEL "$$AUTOSCROLLSPEED" ID 9002 AT (5 PREVBOTTOM+2)
+    CHECKBOX "$$TOGGLE AUTOSCROLL"  ID checkboxID_toggleAsAddButt AT (5 PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
 
-    POPUPTRIGGER "20" popupID_autoScrollSpeed AT (PREVRIGHT+1 PREVTOP AUTO AUTO) LEFTANCHOR
-    LIST "5" "10" "15" "20" "25" "30" "35" "40" "45" "50" ID listID_autoScrollSpeed AT (PREVLEFT PREVTOP PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 10
-    POPUPLIST popupID_autoScrollSpeed listID_autoScrollSpeed
+    LABEL "$$AUTOSCROLL TYPE AND SPEED"   ID 9003 AT (5 PREVBOTTOM+1)
+    
+    PUSHBUTTON "$$PIXEL"    ID pushID_autoScrollType0    AT (20 PREVBOTTOM+2 AUTO AUTO) GROUP 70
+
+    POPUPTRIGGER "20" popupID_autoScrollSpeed0 AT (PREVRIGHT+1 PREVTOP AUTO AUTO) LEFTANCHOR
+    LIST "5" "10" "15" "20" "25" "30" "35" "40" "45" "50" "55" "60" "65" "70" ID listID_autoScrollSpeed0 AT (PREVLEFT PREVTOP PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 14
+    POPUPLIST popupID_autoScrollSpeed0 listID_autoScrollSpeed0
+
+    PUSHBUTTON "$$LINE"     ID pushID_autoScrollType0+1  AT (PREVRIGHT+3 PREVTOP AUTO AUTO) GROUP 70
+
+    POPUPTRIGGER "20" popupID_autoScrollSpeed1 AT (PREVRIGHT+1 PREVTOP AUTO AUTO) LEFTANCHOR
+    LIST "20" "30" "40" "50" "60" "70" "80" "90" "100" "110" "120" "130" "140" "150" ID listID_autoScrollSpeed1 AT (PREVLEFT PREVTOP PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 14
+    POPUPLIST popupID_autoScrollSpeed1 listID_autoScrollSpeed1
 #endif
     
 END

@@ -16,7 +16,8 @@ begin
     "$$PICK DOC"="Dok auswählen"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto-Bildlauf"
-    "$$AUTOSCROLLSPEED"="Geschwindigkeit:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
 

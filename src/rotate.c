@@ -20,9 +20,8 @@
 #include <Common.h>
 #include <System/SysAll.h>
 #include <UI/UIAll.h>
-
-#include "rotate.h"
 #include <UI/ScrDriverNew.h>
+#include "rotate.h"
 
 typedef Word Pyte;
 #define BITS_PER_PYTE (8 * sizeof(Pyte))

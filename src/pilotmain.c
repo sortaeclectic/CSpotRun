@@ -147,8 +147,10 @@ static void InitAppState()
     appStatePtr->reversePageUpDown  = 0;
     appStatePtr->showPreviousLine   = 1;
 #ifdef ENABLE_AUTOSCROLL
-    appStatePtr->autoScrollSpeed    = 60;
+    appStatePtr->autoScrollSpeed0   = 20;
+    appStatePtr->autoScrollSpeed1   = 60;
     appStatePtr->autoScrollButton   = 1;
+    appStatePtr->autoScrollType     = ATYPE_PIXEL;
 #endif
     appStatePtr->tapAction          = TA_PAGE;
 
@@ -194,11 +196,16 @@ static void EventLoop()
     {
 #ifdef ENABLE_AUTOSCROLL
         if(MainForm_AutoScrollEnabled())
+        {
             //todo: Time between frames is autoScrollSpeed+timeittakestodraw
             //Should subtract the time since last scroll from the timeout here
             //so that it will scroll at the same speed on future superfast Palm
             //devices.
-            EvtGetEvent(&e, appStatePtr->autoScrollSpeed);
+            if(appStatePtr->autoScrollType == ATYPE_PIXEL)
+                EvtGetEvent(&e, appStatePtr->autoScrollSpeed0);
+            else
+                EvtGetEvent(&e, appStatePtr->autoScrollSpeed1);
+        }
         else
             EvtGetEvent(&e, evtWaitForever);
 
@@ -227,18 +234,36 @@ static void EventLoop()
                 if((e.data.keyDown.chr == pageDownChr))
                 {
                     // lower autoscroll speed
-                    appStatePtr->autoScrollSpeed += 5;
-                    if(appStatePtr ->autoScrollSpeed > 50)
-                        appStatePtr->autoScrollSpeed = 50;
+                    if(appStatePtr->autoScrollType == ATYPE_PIXEL)
+                    {
+                        appStatePtr->autoScrollSpeed0 += 5;
+                        if(appStatePtr ->autoScrollSpeed0 > 70)
+                            appStatePtr->autoScrollSpeed0 = 70;
+                    }
+                    else
+                    {
+                        appStatePtr->autoScrollSpeed1 += 10;
+                        if(appStatePtr ->autoScrollSpeed1 > 150)
+                            appStatePtr->autoScrollSpeed1 = 150;
+                    }
 
                     continue;
                 }
                 else if((e.data.keyDown.chr == pageUpChr))
                 {
                     // raise autoscroll speed.
-                    appStatePtr->autoScrollSpeed -= 5;
-                    if(appStatePtr ->autoScrollSpeed < 5)
-                        appStatePtr->autoScrollSpeed = 5;
+                    if(appStatePtr->autoScrollType == ATYPE_PIXEL)
+                    {
+                        appStatePtr->autoScrollSpeed0 -= 5;
+                        if(appStatePtr ->autoScrollSpeed0 < 5)
+                            appStatePtr->autoScrollSpeed0 = 5;
+                    }
+                    else
+                    {
+                        appStatePtr->autoScrollSpeed1 -= 20;
+                        if(appStatePtr ->autoScrollSpeed1 < 20)
+                            appStatePtr->autoScrollSpeed1 = 20;
+                    }
 
                     continue;
                 }

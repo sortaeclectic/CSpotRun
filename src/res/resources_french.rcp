@@ -14,7 +14,8 @@ begin
     "$$PICK DOC"="Choisir"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Défilement"
-    "$$AUTOSCROLLSPEED"="Vitesse de défilement :"
+    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="M/A défilement par bouton 'Adr.'"
 #endif
 

@@ -12,7 +12,8 @@ begin
     "$$SPACING"="Satýr Aralarý"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Oto. Kaydýrma"
-    "$$AUTOSCROLLSPEED"="Otomatik Kaydýrma Hýzý:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Oto.Kaydýrma için Adres Butonu"
 #endif
     "$$GOTO PER"="%\'ye Git"

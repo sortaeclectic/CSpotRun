@@ -36,14 +36,16 @@
 #define    listID_percent        1302
 
 #ifdef ENABLE_AUTOSCROLL
-    #define    listID_autoScrollSpeed   1303
+    #define    listID_autoScrollSpeed0   1303
+    #define    listID_autoScrollSpeed1   1304
 #endif
 
 #define popupID_doc            1401
 #define popupID_percent        1402
 
 #ifdef ENABLE_AUTOSCROLL
-    #define popupID_autoScrollSpeed 1403
+    #define popupID_autoScrollSpeed0 1403
+    #define popupID_autoScrollSpeed1 1404
 #endif
 
 
@@ -93,9 +95,12 @@
 #define pushID_font2        2002
 #define pushID_font3        2003
 #ifdef ENABLE_SEARCH
-    #define pushID_searchDown    2005
+    #define pushID_searchDown       2005
 #endif
-#define pushID_tapAction0    2050
+#define pushID_tapAction0           2050
+#ifdef ENABLE_AUTOSCROLL
+    #define pushID_autoScrollType0  2060
+#endif
 
 #define RUNTIME_ID_START    4000
 

@@ -7,7 +7,8 @@ begin
     "$$SPACING"="Spacing"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Scroll"
-    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
     "$$GOTO PER"="Goto %"

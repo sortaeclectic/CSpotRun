@@ -20,7 +20,6 @@
 #include <Common.h>
 #include <System/SysAll.h>
 #include <UI/UIAll.h>
-
 #include "resources.h"
 #include "callback.h"
 #include "app.h"
@@ -40,8 +39,9 @@ static void        _prefsToGui();
 static void        _guiToPrefs();
 
 #ifdef ENABLE_AUTOSCROLL
-Char                scrollSpeedString[] = "xxx";
-static void         _updateAutoScrollSpeed(int selection);
+static Char         scrollSpeedString0[] = "xxx";
+static Char         scrollSpeedString1[] = "xxx";
+static void         _updateAutoScrollSpeed(int which, int selection);
 #endif
 
 
@@ -79,8 +79,12 @@ static Boolean _PrefsFormHandleEvent(EventType *e)
         case popSelectEvent:
             switch (e->data.popSelect.listID)
             {
-                case listID_autoScrollSpeed:
-                    _updateAutoScrollSpeed(e->data.popSelect.selection);
+                case listID_autoScrollSpeed0:
+                    _updateAutoScrollSpeed(ATYPE_PIXEL, e->data.popSelect.selection);
+                    return true;
+                break;
+                case listID_autoScrollSpeed1:
+                    _updateAutoScrollSpeed(ATYPE_LINE, e->data.popSelect.selection);
                     return true;
                 break;
             }
@@ -114,14 +118,21 @@ static void _prefsToGui()
     for (i=0; i<TA_ACTION_COUNT; i++)
         CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, pushID_tapAction0+i)), i == appStatePtr->tapAction);
 
+    for (i=0; i <ATYPE_COUNT; i++)
+        CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, pushID_autoScrollType0+i)), i == appStatePtr->autoScrollType);
+
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_reversePageButtons)), appStatePtr->reversePageUpDown);
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_showLine)), appStatePtr->showPreviousLine);
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_toggleAsAddButt)), appStatePtr->autoScrollButton);
 
 #ifdef ENABLE_AUTOSCROLL
-    StrPrintF(scrollSpeedString, "%d", (int)appStatePtr->autoScrollSpeed);
+    StrPrintF(scrollSpeedString0, "%d", (int)appStatePtr->autoScrollSpeed0);
 
-    CtlSetLabel(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_autoScrollSpeed)), scrollSpeedString);
+    CtlSetLabel(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_autoScrollSpeed0)), scrollSpeedString0);
+
+    StrPrintF(scrollSpeedString1, "%d", (int)appStatePtr->autoScrollSpeed1);
+
+    CtlSetLabel(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_autoScrollSpeed1)), scrollSpeedString1);
 #endif
 }
 
@@ -133,6 +144,10 @@ static void  _guiToPrefs()
         if (CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, pushID_tapAction0+i))))
             appStatePtr->tapAction = i;
 
+    for (i=0; i<ATYPE_COUNT; i++)
+        if (CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, pushID_autoScrollType0+i))))
+            appStatePtr->autoScrollType = i;
+
     appStatePtr->reversePageUpDown = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_reversePageButtons)));
     appStatePtr->showPreviousLine = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_showLine)));
     appStatePtr->autoScrollButton = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_toggleAsAddButt)));
@@ -140,13 +155,24 @@ static void  _guiToPrefs()
 
 
 #ifdef ENABLE_AUTOSCROLL
-void _updateAutoScrollSpeed(int selection)
+void _updateAutoScrollSpeed(int which, int selection)
 {
-    appStatePtr->autoScrollSpeed = ((selection + 1) * 5);
+    if(which == ATYPE_PIXEL)
+    {
+        appStatePtr->autoScrollSpeed0 = ((selection + 1) * 5);
 
-    StrPrintF(scrollSpeedString, "%d", appStatePtr->autoScrollSpeed);
+        StrPrintF(scrollSpeedString0, "%d", appStatePtr->autoScrollSpeed0);
 
-    CtlSetLabel(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_autoScrollSpeed)), scrollSpeedString);
+        CtlSetLabel(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_autoScrollSpeed0)), scrollSpeedString0);
+    }
+    else if(which == ATYPE_LINE)
+    {
+        appStatePtr->autoScrollSpeed1 = ((selection + 1) * 10);
+
+        StrPrintF(scrollSpeedString1, "%d", appStatePtr->autoScrollSpeed1);
+
+        CtlSetLabel(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_autoScrollSpeed1)), scrollSpeedString1);
+    }
 }
 #endif
 

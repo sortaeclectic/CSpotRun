@@ -14,7 +14,8 @@ begin
     "$$GOTO PER"="Ir para %"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
-    "$$AUTOSCROLLSPEED"="Veloc. de Auto Rolagem:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Auto Rolagem no botão Addr. Book"
 #endif
 

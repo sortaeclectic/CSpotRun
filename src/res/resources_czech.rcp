@@ -12,7 +12,8 @@ begin
     "$$SPACING"="Øádkování"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Samoposuv"
-    "$$AUTOSCROLLSPEED"="Rychlost samoposuvu:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Samoposuv ovládat adres.tlaè."
 #endif
     "$$GOTO PER"="Jdi na %"

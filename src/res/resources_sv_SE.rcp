@@ -13,7 +13,8 @@ begin
     "$$SPACING"="Radavstånd"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Textrullning"
-    "$$AUTOSCROLLSPEED"="Rullningshastighet:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Textrullning med adressboksknappen"
 #endif
     "$$GOTO PER"="Gå till %"

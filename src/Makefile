@@ -19,13 +19,15 @@ GNUTURDS = ../copying.txt ../readme.txt
 PROGNAME = CSpotRun
 VERSION = dev 
 APPID = CSBR
-LANGUAGES = czech english french german pt_BR pt_PT turkish sv_SE spanish sv_SE 
+LANGUAGES = czech english french german pt_BR pt_PT turkish sv_SE spanish  
 
 ICONTEXT = $(PROGNAME)
 
 OBJS = pilotmain.o mainform.o doclist.o doc.o \
 		decode.o docprefs.o tabbedtext.o controlsform.o \
 		fontselect.o ucgui.o rotate.o prefsform.o searchform.o
+
+STDDEP = Makefile resources.h app.h appstate.h callback.h
 
 CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH ENABLE_AUTOSCROLL
 DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt))
@@ -92,3 +94,16 @@ $(PROGNAME): $(OBJS)
 clean:
 	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(RESDIR)/resources.rcp $(LANGUAGES) $(ZIPS) 
 
+pilotmain.o:    pilotmain.c $(STDDEP) mainform.h controlsform.h ucgui.h prefsform.h docprefs.h searchform.h
+mainform.o:     mainform.c $(STDDEP) mainform.h doclist.h rotate.h doc.h docprefs.h ucgui.h fontselect.h
+doclist.o:      doclist.c $(STDDEP) doclist.h rotate.h doc.h
+doc.o:          doc.c $(STDDEP) doc.h rotate.h mainform.h decode.h docprefs.h tabbedtext.h
+decode.o:       decode.c $(STDDEP) decode.h
+docprefs.o:     docprefs.c $(STDDEP) docprefs.h doclist.h rotate.h
+tabbedtext.o:   tabbedtext.c $(STDDEP) tabbedtext.h
+controlsform.o: controlsform.c $(STDDEP) controlsform.h ucgui.h mainform.h
+fontselect.o:   fontselect.c $(STDDEP) fontselect.h rotate.h doc.h
+ucgui.o:        ucgui.c $(STDDEP) ucgui.h fontselect.h
+rotate.o:       rotate.c $(STDDEP) rotate.h
+prefsform.o:    prefsform.c $(STDDEP) prefsform.h ucgui.h mainform.h controlsform.h
+searchform.o:   searchform.c  $(STDDEP) searchform.h mainform.h doc.h

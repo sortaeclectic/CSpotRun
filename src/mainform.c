@@ -427,7 +427,15 @@ void MainForm_UpdateAutoScroll()
     if(autoScrollEnabled == true)
     {
         EvtResetAutoOffTimer();
-        Doc_pixelScroll();
+        if(appStatePtr->autoScrollType == ATYPE_PIXEL)
+        {
+            Doc_pixelScroll();
+        }
+        else
+        {
+            Doc_linesDown(1);
+            Doc_drawPage();
+        }
         _updatePercent();
     }
 }

@@ -20,7 +20,6 @@
 #include <Common.h>
 #include <System/SysAll.h>
 #include <UI/UIAll.h>
-
 #include "resources.h"
 #include "callback.h"
 #include "app.h"
