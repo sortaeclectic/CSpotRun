@@ -12,7 +12,7 @@ begin
     "$$SPACING"="Øádkování"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Samoposuv"
-    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Samoposuv, druh a rychlost:"
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Samoposuv ovládat adres.tlaè."
 #endif
@@ -42,7 +42,9 @@ begin
                           "Nastavením \'uknutí\' zvolíte, jaká akce se vykoná, "\
                           "kdy uknete na displej.\n\n"\
                           "\'Rychlost samoposuvu\' nastaví rychlost automatického "\
-                          "posunu v setinách vteøiny. Lze doporuèit 15-25."
+                          "posunu v setinách vteøiny. Lze doporuèit 15-25.\n"\
+                          "\'Druh samoposuvu\' je pixel nebo øádka, tj. za zadanou jednotku "\
+                          "èasu se pøesune o 1 pixel nebo o celou øádku."
     "$$NO DOCS"="Nenašel jsem ádné DOC databáze!\n\nZkuste spustit CSpotRun znovu a po nainstalování jednoho èi dvou dokumentù."
 
     "$$ERROR ALERT"="Ajajaj!"
