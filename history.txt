@@ -92,3 +92,8 @@ Releasing as 1.1.1
 
 Justification and hyphenation from Florian Deckert 
 (fdeckert@club-internet.fr).
+
+2/5/2002
+
+Digital Rights Management (DRM) from Greg Weeks
+(greg@durendal.org)

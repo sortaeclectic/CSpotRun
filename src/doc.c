@@ -61,11 +61,7 @@ static Boolean      _onLastPage();
  * name would make you expect. */
 struct RECORD0_STR
 {
-    UInt8 crap; /* This byte should be part of the version. But
-                 * I'm going to ignore it because (with it) wVersion
-                 * was 1026 (1024+2) in one doc when it should have
-                 * been 2. */
-    UInt8 wVersion; /* 1=plain text, 2=compressed */
+    UInt16 wVersion; /* 1=plain text, 2=compressed */
     UInt16 wSpare;  /* ? */
     UInt32 munged_dwStoryLen; /* in bytes, when decompressed.
                                * Appears to be wrong in some DOCs. */
@@ -239,9 +235,6 @@ void Doc_close()
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 void Doc_drawPage()
 {
     UInt16        errorUInt16;
@@ -700,7 +693,9 @@ static Boolean _onLastPage()
     linesToShow = _apparentTextBounds.extent.y/_lineHeight;
     p = & gDoc.decodeBuf[_docPrefs.location.ch];
     while(linesToShow--)
-        p += (_docPrefs.justify && _docPrefs.hyphen) ? Hyphen_FntWordWrap(p, _apparentTextBounds.extent.x) : FntWordWrap (p, _apparentTextBounds.extent.x);
+        p += (_docPrefs.justify && _docPrefs.hyphen) 
+            ? Hyphen_FntWordWrap(p, _apparentTextBounds.extent.x) 
+            : FntWordWrap (p, _apparentTextBounds.extent.x);
 
     FntSetFont(oldFont);
 
@@ -770,18 +765,18 @@ static void _loadCurrentRecord()
         UInt16 recToLoad = _docPrefs.location.record;
 
         gDoc.decodeLen = gDoc.decodedRecordLen
-                   = decodeRecord(gDoc.dbRef, gDoc.record0Ptr->wVersion,
-                                  gDoc.decodeBuf,
-                                  recToLoad, gDoc.decodeBufLen-1);
+            = decodeRecord(gDoc.dbRef, gDoc.record0Ptr->wVersion,
+                           gDoc.decodeBuf,
+                           recToLoad, gDoc.decodeBufLen-1);
 
         // Compare this decoded len to the one stored in the RECORD0
         // If we find a bug, recompute the table to fix it directly in the RECORD0
         if (gDoc.decodeLen != gDoc.recLens[recToLoad - 1]) {
             gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens, true);
         }
-
+        
         gDoc.recordDecoded = _docPrefs.location.record;
-
+        
         /* If this is the last record, make the null appear to belong
          * to this record */
         if (recToLoad == gDoc.numRecs)
@@ -791,8 +786,8 @@ static void _loadCurrentRecord()
         //Otherwise load more records
         else
         {
-            /* While there are remaining records, and space to fill in buffer,
-             * decode next records. */
+            /* While there are remaining records, and space to fill 
+             * in buffer, decode next records. */
             while (++recToLoad <= gDoc.numRecs
                    && gDoc.decodeLen < gDoc.decodeBufLen-1)
                 gDoc.decodeLen
@@ -833,7 +828,7 @@ static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
 
     if (!force)
         i = decodedRecordLen(gDoc.dbRef, gDoc.record0Ptr->wVersion, 1);
-
+    
     // look if the wRecordsSize if filled and complete
     if ((!force)
         && (MemPtrSize (gDoc.record0Ptr) >= sizeof(struct RECORD0_STR))
@@ -851,19 +846,21 @@ static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
     else {
         // Compute it and fill the table
         MemHandleUnlock(gDoc.record0Handle);
-
+        
         // Resize record0 to hold the table
         gDoc.record0Handle = DmResizeRecord(gDoc.dbRef, 0,
                 (UInt32)(sizeof (struct RECORD0_STR)
-                + gDoc.numRecs*sizeof(UInt16)));
+                         + gDoc.numRecs*sizeof(UInt16)));
         ErrFatalDisplayIf(!gDoc.record0Handle, "DmResizeRecord");
 
-        gDoc.record0Ptr = (struct RECORD0_STR *)MemHandleLock(gDoc.record0Handle);
+        gDoc.record0Ptr 
+            = (struct RECORD0_STR *)MemHandleLock(gDoc.record0Handle);
         ErrFatalDisplayIf(!gDoc.record0Ptr, "c");
 
         for (i = 0; i < gDoc.numRecs; i++)
         {
-            recLens[i] = decodedRecordLen(gDoc.dbRef, gDoc.record0Ptr->wVersion, i+1);
+            recLens[i] 
+                = decodedRecordLen(gDoc.dbRef, gDoc.record0Ptr->wVersion, i+1);
             storyLen += recLens[i];
         }
 
@@ -901,7 +898,7 @@ static void _postDecodeProcessing()
 {
     Char* tooFar = &gDoc.decodeBuf[gDoc.decodeLen];
     Char* p = gDoc.decodeBuf;
-
+    
     do
     {
         if (*p == '\r')

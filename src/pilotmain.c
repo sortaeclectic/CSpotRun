@@ -33,7 +33,9 @@
 #ifdef ENABLE_SEARCH
 #include "searchform.h"
 #endif
+#include "decode.h"
 #include "tabbedtext.h"
+
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags);
 static void StartApp();
@@ -209,6 +211,8 @@ static void StopApp()
     PrefSetAppPreferences(appId, PREF_APPSTATE, versionUInt16, 
                           appStatePtr, sizeof(*appStatePtr), true);
     MemPtrFree(appStatePtr);
+
+    drm_unlink_library();
 
 #ifdef ENABLE_SEARCH
     searchPtr = (Char*) MemHandleLock(searchStringHandle);
