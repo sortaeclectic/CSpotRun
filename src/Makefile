@@ -48,18 +48,15 @@ RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) def
 					}'
 
 PRCS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).prc)
-ZIPS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).zip) CSpotRun.zip
+ZIPS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).zip) 
 
 englishprconly: CSpotRun_english.prc
 allprcs: $(PRCS) 
 all: zips 
-zips: $(ZIPS) CSpotRun.zip
+zips: $(ZIPS) 
 
 release: $(ZIPS) $(PRCS)
 	cp $(ZIPS) $(PRCS) $(OUTPUTDIR)
-
-CSpotRun.zip:
-	$(ZIP) -add CSpotRun.zip $(PRCS) $(GNUTURDS)
 
 $(PROGNAME)_%.zip: $(PROGNAME)_%.prc
 	$(ZIP)  -add $@ $^ $(GNUTURDS); 
@@ -88,5 +85,5 @@ $(PROGNAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@
 
 clean:
-	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(LANGUAGES) $(ZIPS) CSpotRun.zip
+	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(LANGUAGES) $(ZIPS) 
 
