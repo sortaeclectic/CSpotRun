@@ -15,9 +15,9 @@ begin
     "$$PICK DOC"="Elegir Doc"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Autoscroll"
-    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Vel. y tipo de Autoscroll:"
     "$$PIXEL"="Pixel"
-    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll en el Bot'on de Dir."
 #endif
 
     "$$GLOBAL PREFERENCES"="Preferencias Globales"
