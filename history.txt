@@ -48,4 +48,4 @@ sysAppLaunchCmdOpenDB support from Zack Hobson (zack@cnation.com).
 Turkish translation from Selcuk Demiray (sdemiray@bigfoot.com).
 pt_PT tranlation from Carlos Morgado (chbm@terra.nebula.org).
 Renamed existing Portuguese translation to pt_BR.
-
+Fixed little memory stomper in the upside-down case.
