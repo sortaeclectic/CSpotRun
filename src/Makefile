@@ -1,13 +1,10 @@
 # Makefile for CSpotRun
 #
-# TODO: make this compile on some machine other than Bill's
-# TODO: get some gnow-it-all to make this more gnu-like.
-# TODO: dist target
-#
 # On Windows, I have to set MAKEMODE=UNIX in my environment to make
 # this work.
 
 CC = m68k-palmos-gcc -palmos4
+MULTILINK = m68k-palmos-multilink
 ZIP = zip
 PILRC = pilrc -q
 BUILDPRC = build-prc
@@ -16,9 +13,18 @@ OUTPUTDIR = ../output
 RESDIR = ./res
 GNUTURDS = ../copying.txt ../readme.txt
 PROGNAME = CSpotRun
+
+#CSpotRun crashes on exit when it is in flash. This happens after our
+#PilotMain() is done. So I'm guessing that it's during the cleanup
+#of the build-prc-generated inter-segment goop. I suspect that using
+#multilink instead would fix this. Unfortunately, this doesn't link 
+#yet. Someone should fix it.
+#USE_MULTILINK = yup 
+
 ifndef VERSION
 VERSION = dev 
 endif
+
 APPID = CSBR
 LANGUAGES = chinese czech dutch english estonian french \
             german italian polish polish1250 polish8859-2\
@@ -80,8 +86,25 @@ $(PROGNAME)_%.zip: $(PROGNAME)_%.prc
 	$(ZIP) -j $@ $^ $(GNUTURDS) \
                 $(wildcard hyphen_db/CSpotRun_hyphen_$*.pdb)
 
+ifdef USE_MULTILINK
+
+$(PROGNAME): $(OBJS) 
+	$(MULTILINK) -fid $(APPID) \
+		$(OBJS) \
+		/usr/local/palmdev/sdk/lib/m68k-palmos-coff/libPalmOSGlue.a \
+
+$(PROGNAME)_%.prc: %.resstamp $(PROGNAME) 
+	$(BUILDPRC) $(PROGNAME) $(APPID) *.bin *.grc
+
+else
+
+$(PROGNAME): $(OBJS) 
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@ cspotrun-sections.ld
+
 $(PROGNAME)_%.prc: cspotrun.def %.resstamp $(PROGNAME) 
 	$(BUILDPRC) cspotrun.def -o $@ $(PROGNAME) *.bin 
+
+endif
 
 %.resstamp: $(RESDIR)/fixed_resources.rcp fixed_resources.h $(RESDIR)/*.bmp 
 	$(PILRC) -I $(RESDIR) -q -L $* $(RESDIR)/fixed_resources.rcp  > /dev/null; 
@@ -95,9 +118,6 @@ $(RESDIR)/fixed_resources.rcp: $(RESDIR)/resources.rcp
 
 fixed_resources.h: resources.h
 	$(CC) $(DEFINES) -E -dD resources.h > $@
-
-$(PROGNAME): $(OBJS) 
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@ cspotrun-sections.ld
 
 .o: 
 	$(CC) $(CFLAGS) -o $@
