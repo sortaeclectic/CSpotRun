@@ -272,8 +272,8 @@ begin
     "$$GOTO PER"="Ir a %"
     "$$PICK DOC"="Elegir Doc"
 #ifdef ENABLE_AUTOSCROLL
-    "$$AUTOSCROLL"="Auto Scroll"
-    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+    "$$AUTOSCROLL"="Pasar p'aginas autom'aticamente"
+    "$$AUTOSCROLLSPEED"="Velocidad de las p'aginas:"
 #endif
 
     "$$GLOBAL PREFERENCES"="Preferencias Globales"
@@ -350,8 +350,10 @@ begin
         "Use \'Mostrar línea anterior\', para repetir una línea individual "\
         "de la página anterior cuando cambia de página.\n\n"\
         "\'Acción al tocar\' controla cuánto se mueve la página cuando toca la pantalla con el lápiz óptico.\n\n"\
-        "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
-        "are in 100ths of a second. 60-80 is the recommended speed."
+        "Use la opci'on  \'Velocidad de las p'aginas\' para
+	controlar la velocidad de lectura. Los n'umeros "\
+        "est'an en cent'esimas de segundo. 60-80 es la velocidad
+	recomendada."
         
     "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor    pruebe CSpotRun"\
         "de nuevo, después de instalar al menos un documento."
