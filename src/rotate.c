@@ -196,7 +196,7 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
                     //We left this to-byte, move on to the next
                     toBitMask = PYTE_WITH_BITS(BITS_PER_PYTE-toBpp, toBpp, toBlackBits);
                     toPyte--;
-                    if (fromX + 1 < fromWidth)
+                    if (toPyte >= to)
                         *toPyte=0;
                 }
             }
@@ -227,7 +227,7 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
 
 void RotScrollRectangleUp(RectangleType *rect, OrientationType o)
 {
-	DirectionType dir;
+	DirectionType dir = up; //Initialized only to make the compiler happy.
 	RectangleType vacated;
 
 	switch (o)

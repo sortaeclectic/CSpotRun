@@ -870,14 +870,18 @@ void Doc_prepareForPixelScrolling()
     fromRect.extent.y = _lineHeight;
     fromRect.topLeft.x = 0;
     fromRect.topLeft.y = _apparentTextBounds.extent.y-fromRect.extent.y;
-    WinCopyRectangle(osPageWindow, w, &fromRect,
+    if (_docPrefs.orient == angle0)
+    {
+        WinCopyRectangle(osPageWindow, w, &fromRect,
                      _textGadgetBounds.topLeft.x + fromRect.topLeft.x,
                      _textGadgetBounds.topLeft.y + fromRect.topLeft.y,
                      scrCopy);
-    RotCopyWindow(osPageWindow,
+    } else {
+        RotCopyWindow(osPageWindow,
                     _apparentTextBounds.extent.y-1-fromRect.extent.y,
                     _apparentTextBounds.extent.y-1,
                     _docPrefs.orient);
+    }
 }
 
 void Doc_pixelScroll()
