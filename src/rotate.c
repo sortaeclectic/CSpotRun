@@ -196,7 +196,8 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
                     //We left this to-byte, move on to the next
                     toBitMask = PYTE_WITH_BITS(BITS_PER_PYTE-toBpp, toBpp, toBlackBits);
                     toPyte--;
-                    *toPyte=0;
+                    if (fromX + 1 < fromWidth)
+                        *toPyte=0;
                 }
             }
             else if (dToXdx>0)
@@ -208,7 +209,8 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
                     //We left this to-byte, move on to the next
                     toBitMask = PYTE_WITH_BITS(0, toBpp, toBlackBits);
                     toPyte++;
-                    *toPyte=0;
+                    if (fromX + 1 < fromWidth)
+                        *toPyte=0;
                 }
             }
 
