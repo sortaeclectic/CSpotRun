@@ -10,7 +10,7 @@ void            Doc_open(UInt cardNo, LocalID dbID, char name[dmDBNameLength]);
 void            Doc_close();
 void            Doc_drawPage();
 void            Doc_scroll(int dir, enum TAP_ACTION_ENUM ta);
-void            Doc_linesDown(Word linesToMove);
+Boolean         Doc_linesDown(Word linesToMove);
 void            Doc_linesUp(Word linesToMove);
 void            Doc_setBounds(RectanglePtr bounds);
 RectanglePtr    Doc_getGadgetBounds();

@@ -58,13 +58,13 @@ static Boolean      _onLastPage();
 ////////////////////////////////////////////////////////////////////////////////
 struct RECORD0_STR
 {
-    Byte    crap;    //Because wVersion was 1026 (1024+2) in one doc when it should have been 2.
-    Byte    wVersion;                // 1=plain text, 2=compressed
-    Word    wSpare;                    //??
-    DWord    munged_dwStoryLen;        // in bytes, when decompressed.  Appears to be wrong in some DOCs.
-    Word    wNumRecs;                // text records only; equals tDocHeader.wNumRecs-1. Use this, because AportisDoc adds records beyond these.
-    Word    wRecSize;                // usually 0x1000
-    DWord    dwSpare2;                //??
+    Byte    crap;               //Because wVersion was 1026 (1024+2) in one doc when it should have been 2.
+    Byte    wVersion;           // 1=plain text, 2=compressed
+    Word    wSpare;             //??
+    DWord   munged_dwStoryLen;  // in bytes, when decompressed.  Appears to be wrong in some DOCs.
+    Word    wNumRecs;           // text records only; equals tDocHeader.wNumRecs-1. Use this, because AportisDoc adds records beyond these.
+    Word    wRecSize;           // usually 0x1000
+    DWord   dwSpare2;           //??
 };
 
 //This is crap.
@@ -248,13 +248,13 @@ void Doc_drawPage()
 #endif
 }
 
-void Doc_linesDown(Word linesToMove)
+Boolean Doc_linesDown(Word linesToMove)
 {
     char*    p;
     FontID oldFont;
 
     if (_onLastPage())
-        return;
+        return false;
 
     oldFont = FntGetFont();
     FntSetFont(_docPrefs.font);
@@ -272,6 +272,8 @@ void Doc_linesDown(Word linesToMove)
     //_scrollUpIfLastPage();
 
     FntSetFont(oldFont);
+
+    return true;
 }
 
 void Doc_linesUp(Word linesToMove)
@@ -494,7 +496,15 @@ static void _drawPage(RectanglePtr boundsPtr,
 
     //Set drawing to go to the osLine window
     WinSetDrawWindow(osLineWindow);
+#ifdef ENABLE_AUTOSCROLL
+    {
+        RectangleType biggerBounds = *boundsPtr;
+        biggerBounds.extent.y += _osExtraForAS;
+        WinEraseRectangle(&biggerBounds, 0);
+    }
+#else
     WinEraseRectangle(boundsPtr, 0);
+#endif
 
     if(drawOffscreenPart)
         linesToShow = (boundsPtr->extent.y + _osExtraForAS) / _lineHeight + 1;
@@ -508,7 +518,7 @@ static void _drawPage(RectanglePtr boundsPtr,
     if(!drawOnscreenPart)
     {
 		int offscreenLines = linesToShow - (boundsPtr->extent.y) / _lineHeight;
-        offscreenLines ++; //Because we really want the last onscreen line too.
+        offscreenLines += 2 ; //Because we really want the last onscreen line too.
         // skip past all but the last line
         while((linesToShow > offscreenLines) && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
         {
@@ -891,6 +901,7 @@ void Doc_pixelScroll()
     RectangleType rect;
     WinHandle     drawWindow;
     RectangleType vacated;
+    Boolean       endOfDocument;
 
     drawWindow = WinGetDrawWindow();
     WinSetDrawWindow(osPageWindow);
@@ -898,9 +909,13 @@ void Doc_pixelScroll()
     // if scrolled enough to draw a line, scroll down 1 and draw the page.
     if(_pixelOffset == _lineHeight)
     {
-        Doc_linesDown(1);
+        if (! Doc_linesDown(1))
+        {
+            WinSetDrawWindow(drawWindow);
+            return;
+        }
         WinEraseWindow();
-        _drawPage(&_apparentTextBounds, true, true);
+        _drawPage(&_apparentTextBounds, false, true);
         _pixelOffset = 0;
     }
 
