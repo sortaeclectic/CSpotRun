@@ -8,12 +8,12 @@ begin
     "$$DOC"="Dokument"
     "$$FONTS"="Kirjatüübid"
     "$$CONFIGURE CONTROLS"="Muuda seadistusi"
-    "$$ROTATE"="Pööra"
+    "$$ROTATE"="Pööramine"
     "$$SPACING"="Reavahe"
     "$$AUTOSCROLL"="Iserullumine"
     "$$AUTOSCROLL TYPE AND SPEED"="Iserullumise tüüp ja kiirus:"
     "$$PIXEL"="Piksel"
-    "$$TOGGLE AUTOSCROLL"="Iserullumine aadressiraamatu nupuga"
+    "$$TOGGLE AUTOSCROLL"="Iserull. aadressiraamatu nupuga"
     "$$GOTO PER"="Mine %"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -34,17 +34,17 @@ begin
                                 "Mõttekas on mitte valida neid, mida harva kasutad. "\
                                 "Kõiki seadistusi saab ka läbi menüüde teha."
     "$$GLOBAL PREFS HELP"="Kasuta \'Vaheta üles/alla kui küljetsi\' valikut, et "\
-                                    "vahetada nupud üles ja alla kui lehekülg on "\
+                                    "vahetada üles ja alla nupud kui lehekülg on "\
                                     "ees küljetsi.\n\n"\
                                     "Vali \'Näita rida eelmiselt leheküljelt\' et näidata "\
-                                    "viimast rida eelmiselt leheküljelt kui sa liigud edasi või tagasi.\n\n"\
+                                    "viimast rida eelmiselt leheküljelt kui liigud edasi või tagasi.\n\n"\
                                     "\'Toksamine\' valik näitab, mida tehakse siis kui "\
                                     "toksad ekraanile.\n\n"\
-                                    "Kasuta \'Iserullumise kiirus\' valikut et kontrollida teksti rullumise kiirust."\
+                                    "\'Iserullumise kiirus\' valikust saad kontrollida teksti rullumise kiirust. "\
                                     "Numbrid tähendavad sajandiksekundeid. Soovitatav on 15-20. "\
                                     "Rullumise ajal saad kiirust suurendada või "\
                                     "vähendada kasutades üles/alla nuppe.\n\n"\
-                                    "\'Iserullumise tüüp\` valik näitab, kas teksti "\
+                                    "\'Iserullumise tüüp\' valik näitab, kas teksti "\
                                     "rullitakse pikseli- või reakaupa."
 
                                     
@@ -91,7 +91,7 @@ begin
     "$$FINDDDD"="Otsi..."
     "$$FIND IN DOCUMENT"="Otsi dokumendist"
     "$$FIND PROMPT"="Otsi:"
-    "$$SEARCH FROM TOP"="Alust ülevalt"
+    "$$SEARCH FROM TOP"="Alusta ülevalt"
     "$$CASE SENSITIVE"="Tõstutundlik"
     "$$FIND BUTTON"="O"
     "$$FIND AGAIN BUTTON"="OU"
