@@ -46,6 +46,8 @@ begin
                                     "\'týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
                                     "ne yapýlmasý gerektiðini belirler.\n\n"\
                                     "\'Oto.Kaydýrma Tipi ve Hýzý\' seçeneði ile otomatik kaydýrmanýn tipini ve hýzýný ayarlayabilirsiniz. "\
+				    "The \'Oto Kaydýrma Tipi\' yazýnýn çizgisel mi yoksa"\
+                                    "satýr satýr mý ilerleyeceðini belirler."\
                                     "Çizgi ve Satýr tiplerinde en uygun deðerler sýrasýyla  20 ve 60 dýr."\
                                     "Kaydýrma esnasýnda yukarý aþaðý butonlarýna basarak kendinize en uygun hýzý ayarlayabilirsiniz.\n\n"\
                                     "\'Oto.Kaydýrma için Adres Butonu\' seçeneði aktif ise Otomatik Kaydýrma çalýþýrken Adres Defteri butonu ile durdurup devam ettirebilirsiniz."
