@@ -17,8 +17,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-// The decompression is implemented from the description at
-// http://pc-28134.on.rogers.wave.ca/Programming/PilotDoc.htm
+/* The decompression is implemented from the description at
+ * http://pc-28134.on.rogers.wave.ca/Programming/PilotDoc.htm
+ *
+ * 6/16/2001: That page is long gone. Here are some that work today:
+ * http://cr945328-a.flfrd1.on.wave.home.com/Programming/PilotDoc.htm
+ * http://www.math.ohio-state.edu/~nevai/palm/format.html
+ * http://www.nicholson.com/rhn/pilot/doc.txt
+ */
 
 #include <Common.h>
 #include <System/SysAll.h>
