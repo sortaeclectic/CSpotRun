@@ -1,190 +1,91 @@
 <html>
-  <head>
-    <title>CSpotRun Release History</title>
-    <link rel=stylesheet href="./default.css" type="text/css">
-    <meta NAME="Keywords" CONTENT="palm,pilot,cspotrun,doc,reader">
-    <meta NAME="Description" CONTENT="CSpotRun">
-  </head>
-  <body>
-  	<h2>CSpotRun Release History</h2>
-    <p style="font-weight=bold">
-        Please familiarize
-        yourself with the <a href="http://www.fsf.org/copyleft/gpl.html">GPL</a> before downloading
-        source code for CSpotRun.
-    </p>
-    <a name="latest">
-    <dl>
-      <dt>1.2.7 June 2, 2004
-      <dd>Fixed the "No 1-bit mode!" crash found on some Sony and Garmin 
-          devices. 
-          <a href=http://32768.com/cspotrun/download/1_2_7>[Download]</a>
-      <dt>1.2.6 January 4, 2003
-      <dd>Changed to take advantage of high-density fonts under OS 5.
-	  <b>With this version, rotating the screen does not work 
-	     on OS 5 devices.</b> I haven't been been able to rotate
-	     a high-density bitmap correctly yet. I'd prefer to figure
-	     it out before releasing this, but the volume of email 
-	     indicates that people really, really want the high-density 
-	     fonts. 
-          <a href=http://32768.com/cspotrun/download/1_2_6>[Download]</a>
-      <dt>1.2.5 December 12, 2002
-      <dd>Fixed bug where the rightmost pixel could be missing on lines
-          beginning with a space and filling the entire line. Internally,
-	  switched to OS5 header files.
-         <a href=http://32768.com/cspotrun/download/1_2_5>[Download]</a>
-      <dt>1.2.4 June 25, 2002
-      <dd>Support for the Sony Jog Dial from Jesús Jiménez.
-         <a href=http://32768.com/cspotrun/download/1_2_4>[Download]</a>
-      <dt>1.2.3 June 4, 2002
-      <dd>Fixed crash when CSpotRun is running in ROM (flash). (Okay,
-          so I didn't actually change anything. I just used the newer
-          version of prc-tools, wherein this bug is fixed.)
-      <dt>1.2.2 Febuary April 30, 2002
-      <dd>Florian fixed auto-scrolling bug in long documents which
-	  had snuck into 1.2.
-         <a href=http://32768.com/cspotrun/download/1_2_2>[Download]</a>
-      <dt>1.2.1 Febuary 11, 2002
-      <dd>Fixed crash in preferences. (Oops.)
-         <a href=http://32768.com/cspotrun/download/1_2_1>[Download]</a>
-      <dt>1.2 Febuary 10, 2002
-      <dd>Added hyphenation and justification from Florian Deckert.
-      	  Added support for
-      	  <a href='drm.html'>
-      	  Digital Rights Management (DRM) libraries
-      	  </a>
-      	  from Greg Weeks. Moved autoscroll and rotation menu
-      	  items to the Options menu. Change font selection UI
-	  to use the standard OS font selector. (Inspired by
-	  a change Dan Fahrion had made to his Handera 330-compatible
-	   version.)
-      	  <br>(Developer only stuff: Went multisegment, so that the
-      	  DEBUG=1 version will continue to link. Added the HTML that you're
-      	  reading to the zip archive. Started linking in PalmOSGlue to
-      	  maintain compatibility with old versions. Changed rotate.c
-      	  to silence emulator warnings.)
-      <dt>1.1.2 December 13, 2001
-      <dd>Fixed rotation for OS 3.0-3.3, which I had completely
-	  broken in the move to 4.0 headers.
-         <a href=http://32768.com/cspotrun/download/1_1_2>[Download]</a>
-      <dt>1.1.1 December 12, 2001
-      <dd>Tidied up menu by moving some bookmark stuff to the bookmark
-	  form. Started using PalmOS 4.0 header files. (Sheesh.)
-	  A little (very little) internal clean up work that nobody
-	  else cares about.
-      <dt>1.1 August 7, 2001
-      <dd>Bookmarks from Alexey Raschepkin.
-         <a href=http://32768.com/cspotrun/download/1_1>[Download]</a>
-      <dt>1.0.5 March 11, 2000
-      <dd>
-         Finally fixed drawing bug after returning from preferences
-         as reported by Dan Pelleg.
-         Added error check for bad documents which could have caused a crash.
-         (One specific type of badness. There are probably others.)
-         Fixed incorrect display of some Czech and Japanese characters.
-         (Ivo Panacek did the hard work of tracking this down.)
-         Made pixel scrolling smoother.
-         <a href=http://32768.com/cspotrun/download/1p0p5>[Download]</a>
-      <dd>
-      <dt>1.0 Febuary 27, 2000
-      <dd>
-         Traditional chinese translation from Chen-hsiung Chan.
-         Fixed two 0.9.9 drawing bugs.
-         Fixed OS2 rotation bug reported by Paul Bookham.
-         Miscellaneous localization tweaks.
-      <dt>0.9.9 Feb 12, 2000
-      <dd>
-        Swedish localization from Jonas Kampe.
-        Option to choose pixel-wise or line-wise scrolling from Daniel Zahn.
-        Changed to always switch screen into 1-bit mode
-        instead of trying to deal with arbitrary bit depth.
-        Made it work under OS 3.5.
-        Lots of nice localization polishing from many people.
-      <dt>0.9.6 Jan 17, 2000
-      <dd>
-        Pixel-wise scrolling from Daniel Zahn.
-        Option to disable hard button scrolling control from Daniel Zahn.
-        Scrolling tweaking for the rotated case.
-        sysAppLaunchCmdOpenDB support from Zack Hobson.
-        Turkish translation from Selcuk Demiray.
-        pt_PT tranlation from Carlos Morgado.
-        Renamed existing Portuguese translation to pt_BR.
-        <a href=http://32768.com/cspotrun/download/0p9p6>[Download]</a>.
-      <dt>0.9 Dec 7, 1999
-      <dd>Added Auto-scrolling by Daniel Zahn. Added Czech translation from Ivo Panacek.
-      <dt>0.8.1 Nov 17, 1999
-      <dd>Added Portuguese translation from Rui A. Rebelo. Fixed the stray beep when opening the the
-          find dialog with a menu.
-      <dt>0.8 Nov 12, 1999
-      <dd>Added searching within a document. Added French version, thanks to Vincent Poty.
-          Changed end-of-document behavior. (It no longer insists on filling up the entire screen.)
-          Modulated the shield harmonics. Tweaks to rotation code.
-      <dt>0.6.1 Oct 24, 1999
-      <dd>Fixed bug I introduced while cleaning up the rotation code which caused a crash under OS2.
+	<head>
+		<title>CSpotRun Release History</title>
+		<link rel=stylesheet href="../../default.css" type="text/css">
+		<meta NAME="Keywords" CONTENT="Bill Clagett,palm,pilot,cspotrun,doc,reader">
+		<meta NAME="Description" CONTENT="CSpotRun">
+	</head>
 
-      <dt>0.6 Oct 22, 1999
-      <dd>Got rid of "inheritance" of preferences. Instead, there is a menu item to make the current
-        settings the default. Laid some groundwork for searching.
-        Added small icon for OS3's launcher.
-        Fixed gray text when in 2-bit mode.
-        <br>
-        <em>
-        CSpotRun is finally OPEN SOURCE under
-        <a href="http://www.fsf.org/copyleft/gpl.html">GNU General Public License (GPL)</a>.
-        There are several embarassing bits of code and experiments in coding styles in here that
-        I'd like to clean up.
-        But if I waited until I fixed them before releasing the source, I may never get the source out.
-		</em>
-      <dt>0.5.2 Oct 18, 1998
-      <dd>Added Spanish translation. Many thanks to Marcelo Rinesi for this translation!
-        Also fixed incompatibility with "jwolcal2.pbd". (This looks like a bug in the compression program used on this
-        document.) Thanks to Louis Lauzon for reporting this, and for being patient with my taking way too
-        long to fix it. <a href=http://32768.com/cspotrun/download/0p5p2>[Download]</a>.
+	<body>
+		<b>
+			<a href="../../index.html">home</a> : <a href="../index.html">palmos</a> : <a href="index.html">cspotrun</a> : releases
+			<hr>
+		</b>
 
-      <dt>0.5.1 Oct 12, 1998
-      <dd>Minor fix. Added a missing German translation. Fixed bug causing a crash when a document is
-        replaced with a shorter one having the same name. Silly oversight. Thanks to Jonathan Markevich
-        for bringing this to my attention.
+		<dl>
+			<dt>0.0 Sept 13, 1998
+			<dd>Initial version
+			<dt>0.1 Sept 14, 1998
+			<dd>Minor fix. Added processing of carraige returns in addition to newlines.
+				(Thanks to Randy Hartley for pointing out the need for this.)
+			<dt>0.2 Sept 15, 1998
+			<dd>Minor fix. The last character of some documents was not displayed. Fixed this.
+				(Thanks to Rob Sherrard for discovering this bug!) Cleaned up some code,
+				shrinking the .PRC a bit.
+				This is a nice, small (8k) version. You can
+				<a href=CSpotRun0p2.zip>download this version as a zip archive</a>.
+			<dt>0.3 Sept 19, 1998
+			<dd>Added the configurable user interface and full screen view. Also added the
+				Palm III's large bold font. It's very readable. (Thanks to Stephen Millman
+				for this suggestion!)
+			<dt>0.4 Oct 5, 1998
+			<dd>Big changes. Added screen rotating. Made display of line from previous page on
+				page up/down optional. Added options for tapping the screen to move a line,
+				half-page, or page. Fixed bug which made first line of page sometime start in
+				mid-line. (Thanks for John Verne for pointing this out.) Wrote some help.
+				Reworked menus and dialogs to be prettier. Made a document "inherit" the current
+				documents settings when you open it for the first time. (Thanks to Frank Fejes for
+				some great constructive pickyness!) Alphabetized document list. Laid groundwork
+				for easier internationalization of strings.
+			<dt>0.5 Oct 8, 1998
+			<dd>There is now a German version! Many thanks to Arne Nickel for the translation.
+				Internationalization required a few minor GUI tweaks even in the English version.
+				Fixed some very strange behavior found by Izya Yagolnitser when reading a certain
+				document. (In case you're interested, it seems that in QED-generated documents, record
+				lengths don't match the record length specified in the header.) Also sped up the text
+				drawing code just a tiny bit.
+			<dt>0.5.1 Oct 12, 1998
+			<dd>Minor fix. Added a missing German translation. Fixed bug causing a crash when a document is
+				replaced with a shorter one having the same name. Silly oversight. Thanks to Jonathan Markevich
+				for bringing this to my attention.
+			<dt>0.5.2 Oct 18, 1998
+			<dd>Added Spanish translation. Many thanks to Marcelo Rinesi for this translation!
+				Also fixed incompatibility with "jwolcal2.pbd". (This looks like a bug in the compression program used on this
+				document.) Thanks to Louis Lauzon for reporting this, and for being patient with my taking way too
+				long to fix it. You can <a href=CSpotRun0p5p2.zip>download this version as a zip archive</a>.
+			<dt>0.6 Oct 22, 1999
+			<dd>Got rid of "inheritance" of preferences. Instead, there is a menu item to make the current
+				settings the default. Laid some groundwork for searching.
+				Added small icon for OS3's launcher.
+				Fixed gray text when in 2-bit mode.
+				<br>
+				CSpotRun is finally OPEN SOURCE under
+				<a href="http://www.fsf.org/copyleft/gpl.html">GNU General Public License (GPL)</a>.
+				There are several embarassing bits of code in here that I'd like to clean up.
+				But if I waited until I fixed them before releasing the source, I may never get the source out.
+			<dt>0.6.1 Oct 24, 1999
+			<dd>Fixed bug I introduced while cleaning up the rotation code which caused a crash under OS2.
+				<br>
+				<a name="latest">
+				<b>This is the most recent version.
+					You can download the
+					<a href=CSpotRun_english.zip>English</a>,
+					<a href=CSpotRun_spanish.zip>Spanish</a>,
+					or <a href=CSpotRun_german.zip>German</a> edition.
+				</b>
+				<br>
+				Source code for this version <a href=CSpotRunSrc0p6p1.zip>is available.</a> Please familiarize
+				yourself with the <a href="http://www.fsf.org/copyleft/gpl.html">GPL</a> before downloading this
+				source code.
+		</dl>
 
-      <dt>0.5 Oct 8, 1998
-      <dd>There is now a German version! Many thanks to Arne Nickel for the translation.
-        Internationalization required a few minor GUI tweaks even in the English version.
-        Fixed some very strange behavior found by Izya Yagolnitser when reading a certain
-        document. (In case you're interested, it seems that in QED-generated documents, record
-        lengths don't match the record length specified in the header.) Also sped up the text
-        drawing code just a tiny bit.
-
-      <dt>0.4 Oct 5, 1998
-      <dd>Big changes. Added screen rotating. Made display of line from previous page on
-        page up/down optional. Added options for tapping the screen to move a line,
-        half-page, or page. Fixed bug which made first line of page sometime start in
-        mid-line. (Thanks for John Verne for pointing this out.) Wrote some help.
-        Reworked menus and dialogs to be prettier. Made a document "inherit" the current
-        documents settings when you open it for the first time. (Thanks to Frank Fejes for
-        some great constructive pickyness!) Alphabetized document list. Laid groundwork
-        for easier internationalization of strings.
-
-      <dt>0.3 Sept 19, 1998
-      <dd>Added the configurable user interface and full screen view. Also added the
-        Palm III's large bold font. It's very readable. (Thanks to Stephen Millman
-        for this suggestion!)
-
-      <dt>0.2 Sept 15, 1998
-      <dd>Minor fix. The last character of some documents was not displayed. Fixed this.
-        (Thanks to Rob Sherrard for discovering this bug!) Cleaned up some code,
-        shrinking the .PRC a bit.
-        This is a nice, small (8k) version. You can
-        <a href=http://32768.com/cspotrun/download/0p2>[Download]</a>.
-
-      <dt>0.1 Sept 14, 1998
-      <dd>Minor fix. Added processing of carraige returns in addition to newlines.
-        (Thanks to Randy Hartley for pointing out the need for this.)
-
-      <dt>0.0 Sept 13, 1998
-      <dd>Initial version
-    </dl>
-
-    <p class=legal>
-      &copy; 1998-2002 Bill Clagett. <a href="http://32768.com/bill/contact/">bill@32768.com</a> All rights reserved.
-    </p>
-  </body>
+		<br clear=all>
+		<hr width=100%>
+		<p>
+			Any
+			<a rev=made href="mailto:bill.clagett@pobox.com?subject=CSpotRun:">feedback</a>
+			is welcome!
+		</p>
+		<sub>Copyright &copy; 1998 Bill Clagett.  All rights reserved.</sub>
+	</body>
 </html>
