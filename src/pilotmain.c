@@ -47,9 +47,7 @@ MemHandle   searchStringHandle;
 Boolean     searchFromTop;
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
+#define FORCE_1BIT_MODE 
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
@@ -60,9 +58,12 @@ UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 
         // get the type/creator for this DB so we can see if it's a DOC file
         char startupDocName[dmDBNameLength];
-        DmDatabaseInfo(cardNo, dbID, startupDocName, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &type, &creator);
+        DmDatabaseInfo(cardNo, dbID, startupDocName, NULL, NULL, NULL, 
+                       NULL, NULL, NULL, NULL, NULL, &type, &creator);
         if (!(type == 'TEXt' && creator == 'REAd')) {
-                FrmCustomAlert(alertID_error, "You cannot open this type of database with CSpotRun. ", " ", " ");
+                FrmCustomAlert(alertID_error, 
+                               "You cannot open this type of database "\
+                               "with CSpotRun. ", " ", " ");
                 return 1;
         }
         DocPrefs_setStartupDocName(startupDocName);
@@ -95,9 +96,6 @@ Boolean UtilOSIsAtLeast(UInt8 reqMajor, UInt8 reqMinor)
     return false;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 static void StartApp()
 {
     UInt16 prefsSize = 0;
@@ -110,29 +108,35 @@ static void StartApp()
 #endif
 
     appStatePtr = (struct APP_STATE_STR *) MemPtrNew(sizeof(*appStatePtr));
+#ifdef FORCE_1BIT_MODE
     if (UtilOSIsAtLeast(3,0))
     {
         UInt32 depth;
-        WinScreenMode(winScreenModeGetSupportedDepths, NULL, NULL, &depth, NULL);
+        WinScreenMode(winScreenModeGetSupportedDepths, 
+                      NULL, NULL, &depth, NULL);
         if (depth & 0x1)
             WinScreenMode(winScreenModeSet, NULL, NULL, &newDepth, NULL);
         else
             ErrFatalDisplay("No 1-bit mode!");
     }
+#endif
 
-    if (noPreferenceFound == PrefGetAppPreferences(appId, PREF_APPSTATE, NULL, &prefsSize, true)
+    if (noPreferenceFound  == PrefGetAppPreferences(appId, PREF_APPSTATE, 
+                                                    NULL, &prefsSize, true)
         || prefsSize != sizeof(*appStatePtr))
         InitAppState();
     else
     {
-        PrefGetAppPreferences(appId, PREF_APPSTATE, appStatePtr, &prefsSize, true);
+        PrefGetAppPreferences(appId, PREF_APPSTATE, appStatePtr, 
+                              &prefsSize, true);
         if (appStatePtr->version != versionUInt16)
             InitAppState();
     }
     prefsSize = 0;
 
 #ifdef ENABLE_SEARCH
-    if (noPreferenceFound == PrefGetAppPreferences(appId, PREF_SEARCHSTRING, NULL, &prefsSize, true))
+    if (noPreferenceFound == PrefGetAppPreferences(appId, PREF_SEARCHSTRING, 
+                                                   NULL, &prefsSize, true))
     {
         searchStringHandle = MemHandleNew(2);
         searchPtr = MemHandleLock(searchStringHandle);
@@ -143,7 +147,8 @@ static void StartApp()
     {
         searchStringHandle = MemHandleNew(prefsSize);
         searchPtr = (Char*)MemHandleLock(searchStringHandle);
-        PrefGetAppPreferences(appId, PREF_SEARCHSTRING, searchPtr, &prefsSize, true);
+        PrefGetAppPreferences(appId, PREF_SEARCHSTRING, searchPtr, 
+                              &prefsSize, true);
         MemHandleUnlock(searchStringHandle);
     }
 #endif
@@ -151,15 +156,11 @@ static void StartApp()
 #ifdef ENABLE_BMK
     err = BmkStart();
     if(err)
-	BmkReportError(err);
+        BmkReportError(err);
 #endif
 
     FrmGotoForm(formID_main);
 }
-
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 
 static void InitAppState()
 {
@@ -181,10 +182,6 @@ static void InitAppState()
     DocPrefs_initPrefs(&appStatePtr->defaultDocPrefs, "");
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
-
 static void StopApp()
 {
 #ifdef ENABLE_SEARCH
@@ -196,17 +193,22 @@ static void StopApp()
     BmkStop();
 #endif
 
-    PrefSetAppPreferences(appId, PREF_APPSTATE, versionUInt16, appStatePtr, sizeof(*appStatePtr), true);
+    PrefSetAppPreferences(appId, PREF_APPSTATE, versionUInt16, 
+                          appStatePtr, sizeof(*appStatePtr), true);
     MemPtrFree(appStatePtr);
 
 #ifdef ENABLE_SEARCH
     searchPtr = (Char*) MemHandleLock(searchStringHandle);
-    PrefSetAppPreferences(appId, PREF_SEARCHSTRING, versionUInt16, searchPtr, MemHandleSize(searchStringHandle), true);
+    PrefSetAppPreferences(appId, PREF_SEARCHSTRING, versionUInt16, 
+                          searchPtr, MemHandleSize(searchStringHandle), true);
     MemHandleUnlock(searchStringHandle);
     MemHandleFree(searchStringHandle);
 #endif
+
+#ifdef FORCE_1BIT_MODE
     if (UtilOSIsAtLeast(3,0))
         WinScreenMode(winScreenModeSetToDefaults, NULL, NULL, NULL, NULL);
+#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -346,10 +348,6 @@ static void EventLoop()
 #endif
     } while(e.eType != appStopEvent);
 }
-
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 
 static Boolean AppHandleEvent(EventType *e)
 {
