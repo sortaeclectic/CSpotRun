@@ -102,6 +102,8 @@ begin
     "$$FIND PROMPT"="Find:"
     "$$SEARCH FROM TOP"="Search from top"
     "$$CASE SENSITIVE"="Case sensitive"
+    "$$FIND BUTTON"="F"
+    "$$FIND AGAIN BUTTON"="FA"
 /*
     // Want to internationalize the menu shortcuts.
     // Need to fix pilrc to do this.
@@ -206,6 +208,8 @@ begin
     "$$FIND PROMPT"="Chercher : "
     "$$SEARCH FROM TOP"="Commencer au début du texte"
     "$$CASE SENSITIVE"="Respecter la casse"
+    "$$FIND BUTTON"="C"
+    "$$FIND AGAIN BUTTON"="S"
 
 end
 
@@ -252,11 +256,14 @@ begin
     "$$ABOUTDDD"="Sobre CSpotRun..."
 
     "$$FIND"="Buscar Texto"
+    "$$FIND AGAIN"="Repetir búsqueda"
     "$$FINDDDD"="Buscar Texto..."
     "$$FIND IN DOCUMENT"="Buscar Texto en Documento"
     "$$FIND PROMPT"="Texto:"
     "$$SEARCH FROM TOP"="Buscar desde el inicio"
     "$$CASE SENSITIVE"="Discriminar Mayúsculas"
+    "$$FIND BUTTON"="B"
+    "$$FIND AGAIN BUTTON"="RB"
 
     "$$ABOUT TITLE"="Sobre CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -338,6 +345,8 @@ begin
     "$$FIND PROMPT"="Suchen:"
     "$$SEARCH FROM TOP"="Ab Dokumentanfang"
     "$$CASE SENSITIVE"="Groß-/Kleinschreibung"
+    "$$FIND BUTTON"="S"
+    "$$FIND AGAIN BUTTON"="W"
 
     "$$ABOUT TITLE"="Über CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -385,12 +394,12 @@ BEGIN
     PUSHBUTTON "A" ID pushID_font2    AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) GROUP 1 FONT 2 
     PUSHBUTTON "A" ID pushID_font3    AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) GROUP 1 FONT 7
 #ifdef ENABLE_ROTATION
-    BUTTON "\03" ID buttonID_rotateLeft        AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) NOFRAME FONT 3
-    BUTTON "\04" ID buttonID_rotateRight    AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) NOFRAME FONT 3
+    BUTTON "\03" ID buttonID_rotateLeft  AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) NOFRAME FONT 3
+    BUTTON "\04" ID buttonID_rotateRight AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) NOFRAME FONT 3
 #endif    
 #ifdef ENABLE_SEARCH
-    BUTTON "F"    ID buttonID_search        AT (prevright+1 PREVTOP 8 PREVHEIGHT) 
-    BUTTON "FA" ID buttonID_searchAgain    AT (prevright+1 PREVTOP 14 PREVHEIGHT) 
+    BUTTON "$$FIND BUTTON"       ID buttonID_search        AT (prevright+1 PREVTOP 8 PREVHEIGHT) 
+    BUTTON "$$FIND AGAIN BUTTON" ID buttonID_searchAgain   AT (prevright+1 PREVTOP 14 PREVHEIGHT) 
 #endif
     GADGET ID gadgetID_lineSpacing0 AT (prevright+4 PREVTOP 7 PREVHEIGHT) 
     GADGET ID gadgetID_lineSpacing1 AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) 
@@ -497,7 +506,7 @@ BEGIN
 #ifdef ENABLE_SEARCH
         MENUITEM SEPARATOR
         MENUITEM "$$FINDDDD"         menuitemID_search          "F"
-        MENUITEM "$$FIND AGAIN"      menuitemID_searchAgain     "G"
+        MENUITEM "$$FIND AGAIN"      menuitemID_searchAgain     "A"
 #endif
     END    
     PULLDOWN "$$VIEW"
