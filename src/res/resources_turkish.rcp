@@ -43,9 +43,7 @@ begin
     "$$NO MEMORY"="Yetersiz Hafýza"
     "$$BMK DOC NOT OPENED"="Doküman açýlamadý"
 
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-2000 Bill Clagett\n"\
-        "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
         "Bu programýn kaynak kodu GNU General Public "\
         "License (GPL) kurallarý altýnda daðýtýlmýþtýr "\
         "Þu adresten temin edilebilir: "\

@@ -45,9 +45,7 @@ begin
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Auto rolagem no botão Addr. Book"
 
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-2000 Bill Clagett\n"\
-        "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
         "O código fonte para este programa é distribuído sob "\
         "a GNU General Public License (GPL). Você poderá "\
         "encontrá-la em: http://www.gnu.org/copyleft/gpl.html\n\n"\

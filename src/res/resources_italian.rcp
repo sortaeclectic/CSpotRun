@@ -19,9 +19,7 @@ begin
     "$$TOGGLE AUTOSCROLL"="Scorrimento su pulsante Rubrica" 
     "$$GOTO PER"="Vai a %"
 
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-2000 Bill Clagett\n"\
-        "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
         "Il codice sorgente di questo programma e\' distribuito "\
         "sotto licenza \'GNU General Public License (GPL)\' "\
         "Disponibile presso:http://www.gnu.org/copyleft/gpl.html\n\n"\

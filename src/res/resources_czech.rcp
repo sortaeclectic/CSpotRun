@@ -43,9 +43,7 @@ begin
     "$$NO MEMORY"="Není dost pamìti"
     "$$BMK DOC NOT OPENED"="Dokument není otevøen"
 
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        " 1998-2000 Bill Clagett\n"\
-        "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
         "Zdrojový kód tohoto programu je šíøen podle "\
         "GNU General Public License (GPL). Mùžete ji nalézt "\
         "na: http://www.gnu.org/copyleft/gpl.html\n\n"\

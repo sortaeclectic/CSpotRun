@@ -16,9 +16,7 @@ begin
     "$$TOGGLE AUTOSCROLL"="Iserull. aadressiraamatu nupuga"
     "$$GOTO PER"="Mine %"
 
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-2000 Bill Clagett\n"\
-        "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
         "Selle programmi lähtekood on avaldatud "\
         "GNU General Public License (GPL) tingimustel. Need on "\
         "leitavad aadressil: http://www.gnu.org/copyleft/gpl.html\n\n"\

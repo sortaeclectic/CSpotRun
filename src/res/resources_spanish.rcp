@@ -88,9 +88,7 @@ begin
     "$$FIND AGAIN BUTTON"="RB"
 
     "$$ABOUT TITLE"="Sobre CSpotRun"
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-      "© 1998-2000 Bill Clagett\n"\
-      "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
       "El código fuente para este programa está distribuido "\
       "bajo la GNU General Public License (GPL). Puede "\
       "encontrarla en: http://www.gnu.org/copyleft/gpl.html\n\n"\

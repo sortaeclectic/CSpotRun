@@ -43,9 +43,7 @@ begin
     "$$NO MEMORY"="°O¾ÐÅé¤£¨¬"
     "$$BMK DOC NOT OPENED"="¤å¥ó©|¥¼¶}±Ò"
 
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-2000 Bill Clagett\n"\
-        "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
         "¥»µ{¦¡¨º­ì©l½X¬O¨Ì¾Ú GNU General Public License(GPL) "\
         "¦Ó´²§Gªº¡C§A¥i¥H¦b http://www.gnu.org/copyleft/gpl.html "\
         "§ä¨ì GPL ªº¤º®e¡C\n\n"\

@@ -76,9 +76,7 @@ begin
     "$$ABOUTDDD"="A propos de CSpotRun..."
 
     "$$ABOUT TITLE"="A propos de CSpotRun"
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-      "(c) 1998-2000 Bill Clagett\n"\
-      "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
       "Le code source de ce programme est distribué selon les "\
       "termes de la Licence Publique Générale GNU (GPL). Vous "\
       "pouvez trouver celle-ci sur www.gnu.org/copyleft/gpl.html .\n\n"\

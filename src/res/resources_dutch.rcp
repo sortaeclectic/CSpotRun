@@ -11,9 +11,7 @@ begin
     "$$TOGGLE AUTOSCROLL"="Autodoorvoer Addr. Boek Knop"
     "$$GOTO PER"="Ga naar %"
 
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-2000 Bill Clagett\n"\
-        "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
         "De broncode voor dit programma is verspreid onder"\
         "de GNU General Public License (GPL). U kunt deze "\
         "vinden op: http://www.gnu.org/copyleft/gpl.html\n\n"\

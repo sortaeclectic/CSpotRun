@@ -353,7 +353,10 @@ END
 
 
 
-string stringID_aboutBody "$$ABOUT BODY"
+string stringID_aboutBody "CSpotRun @@CSR_VERSION@@\n"\
+			  "© 1998-2001 Bill Clagett\n"\
+			  "bill@32768.com\n\n"\
+			  "$$ABOUT BODY"
 
 ALERT ID alertID_confirmDelete
 CONFIRMATION
@@ -420,4 +423,5 @@ STRING ID stringID_noDocs          "$$NO DOCS"
     STRING ID	stringID_noMem		"$$NO MEMORY"
     STRING ID	stringID_bmkDocNotOpened "$$BMK DOC NOT OPENED"
 #endif
+
 

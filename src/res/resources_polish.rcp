@@ -16,9 +16,7 @@ begin
     "$$TOGGLE AUTOSCROLL"="Przewijaj guzikiem Adresy"
     "$$GOTO PER"="Idz do %"
 
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-2000 Bill Clagett\n"\
-        "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
         "Kod zródlowy tego programu jest rozprowadzany zgodnie "\
         "z licencja GNU General Public License (GPL). Wiecej o tym "\
         "pod adresem: http://www.gnu.org/copyleft/gpl.html\n\n"\

@@ -44,9 +44,7 @@ begin
     "$$NO MEMORY"="Not Enough Memory"
     "$$BMK DOC NOT OPENED"="Document is not opened"
 
-    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-2000 Bill Clagett\n"\
-        "bill@32768.com\n\n"\
+    "$$ABOUT BODY"=
         "Källkoden till detta program distribueras under "\
         "GNU General Public License (GPL). Den finns "\
         "på: http://www.gnu.org/copyleft/gpl.html\n\n"\
