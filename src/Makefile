@@ -18,7 +18,8 @@ PROGNAME = CSpotRun
 VERSION = dev 
 APPID = CSBR
 LANGUAGES = chinese czech english french \
-            german pt_BR pt_PT turkish sv_SE \
+            german polish polish1250 polish8859-2\
+            pt_BR pt_PT turkish sv_SE \
             spanish  
 
 ICONTEXT = $(PROGNAME)
