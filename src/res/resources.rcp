@@ -19,6 +19,7 @@
  
 /*
  * CONTRIBUTORS:
+ *    Czech translation: Ivo Panacek (Ivo.Panacek@regionet.cz)
  *    French translation: Vincent Poty (vincent.poty@bigfoot.com)
  *    German translation: Arne Nickel (arne.nickel@gmx.de)
  *    Portugues translation: Rui A. Rebelo (rui.rebe@zaz.com.br)
@@ -26,6 +27,110 @@
  */
 
 #include "fixed_resources.h"
+
+TRANSLATION "czech"
+begin
+    "$$DOC"="Dok"
+    "$$FONTS"="Fonty"
+    "$$CONFIGURE CONTROLS"="Nastavit ovládání"
+    "$$ROTATE"="Rotovat"
+    "$$SPACING"="Øádkování"
+    "$$GOTO PER"="Jdi na %"
+
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+        " 1998-1999 Bill Clagett\n"\
+        "wtc@pobox.com\n\n"\
+        "Zdrojový kód tohoto programu je íøen podle "\
+        "GNU General Public License (GPL). Mùete ji nalézt "\
+        "na: http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "Zdrojový kód a poslední verze jsou k dispozici na: "\
+        "www.pobox.com/~wtc/palmos/cspotrun/."\
+        ""\
+        "Contributors:\n\n"\
+        "Ivo Panacek\nIvo.Panacek@regionet.cz\Czech translation\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
+
+    "$$CONTROLS HELP"="Kadý checkbox odpovídá ovládacímu prvku na displeji. "\
+                                "Vyberte si prvky, které chcete mít viditelné.\n\n"\
+                                "Zvate, zda neskrýt ty prvky, které uíváte zøídka.. "\
+                                "Vimnìte si, e vechny prvky mají odpovídající poloky v menu."
+    "$$GLOBAL PREFS HELP"=" Nastavením \'Pøehodit nahoru/dolu pøi pøevrácení\' "\
+                                    "se zamìní tlaèítka nahoru a dolu v situaci, kdy "\
+                                    "je obrazovka pøevrácena.\n\n"\
+                                    "Nastavením \'Uka øádku z pøedchozí strany\' zachováte "\
+                                    "pøi posunu o stránku viditelnou jednu øádku ze stránky pøedchozí.\n\n"\
+                                    "Nastavením \'uknutí\' zvolíte, jaká akce se vykoná, "\
+                                    "kdy uknete na displej."
+    "$$NO DOCS"="Nenael jsem ádné DOC databáze!\n\nZkuste spustit CSpotRun znovu a po nainstalování jednoho èi dvou dokumentù."
+
+    "$$ERROR ALERT"="Ajajaj!"
+
+    "$$DELETE PROMPT"="Navdy smazat \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Globální nastavení"
+    "$$SWAP UPDOWN"="Pøehodit nahoru/dolu pøi pøevrácení"
+    "$$SHOW PREV LINE"="Uka øádku z pøedchozí strany"
+
+    "$$TAP ACTION"="uknutí"
+    "$$PAGE"="Strana"
+    "$$HALF PAGE"="\xBD Strana"
+    "$$LINE"="Øádka"
+
+    "$$TOP"="Zaèátek"
+    "$$BOTTOM"="Konec"
+
+    "$$LINE SPACING 1"="Øádkování 1    "
+    "$$LINE SPACING 2"="Øádkování 2"
+    "$$LINE SPACING 3"="Øádkování 3"
+    "$$LINE SPACING 4"="Øádkování 4"
+    "$$ROTATE RIGHT"="Rotace vpravo"
+    "$$ROTATE LEFT"="Rotace vlevo"
+    "$$OPTIONS"="Monosti"
+    "$$TOGGLE CONTROLS"="Zobrazit/skrýt ovládání "
+    "$$CONTROLSDDD"="Ovládací prvky..."
+    "$$PREFERENCESDDD"="Nastavení..."
+    "$$ABOUTDDD"="O aplikaci..."
+    "$$PICK DOC"="Vybrat Doc    "
+    "$$DELETE DOC"="Smazat Doc"
+    "$$CONFIRM DELETE"="Potvrïte smazání"
+    "$$CANCEL"="Neprovádìt"
+    "$$MAKE DEFAULT"="Udìlat souèasné nastavení výchozím "
+    "$$VIEW"="Uka"
+    "$$FONT 1"="Font 1"
+    "$$FONT 2"="Font 2"
+    "$$FONT 3"="Font 3"
+    "$$FONT 4"="Font 4"
+    
+    "$$FIND"="Hledat"
+    "$$FIND AGAIN"="Hledat dalí"
+    "$$FINDDDD"="Hledat..."
+    "$$FIND IN DOCUMENT"="Hledat v dokumentu"
+    "$$FIND PROMPT"="Hledat:"
+    "$$SEARCH FROM TOP"="Hledat od zaèátku"
+    "$$CASE SENSITIVE"="Rozliovat písmena"
+    "$$FIND BUTTON"="F"
+    "$$FIND AGAIN BUTTON"="FA"
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="G"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="R"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="F"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="P"
+*/    
+end
 
 TRANSLATION "english"
 begin
