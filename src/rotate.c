@@ -132,9 +132,13 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
     else
         dToPyte = 0;
 
-    if (a == angle90 || a == angle270)
+    if (a == angle90 || a == angle270) {
         while ((startRow * toBpp) % BITS_PER_PYTE)
             startRow--;
+        while ((stopRow * toBpp) % BITS_PER_PYTE)
+            stopRow++;
+        stopRow--;
+    }
 
     startingFromBitMask = ~((~(Pyte)0x0)>>fromBpp);
     for (fromY=startRow; fromY < fromHeight; fromY++)
