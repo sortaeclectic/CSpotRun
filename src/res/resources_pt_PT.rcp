@@ -14,9 +14,9 @@ begin
     "$$GOTO PER"="Ir para %"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
-    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Tipo e Velocidade de AutoRolagem:"
     "$$PIXEL"="Pixel"
-    "$$TOGGLE AUTOSCROLL"="Autorolagem com botão Addr. Book "
+    "$$TOGGLE AUTOSCROLL"="AutoRolagem c/ botão Addr.Book"
 #endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
