@@ -60,7 +60,7 @@ RCPS = $(foreach lang, $(LANGUAGES), $(RESDIR)/resources_$(lang).rcp)
 englishprconly: CSpotRun_english.prc
 allprcs: $(PRCS) 
 all: zips 
-zips: $(ZIPS) 
+zips: $(ZIPS) resources.zip 
 
 release: $(ZIPS) $(PRCS)
 	cp $(ZIPS) $(PRCS) $(OUTPUTDIR)
@@ -93,6 +93,9 @@ $(PROGNAME): $(OBJS)
 
 .o: 
 	$(CC) $(CFLAGS) -o $@
+
+resources.zip:
+	$(ZIP) -j $@ $(RCPS) 
 
 clean:
 	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(RESDIR)/resources.rcp $(LANGUAGES) $(ZIPS) 
