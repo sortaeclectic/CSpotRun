@@ -284,6 +284,9 @@ static void EventLoop()
                 // use Hard button 2 to toggle AutoScroll
                 if((e.data.keyDown.chr == pageDownChr))
                 {
+                    //todo: Replace these magic numbers with
+                    //macros. Hit prefsform.c's magic formulas too.
+
                     // lower autoscroll speed
                     if(appStatePtr->autoScrollType == ATYPE_PIXEL)
                     {
@@ -294,8 +297,8 @@ static void EventLoop()
                     else
                     {
                         appStatePtr->autoScrollSpeed1 += 10;
-                        if(appStatePtr ->autoScrollSpeed1 > 150)
-                            appStatePtr->autoScrollSpeed1 = 150;
+                        if(appStatePtr ->autoScrollSpeed1 > 230)
+                            appStatePtr->autoScrollSpeed1 = 230;
                     }
 
                     continue;
