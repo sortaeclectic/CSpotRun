@@ -2,20 +2,20 @@
  * CONTRIBUTORS:
  *  Swedish translation: Jonas Kämpe (jonas@ehand.com)
  */
-        
-        
-TRANSLATION "sv_SE" 
+
+
+TRANSLATION "sv_SE"
 begin
-    "$$DOC"="Dokument"
+    "$$DOC"="Dok"
     "$$FONTS"="Typsnitt"
     "$$CONFIGURE CONTROLS"="Kontrollinställningar"
     "$$ROTATE"="Rotera"
     "$$SPACING"="Radavstånd"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Textrullning"
-    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Textrullning, typ och hastighet:"
     "$$PIXEL"="Pixel"
-    "$$TOGGLE AUTOSCROLL"="Textrullning med adressboksknappen"
+    "$$TOGGLE AUTOSCROLL"="Textrullning på adressboksknapp"
 #endif
     "$$GOTO PER"="Gå till %"
 
@@ -29,15 +29,14 @@ begin
         "http://32768.com/cspotrun/\n\n"\
         ""\
         "Med bidrag från:\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nTextrullning\n"\
-        "Jonas Kämpe\jonas@ehand.com\nSvensk översättning\n"
-
+        "Jonas Kämpe\njonas@ehand.com\nSvensk översättning\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nTextrullning\n"
 
     "$$CONTROLS HELP"="Varje kryssruta motsvarar en kontroll på skärmen. "\
         "Välj de kontroller du vill ska synas.\n\n"\
         "Kanske vill du dölja kontroller du sällan använder. "\
         "Kom ihåg att alla kontroller alltid kan nås via menyerna."
-    "$$GLOBAL PREFS HELP"="Use the \'Växla upp/ner när liggande\' väljs för att växla "\
+        "$$GLOBAL PREFS HELP"="\'Växla upp/ner när liggande\' väljs för att växla "\
             "funktionen på sid-upp- och sid-ner-knapparna när "\
             "texten är vänd liggande.\n\n"\
             "Använd \'Visa rad från föregående sida\' för att upprepa den sista "\
@@ -59,8 +58,8 @@ begin
     "$$HALF PAGE"="\xBD sida"
     "$$LINE"="Rad"
 
-    "$$TOP"="Top"
-    "$$BOTTOM"="Bottom"
+    "$$TOP"="Start"
+    "$$BOTTOM"="Slut"
 
     "$$LINE SPACING 1"="Radavstånd 1      "
     "$$LINE SPACING 2"="Radavstånd 2"
