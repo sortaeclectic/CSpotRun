@@ -140,7 +140,7 @@ static void  _guiToPrefs()
 #ifdef ENABLE_AUTOSCROLL
 void _updateAutoScrollSpeed(int selection)
 {
-    appStatePtr->autoScrollSpeed = ((selection + 4) * 10);
+    appStatePtr->autoScrollSpeed = ((selection + 1) * 5);
 
     StrPrintF(scrollSpeedString, "%d", appStatePtr->autoScrollSpeed);
 

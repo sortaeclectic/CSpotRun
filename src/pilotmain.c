@@ -35,6 +35,7 @@
 #include "searchform.h"
 #endif
 
+
 DWord PilotMain(Word cmd, Ptr cmdPBP, Word launchFlags);
 static void StartApp();
 static void EventLoop();
@@ -118,7 +119,7 @@ static void InitAppState()
     appStatePtr->reversePageUpDown = 0;
     appStatePtr->showPreviousLine = 1;
 #ifdef ENABLE_AUTOSCROLL
-    appStatePtr->autoScrollSpeed = 60;
+    appStatePtr->autoScrollSpeed = 20;
 #endif
     appStatePtr->tapAction = TA_PAGE;
     DocPrefs_initPrefs(&appStatePtr->defaultDocPrefs, "");
@@ -157,8 +158,9 @@ static void EventLoop()
     Word err;
     Long timeout;
 #ifdef ENABLE_AUTOSCROLL
-    Boolean stopAutoScroll = false;
+    Boolean autoScrollStopped = false;
 #endif
+
     do
     {
 #ifdef ENABLE_AUTOSCROLL
@@ -183,7 +185,29 @@ static void EventLoop()
             }
             else if(e.eType == penDownEvent)
             {
-                stopAutoScroll = true;
+                autoScrollStopped = true;
+            }
+            else if(e.eType == keyDownEvent)
+            {
+                // use Hard button 2 to toggle AutoScroll
+                if((e.data.keyDown.chr == pageDownChr))
+                {
+                    // lower autoscroll speed
+                    appStatePtr->autoScrollSpeed += 5;
+                    if(appStatePtr ->autoScrollSpeed > 50)
+                        appStatePtr->autoScrollSpeed = 50;
+
+                    continue;
+                }
+                else if((e.data.keyDown.chr == pageUpChr))
+                {
+                    // raise autoscroll speed.
+                    appStatePtr->autoScrollSpeed -= 5;
+                    if(appStatePtr ->autoScrollSpeed < 5)
+                        appStatePtr->autoScrollSpeed = 5;
+
+                    continue;
+                }
             }
         }
 #else
@@ -196,11 +220,12 @@ static void EventLoop()
                     FrmDispatchEvent(&e);
 
 #ifdef ENABLE_AUTOSCROLL
-        if (stopAutoScroll)
+        if(autoScrollStopped)
         {
-            stopAutoScroll = false;
-			if (MainForm_AutoScrollEnabled())
+			//Check again here, we might be toggling it back on.
+            if (MainForm_AutoScrollEnabled())
                 MainForm_ToggleAutoScroll();
+            autoScrollStopped = false;
         }
 #endif
     } while(e.eType != appStopEvent);
@@ -235,6 +260,7 @@ static Boolean AppHandleEvent(EventType *e)
 #ifdef ENABLE_SEARCH
                 case formID_search:
                     newFormEventHandler = SearchFormHandleEvent;
+                    break;
 #endif
             }
             if (newFormEventHandler)

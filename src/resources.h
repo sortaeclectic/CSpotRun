@@ -86,6 +86,7 @@
 #define alertID_about            1900
 #define alertID_error            1901
 #define alertID_confirmDelete    1902
+
 #define FONT_BUTTON_COUNT 4
 #define pushID_font0        2000
 #define pushID_font1        2001

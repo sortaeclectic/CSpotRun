@@ -26,3 +26,8 @@ Boolean         Doc_inBottomHalf();
 int             Doc_translatePageButton(int dir);
 void            Doc_makeSettingsDefault();
 void            Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop, Boolean caseSensitive, Word formId);
+
+#ifdef ENABLE_AUTOSCROLL
+void            Doc_pixelScroll();
+void            Doc_pixelScrollClear();
+#endif

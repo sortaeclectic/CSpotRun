@@ -50,7 +50,11 @@ int RotateY(int x, int y, OrientationType a)
 //
 // This is going to hurt a little. Try to relax.
 
+#ifdef ENABLE_AUTOSCROLL
+void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, int ow, int oh, OrientationType a)
+#else
 void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
+#endif
 {
     register Pyte  fromPyte;
     int toX, toY;               //writing to
@@ -88,8 +92,13 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
         toRowPytes = (toWindowH->gDeviceP->rowBytes * 8) / BITS_PER_PYTE;
         fromBpp = fromWindowH->gDeviceP->pixelSize;
         toBpp = toWindowH->gDeviceP->pixelSize;
+#ifdef ENABLE_AUTOSCROLL
+        fromWidth = ow;
+        fromHeight = oh;
+#else
         fromWidth = fromWindowH->displayWidthV20;
         fromHeight = fromWindowH->displayHeightV20;
+#endif
         toWidth = toWindowH->displayWidthV20;
         toHeight = toWindowH->displayHeightV20;
     }
@@ -98,10 +107,15 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
         //OS2
         SWord x,y;
 
+#ifdef ENABLE_AUTOSCROLL
+        fromWidth = ow;
+        fromHeight = oh;
+#else
         WinSetDrawWindow(fromWindowH);
         WinGetWindowExtent(&x,&y);
         fromWidth = x;
         fromHeight = y;
+#endif
 
         WinSetDrawWindow(toWindowH);
         WinGetWindowExtent(&x,&y);

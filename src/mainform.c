@@ -346,7 +346,8 @@ static void _openDefaultDoc()
         // No documents installed here!
         noDocsH = DmGetResource(strRsc, stringID_noDocs);
         FrmCustomAlert(alertID_error, (CharPtr) MemHandleLock(noDocsH), " ", " ");
-        MemHandleUnlock(noDocsH); DmReleaseResource(noDocsH);
+        MemHandleUnlock(noDocsH);
+        DmReleaseResource(noDocsH);
 
         // Start the App app (from page 72 of ref2.pdf)
         newEvent.eType = keyDownEvent;
@@ -415,6 +416,8 @@ void MainForm_ToggleAutoScroll()
     autoScrollEnabled = ! autoScrollEnabled;
 
     _drawAutoScrollGadget();
+
+    Doc_pixelScrollClear();
 }
 
 void MainForm_UpdateAutoScroll()
@@ -422,8 +425,7 @@ void MainForm_UpdateAutoScroll()
     if(autoScrollEnabled == true)
     {
         EvtResetAutoOffTimer();
-        Doc_linesDown(1);
-        Doc_drawPage();
+        Doc_pixelScroll();
         _updatePercent();
     }
 }
