@@ -31,7 +31,7 @@ begin
 	""\
         "Contributi:\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"\
-	"Mad IP Adress\nbadipadress@yahoo.com\nTraduzione in italiano\n\n"\
+	"Mad IP Adress\nbadipadress@yahoo.com\nTraduzione in italiano\n\n"
 
     "$$CONTROLS HELP"="Ogni checkbox corrisponde ad un controllo sullo schermo. "\
                                 "Selezionare i controlli da rendere visibili.\n\n"\
