@@ -32,16 +32,17 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-static void        HandleFormOpenEvent();
-static void        HandleFormCloseEvent();
-static Boolean    _PrefsFormHandleEvent(EventType *e);
-static void        _prefsToGui();
-static void        _guiToPrefs();
+static void        HandleFormOpenEvent() PREFS_SEGMENT;
+static void        HandleFormCloseEvent()  PREFS_SEGMENT;
+static Boolean    _PrefsFormHandleEvent(EventType *e)  PREFS_SEGMENT;
+static void        _prefsToGui() PREFS_SEGMENT;
+static void        _guiToPrefs() PREFS_SEGMENT;
 
 #ifdef ENABLE_AUTOSCROLL
 static Char         scrollSpeedString0[] = "xxx";
 static Char         scrollSpeedString1[] = "xxx";
-static void         _updateAutoScrollSpeed(int which, int selection);
+static void         
+_updateAutoScrollSpeed(int which, int selection)  PREFS_SEGMENT;
 #endif
 
 

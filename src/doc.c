@@ -1044,7 +1044,7 @@ static Boolean _findString(Char* haystack, Char* needle,
 
 static void _movePastWord()
 {
-    while (! TxtGlueCharIsSpace(gDoc.decodeBuf[_docPrefs.location.ch])
+    while (! TxtGlueCharIsSpace((UInt8)gDoc.decodeBuf[_docPrefs.location.ch])
             && '\0' != gDoc.decodeBuf[_docPrefs.location.ch])
     {
         _docPrefs.location.ch++;

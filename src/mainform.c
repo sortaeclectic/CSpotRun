@@ -33,35 +33,35 @@
 #include "bmk.h"
 #include "bmknamefrm.h"
 
-static void        HandleFormOpenEvent();
-static void        HandleFormCloseEvent();
-static Boolean    _MainFormHandleEvent(EventType *e);
-static void        HandleDocSelect(int documentIndex);
+static void        HandleFormOpenEvent() MAINFORM_SEGMENT;
+static void        HandleFormCloseEvent() MAINFORM_SEGMENT;
+static Boolean    _MainFormHandleEvent(EventType *e) MAINFORM_SEGMENT;
+static void        HandleDocSelect(int documentIndex) MAINFORM_SEGMENT;
 
-static void        _drawLineSpacingGadgets();
-static void        _drawJustifyGadget();
-static void        _drawLineSpacingGadget(int index);
-static void        _changeLineSpacing(int index);
+static void        _drawLineSpacingGadgets() MAINFORM_SEGMENT;
+static void        _drawJustifyGadget() MAINFORM_SEGMENT;
+static void        _drawLineSpacingGadget(int index) MAINFORM_SEGMENT;
+static void        _changeLineSpacing(int index) MAINFORM_SEGMENT;
 
 #ifdef ENABLE_BMK
-static void        _redrawBmkList(void);
-static void        _popupBmkEd(void);
+static void        _redrawBmkList(void) MAINFORM_SEGMENT;
+static void        _popupBmkEd(void) MAINFORM_SEGMENT;
 #endif
 
 #ifdef ENABLE_AUTOSCROLL
-static void         _drawAutoScrollGadget();
+static void         _drawAutoScrollGadget() MAINFORM_SEGMENT;
 #endif
 
-static void         _changeJustification();
-static void         _changeHyphenation();
+static void         _changeJustification() MAINFORM_SEGMENT;
+static void         _changeHyphenation() MAINFORM_SEGMENT;
 
-static void        _openDefaultDoc();
-static void        _deleteDoc();
-static void        _updatePercent();
-static void        _setHandyPointers();
-static void        _scroll(int direction, enum TAP_ACTION_ENUM ta);
-static void        _layoutForm();
-static void        _rotate(int dir);
+static void        _openDefaultDoc() MAINFORM_SEGMENT;
+static void        _deleteDoc() MAINFORM_SEGMENT;
+static void        _updatePercent() MAINFORM_SEGMENT;
+static void        _setHandyPointers() MAINFORM_SEGMENT;
+static void        _scroll(int direction, enum TAP_ACTION_ENUM ta) MAINFORM_SEGMENT;
+static void        _layoutForm() MAINFORM_SEGMENT;
+static void        _rotate(int dir) MAINFORM_SEGMENT;
 
 
 FormPtr     formPtr;

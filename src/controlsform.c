@@ -31,11 +31,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-static void        HandleFormOpenEvent();
-static void        HandleFormCloseEvent();
-static Boolean    _ControlsFormHandleEvent(EventType *e);
-static void        _setStates();
-static UInt16        _getStates();
+static void        HandleFormOpenEvent() PREFS_SEGMENT;
+static void        HandleFormCloseEvent() PREFS_SEGMENT;
+static Boolean    _ControlsFormHandleEvent(EventType *e) PREFS_SEGMENT;
+static void        _setStates() PREFS_SEGMENT;
+static UInt16        _getStates() PREFS_SEGMENT;
 
 FormPtr        formPtr;
 

@@ -1,2 +1,3 @@
 application { "CSpotRun" CSBR } 
-multiple code { bmk tt }
+multiple code { bmk /*tt*/ ucgui prefs decode rotate mf}
+

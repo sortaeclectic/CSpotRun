@@ -49,7 +49,7 @@ void Tab_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y)
     while (chars < tooFar)
     {
         c = *chars;
-        if (!TxtGlueCharIsCntrl(c))
+        if (!TxtGlueCharIsCntrl((UInt8)c))
             chars++;
         else
         {
@@ -120,7 +120,7 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
 
 
     // if the char next to the last one is an alpha, then we make hyphenation
-    if (( (*p) != '-') && TxtGlueCharIsAlpha(chars[len]))
+    if (( (*p) != '-') && TxtGlueCharIsAlpha((UInt8)chars[len]))
         bHyphen=1;
 
     old = start[0] = chars;
@@ -494,7 +494,7 @@ void savePDB (MemPtr cmdPBP)
 
 # define tolower(c) \
     ({ unsigned char __x = (c); \
-     TxtGlueCharIsUpper(__x) ? (__x - 'A' + 'a') : __x;})
+     TxtGlueCharIsUpper((UInt8)__x) ? (__x - 'A' + 'a') : __x;})
 
 //
 // Make the real hyphenation
@@ -537,7 +537,7 @@ UInt16 room, hlevel, hn;
 
     hyf[1] = 0; hyf[hn-1] = 0; hyf[hn] = 0; hyf[hn-2] = 0;
     for (j = 0; j<hn; j++) {
-        if (!TxtGlueCharIsAlpha(word[j])) {
+        if (!TxtGlueCharIsAlpha((UInt8)word[j])) {
             hyf[j+1] = 0;
             hyf[j+2] = 0;
             hyf[j] = 0;

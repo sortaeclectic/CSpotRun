@@ -1,2 +1,3 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
-Boolean ControlsFormHandleEvent(EventType *e);
+#include "segments.h"
+Boolean ControlsFormHandleEvent(EventType *e) PREFS_SEGMENT;
