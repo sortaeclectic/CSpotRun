@@ -25,10 +25,17 @@
 #include "docprefs.h"
 #include "appstate.h"
 
-#define dbType    'DCPF'
+#define PERDOC_PREFS_DB_TYPE    'DCPF'
+
+static char _startupDocName[dmDBNameLength] = "";
 
 ////////////////////////////////////////////////////////////////////////////////
 //
+
+void DocPrefs_setStartupDocName(char startupDocName[dmDBNameLength])
+{
+    StrNCopy(_startupDocName, startupDocName, dmDBNameLength);
+}
 
 void DocPrefs_savePrefs(struct DOC_PREFS_STR * prefs)
 {
@@ -38,10 +45,10 @@ void DocPrefs_savePrefs(struct DOC_PREFS_STR * prefs)
     Boolean                    recFound = false;
 
     //Open Db
-    prefDbRef = DmOpenDatabaseByTypeCreator(dbType, appId, dmModeReadWrite);
+    prefDbRef = DmOpenDatabaseByTypeCreator(PERDOC_PREFS_DB_TYPE, appId, dmModeReadWrite);
     if (!prefDbRef)
     {
-        Err err = DmCreateDatabase(0, "CSpotRunPrefs", appId, dbType, false);
+        Err err = DmCreateDatabase(0, "CSpotRunPrefs", appId, PERDOC_PREFS_DB_TYPE, false);
         ErrFatalDisplayIf(err, "k");
         DocPrefs_savePrefs(prefs);
         return;
@@ -96,7 +103,7 @@ void DocPrefs_loadPrefs(char name[dmDBNameLength], struct DOC_PREFS_STR * prefsP
     struct DOC_PREFS_STR *p = NULL;
 
     //Open Db
-    prefDbRef = DmOpenDatabaseByTypeCreator(dbType, appId, dmModeReadWrite);
+    prefDbRef = DmOpenDatabaseByTypeCreator(PERDOC_PREFS_DB_TYPE, appId, dmModeReadWrite);
     if (prefDbRef)
     {
         //Adjust to defaults in case load fails.
@@ -131,7 +138,15 @@ void DocPrefs_getRecentDocName(char name[dmDBNameLength])
     DmOpenRef            prefDbRef = NULL;
 
     name[0]='\0';
-    prefDbRef = DmOpenDatabaseByTypeCreator(dbType, appId, dmModeReadWrite);
+
+    // If a docname is already specified, use that
+    if (_startupDocName[0] != '\0') {
+        StrCopy(name, _startupDocName);
+        _startupDocName[0]='\0';
+        return;
+    }
+
+    prefDbRef = DmOpenDatabaseByTypeCreator(PERDOC_PREFS_DB_TYPE, appId, dmModeReadWrite);
     if (prefDbRef)
     {
         if(DmNumRecords(prefDbRef) > 0)
@@ -168,7 +183,7 @@ void DocPrefs_cleanUpPrefs()
     Boolean                    deleteThis;
 
     //Open Db
-    prefDbRef = DmOpenDatabaseByTypeCreator(dbType, appId, dmModeReadWrite);
+    prefDbRef = DmOpenDatabaseByTypeCreator(PERDOC_PREFS_DB_TYPE, appId, dmModeReadWrite);
     if (!prefDbRef)
         return;
 

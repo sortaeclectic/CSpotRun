@@ -31,6 +31,7 @@
 #include "appstate.h"
 #include "ucgui.h"
 #include "prefsform.h"
+#include "docprefs.h"
 #ifdef ENABLE_SEARCH
 #include "searchform.h"
 #endif
@@ -49,6 +50,14 @@ VoidHand searchStringHandle;
 Boolean    searchFromTop;
 #endif
 
+#ifndef SysAppLaunchCmdOpenDBType
+        typedef struct {
+                Word cardNo;
+                LocalID dbID;
+        } SysAppLaunchCmdOpenDBType;
+
+        #define sysAppLaunchCmdOpenDB 52
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -56,12 +65,29 @@ Boolean    searchFromTop;
 
 DWord PilotMain(Word cmd, Ptr cmdPBP, Word launchFlags)
 {
+    Word      cardNo = ((SysAppLaunchCmdOpenDBType*)cmdPBP)->cardNo;
+    LocalID   dbID = ((SysAppLaunchCmdOpenDBType*)cmdPBP)->dbID;
+    ULong                   type, creator;
+
+    if (cmd == sysAppLaunchCmdOpenDB) {
+        // get the type/creator for this DB so we can see if it's a DOC file
+        char startupDocName[dmDBNameLength];
+        DmDatabaseInfo(cardNo, dbID, startupDocName, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &type, &creator);
+        if (!(type == 'TEXt' && creator == 'REAd')) {
+                FrmCustomAlert(alertID_error, "You cannot open this type of database with CSpotRun. ", " ", " ");
+                return 1;
+        }
+        DocPrefs_setStartupDocName(startupDocName);
+        cmd = sysAppLaunchCmdNormalLaunch;
+    }
+
     if (cmd == sysAppLaunchCmdNormalLaunch)
     {
         StartApp();
         EventLoop();
         StopApp();
     }
+
     return 0;
 }
 
@@ -86,6 +112,7 @@ static void StartApp()
             InitAppState();
     }
     prefsSize = 0;
+
 #ifdef ENABLE_SEARCH
     if (noPreferenceFound == PrefGetAppPreferences(appId, PREF_SEARCHSTRING, NULL, &prefsSize, true))
     {
@@ -225,7 +252,7 @@ static void EventLoop()
 #ifdef ENABLE_AUTOSCROLL
         if(autoScrollStopped)
         {
-			//Check again here, we might be toggling it back on.
+            //Check again here, we might be toggling it back on.
             if (MainForm_AutoScrollEnabled())
                 MainForm_ToggleAutoScroll();
             autoScrollStopped = false;

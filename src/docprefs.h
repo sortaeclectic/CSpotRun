@@ -25,5 +25,5 @@ void DocPrefs_savePrefs(struct DOC_PREFS_STR * prefs);
 void DocPrefs_getRecentDocName(char name[dmDBNameLength]);
 void DocPrefs_cleanUpPrefs();
 void DocPrefs_initPrefs(struct DOC_PREFS_STR *p, char name[dmDBNameLength]);
-
+void DocPrefs_setStartupDocName(char startupDocName[dmDBNameLength]);
 #endif
