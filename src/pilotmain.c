@@ -172,8 +172,8 @@ static void InitAppState()
     appStatePtr->reversePageUpDown  = 0;
     appStatePtr->showPreviousLine   = 1;
 #ifdef ENABLE_AUTOSCROLL
-    appStatePtr->autoScrollSpeed0   = 20;
-    appStatePtr->autoScrollSpeed1   = 60;
+    appStatePtr->autoScrollSpeed0   = 25;
+    appStatePtr->autoScrollSpeed1   = 120;
     appStatePtr->autoScrollButton   = 1;
     appStatePtr->autoScrollType     = ATYPE_PIXEL;
 #endif
