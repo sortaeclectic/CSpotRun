@@ -31,17 +31,17 @@
 
 #ifdef ENABLE_BMK
 
-/* bookmark current selection, should be set before */
-/* opening this form, if not set (-1 by default)    */
-/* then new bookmark will be added, otherwise       */
-/* this value regarded as a selection in the list   */
-/* the corresponding bookmark will be renamed       */
-int bmkCurSel = -1;
+/* global variable                          */
+/* all users of name form read the typed    */
+/* string from this variable                */
+/* it will contain empty string if the user */
+/* canceled the operation                   */
+char bmkName[BMK_NAME_SIZE + 1];
 
 static Boolean  _BmkNameFormHandleEvent(EventType *e);
 
-FormPtr     formPtr;
-FieldPtr    nameFieldPtr;
+static FormPtr     formPtr;
+static FieldPtr    nameFieldPtr;
 
 Boolean BmkNameFormHandleEvent(EventType *e)
 {
@@ -54,10 +54,18 @@ Boolean BmkNameFormHandleEvent(EventType *e)
     return handled;
 }
 
+/*
+ * bmk name form will enqueue bmkNameFrmOkEvt event
+ * if the bookmark name has been typed and the user
+ * pressed ok
+ * the caller can catch this event and read 'bmkName'
+ * global variable for the name
+ */
 static Boolean _BmkNameFormHandleEvent(EventType *e)
 {
-    EventType listRedrawEvt = {bmkListRedrawEvt, 0, 0, 0, {}};
+    EventType bmkNameOkEvt = {bmkNameFrmOkEvt, 0, 0, 0, {}};
     Err err = 0;
+    CharPtr fStr;
 
     switch(e->eType)
     {
@@ -65,24 +73,17 @@ static Boolean _BmkNameFormHandleEvent(EventType *e)
         switch (e->data.ctlSelect.controlID)
         {
         case buttonID_ok:
-            if(bmkCurSel != -1) {
-                err = BmkRename(bmkCurSel,
-                    FldGetTextPtr(nameFieldPtr));
-            } else {
-                err = BmkAdd(FldGetTextPtr(nameFieldPtr), 0);
+            fStr = FldGetTextPtr(nameFieldPtr);
+            if(fStr) {
+                /* only if the user typed something */
+                StrNCopy(bmkName, fStr, BMK_NAME_SIZE);
+                bmkName[BMK_NAME_SIZE] = '\0';
+                EvtAddEventToQueue(&bmkNameOkEvt);
+                FrmReturnToForm(0);
             }
-
-            if(err)
-                BmkReportError(err);
-
-            bmkCurSel = -1;
-
-            EvtAddEventToQueue(&listRedrawEvt);
-            FrmReturnToForm(0);
             return true;
 
         case buttonID_cancel:
-            bmkCurSel = -1;
             FrmReturnToForm(0);
             return true;
         }
@@ -90,9 +91,10 @@ static Boolean _BmkNameFormHandleEvent(EventType *e)
 
     case frmOpenEvent:
         formPtr = FrmGetActiveForm();
-            nameFieldPtr = FrmGetObjectPtr(formPtr,
+        nameFieldPtr = FrmGetObjectPtr(formPtr,
             FrmGetObjectIndex(formPtr, fieldID_bmkName));
         FldSetMaxChars(nameFieldPtr, BMK_NAME_SIZE);
+	bmkName[0] = '\0';
         FrmDrawForm(formPtr);
         FrmSetFocus(formPtr,
             FrmGetObjectIndex(formPtr, fieldID_bmkName));

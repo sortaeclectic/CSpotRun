@@ -3,7 +3,7 @@
 #define _BMKNAMEFRM_H_
 
 #ifdef ENABLE_BMK
-extern int bmkCurSel;
+extern char bmkName[];
 
 Boolean BmkNameFormHandleEvent(EventType *e);
 #endif

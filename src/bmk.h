@@ -25,7 +25,8 @@
 #define bmkErrDocNotOpened	(bmkErrorClass | 0x0001)
 
 
-#define bmkListRedrawEvt        0x6001
+#define bmkNameFrmOkEvt         0x6001
+#define bmkRedrawListEvt        0x6002
 
 
 /* actions for BmkMove() */

@@ -48,7 +48,7 @@ Boolean BmkSortFormHandleEvent(EventType *e)
 
 static Boolean _BmkSortFormHandleEvent(EventType *e)
 {
-    EventType listRedrawEvt = {bmkListRedrawEvt, 0, 0, 0, {}};
+    EventType listRedrawEvt = {bmkRedrawListEvt, 0, 0, 0, {}};
     Err err;
 
     switch(e->eType)

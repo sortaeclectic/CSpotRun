@@ -35,8 +35,8 @@ STDDEP = Makefile resources.h app.h appstate.h callback.h
 CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH ENABLE_AUTOSCROLL ENABLE_BMK
 DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt)) -DNON_INTERNATIONAL 
 
-#CFLAGS = -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
-CFLAGS = -O2 $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
+CFLAGS = -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
+#CFLAGS = -O2 $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
 
 RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) defined[tmp[s]]=""; d=0}\
 					{\
@@ -105,27 +105,35 @@ depend:
 	makedepend -Y -- $(CFLAGS) -- *.c 
 # DO NOT DELETE
 
-bmk.o: bmk.h appstate.h docprefs.h doc.h rotate.h resources.h
-bmkedfrm.o: resources.h callback.h bmkedfrm.h bmknamefrm.h bmk.h
-bmknamefrm.o: resources.h callback.h bmknamefrm.h bmk.h
-bmksortfrm.o: resources.h callback.h bmksortfrm.h bmk.h
-controlsform.o: resources.h callback.h app.h appstate.h docprefs.h
-controlsform.o: controlsform.h ucgui.h mainform.h
+
+bmkedfrm.o: bmkedfrm.h bmk.h bmknamefrm.h callback.h resources.h
+bmknamefrm.o: bmk.h bmknamefrm.h callback.h resources.h
+bmk.o: appstate.h bmk.h doc.h docprefs.h resources.h rotate.h
+bmksortfrm.o: bmk.h bmksortfrm.h callback.h resources.h
+controlsform.o: app.h appstate.h callback.h controlsform.h docprefs.h
+controlsform.o: mainform.h resources.h ucgui.h
 decode.o: decode.h
-doc.o: appstate.h docprefs.h rotate.h doc.h resources.h mainform.h decode.h
-doc.o: tabbedtext.h bmk.h
-doclist.o: app.h doclist.h rotate.h appstate.h docprefs.h doc.h
-docprefs.o: doclist.h rotate.h docprefs.h appstate.h
-fontselect.o: resources.h appstate.h docprefs.h rotate.h fontselect.h doc.h
-mainform.o: resources.h mainform.h callback.h app.h doclist.h rotate.h
-mainform.o: appstate.h docprefs.h doc.h ucgui.h fontselect.h bmk.h
-pilotmain.o: app.h resources.h mainform.h controlsform.h bmknamefrm.h
-pilotmain.o: bmkedfrm.h bmksortfrm.h bmk.h appstate.h docprefs.h ucgui.h
-pilotmain.o: prefsform.h searchform.h
-prefsform.o: resources.h callback.h app.h appstate.h docprefs.h
-prefsform.o: controlsform.h ucgui.h mainform.h doc.h rotate.h
-rotate.o: rotate.h app.h
-searchform.o: resources.h callback.h app.h appstate.h docprefs.h searchform.h
-searchform.o: mainform.h doc.h rotate.h
+doclist.o: app.h appstate.h doc.h doclist.h docprefs.h rotate.h
+doc.o: appstate.h bmk.h decode.h doc.h docprefs.h mainform.h resources.h
+doc.o: rotate.h tabbedtext.h /usr/include/bits/local_lim.h
+doc.o: /usr/include/bits/posix1_lim.h /usr/include/bits/posix2_lim.h
+doc.o: /usr/include/bits/stdio_lim.h /usr/include/bits/wordsize.h
+doc.o: /usr/include/bits/xopen_lim.h /usr/include/features.h
+doc.o: /usr/include/gnu/stubs.h /usr/include/limits.h
+doc.o: /usr/include/linux/limits.h /usr/include/sys/cdefs.h
+doc.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/limits.h
+doc.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/syslimits.h
+docprefs.o: appstate.h doclist.h docprefs.h rotate.h
+fontselect.o: appstate.h doc.h docprefs.h fontselect.h resources.h rotate.h
+mainform.o: app.h appstate.h bmk.h bmknamefrm.h callback.h doc.h doclist.h
+mainform.o: docprefs.h fontselect.h mainform.h resources.h rotate.h ucgui.h
+pilotmain.o: app.h appstate.h bmkedfrm.h bmk.h bmknamefrm.h bmksortfrm.h
+pilotmain.o: controlsform.h docprefs.h mainform.h prefsform.h resources.h
+pilotmain.o: searchform.h ucgui.h
+prefsform.o: app.h appstate.h callback.h controlsform.h doc.h docprefs.h
+prefsform.o: mainform.h resources.h rotate.h ucgui.h
+rotate.o: app.h rotate.h
+searchform.o: app.h appstate.h callback.h doc.h docprefs.h mainform.h
+searchform.o: resources.h rotate.h searchform.h
 tabbedtext.o: tabbedtext.h
-ucgui.o: resources.h ucgui.h appstate.h docprefs.h fontselect.h
+ucgui.o: appstate.h docprefs.h fontselect.h resources.h ucgui.h

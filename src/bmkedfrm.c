@@ -35,8 +35,9 @@
 
 static Boolean	_BmkEdFormHandleEvent(EventType *e);
 
-FormPtr	formPtr;
-ListPtr	listPtr;
+
+static FormPtr	formPtr;
+static ListPtr	listPtr;
 
 Boolean BmkEdFormHandleEvent(EventType *e)
 {
@@ -53,14 +54,17 @@ Boolean BmkEdFormHandleEvent(EventType *e)
 /*
  * this form works with the bookmark list and so before
  * returning to any other form it should enqueue
- * bmkListRedrawEvt to give a chance any other user of
+ * bmkRedrawListEvt to give a chance any other user of
  * the bookmark subsystem redraw their lists
  */
 static Boolean _BmkEdFormHandleEvent(EventType *e)
 {
-	EventType listRedrawEvt = {bmkListRedrawEvt, 0, 0, 0, {}};
-	UInt16 sel;
+	EventType listRedrawEvt = {bmkRedrawListEvt, 0, 0, 0, {}};
 	Err err;
+
+	/* sel is static because it needs to keep selection */
+	/* position after returning from the bmknamefrm */
+	static UInt16 sel = noListSelection;
 
 	switch(e->eType)
 	{
@@ -69,7 +73,6 @@ static Boolean _BmkEdFormHandleEvent(EventType *e)
 		{
 		case buttonID_cancel:
 			EvtAddEventToQueue(&listRedrawEvt);
-			/* FrmUpdateForm(formID_main, 0); */
 			FrmReturnToForm(0);
 			return true;
 
@@ -79,7 +82,7 @@ static Boolean _BmkEdFormHandleEvent(EventType *e)
 				return true;
 
 			BmkGoTo(sel, 0);
-			FrmUpdateForm(formID_main, 0);
+			EvtAddEventToQueue(&listRedrawEvt);
 			FrmReturnToForm(0);
 			return true;
 
@@ -89,13 +92,21 @@ static Boolean _BmkEdFormHandleEvent(EventType *e)
 				return true;
 
 			err = BmkDelete(sel);
+
+			/* if current list selection is 0  */
+			/* then, since sel is unsigned,    */
+			/* substricting of 1 will wrap sel */
+			/* and it will hold 0xffff which is */
+			/* equal to 'noListSelection'      */
+			if(sel == LstGetNumberOfItems(listPtr) - 1)
+				sel--;
+
 			goto RET_REDRAW;
 
 		case buttonID_bmkRename:
 			sel = LstGetSelection(listPtr);
 			if(sel == noListSelection)
 				return true;
-			bmkCurSel = sel;
 		    	FrmPopupForm(formID_bmkName);
 			return true;
 
@@ -106,8 +117,7 @@ static Boolean _BmkEdFormHandleEvent(EventType *e)
 
 			err = BmkMove(MOVE_UP, sel);
 
-			if(!err)
-				LstSetSelection(listPtr, sel ? sel - 1 : 0);
+			if(!err) sel = sel ? --sel : 0;
 
 			goto RET_REDRAW;
 
@@ -121,8 +131,7 @@ static Boolean _BmkEdFormHandleEvent(EventType *e)
 
 			err = BmkMove(MOVE_DOWN, sel);
 
-			if(!err)
-				LstSetSelection(listPtr, sel + 1);
+			if(!err) sel++;
 
 			goto RET_REDRAW;
 		}
@@ -130,6 +139,7 @@ static Boolean _BmkEdFormHandleEvent(EventType *e)
 
 
 	case frmOpenEvent:
+		sel = noListSelection;
 		formPtr = FrmGetActiveForm();
 		listPtr = FrmGetObjectPtr(formPtr,
 			FrmGetObjectIndex(formPtr, listID_bmkEd));
@@ -137,8 +147,10 @@ static Boolean _BmkEdFormHandleEvent(EventType *e)
 		FrmDrawForm(formPtr);
 		return true;
 
-	case bmkListRedrawEvt:
-		err = 0;
+
+	case bmkNameFrmOkEvt:
+		/* rename the bookmark, new name is in 'bmkName' */
+		err = BmkRename(sel, bmkName);
 		goto RET_REDRAW;
 	}
 	
@@ -148,10 +160,10 @@ RET_REDRAW:
 	if(!err) {
 		err = BmkPopulateList(listPtr, 0, 0);
 		LstDrawList(listPtr);
-	}
-
-	if(err)
+		LstSetSelection(listPtr, sel);
+	} else {
 		BmkReportError(err);
+	}
 
 	return true;
 }

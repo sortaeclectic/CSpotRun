@@ -34,6 +34,7 @@
 #include "ucgui.h"
 #include "fontselect.h"
 #include "bmk.h"
+#include "bmknamefrm.h"
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +49,7 @@ static void        _drawLineSpacingGadget(int index);
 static void        _changeLineSpacing(int index);
 
 #ifdef ENABLE_BMK
-static void        _repositionBmkList(void);
+static void        _redrawBmkList(void);
 #endif
 
 #ifdef ENABLE_AUTOSCROLL
@@ -242,7 +243,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
 
                     if (FrmAlert(alertID_bmkConfirmDel) == 0) {
 		        BmkDeleteAll();
-                        FrmUpdateForm(formID_main, 0);
+                        _redrawBmkList();
 		    }
 		    return true;
 #endif
@@ -265,19 +266,16 @@ static Boolean _MainFormHandleEvent(EventType *e)
         case frmUpdateEvent:
             if (e->data.frmUpdate.formID == formID_main)
             {
+#ifdef ENABLE_BMK
+		_redrawBmkList();
+#endif
+
                 FrmDrawForm(formPtr);
                 Doc_drawPage();
                 _updatePercent();
                 _drawLineSpacingGadgets();
 #ifdef ENABLE_AUTOSCROLL
                 _drawAutoScrollGadget();
-#endif
-
-#ifdef ENABLE_BMK
-		err = BmkPopulateList(bmkListPtr, 1, 1);
-		if(err)
-			BmkReportError(err);
-		_repositionBmkList();
 #endif
                 return true;
             }
@@ -331,12 +329,17 @@ static Boolean _MainFormHandleEvent(EventType *e)
             return false;
 
 #ifdef ENABLE_BMK
-	case bmkListRedrawEvt:
-	    err = BmkPopulateList(bmkListPtr, 1, 1);
-	    if(err)
+        case bmkNameFrmOkEvt:
+            /* add the bookmark, new name is in 'bmkName' */
+            err = BmkAdd(bmkName, 0);
+            if(err)
                 BmkReportError(err);
-            _repositionBmkList();
-	    return true;
+            _redrawBmkList();
+            return true;
+
+        case bmkRedrawListEvt:
+            _redrawBmkList();
+            return true;
 #endif
     }
     return false;
@@ -614,10 +617,15 @@ static void        _rotate(int dir)
 #endif
 
 #ifdef ENABLE_BMK
-void _repositionBmkList(void)
+void _redrawBmkList(void)
 {
 	RectangleType r;
 	RectangleType rf;
+	Err err;
+
+	err = BmkPopulateList(bmkListPtr, 1, 1);
+	if(err)
+		BmkReportError(err);
 
 	FrmGetFormBounds(formPtr, &rf);
 	FrmGetObjectBounds(formPtr, bmkListIndex, &r);
