@@ -793,7 +793,7 @@ begin
     "$$ROTATE"="Döndürme"
     "$$SPACING"="Satýr Aralarý"
 #ifdef ENABLE_AUTOSCROLL
-    "$$AUTOSCROLL"="Otomatik Kaydýrma"
+    "$$AUTOSCROLL"="Oto. Kaydýrma"
     "$$AUTOSCROLLSPEED"="Otomatik Kaydýrma Hýzý:"
 #endif
     "$$GOTO PER"="%\'ye Git"
@@ -801,9 +801,9 @@ begin
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         "© 1998-1999 Bill Clagett\n"\
         "bill@32768.com\n\n"\
-        "Bu programýn kaynak kodu GNU General Public"\
-        "License (GPL) kurallarý altýnda daðýtýlmýþtýr"\
-        "Þu adresten temin edilebilir:"\
+        "Bu programýn kaynak kodu GNU General Public "\
+        "License (GPL) kurallarý altýnda daðýtýlmýþtýr "\
+        "Þu adresten temin edilebilir: "\
         "http://www.gnu.org/copyleft/gpl.html\n\n"\
         "Kaynak kodu ve son sürümü ise aþaðýdaki adresten bulunabilir: "\
         "http://32768.com/cspotrun/\n\n"\
@@ -816,14 +816,14 @@ begin
                                 "Görülmesini istediðiniz kontrolleri seçiniz.\n\n"\
                                 "Az kullandýðýnýz kontrolleri gizlemeyi düþünebilirsiniz. "\
                                 "Bütün kontrollerin karþý düþen menü seçenekleri de vardýr."
-    "$$GLOBAL PREFS HELP"="Ekran yan döndürüldüðünde sayfa yukarý ve sayfa aþaðý butonlarýnýn"\
-                                 "fonksiyonunu ters çevirmek için"\
-                                 "\'Döndürmede yukarý/aþaðý butonunu ters çevir\' seçeneðini"\
+    "$$GLOBAL PREFS HELP"="Ekran yan döndürüldüðünde sayfa yukarý ve sayfa aþaðý butonlarýnýn "\
+                                 "fonksiyonunu ters çevirmek için "\
+                                 "\'Dönünce yuk/aþ butonu takas et\' seçeneðini "\
                                  "kullanýnýz.\n\n"\
-                                    "Sayfalar arasý yukarý aþaðý gittiðinizde önceki"\ 
-                                    "sayfanýn son satýrýný görmek istiyorsanýz"\   
-                                    " \'Önceki sayfadan satýr göster\' seçeneðini kullanýnýz.\n\n"\
-                                    "\'týklayýnca\' seçeneði ekrana týkladýðýnýzda"\
+                                    "Sayfalar arasý yukarý aþaðý gittiðinizde önceki "\ 
+                                    "sayfanýn son satýrýný görmek istiyorsanýz "\   
+                                    " \'Önceki sayfadan satýr göster\' seçeneðini  kullanýnýz.\n\n"\
+                                    "\'týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
                                     "ne yapýlmasý gerektiðini belirler.\n\n"\
                                     "\'Otomatik Kaydýrma Hýzý\' seçeneði ile otomatik kaydýrmanýn hýzýný ayarlayabilirsiniz. "\
                                     "100 sayýsý saniyede 1 satýr kaydýrmaya karþý düþer, 60-80 tavsiye edilen deðerlerdir."
@@ -833,12 +833,12 @@ begin
 
     "$$DELETE PROMPT"="Tamamen sileyim mi \"^1\"?"
     "$$GLOBAL PREFERENCES"="Genel Tercihler"
-    "$$SWAP UPDOWN"="Döndürmede yukarý/aþaðý butonunu ters çevir"
+    "$$SWAP UPDOWN"="Dönünce yuk/aþ butonu takas et"
     "$$SHOW PREV LINE"="Önceki sayfadan satýr göster"
 
     "$$TAP ACTION"="Týklayýnca"
-    "$$PAGE"="Sayfa"
-    "$$HALF PAGE"="\xBD Sayfa"
+    "$$PAGE"="Syf."
+    "$$HALF PAGE"="\xBD Syf."
     "$$LINE"="Satýr"
 
     "$$TOP"="Baþý"
@@ -896,7 +896,6 @@ begin
     "$$SC PREFERENCESDDD"="P"
 */    
 end
-
 
 FORM ID formID_main AT ( 0 0 160 160 )
 NOFRAME
