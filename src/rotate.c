@@ -38,6 +38,8 @@ typedef UInt16 Pyte;
 static int sinTable[] = {0,  1,  0, -1};
 static int cosTable[] = {1,  0, -1,  0};
 
+static Boolean gDisableRotation = false;
+
 int RotateY(int x, int y, OrientationType a)
 {
     return Y_ROTATE(x,y,a);
@@ -314,11 +316,19 @@ void RotScrollRectangleUp(RectangleType *rect, OrientationType o)
 
 }
 
+void RotDisableRotation()
+{
+    gDisableRotation = true;
+}
+
 Boolean RotCanDoRotation() 
 {
     UInt32 version;
     Err err = 0;
     
+    if (gDisableRotation)
+        return false;
+
     err = FtrGet(sysFtrCreator, sysFtrNumWinVersion, &version);
 
     if (err)

@@ -27,6 +27,7 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a) ROT
 
 int RotateY(int x, int y, OrientationType a) ROTATE_SEGMENT;
 Boolean RotCanDoRotation();
+void RotDisableRotation();
 
 #endif /* ENABLE_ROTATION */
 #endif
