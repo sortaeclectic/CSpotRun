@@ -15,9 +15,9 @@ begin
     "$$GOTO PER"="GeheZu %"
     "$$PICK DOC"="Dok ausw‰hlen"
     "$$AUTOSCROLL"="Auto-Bildlauf"
-    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$AUTOSCROLL TYPE AND SPEED"="Auto-Bildlauf Typ und Rate:"
     "$$PIXEL"="Pixel"
-    "$$TOGGLE AUTOSCROLL"="Auto-Bildlauf mit Adreﬂbuchknopf"
+    "$$TOGGLE AUTOSCROLL"="Auto-Bildlauf mit Adressentaste"
 
     "$$GLOBAL PREFERENCES"="Allgemeine Einstellungen"
     "$$SWAP UPDOWN"="Tausche Bildlauftasten"
@@ -91,6 +91,8 @@ begin
         "Die \'Tippen\'-Schaltfl‰chen steuern den Umfang des Bl‰tterns, "\
         "wenn Sie mit dem Stift auf die obere bzw. untere H‰lfte des "\
         "Bildschirms tippen.\n\n"\
+        "Der automatische Bildlauf kann mit der Taste der Addressbuchanwendung "\
+        "ein- und ausgeschaltet werden.\n\n"\
         "Der Eintrag im Feld \'Geschwindigkeit'\ bestimmt die Geschwindigkeit des "\
         "automatischen Bildlaufs und wird in 100stel Sekunden angegeben. Ein guter "\
         "Richtwert liegt zwischen 15 und 25."
