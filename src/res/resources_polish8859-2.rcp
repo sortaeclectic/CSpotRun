@@ -93,6 +93,33 @@ begin
     "$$CASE SENSITIVE"="Uwzglêdniaj wielko¶æ liter"
     "$$FIND BUTTON"="Z"
     "$$FIND AGAIN BUTTON"="ZP"
+
+    "$$BOOKMARKS"="Bookmarks" 
+    "$$EDIT BOOKMARKS"="Bookmarks..." 
+    "$$EDIT BOOKMARKS LIST"="* Bookmarks..." 
+    "$$DEL ALL BOOKMARKS"="Del All Bookmarks" 
+    "$$SORT BOOKMARKS"="Sort Bookmarks..." 
+    "$$ADD BOOKMARK"="Add Bookmark..." 
+    "$$ADD BOOKMARK LIST"="* Add Bookmark..." 
+    "$$ADD BOOKMARK TITLE"="Add Bookmark" 
+    "$$NAME BOOKMARK"="Name Bookmark" 
+    "$$NAME"="Name" 
+    "$$DUP NAME"="Bookmark with this name already exists. What would you want to do?" 
+    "$$REPLACE"="Replace" 
+    "$$NEW"="Create New" 
+    "$$MOVE UP"="Move Up" 
+    "$$MOVE DOWN"="Move Down" 
+    "$$RENAME"="Rename" 
+    "$$DELETE"="Delete" 
+    "$$DONE"="Done" 
+    "$$GOTO"="GoTo" 
+    "$$SORT BOOKMARKS"="Sort Bookmarks" 
+    "$$POSITION"="Position" 
+    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..." 
+    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?" 
+    "$$NO MEMORY"="Not Enough Memory" 
+    "$$BMK DOC NOT OPENED"="Document is not opened" 
+
 /*
     // Want to internationalize the menu shortcuts.
     // Need to fix pilrc to do this.
