@@ -16,7 +16,9 @@ OUTPUTDIR = ../output
 RESDIR = ./res
 GNUTURDS = ../copying.txt ../readme.txt
 PROGNAME = CSpotRun
+ifndef VERSION
 VERSION = dev 
+endif
 APPID = CSBR
 LANGUAGES = chinese czech dutch english estonian french \
             german italian polish polish1250 polish8859-2\
