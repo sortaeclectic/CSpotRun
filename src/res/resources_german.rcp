@@ -14,31 +14,31 @@ begin
     "$$SPACING"="Zeilenabstand"
     "$$GOTO PER"="GeheZu %"
 
-    "$$BOOKMARKS"="Bookmarks"
-    "$$EDIT BOOKMARKS"="Bookmarks..."
-    "$$EDIT BOOKMARKS LIST"="* Bookmarks..."
-    "$$DEL ALL BOOKMARKS"="Del All Bookmarks"
-    "$$SORT BOOKMARKS"="Sort Bookmarks..."
-    "$$ADD BOOKMARK"="Add Bookmark..."
-    "$$ADD BOOKMARK LIST"="* Add Bookmark..."
-    "$$ADD BOOKMARK TITLE"="Add Bookmark"
-    "$$NAME BOOKMARK"="Name Bookmark"
+    "$$BOOKMARKS"="Lesezeichen"
+    "$$EDIT BOOKMARKS"="Lesezeichen..."
+    "$$EDIT BOOKMARKS LIST"="* Lesezeichen..."
+    "$$DEL ALL BOOKMARKS"="Alle Lesezeichen löschen"
+    "$$SORT BOOKMARKS"="Lesezeichen sortieren..."
+    "$$ADD BOOKMARK"="Neues Lesezeichen..."
+    "$$ADD BOOKMARK LIST"="* Lesezeichen hinzufügen..."
+    "$$ADD BOOKMARK TITLE"="Lesezeichen hinzufügen"
+    "$$NAME BOOKMARK"="Lesezeichen benennen"
     "$$NAME"="Name"
-    "$$DUP NAME"="Bookmark with this name already exists. What would you want to do?"
-    "$$REPLACE"="Replace"
-    "$$NEW"="Create New"
-    "$$MOVE UP"="Move Up"
-    "$$MOVE DOWN"="Move Down"
-    "$$RENAME"="Rename"
-    "$$DELETE"="Delete"
-    "$$DONE"="Done"
-    "$$GOTO"="GoTo"
-    "$$SORT BOOKMARKS"="Sort Bookmarks"
+    "$$DUP NAME"="Ein Lesezeichen mit diesem Namen gibt es bereits. Wie möchten Sie fortfahren?"
+    "$$REPLACE"="Ersetzen"
+    "$$NEW"="Neu"
+    "$$MOVE UP"="Nach oben"
+    "$$MOVE DOWN"="Nach unten"
+    "$$RENAME"="Umbenennen"
+    "$$DELETE"="Löschen"
+    "$$DONE"="Fertig"
+    "$$GOTO"="Gehezu"
+    "$$SORT BOOKMARKS"="Lesezeichen sortieren"
     "$$POSITION"="Position"
-    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..."
-    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?"
-    "$$NO MEMORY"="Not Enough Memory"
-    "$$BMK DOC NOT OPENED"="Document is not opened"
+    "$$SORT BOOKMARKS BY"="Sortiere Lesezeichen nach..."
+    "$$BMK DELETE PROMPT"="Lesezeichen endgültig löschen?"
+    "$$NO MEMORY"="Zuwenig freier Speicher"
+    "$$BMK DOC NOT OPENED"="Dokument ist nicht geöffnet"
 
     "$$PICK DOC"="Dok auswählen"
     "$$AUTOSCROLL"="Auto-Bildlauf"
@@ -97,7 +97,7 @@ begin
         ""\
         "Beiträge von:\n\n"\
         "Arne Nickel\narne.nickel@gmx.de\nDeutsche Übersetzung\n\n"\
-        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nLesezeichen\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-Bildlauf\n"
 
     "$$DELETE PROMPT"="Dokument \"^1\" endgültig löschen?"
@@ -121,7 +121,7 @@ begin
         "Bildschirms tippen.\n\n"\
         "Der automatische Bildlauf kann mit der Taste der Addressbuchanwendung "\
         "ein- und ausgeschaltet werden.\n\n"\
-        "Der Eintrag im Feld \'Geschwindigkeit'\ bestimmt die Geschwindigkeit des "\
+        "Der Eintrag im Feld \'Typ und Rate'\ bestimmt die Geschwindigkeit des "\
         "automatischen Bildlaufs und wird in 100stel Sekunden angegeben. Ein guter "\
         "Richtwert liegt zwischen 15 und 25."
 
