@@ -66,7 +66,7 @@ begin
                           "NastavenÌm \'çuknutÌ\' zvolÌte, jak· akce se vykon·, "\
                           "kdyû ùuknete na displej.\n\n"\
                           "\'Rychlost samoposuvu\' nastavÌ rychlost automatickÈho "\
-                          "posunu v setin·ch vte¯iny. Lze doporuËit 60-80."
+                          "posunu v setin·ch vte¯iny. Lze doporuËit 15-25."
     "$$NO DOCS"="Nenaöel jsem û·dnÈ DOC datab·ze!\n\nZkuste spustit CSpotRun znovu aû po nainstalov·nÌ jednoho Ëi dvou dokument˘."
 
     "$$ERROR ALERT"="Ajajaj!"
@@ -174,7 +174,8 @@ begin
                                     "The \'tap action\' choice controls what action is performed with you "\
                                     "tap on the screen.\n\n"\
                                     "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
-                                    "are in 100ths of a second. 60-80 is the recommended speed."
+                                    "are in 100ths of a second. 15-25 is the recommended speed. While autoscrolling,"\
+                                    "the page up and page down buttons can be used to adjust the speed."
     "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
 
     "$$ERROR ALERT"="Oops!"
@@ -321,7 +322,7 @@ begin
         "L'option \'Tape' dÈfinit l'ampleur de dÈfilement du texte lorsque "\
         "le stylet touche le document ‡ l'Ècran.\n\n"\
         "Le champ \'Vitesse de dÈfilement\' spÈcifie la vitesse de dÈfilement "\
-        "automatique du texte en 100Ëmes de seconde (60-80 sont des valeurs recommandÈes)."
+        "automatique du texte en 100Ëmes de seconde (15-25 sont des valeurs recommandÈes)."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installÈ !\n\n"\
                 "Essayez ‡ nouveau CSpotRun aprËs avoir installÈ un ou "\
@@ -450,7 +451,7 @@ begin
         "de la p·gina anterior cuando cambia de p·gina.\n\n"\
         "\'AcciÛn al tocar\' controla cu·nto se mueve la p·gina cuando toca la pantalla con el l·piz Ûptico.\n\n"\
         "Use la opciÛn  \'Velocidad de autoscroll\' para controlar la velocidad de lectura. Los n˙meros "\
-        "est·n en centÈsimas de segundo. 60-80 es la velocidad recomendada."
+        "est·n en centÈsimas de segundo. 15-25 es la velocidad recomendada."
         
     "$$NO DOCS"="°No hay documentos instalados!\n\nPor favor pruebe CSpotRun"\
         "de nuevo, despuÈs de instalar al menos un documento."
@@ -548,7 +549,7 @@ begin
         "Bildschirms tippen.\n\n"\
         "Der Eintrag im Feld \'Geschwindigkeit'\ bestimmt die Geschwindigkeit des "\
         "automatischen Bildlaufs und wird in 100stel Sekunden angegeben. Ein guter "\
-        "Richtwert liegt zwischen 60 und 80."
+        "Richtwert liegt zwischen 15 und 25."
 
     "$$NO DOCS"="Es sind keine Dokumente installiert!\n\nBitte starten Sie CSpotRun erneut,"\
         "nachdem Sie ein oder mehrere Dokumente installiert haben."
@@ -594,7 +595,7 @@ begin
                              "A escolha de \'AÁ„o de toque\' controla que aÁ„o È executada quando "\
                              "vocÍ toca a tela.\n\n"\
                              "Use a opÁ„o \'Veloc. de Auto Rolagem\' para controlar a velocidade de rolagem autom·tica. Os n˙meros "\
-                             "est„o em centÈsimos de segundo. 60-80 È a velocidade recomendada."
+                             "est„o em centÈsimos de segundo. 15-25 È a velocidade recomendada."
     "$$NO DOCS"="N„o h· arquivos DOC instalados!\n\nPor favor tente novamente o CSpotRun depois de instalar um ou dois documentos."
 
     "$$ERROR ALERT"="Oops!"
@@ -806,7 +807,7 @@ DEFAULTBTNID buttonID_ok
 BEGIN
     TITLE "$$FIND IN DOCUMENT"
     LABEL "$$FIND PROMPT" ID 9001 AT (10 20)
-    FIELD ID fieldID_searchString AT (PREVRIGHT+2 PREVTOP 113 auto) UNDERLINED USABLE EDITABLE DYNAMICSIZE MAXCHARS 40
+    FIELD ID fieldID_searchString AT (PREVRIGHT+2 PREVTOP 113 auto) UNDERLINED USABLE EDITABLE DYNAMICSIZE MULTIPLELINES MAXCHARS 40
 
     CHECKBOX "$$CASE SENSITIVE" ID checkboxID_caseSensitive at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
     CHECKBOX "$$SEARCH FROM TOP" ID checkboxID_searchFromTop at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
