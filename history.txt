@@ -54,3 +54,8 @@ Fixed little memory stomper in the upside-down case.
 
 Option to use pixel or line autoscrolling from Daniel Zahn (sclug@sclug.org).
 Split the resource file up into pieces, as suggested by Ivo Panecek a long time ago.
+
+2/2000
+
+Made it work under OS3.5.
+Always switch into 1-bit mode.

@@ -1,6 +1,4 @@
-#include "http://www.pobox.com/~wtc/palmos/cspotrun"
-
-Make the rotation stuff work on 3.5? Is it finally possible without touching memory manually?
+#include "http://32768.com/cspotrun"
 
 Replace the "F" and "FA" on the find and find again buttons with meaningful pictures for internationalization's sake.
 
