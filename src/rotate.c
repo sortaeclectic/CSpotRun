@@ -40,13 +40,6 @@ int RotateY(int x, int y, OrientationType a)
     return Y_ROTATE(x,y,a);
 }
 
-static int getBpp()
-{
-    DWord depth;
-    ScrDisplayMode(scrDisplayModeGet, NULL, NULL, &depth, NULL);
-    return (int) depth;
-}
-
 // This is all crap, of course.
 //
 // It will surely break on the next os or device. If the API gave us
@@ -63,7 +56,7 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
 
     Byte* to =        toWindowH->displayAddrV20;
     Byte* from =    fromWindowH->displayAddrV20;
-
+    Byte fromByte;
     BytePtr fromPtr;
     int dToXdFromY, dToYdFromY; //Change in to coords per change in from y coords
 
@@ -87,7 +80,7 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
 
     if (fromWindowH->gDeviceP)
     {
-        //OS2
+        //OS3
         fromRowBytes = fromWindowH->gDeviceP->rowBytes;
         toRowBytes = toWindowH->gDeviceP->rowBytes;
         fromBpp = fromWindowH->gDeviceP->pixelSize;
@@ -99,7 +92,7 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
     }
     else
     {
-        //OS3
+        //OS2
         SWord x,y;
 
         WinSetDrawWindow(fromWindowH);
@@ -114,7 +107,7 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
 
         fromBpp = 1;
         fromRowBytes = 20;//(fromWidth*fromBpp+7)/8;
-        toBpp = getBpp();
+        toBpp = 1;
         toRowBytes = 20;//(toWidth*toBpp+7)/8;
     }
 
@@ -171,10 +164,11 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
             }
         }
 
+        fromByte = *fromPtr;
         for (; fromX < fromWidth; fromX++)
         {
             //If any bit in the from-pixel is on, make a black to-pixel.
-            if (*fromPtr & fromBitMask)
+            if (fromByte & fromBitMask)
                 *toByte |= toBitMask;
             //else
                 //*toByte &= ~toBitMask;
@@ -214,6 +208,7 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
                 //We left this fromByte, move to the next
                 fromBitMask = startingFromBitMask;
                 fromPtr++;
+                fromByte = *fromPtr;
             }
         }
     }
