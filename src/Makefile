@@ -4,16 +4,17 @@
 # TODO: get some gnow-it-all to make this more gnu-like.
 # TODO: dist target
 #
+# On Windows, I have to set MAKEMODE=UNIX in my environment to make
+# this work.
 
-CC = m68k-palmos-coff-gcc
+CC = m68k-palmos-gcc -palmos3.1
 ZIP = zip
 PILRC = pilrc -q
-OBJRES = m68k-palmos-coff-obj-res
+OBJRES = m68k-palmos-obj-res
 BUILDPRC = build-prc
 OUTPUTDIR = ../output
 RESDIR = ./res
 GNUTURDS = ../copying.txt ../readme.txt
-
 PROGNAME = CSpotRun
 VERSION = dev 
 APPID = CSBR
