@@ -4,7 +4,7 @@ pushd .
 
 set V1=1
 set V2=0
-set V3=3
+set V3=4
 
 rem ### TAG is the CVS tag.
 set TAG=CSPOTRUN_%V1%_%V2%
