@@ -32,6 +32,7 @@
 #include "ucgui.h"
 #include "bmk.h"
 #include "bmknamefrm.h"
+#include "sonyclie.h"
 
 static void        HandleFormOpenEvent() MAINFORM_SEGMENT;
 static void        HandleFormCloseEvent() MAINFORM_SEGMENT;
@@ -334,14 +335,19 @@ static Boolean _MainFormHandleEvent(EventType *e)
     break;
     case keyDownEvent:
         switch (e->data.keyDown.chr)
-        {
-        case pageDownChr:
-            _scroll(Doc_translatePageButton(PAGEDIR_DOWN), TA_PAGE);
-            return true;
-        case pageUpChr:
-            _scroll(Doc_translatePageButton(PAGEDIR_UP), TA_PAGE);
-            return true;
-        }
+            {
+            case pageDownChr:
+            case vchrJogDown:
+                _scroll(Doc_translatePageButton(PAGEDIR_DOWN), TA_PAGE);
+                return true;
+            case pageUpChr:
+            case vchrJogUp:
+                _scroll(Doc_translatePageButton(PAGEDIR_UP), TA_PAGE);
+                return true;
+            case vchrJogPush:
+                MainForm_ToggleAutoScroll();
+                return true;
+            }
         break;
     case frmOpenEvent:
         HandleFormOpenEvent();
@@ -349,7 +355,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
     case frmCloseEvent:
         HandleFormCloseEvent();
         return false;
-
+        
 #ifdef ENABLE_BMK
     case bmkNameFrmOkEvt:
         /* add the bookmark, new name is in 'bmkName' */
