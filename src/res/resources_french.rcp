@@ -33,7 +33,7 @@ begin
     "$$DONE"="OK"
     "$$GOTO"="Aller à"
     "$$POSITION"="Position"
-    "$$SORT BOOKMARKS BY"="Classer les signets selon leur :"
+    "$$SORT BOOKMARKS BY"="Classer les signets selon :"
     "$$BMK DELETE PROMPT"="Effacer définitivement tous les signets ?"
     "$$NO MEMORY"="Mémoire insuffisante"
     "$$BMK DOC NOT OPENED"="Document non ouvert"
