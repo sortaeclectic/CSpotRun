@@ -163,7 +163,7 @@ void Doc_open(UInt16 cardNo, LocalID dbID, char name[dmDBNameLength])
     ErrFatalDisplayIf(!gDoc.record0Handle, "b");
 
     gDoc.record0Ptr = (struct RECORD0_STR *) MemHandleLock(gDoc.record0Handle);
-    ErrFatalDisplayIf(!gDoc.record0Ptr, "c");
+    ErrFatalDisplayIf(!gDoc.record0Ptr, "c"); 
 
     //allocate decode buffer
     gDoc.decodeBufLen
@@ -189,7 +189,6 @@ void Doc_open(UInt16 cardNo, LocalID dbID, char name[dmDBNameLength])
 #else
     gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens);
 #endif
-    
     //load prefs for this document
     DocPrefs_loadPrefs(name, &_docPrefs);
 
@@ -880,7 +879,6 @@ static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
 {
     UInt32 storyLen = 0;
     UInt16 i, *a, *b;
-
     // look if the wRecordsSize if filled and complete
     if ((!force)
         && (MemPtrSize (gDoc.record0Ptr) >= sizeof(struct RECORD0_STR))
@@ -894,24 +892,7 @@ static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
             storyLen += *(b++);
         }
     }
-    else {
-        // Resize record0 to hold the table if the file is read/write
-        // Compute it and fill the table
-        
-        if (gDoc.dbMode == dmModeReadWrite) {
-            MemHandleUnlock(gDoc.record0Handle);
-
-            gDoc.record0Handle = DmResizeRecord(gDoc.dbRef, 0,
-                (UInt32)(sizeof (struct RECORD0_STR)
-                         + gDoc.numRecs*sizeof(UInt16)));
-            ErrFatalDisplayIf(!gDoc.record0Handle, "DmResizeRecord");
-
-            gDoc.record0Ptr
-                = (struct RECORD0_STR *)MemHandleLock(gDoc.record0Handle);
-            ErrFatalDisplayIf(!gDoc.record0Ptr, "c");
-        }
-
-
+    else {        
         for (i = 0; i < gDoc.numRecs; i++)
         {
             recLens[i]
@@ -919,15 +900,36 @@ static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
             storyLen += recLens[i];
         }
 
+        // Resize record0 to hold the table if the file is read/write
+        
         if (gDoc.dbMode == dmModeReadWrite) {
-            DmWrite (gDoc.record0Ptr,
-                 sizeof (struct RECORD0_STR) - sizeof(UInt16),
-                 recLens,
-                 sizeof(UInt16)*gDoc.numRecs);
+            MemHandle h;
+            
+            MemHandleUnlock(gDoc.record0Handle);
+            
+            h = DmResizeRecord(gDoc.dbRef, 0,
+                               (UInt32)(sizeof (struct RECORD0_STR)
+                                        + gDoc.numRecs*sizeof(UInt16)));
+            
+            if (h != NULL) { 
+                gDoc.record0Handle = h;
+            }
+
+            gDoc.record0Ptr
+                = (struct RECORD0_STR *)MemHandleLock(gDoc.record0Handle);
+
+            if (h != NULL) {
+                DmWrite (gDoc.record0Ptr,
+                         sizeof (struct RECORD0_STR) - sizeof(UInt16),
+                         recLens,
+                         sizeof(UInt16)*gDoc.numRecs);
+            }
+
+            ErrFatalDisplayIf(!gDoc.record0Ptr, "c");
         }
     }
     recLens[gDoc.numRecs - 1]++;//for the null at the end of the last record.
-
+    
     return ++storyLen;
 }
 #else
