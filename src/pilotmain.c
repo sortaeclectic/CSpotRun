@@ -37,7 +37,6 @@
 #include "searchform.h"
 #endif
 
-
 DWord PilotMain(Word cmd, Ptr cmdPBP, Word launchFlags);
 static void StartApp();
 static void EventLoop();
@@ -47,17 +46,17 @@ static void InitAppState();
 
 struct APP_STATE_STR *appStatePtr;
 #ifdef ENABLE_SEARCH
-VoidHand searchStringHandle;
-Boolean    searchFromTop;
+VoidHand    searchStringHandle;
+Boolean     searchFromTop;
 #endif
 
 #ifndef SysAppLaunchCmdOpenDBType
-        typedef struct {
-                Word cardNo;
-                LocalID dbID;
-        } SysAppLaunchCmdOpenDBType;
+typedef struct {
+    Word cardNo;
+    LocalID dbID;
+} SysAppLaunchCmdOpenDBType;
 
-        #define sysAppLaunchCmdOpenDB 52
+#define sysAppLaunchCmdOpenDB 52
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,18 +93,18 @@ DWord PilotMain(Word cmd, Ptr cmdPBP, Word launchFlags)
 
 Boolean UtilOSIsAtLeast(Byte reqMajor, Byte reqMinor)
 {
-	DWord romVersion;
-	Byte major, minor;
+    DWord romVersion;
+    Byte major, minor;
 
-	FtrGet(sysFtrCreator, sysFtrNumROMVersion, &romVersion);
-	major = sysGetROMVerMajor(romVersion);
-	minor = sysGetROMVerMinor(romVersion);
+    FtrGet(sysFtrCreator, sysFtrNumROMVersion, &romVersion);
+    major = sysGetROMVerMajor(romVersion);
+    minor = sysGetROMVerMinor(romVersion);
 
-	if (major > reqMajor)
-		return true;
-	if (major == reqMajor && minor >= reqMinor)
-		return true;
-	return false;
+    if (major > reqMajor)
+        return true;
+    if (major == reqMajor && minor >= reqMinor)
+        return true;
+    return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -120,15 +119,15 @@ static void StartApp()
 #endif
     DWord newDepth = 1;
 
-	if (UtilOSIsAtLeast(3,0))
-	{
-		DWord depth;
-		ScrDisplayMode(scrDisplayModeGetSupportedDepths, NULL, NULL, &depth, NULL);
-		if (depth & 0x1)
-			ScrDisplayMode(scrDisplayModeSet, NULL, NULL, &newDepth, NULL);
-		else
-		    ErrFatalDisplay("No 1-bit mode!");
-	}
+    if (UtilOSIsAtLeast(3,0))
+    {
+        DWord depth;
+        ScrDisplayMode(scrDisplayModeGetSupportedDepths, NULL, NULL, &depth, NULL);
+        if (depth & 0x1)
+            ScrDisplayMode(scrDisplayModeSet, NULL, NULL, &newDepth, NULL);
+        else
+            ErrFatalDisplay("No 1-bit mode!");
+    }
 
     appStatePtr = MemHandleLock(appStateHandle);
     if (noPreferenceFound == PrefGetAppPreferences(appId, PREF_APPSTATE, NULL, &prefsSize, true)
@@ -207,7 +206,7 @@ static void StopApp()
     MemHandleFree(searchStringHandle);
 #endif
     if (UtilOSIsAtLeast(3,0))
-    	ScrDisplayMode(scrDisplayModeSetToDefaults, NULL, NULL, NULL, NULL);
+        ScrDisplayMode(scrDisplayModeSetToDefaults, NULL, NULL, NULL, NULL);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -221,6 +220,7 @@ static void EventLoop()
     Word err;
 #ifdef ENABLE_AUTOSCROLL
     Boolean autoScrollStopped = false;
+    Long lastScrollTime = 0;
 #endif
 
     do
@@ -228,14 +228,35 @@ static void EventLoop()
 #ifdef ENABLE_AUTOSCROLL
         if(MainForm_AutoScrollEnabled())
         {
+            Long now;
+            Long interval;      //Desired time between scrolls.
+            Long elapsed;       //Time since previous start of drawing
+            Long timeToWait;    //Time to wait before nilEvent
+
             //todo: Time between frames is autoScrollSpeed+timeittakestodraw
             //Should subtract the time since last scroll from the timeout here
             //so that it will scroll at the same speed on future superfast Palm
             //devices.
             if(appStatePtr->autoScrollType == ATYPE_PIXEL)
-                EvtGetEvent(&e, appStatePtr->autoScrollSpeed0);
+                interval = appStatePtr->autoScrollSpeed0;
             else
-                EvtGetEvent(&e, appStatePtr->autoScrollSpeed1);
+                interval = appStatePtr->autoScrollSpeed1;
+
+            now = TimGetTicks();
+            if (now > lastScrollTime)
+                elapsed = now - lastScrollTime;
+            else
+                elapsed = 0;
+            if (elapsed < interval)
+                timeToWait = interval - elapsed;
+            else
+                timeToWait = 0;
+
+            //For diagnosing stutters...
+            //if (timeToWait == 0)
+            //    SndPlaySystemSound(sndClick);
+
+            EvtGetEvent(&e, timeToWait);
         }
         else
             EvtGetEvent(&e, evtWaitForever);
@@ -253,8 +274,10 @@ static void EventLoop()
         {
             if(e.eType == nilEvent)
             {
+                lastScrollTime = TimGetTicks();
                 MainForm_UpdateAutoScroll();
             }
+            //todo: move most of this event handling to mainform.c?
             else if(e.eType == penDownEvent)
             {
                 autoScrollStopped = true;

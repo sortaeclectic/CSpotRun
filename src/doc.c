@@ -73,6 +73,8 @@ struct RECORD0_STR
 //This is crap.
 //Should have a document structure to pass to the document functions, object style.
 
+//Also, the drawing stuff should be a seperate object. DocGadget, or something.
+
 VoidHand            _record0Handle = NULL;
 struct RECORD0_STR* _record0Ptr = NULL;
 DmOpenRef           _dbRef = NULL;
@@ -909,6 +911,11 @@ void Doc_pixelScroll()
     Boolean       endOfDocument;
 
     drawWindow = WinGetDrawWindow();
+    if (_docPrefs.orient == angle0)
+        WinScrollRectangle(&_textGadgetBounds, up, 1, &vacated);
+    else
+        RotScrollRectangleUp(&_textGadgetBounds, _docPrefs.orient);
+
     WinSetDrawWindow(osPageWindow);
 
     // if scrolled enough to draw a line, scroll down 1 and draw the page.
@@ -938,7 +945,6 @@ void Doc_pixelScroll()
     if (_docPrefs.orient == angle0)
     {
         RectangleType fromRect;
-        WinScrollRectangle(&_textGadgetBounds, up, 1, &vacated);
         //Now fill in the gap at the bottom
         fromRect.extent.x = _apparentTextBounds.extent.x;
         fromRect.extent.y = _lineHeight;
@@ -951,7 +957,6 @@ void Doc_pixelScroll()
     }
     else
     {
-        RotScrollRectangleUp(&_textGadgetBounds, _docPrefs.orient);
         // RotCopyWindow might copy a few rows before the row you tell it to,
         // since it needs to start on a pyte boundary. I think.
         RotCopyWindow(osPageWindow,
