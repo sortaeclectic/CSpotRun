@@ -77,7 +77,7 @@ begin
     "$$DELETE DOC"="Usuñ dokument"
     "$$CONFIRM DELETE"="Potwierdzenie usuwania"
     "$$CANCEL"="Anuluj"
-    "$$MAKE DEFAULT"="Te ustawienia domyœlnie"
+    "$$MAKE DEFAULT"="Ustaw domy?lnie"
     "$$VIEW"="Widok"
     "$$FONT 1"="Font 1"
     "$$FONT 2"="Font 2"
