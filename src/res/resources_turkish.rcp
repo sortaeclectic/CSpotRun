@@ -12,8 +12,8 @@ begin
     "$$SPACING"="Satýr Aralarý"
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Oto. Kaydýrma"
-    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
-    "$$PIXEL"="Pixel"
+    "$$AUTOSCROLL TYPE AND SPEED"="Oto. Kaydýrma Tipi ve Hýzý:"
+    "$$PIXEL"="Çizgi"
     "$$TOGGLE AUTOSCROLL"="Oto.Kaydýrma için Adres Butonu"
 #endif
     "$$GOTO PER"="%\'ye Git"
@@ -45,8 +45,9 @@ begin
                                     " \'Önceki sayfadan satýr göster\' seçeneðini  kullanýnýz.\n\n"\
                                     "\'týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
                                     "ne yapýlmasý gerektiðini belirler.\n\n"\
-                                    "\'Otomatik Kaydýrma Hýzý\' seçeneði ile otomatik kaydýrmanýn hýzýný ayarlayabilirsiniz. "\
-                                    "Sayýlar saniyenin 100 de 1 ine karþý düþmekte olup, 15-20 tavsiye edilen deðerlerdir.\n\n"\
+                                    "\'Oto.Kaydýrma Tipi ve Hýzý\' seçeneði ile otomatik kaydýrmanýn tipini ve hýzýný ayarlayabilirsiniz. "\
+                                    "Çizgi ve Satýr tiplerinde en uygun deðerler sýrasýyla  20 ve 60 dýr."\
+                                    "Kaydýrma esnasýnda yukarý aþaðý butonlarýna basarak kendinize en uygun hýzý ayarlayabilirsiniz.\n\n"\
                                     "\'Oto.Kaydýrma için Adres Butonu\' seçeneði aktif ise Otomatik Kaydýrma çalýþýrken Adres Defteri butonu ile durdurup devam ettirebilirsiniz."
 
     "$$NO DOCS"="Þu anda hiç DOC database yok!\n\nLütfen en az bir doküman yükledikten sonra CSpotRun\'ý yeniden çalýþtýrýn."
