@@ -1,6 +1,6 @@
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998,1999  by Bill Clagett (bill@32768.com)
+ * Copyright (C) 1998-2000  by Bill Clagett (bill@32768.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ begin
     "$$GOTO PER"="Jdi na %"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        " 1998-1999 Bill Clagett\n"\
+        " 1998-2000 Bill Clagett\n"\
         "bill@32768.com\n\n"\
         "Zdrojový kód tohoto programu je šíøen podle "\
         "GNU General Public License (GPL). Mùžete ji nalézt "\
@@ -155,7 +155,7 @@ begin
     "$$GOTO PER"="Goto %"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-1999 Bill Clagett\n"\
+        "© 1998-2000 Bill Clagett\n"\
         "bill@32768.com\n\n"\
         "The source code for this program is distributed under "\
         "the GNU General Public License (GPL). You may "\
@@ -297,7 +297,7 @@ begin
 
     "$$ABOUT TITLE"="A propos de CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-      "© 1998-1999 Bill Clagett\n"\
+      "© 1998-2000 Bill Clagett\n"\
       "bill@32768.com\n\n"\
       "Le code source de ce programme est distribué selon les "\
       "termes de la Licence Publique Générale GNU (GPL). Vous "\
@@ -429,7 +429,7 @@ begin
 
     "$$ABOUT TITLE"="Sobre CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-      "© 1998-1999 Bill Clagett\n"\
+      "© 1998-2000 Bill Clagett\n"\
       "bill@32768.com\n\n"\
       "El código fuente para este programa está distribuido "\
       "bajo la GNU General Public License (GPL). Puede "\
@@ -524,7 +524,7 @@ begin
 
     "$$ABOUT TITLE"="Über CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-1999 Bill Clagett\n"\
+        "© 1998-2000 Bill Clagett\n"\
         "bill@32768.com\n\n"\
         "Die Quelltexte dieses Programms werden unter der "\
         "GNU General Public License (GPL) veröffentlicht. Hinweise "\
@@ -580,7 +580,7 @@ begin
 #endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-1999 Bill Clagett\n"\
+        "© 1998-2000 Bill Clagett\n"\
         "bill@32768.com\n\n"\
         "O código fonte para este programa é distribuído sob "\
         "a GNU General Public License (GPL). Você poderá "\
@@ -691,7 +691,7 @@ begin
 #endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-1999 Bill Clagett\n"\
+        "© 1998-2000 Bill Clagett\n"\
         "bill@32768.com\n\n"\
         "O código fonte para este programa é distribuído sob "\
         "a GNU General Public License (GPL). Você poderá "\
@@ -803,7 +803,7 @@ begin
     "$$GOTO PER"="%\'ye Git"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
-        "© 1998-1999 Bill Clagett\n"\
+        "© 1998-2000 Bill Clagett\n"\
         "bill@32768.com\n\n"\
         "Bu programýn kaynak kodu GNU General Public "\
         "License (GPL) kurallarý altýnda daðýtýlmýþtýr "\
