@@ -314,9 +314,9 @@ static void EventLoop()
                     }
                     else
                     {
-                        appStatePtr->autoScrollSpeed1 -= 20;
-                        if(appStatePtr ->autoScrollSpeed1 < 20)
-                            appStatePtr->autoScrollSpeed1 = 20;
+                        appStatePtr->autoScrollSpeed1 -= 10;
+                        if(appStatePtr ->autoScrollSpeed1 < 100)
+                            appStatePtr->autoScrollSpeed1 = 100;
                     }
 
                     continue;
