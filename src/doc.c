@@ -45,7 +45,7 @@ static void         _setLineHeight();
 static void         _scrollUpIfLastPage();
 static DWord        _fixStoryLen(Word *recLens);
 static void         _postDecodeProcessing();
-static void         _drawPage(RectanglePtr boundsPtr, Boolean drawExtra);
+static void         _drawPage(RectanglePtr boundsPtr, Boolean drawOffscreenPart);
 static void         _setApparentTextBounds();
 static Boolean      _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos, Boolean caseSensitive);
 static void         _rewindToStartOfWord();
@@ -78,7 +78,7 @@ CharPtr             _decodeBuf = NULL;
 // These describe the state of _decodeBuf
 UShort              _decodeBufLen = 0;            //Size of buffer allocated
 UShort              _decodeLen = 0;               //Characters decoded
-UShort              _recordDecoded  0;            //The first record held in "_decodeBuf"
+UShort              _recordDecoded = 0;           //The first record held in "_decodeBuf"
 UShort              _decodedRecordLen = 0;        //Characters in record #_recordDecoded which were decoded
 
 DWord               _fixedStoryLen;
@@ -465,7 +465,7 @@ int Doc_translatePageButton(int dir)
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-static void _drawPage(RectanglePtr boundsPtr, Boolean drawExtra)
+static void _drawPage(RectanglePtr boundsPtr, Boolean drawOffscreenPart)
 {
     int        y = 0;
     int        charsOnRow = 0;
@@ -494,7 +494,7 @@ static void _drawPage(RectanglePtr boundsPtr, Boolean drawExtra)
     WinSetDrawWindow(osLineWindow);
     WinEraseRectangle(boundsPtr, 0);
 
-    if(drawExtra)
+    if(drawOffscreenPart)
         linesToShow = (boundsPtr->extent.y + _osExtraForAS) / _lineHeight;
     else
         linesToShow = (boundsPtr->extent.y) / _lineHeight;
@@ -503,10 +503,11 @@ static void _drawPage(RectanglePtr boundsPtr, Boolean drawExtra)
     p = & _decodeBuf[_docPrefs.location.ch];
 
 #ifdef ENABLE_AUTOSCROLL
-    if(MainForm_AutoScrollEnabled())
+    if(drawOffscreenPart)
     {
+		int offscreenLines = linesToShow - (boundsPtr->extent.y) / _lineHeight;
         // skip past all but the last line
-        while((linesToShow > 1) && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
+        while((linesToShow > offscreenLines) && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
         {
             y += _lineHeight;
             p += charsOnRow;
