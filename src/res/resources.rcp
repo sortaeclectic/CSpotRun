@@ -178,7 +178,7 @@ begin
                                     "The \'tap action\' choice controls what action is performed with you "\
                                     "tap on the screen.\n\n"\
                                     "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
-                                    "are in 100ths of a second. 60-80 is the recommended speed."
+                                    "are in 100ths of a second. 15-20 is the recommended speed."
     "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
 
     "$$ERROR ALERT"="Oops!"
@@ -826,7 +826,7 @@ begin
                                     "\'týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
                                     "ne yapýlmasý gerektiðini belirler.\n\n"\
                                     "\'Otomatik Kaydýrma Hýzý\' seçeneði ile otomatik kaydýrmanýn hýzýný ayarlayabilirsiniz. "\
-                                    "100 sayýsý saniyede 1 satýr kaydýrmaya karþý düþer, 60-80 tavsiye edilen deðerlerdir."
+                                    "100 sayýsý saniyede 1 satýr kaydýrmaya karþý düþer, 15-20 tavsiye edilen deðerlerdir."
     "$$NO DOCS"="Þu anda hiç DOC database yok!\n\nLütfen en az bir doküman yükledikten sonra CSpotRun\'ý yeniden çalýþtýrýn."
 
     "$$ERROR ALERT"="Amanýnnn !"
