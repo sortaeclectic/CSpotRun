@@ -92,7 +92,10 @@ begin
         "de la página anterior cuando cambia de página.\n\n"\
         "\'Acción al tocar\' controla cuánto se mueve la página cuando toca la pantalla con el lápiz óptico.\n\n"\
         "Use la opción  \'Velocidad de autoscroll\' para controlar la velocidad de lectura. Los números "\
-        "están en centésimas de segundo. 15-25 es la velocidad recomendada."
+        "están en centésimas de segundo. 15-25 es la velocidad recomendada."\
+	"Asimismo, puede usar los botones de cambio de página controlar la velocidad durante la lectura."\
+	"El \'Tipo de Autoscroll\' determina si el texto avanza por pixel o por línea."
+		
         
     "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor pruebe CSpotRun"\
         "de nuevo, después de instalar al menos un documento."
