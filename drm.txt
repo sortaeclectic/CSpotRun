@@ -1,5 +1,5 @@
 The DRM (Digital Rights Management) is an addition to the Palm DOC
-format. The most useful part of these changes for most people will be
+format. The most usefull part of these changes for most people will be
 the zlib compression which is quite a bit better than the RLE
 compression used in standard DOC files.
 
