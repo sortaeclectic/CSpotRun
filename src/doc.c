@@ -66,6 +66,7 @@ static Boolean      _onLastPage();
  */
 DmOpenRef           _dbRef = NULL;
 Word                _wNumRecs;
+UInt16              _dbMode = dmModeReadWrite;
 
 ////////////////////////////////////////////////////////////////////////////////
 // private data
@@ -133,14 +134,20 @@ void Doc_makeSettingsDefault()
 ////////////////////////////////////////////////////////////////////////////////
 void Doc_open(UInt cardNo, LocalID dbID, char name[dmDBNameLength])
 {
+    UInt16 dbAttrs = 0;
+
     ErrFatalDisplayIf(_dbRef != NULL, "g");
 
+    // check if the db is read-only
+    DmDatabaseInfo(cardNo, dbID, NULL, &dbAttrs, NULL, NULL,
+            NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+    _dbMode = dmModeReadWrite;
+    if(dbAttrs & dmHdrAttrReadOnly)
+        _dbMode = dmModeReadOnly;    
+
     //Open Db
-#ifdef ENABLE_BMK
-    _dbRef = DmOpenDatabase(cardNo, dbID, dmModeReadWrite);
-#else
-    _dbRef = DmOpenDatabase(cardNo, dbID, dmModeReadOnly);
-#endif
+    _dbRef = DmOpenDatabase(cardNo, dbID, _dbMode);
     ErrFatalDisplayIf(!_dbRef, "a");
 
     //lock record0

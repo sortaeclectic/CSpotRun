@@ -227,6 +227,19 @@ BEGIN
     BUTTON "$$DONE" ID buttonID_cancel AT (PREVLEFT PREVBOTTOM+16 PREVWIDTH PREVHEIGHT)
 END
 
+FORM ID formID_bmkEd_ro AT (2 2 156 156)
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_cancel
+BEGIN
+    TITLE "$$BOOKMARKS"
+    LIST "" ID listID_bmkEd AT (4 16 92 135) USABLE
+    BUTTON "$$GOTO" ID buttonID_bmkGoTo AT (center@127 18 50 AUTO)
+	
+    BUTTON "$$DONE" ID buttonID_cancel AT (PREVLEFT PREVBOTTOM+16 PREVWIDTH PREVHEIGHT)
+END
+
 FORM ID formID_bmkSort AT (2 97 156 61)
 FRAME
 MODAL
@@ -296,6 +309,57 @@ BEGIN
         MENUITEM "$$ABOUTDDD"        menuitemID_about       
     END
 END
+
+MENU ID menuID_main_ro
+BEGIN
+    PULLDOWN "$$DOC"
+    BEGIN
+        MENUITEM "$$GOTO PER"        menuitemID_percent         "G"
+        menuitem separator
+        MENUITEM "$$PICK DOC"        menuitemID_doc             "D"
+        MENUITEM "$$DELETE DOC"      menuitemID_delete    
+#ifdef ENABLE_SEARCH
+        MENUITEM SEPARATOR
+        MENUITEM "$$FINDDDD"         menuitemID_search          "F"
+        MENUITEM "$$FIND AGAIN"      menuitemID_searchAgain     "A"
+#endif
+#ifdef ENABLE_BMK
+		MENUITEM SEPARATOR
+		MENUITEM "$$EDIT BOOKMARKS"  menuitemID_bmkEd			"B"
+#endif
+    END    
+    PULLDOWN "$$VIEW"
+    BEGIN
+        MENUITEM "$$FONT 1"          menuitemID_font0           "1"
+        MENUITEM "$$FONT 2"          menuitemID_font1           "2"
+        MENUITEM "$$FONT 3"          menuitemID_font2           "3"
+        MENUITEM "$$FONT 4"          menuitemID_font3           "4"
+        MENUITEM SEPARATOR 
+        MENUITEM "$$LINE SPACING 1"  menuitemID_lineSpacing0
+        MENUITEM "$$LINE SPACING 2"  menuitemID_lineSpacing1
+        MENUITEM "$$LINE SPACING 3"  menuitemID_lineSpacing2
+#ifdef ENABLE_AUTOSCROLL
+        MENUITEM SEPARATOR 
+        MENUITEM "$$AUTOSCROLL"      menuitemID_autoScroll      "U"
+#endif
+#ifdef ENABLE_ROTATION
+        MENUITEM SEPARATOR
+        MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
+        MENUITEM "$$ROTATE LEFT"     menuitemID_rotateLeft      "S"
+#endif
+    END
+    PULLDOWN "$$OPTIONS"
+    BEGIN
+        MENUITEM "$$TOGGLE CONTROLS" menuitemID_controls        "T"
+        MENUITEM "$$MAKE DEFAULT"    menuitemID_makeDefault     "K"
+        menuitem separator
+        MENUITEM "$$CONTROLSDDD"     menuitemID_controlPrefs    "C"
+        MENUITEM "$$PREFERENCESDDD"  menuitemID_globalPrefs     "P"
+        MENUITEM "$$ABOUTDDD"        menuitemID_about       
+    END
+END
+
+
 
 string stringID_aboutBody "$$ABOUT BODY"
 

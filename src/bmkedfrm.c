@@ -84,7 +84,15 @@ static Boolean _BmkEdFormHandleEvent(EventType *e)
             BmkGoTo(sel, 0);
             EvtAddEventToQueue(&listRedrawEvt);
             FrmReturnToForm(0);
+#if 0
+/*
+ * this form update causes flashing on some roms
+ * after returning to the main form
+ * think this is because update event is enqueued
+ * twice, once by the os and then by FrmUpdateForm()
+ */
             FrmUpdateForm(formID_main, 0);
+#endif
             return true;
 
         case buttonID_bmkDelete:

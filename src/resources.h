@@ -8,10 +8,12 @@
 #ifdef ENABLE_BMK
     #define formID_bmkName	1004
     #define formID_bmkEd        1005
-    #define formID_bmkSort      1006
+    #define formID_bmkEd_ro     1006
+    #define formID_bmkSort      1007
 #endif
 
 #define menuID_main             1200
+#define menuID_main_ro          1299
 #define menuitemID_delete        1201
 #define menuitemID_about           1202
 #define menuitemID_controlPrefs    1203

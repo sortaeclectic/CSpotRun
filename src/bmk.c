@@ -34,7 +34,9 @@
 /* globals */
 
 static char **      bmkListBuf = NULL;
-static int      bmkLBSize = 0;      /* number of pointers */
+static int          bmkLBSize = 0;      /* number of pointers */
+static int          scuts_num = 0;
+
                         /* in the list buffer */
 static CharPtr      bmkAddStr = NULL;
 static CharPtr      bmkEdStr = NULL;
@@ -43,6 +45,7 @@ static CharPtr      bmkEdStr = NULL;
 /* from doc.c */
 
 extern DmOpenRef    _dbRef;
+extern UInt16       _dbMode;
 
 /* number of text records in the document */
 extern Word     _wNumRecs;
@@ -65,9 +68,6 @@ static Err  BmkInsertionSort(int);
 static Err  BmkRefillListBuf(void);
 static void BmkClearListBuf(void);
 
-
-/* number of shortcuts in the boomark list on the main form */
-#define SCUTS_NUM   2
 
 
 /*
@@ -204,7 +204,7 @@ Err BmkRename(int sel, char *name)
     if(!_dbRef)
         return bmkErrDocNotOpened;
 
-    sel += SCUTS_NUM;
+    sel += scuts_num;
 
     b = (bmk_rec_t *)bmkListBuf[sel];
     idx = BmkFindByNameAndPos(b->name, b->pos);
@@ -263,7 +263,7 @@ Err BmkDelete(int sel)
     if(!_dbRef)
         return bmkErrDocNotOpened;
 
-    sel += SCUTS_NUM;
+    sel += scuts_num;
 
     b = (bmk_rec_t *)bmkListBuf[sel];
     idx = BmkFindByNameAndPos(b->name, b->pos);
@@ -315,7 +315,7 @@ Err BmkMove(int action, int sel)
     if(!_dbRef)
         return bmkErrDocNotOpened;
 
-    sel += SCUTS_NUM;
+    sel += scuts_num;
 
     b = (bmk_rec_t *)bmkListBuf[sel];
     idx = BmkFindByNameAndPos(b->name, b->pos);
@@ -422,9 +422,15 @@ Err BmkRefillListBuf(void)
     bmkListBuf = MemHandleLock(h);
 
     /* add pointers to 'add' and 'edit' strings */
-    *bmkListBuf     = bmkAddStr;
-    *(bmkListBuf + 1)   = bmkEdStr;
-    bmkLBSize += 2;
+    if(_dbMode == dmModeReadWrite) {
+        *bmkListBuf     = bmkAddStr;
+        bmkLBSize++;
+    }
+
+    *(bmkListBuf + bmkLBSize)   = bmkEdStr;
+    bmkLBSize++;
+
+    scuts_num = bmkLBSize;
 
     /* add pointers to bookmark names to the list buffer */
     for(i = _wNumRecs + 1; i < rn; i++) {
@@ -467,11 +473,11 @@ Err BmkPopulateList(ListPtr l, int shortcuts, int resize)
     if(shortcuts)
         LstSetListChoices(l, bmkListBuf, bmkLBSize);
     else
-        LstSetListChoices(l, bmkListBuf + SCUTS_NUM,
-                bmkLBSize - SCUTS_NUM);
+        LstSetListChoices(l, bmkListBuf + scuts_num,
+                bmkLBSize - scuts_num);
 
     if(resize)
-        LstSetHeight(l, shortcuts ? bmkLBSize : bmkLBSize - SCUTS_NUM);
+        LstSetHeight(l, shortcuts ? bmkLBSize : bmkLBSize - scuts_num);
 
     return 0;
 }
@@ -500,7 +506,7 @@ void BmkClearListBuf(void)
 
     MemPtrFree(bmkListBuf);
     bmkListBuf = NULL;
-    bmkLBSize = 0;
+    bmkLBSize = scuts_num = 0;
     return;
 }
 
@@ -537,7 +543,7 @@ void BmkGoTo(int selection, int shortcuts)
         "BmkGoTo: bmk list buffer doesn't exist");
 
     if(!shortcuts)
-        selection += SCUTS_NUM;
+        selection += scuts_num;
 
     b = (bmk_rec_t *)bmkListBuf[selection];
     Doc_setPosition(b->pos);

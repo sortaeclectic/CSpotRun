@@ -50,6 +50,7 @@ static void        _changeLineSpacing(int index);
 
 #ifdef ENABLE_BMK
 static void        _redrawBmkList(void);
+static void        _popupBmkEd(void);
 #endif
 
 #ifdef ENABLE_AUTOSCROLL
@@ -80,6 +81,9 @@ int         _documentIndex = -1;
 #ifdef ENABLE_AUTOSCROLL
 static Boolean      autoScrollEnabled = false;
 #endif
+
+/* from doc.c */
+extern UInt16  _dbMode;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -150,7 +154,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
 			    FrmPopupForm(formID_bmkName);
 			    return true;
 		    } else if(a == A_EDIT) {
-			    FrmPopupForm(formID_bmkEd);
+                            _popupBmkEd();
 			    return true;
 		    }
 		    
@@ -230,7 +234,7 @@ static Boolean _MainFormHandleEvent(EventType *e)
 
 		case menuitemID_bmkEd:
 		    MenuEraseStatus(NULL);
-		    FrmPopupForm(formID_bmkEd);
+                    _popupBmkEd();
 		    return true;
 
 		case menuitemID_bmkSort:
@@ -338,6 +342,8 @@ static Boolean _MainFormHandleEvent(EventType *e)
             return true;
 
         case bmkRedrawListEvt:
+            Doc_drawPage();
+            _updatePercent();
             _redrawBmkList();
             return true;
 #endif
@@ -361,6 +367,12 @@ static void    HandleDocSelect(int documentIndex)
 
 
     FS_updateFontButtons(formPtr);
+
+    /* set menu accroding to the document mode */
+    if(_dbMode == dmModeReadOnly)
+        FrmSetMenu(formPtr, menuID_main_ro);
+    else
+        FrmSetMenu(formPtr, menuID_main);
 
     FrmUpdateForm(formID_main, 0);
 }
@@ -631,6 +643,14 @@ void _redrawBmkList(void)
 	FrmGetObjectBounds(formPtr, bmkListIndex, &r);
 	r.topLeft.y = rf.extent.y - r.extent.y;
 	FrmSetObjectBounds(formPtr, bmkListIndex, &r);
+}
+
+void _popupBmkEd(void)
+{
+	if(_dbMode == dmModeReadWrite)
+		FrmPopupForm(formID_bmkEd);
+	else
+		FrmPopupForm(formID_bmkEd_ro);
 }
 #endif
 

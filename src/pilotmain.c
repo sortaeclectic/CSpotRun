@@ -399,6 +399,7 @@ static Boolean AppHandleEvent(EventType *e)
 		    break;
 
 		case formID_bmkEd:
+		case formID_bmkEd_ro:
 		    newFormEventHandler = BmkEdFormHandleEvent;
 		    break;
 
