@@ -38,9 +38,11 @@ struct UCGUI_ELEM_STR
 #endif
 
 #define UCGUI_ELEM_COUNT (1 + 1 + LINE_SPACING_GADGET_COUNT + \
+                                  AUTOSCROLL_GADGET_COUNT + \
                                   FONT_BUTTON_COUNT + \
                                   ROTATION_BUTTON_COUNT + \
                                   SEARCH_BUTTON_COUNT)
+
 
 #define DEFAULT_UCGUI_WORD (0xFFFF - (1<<11) - (1<<12))
 
@@ -58,6 +60,10 @@ static const struct UCGUI_ELEM_STR gElements[UCGUI_ELEM_COUNT] =
     {gadgetID_lineSpacing0,    1<<2, stringID_ucguiSpacing},//0x004},
     {gadgetID_lineSpacing1,    1<<3, 0},//0x008},
     {gadgetID_lineSpacing2,    1<<4, 0},//0x010},
+
+#ifdef ENABLE_AUTOSCROLL
+    {gadgetID_autoScroll,      1<<13, stringID_ucguiAutoScroll}, // 2^13
+#endif
 
 #ifdef ENABLE_SEARCH
     {buttonID_search,        1<<11, stringID_ucguiSearch},

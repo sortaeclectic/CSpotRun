@@ -22,6 +22,7 @@
 #include <Common.h>
 #include <System/SysAll.h>
 #include <UI/UIAll.h>
+#include <KeyMgr.h>
 #include <SysEvtMgr.h>
 #include "app.h"
 #include "resources.h"
@@ -46,6 +47,7 @@ struct APP_STATE_STR *appStatePtr;
 VoidHand searchStringHandle;
 Boolean    searchFromTop;
 #endif
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -99,6 +101,7 @@ static void StartApp()
         MemHandleUnlock(searchStringHandle);
     }
 #endif
+
     FrmGotoForm(formID_main);
 }
 
@@ -114,6 +117,9 @@ static void InitAppState()
     appStatePtr->hideControls = 0;
     appStatePtr->reversePageUpDown = 0;
     appStatePtr->showPreviousLine = 1;
+#ifdef ENABLE_AUTOSCROLL
+    appStatePtr->autoScrollSpeed = 60;
+#endif
     appStatePtr->tapAction = TA_PAGE;
     DocPrefs_initPrefs(&appStatePtr->defaultDocPrefs, "");
 }
@@ -152,11 +158,41 @@ static void EventLoop()
     Long timeout;
     do
     {
+#ifdef ENABLE_AUTOSCROLL
+        if(MainForm_AutoScrollEnabled())
+            EvtGetEvent(&e, appStatePtr->autoScrollSpeed);
+        else
+            EvtGetEvent(&e, evtWaitForever);
+
+        // use Hard button 2 to toggle AutoScroll
+        if((e.eType == keyDownEvent)&&(e.data.keyDown.chr == hard2Chr)&&
+           (!(e.data.keyDown.modifiers & poweredOnKeyMask)))
+        {
+            MainForm_ToggleAutoScroll();
+            continue;
+        }
+
+        if(MainForm_AutoScrollEnabled())
+        {
+            if(e.eType == nilEvent)
+            {
+                MainForm_UpdateAutoScroll();
+            }
+            else if(e.eType == penDownEvent)
+            {
+                MainForm_ToggleAutoScroll();
+                continue;
+            }
+        }
+#else
         EvtGetEvent(&e, evtWaitForever);
+#endif
+
         if (!SysHandleEvent(&e))
-            if (!MenuHandleEvent((void *)0, &e, &err))
+            if (!MenuHandleEvent(MenuGetActiveMenu(), &e, &err))
                 if (!AppHandleEvent(&e))
                     FrmDispatchEvent(&e);
+
     } while(e.eType != appStopEvent);
 }
 

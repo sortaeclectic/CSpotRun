@@ -18,7 +18,7 @@ GNUTURDS = ../copying.txt ../readme.txt
 
 
 PROGNAME = CSpotRun
-VERSION = 0.8.1
+VERSION = 0.8.2
 APPID = CSBR
 LANGUAGES = english german spanish french portuguese
 ICONTEXT = $(PROGNAME)
@@ -27,7 +27,7 @@ OBJS = pilotmain.o mainform.o doclist.o doc.o \
 		decode.o docprefs.o tabbedtext.o controlsform.o \
 		fontselect.o ucgui.o rotate.o prefsform.o searchform.o
 
-CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH
+CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH ENABLE_AUTOSCROLL
 DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt))
 #CFLAGS =  -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch
 CFLAGS =   -O2  $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch
@@ -35,11 +35,13 @@ CFLAGS =   -O2  $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch
 RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) defined[tmp[s]]=""; d=0}\
 					{\
 						if ($$0 ~ "\#ifdef") \
-							{stack[d]=$$2; d++;} \
+							{stack[d]=($$2 in defined); d++;} \
+						else if ($$0 ~ "\#else") \
+							{stack[d-1]=!stack[d-1];} \
 						else if ($$0 ~ "\#endif") \
 							{d--; delete stack[d];} \
 						else { \
-							for (s in stack) if (!(stack[s] in defined)) next;\
+							for (s in stack) if (!stack[s]) next;\
 							print $$0;\
 						}\
 					}'

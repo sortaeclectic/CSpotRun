@@ -23,6 +23,9 @@
 #define menuitemID_lineSpacing0    1220
 #define menuitemID_lineSpacing1    1221
 #define menuitemID_lineSpacing2    1222
+#ifdef ENABLE_AUTOSCROLL
+#define menuitemID_autoScroll      1223
+#endif
 #define menuitemID_percent        1230
 #define menuitemID_doc            1231
 #define menuitemID_rotateRight    1232
@@ -32,8 +35,17 @@
 #define    listID_doc            1301
 #define    listID_percent        1302
 
+#ifdef ENABLE_AUTOSCROLL
+#define    listID_autoScrollSpeed   1303
+#endif
+
 #define popupID_doc            1401
 #define popupID_percent        1402
+
+#ifdef ENABLE_AUTOSCROLL
+#define popupID_autoScrollSpeed 1403
+#endif
+
 
 #define buttonID_ok            1500
 #define buttonID_cancel        1501
@@ -63,6 +75,13 @@
 #define    gadgetID_lineSpacing0    1801
 #define    gadgetID_lineSpacing1    1802
 #define    gadgetID_lineSpacing2    1803
+
+#ifdef ENABLE_AUTOSCROLL
+#define gadgetID_autoScroll  1804
+#define AUTOSCROLL_GADGET_COUNT 1
+#else
+#define AUTOSCROLL_GADGET_COUNT 0
+#endif
 
 #define alertID_about            1900
 #define alertID_error            1901
@@ -100,3 +119,7 @@
 #define    stringID_ucguiSearchAgain    2109
 #endif
 #define stringID_aboutBody            2110
+
+#ifdef ENABLE_AUTOSCROLL
+#define stringID_ucguiAutoScroll      2111
+#endif

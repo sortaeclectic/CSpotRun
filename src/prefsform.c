@@ -39,6 +39,12 @@ static Boolean    _PrefsFormHandleEvent(EventType *e);
 static void        _prefsToGui();
 static void        _guiToPrefs();
 
+#ifdef ENABLE_AUTOSCROLL
+Char                scrollSpeedString[] = "xxx";
+static void         _updateAutoScrollSpeed(int selection);
+#endif
+
+
 FormPtr        formPtr;
 
 Boolean PrefsFormHandleEvent(EventType *e)
@@ -69,6 +75,17 @@ static Boolean _PrefsFormHandleEvent(EventType *e)
                     return true;
             }
             break;
+#ifdef ENABLE_AUTOSCROLL
+        case popSelectEvent:
+            switch (e->data.popSelect.listID)
+            {
+                case listID_autoScrollSpeed:
+                    _updateAutoScrollSpeed(e->data.popSelect.selection);
+                    return true;
+                break;
+            }
+        break;
+#endif
         case frmOpenEvent:
             HandleFormOpenEvent();
             return true;
@@ -99,6 +116,12 @@ static void _prefsToGui()
 
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_reversePageButtons)), appStatePtr->reversePageUpDown);
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_showLine)), appStatePtr->showPreviousLine);
+
+#ifdef ENABLE_AUTOSCROLL
+    StrPrintF(scrollSpeedString, "%d", (int)appStatePtr->autoScrollSpeed);
+
+    CtlSetLabel(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_autoScrollSpeed)), scrollSpeedString);
+#endif
 }
 
 static void  _guiToPrefs()
@@ -112,6 +135,18 @@ static void  _guiToPrefs()
     appStatePtr->reversePageUpDown = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_reversePageButtons)));
     appStatePtr->showPreviousLine = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_showLine)));
 }
+
+
+#ifdef ENABLE_AUTOSCROLL
+void _updateAutoScrollSpeed(int selection)
+{
+    appStatePtr->autoScrollSpeed = ((selection + 4) * 10);
+
+    StrPrintF(scrollSpeedString, "%d", appStatePtr->autoScrollSpeed);
+
+    CtlSetLabel(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_autoScrollSpeed)), scrollSpeedString);
+}
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 //

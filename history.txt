@@ -23,4 +23,15 @@ Added Portuguese translation from Rui A. Rebelo.
 Fixed the stray beep when opening the the find dialog with a menu.
 
 11/17/1999
+
 Released as 0.8.1 
+
+11/18/1999
+
+Minor bug fixes from Daniel Zahn (sclug@sclug.org).
+
+11/21/1999
+
+Auto-scrolling from from Daniel Zahn (sclug@sclug.org).
+
+

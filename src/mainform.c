@@ -45,6 +45,10 @@ static void        _drawLineSpacingGadgets();
 static void        _drawLineSpacingGadget(int index);
 static void        _changeLineSpacing(int index);
 
+#ifdef ENABLE_AUTOSCROLL
+static void         _drawAutoScrollGadget();
+#endif
+
 static void        _openDefaultDoc();
 static void        _deleteDoc();
 static void        _updatePercent();
@@ -62,6 +66,10 @@ ControlPtr    percentPopupPtr;
 Char        percentString[] = "xxx%";
 UShort        selectableLineSpacings[LINE_SPACING_GADGET_COUNT] = {0, 1, 2};
 int            _documentIndex = -1;
+
+#ifdef ENABLE_AUTOSCROLL
+static Boolean      autoScrollEnabled = false;
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -160,6 +168,10 @@ static Boolean _MainFormHandleEvent(EventType *e)
                     appStatePtr->hideControls = ~appStatePtr->hideControls;
                     MainForm_UCGUIChanged();
                     return true;
+                case menuitemID_autoScroll:
+                    MenuEraseStatus(NULL);
+                    MainForm_ToggleAutoScroll();
+                    return true;
                 case menuitemID_doc:
                     MenuEraseStatus(NULL);
                     CtlHitControl(docPopupPtr);
@@ -202,6 +214,9 @@ static Boolean _MainFormHandleEvent(EventType *e)
                 Doc_drawPage();
                 _updatePercent();
                 _drawLineSpacingGadgets();
+#ifdef ENABLE_AUTOSCROLL
+                _drawAutoScrollGadget();
+#endif
                 return true;
             }
             break;
@@ -225,6 +240,16 @@ static Boolean _MainFormHandleEvent(EventType *e)
                         return true;
                     }
                 }
+
+#ifdef ENABLE_AUTOSCROLL
+                FrmGetObjectBounds (formPtr, FrmGetObjectIndex (formPtr, gadgetID_autoScroll), &r);
+                if (RctPtInRectangle (e->screenX, e->screenY, &r))
+                {
+                    MainForm_ToggleAutoScroll();
+                    return true;
+                }
+#endif
+
                  break;
             }
              break;
@@ -360,6 +385,53 @@ static void _layoutForm()
     FrmGetObjectBounds(formPtr, FrmGetObjectIndex(formPtr, gadgetID_text), &textBounds);
     Doc_setBounds(&textBounds);
 }
+
+#ifdef ENABLE_AUTOSCROLL
+static void _drawAutoScrollGadget()
+{
+    RectangleType bounds;
+
+    FrmGetObjectBounds(formPtr, FrmGetObjectIndex(formPtr, gadgetID_autoScroll), &bounds);
+
+    WinEraseRectangle(&bounds, 0);
+    WinDrawRectangleFrame(rectangleFrame, &bounds);
+
+    if(autoScrollEnabled) // show pause
+    {
+        WinDrawLine(bounds.topLeft.x + 2, bounds.topLeft.y + 3, bounds.topLeft.x + 2, bounds.topLeft.y + bounds.extent.y - 3);
+        WinDrawLine(bounds.topLeft.x + bounds.extent.x - 3, bounds.topLeft.y + 3, bounds.topLeft.x + bounds.extent.x - 3, bounds.topLeft.y + bounds.extent.y - 3);
+    }
+    else // show play
+    {
+        WinDrawLine(bounds.topLeft.x + 2, bounds.topLeft.y + 3, bounds.topLeft.x + 2, bounds.topLeft.y + bounds.extent.y - 3);
+        WinDrawLine(bounds.topLeft.x + 3, bounds.topLeft.y + 4, bounds.topLeft.x + 3, bounds.topLeft.y + bounds.extent.y - 4);
+        WinDrawLine(bounds.topLeft.x + 4, bounds.topLeft.y + 5, bounds.topLeft.x + 4, bounds.topLeft.y + bounds.extent.y - 5);
+        WinDrawLine(bounds.topLeft.x + 5, bounds.topLeft.y + 6, bounds.topLeft.x + 5, bounds.topLeft.y + bounds.extent.y - 6);
+    }
+}
+
+void MainForm_ToggleAutoScroll()
+{
+    autoScrollEnabled = autoScrollEnabled? false: true;
+
+    _drawAutoScrollGadget();
+}
+
+void MainForm_UpdateAutoScroll()
+{
+    if(autoScrollEnabled == true)
+    {
+        Doc_linesDown(1);
+        Doc_drawPage();
+    }
+}
+
+Boolean MainForm_AutoScrollEnabled()
+{
+    return autoScrollEnabled;
+}
+#endif
+
 
 static void _drawLineSpacingGadgets()
 {

@@ -13,9 +13,12 @@ struct APP_STATE_STR
     Word version;
     Word UCGUIBits;
     Word hideControls        : 1;
-    Word reversePageUpDown    : 1;
+    Word reversePageUpDown   : 1;
     Word showPreviousLine    : 1;
-    Word caseSensitive        : 1;
+#ifdef ENABLE_AUTOSCROLL
+    Word autoScrollSpeed     : 8;
+#endif
+    Word caseSensitive       : 1;
     enum TAP_ACTION_ENUM tapAction;
     struct DOC_PREFS_STR defaultDocPrefs;
 };

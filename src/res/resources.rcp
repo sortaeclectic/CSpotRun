@@ -34,6 +34,10 @@ begin
     "$$CONFIGURE CONTROLS"="Configure Controls"
     "$$ROTATE"="Rotate"
     "$$SPACING"="Spacing"
+#ifdef ENABLE_AUTOSCROLL
+    "$$AUTOSCROLL"="Auto Scroll"
+    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+#endif
     "$$GOTO PER"="Goto %"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -56,7 +60,9 @@ begin
                                     "Use the \'Show line from previous page\' option to repeat a single "\
                                     "line from the previous page when you page up or down.\n\n"\
                                     "The \'tap action\' choice controls what action is performed with you "\
-                                    "tap on the screen."
+                                    "tap on the screen.\n\n"\
+                                    "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+                                    "are in 100ths of a second. 60-80 is the recommended speed."
     "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
 
     "$$ERROR ALERT"="Oops!"
@@ -89,7 +95,7 @@ begin
     "$$DELETE DOC"="Delete Doc"
     "$$CONFIRM DELETE"="Confirm Delete"
     "$$CANCEL"="Cancel"
-    "$$MAKE DEFAULT"="Make Settings Default    "
+    "$$MAKE DEFAULT"="Make Settings Default "
     "$$VIEW"="View"
     "$$FONT 1"="Font 1"
     "$$FONT 2"="Font 2"
@@ -137,6 +143,10 @@ begin
     "$$SPACING"="Interlignes"
     "$$GOTO PER"="Aller à %"
     "$$PICK DOC"="Choisir"
+#ifdef ENABLE_AUTOSCROLL
+    "$$AUTOSCROLL"="Auto Scroll"
+    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+#endif
 
     "$$GLOBAL PREFERENCES"="Préférences"
     "$$SWAP UPDOWN"="Inverser boutons haut/bas"
@@ -194,7 +204,9 @@ begin
         "L'option \'Ligne de la page précédente\' est utile pour garder à l'écran "\
         "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
         "L'option \'Tape' définit l'ampleur de défilement du texte lorsque "\
-        "le stylet touche le document à l'écran."
+        "le stylet touche le document à l'écran.\n\n"\
+        "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+        "are in 100ths of a second. 60-80 is the recommended speed."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
                 "Essayez à nouveau CSpotRun après avoir installé un ou "\
@@ -224,6 +236,10 @@ begin
     "$$SPACING"="Espaciado"
     "$$GOTO PER"="Ir a %"
     "$$PICK DOC"="Elegir Doc"
+#ifdef ENABLE_AUTOSCROLL
+    "$$AUTOSCROLL"="Auto Scroll"
+    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+#endif
 
     "$$GLOBAL PREFERENCES"="Preferencias Globales"
     "$$SWAP UPDOWN"="Cambiar orientación lateral"
@@ -290,7 +306,9 @@ begin
         "pantalla está rotada.\n\n"\
         "Use \'Mostrar línea anterior\', para repetir una línea individual "\
         "de la página anterior cuando cambia de página.\n\n"\
-        "\'Acción al tocar\' controla cuánto se mueve la página cuando toca la pantalla con el lápiz óptico."
+        "\'Acción al tocar\' controla cuánto se mueve la página cuando toca la pantalla con el lápiz óptico.\n\n"\
+        "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+        "are in 100ths of a second. 60-80 is the recommended speed."
         
     "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor    pruebe CSpotRun"\
         "de nuevo, después de instalar al menos un documento."
@@ -309,6 +327,10 @@ begin
     "$$SPACING"="Zeilenabstand"
     "$$GOTO PER"="GeheZu %"
     "$$PICK DOC"="Dok auswählen"
+#ifdef ENABLE_AUTOSCROLL
+    "$$AUTOSCROLL"="Auto Scroll"
+    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+#endif
 
     "$$GLOBAL PREFERENCES"="Allgemeine Einstellungen"
     "$$SWAP UPDOWN"="Tausche Bildlauftasten"
@@ -377,7 +399,9 @@ begin
         "Zeile der vorigen Seite beim Blättern zu wiederholen.\n\n"\
         "Die \'Tippen\'-Schaltflächen steuern den Umfang des Blätterns, "\
         "wenn Sie mit dem Stift auf die obere bzw. untere Hälfte des "\
-        "Bildschirms tippen."
+        "Bildschirms tippen.\n\n"\
+        "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+        "are in 100ths of a second. 60-80 is the recommended speed."
 
     "$$NO DOCS"="Es sind keine Dokumente installiert!\n\nBitte starten Sie CSpotRun erneut,"\
         "nachdem Sie ein oder mehrere Dokumente installiert haben."
@@ -393,6 +417,10 @@ begin
     "$$ROTATE"="Girar"
     "$$SPACING"="Espaçamento"
     "$$GOTO PER"="Ir para %"
+#ifdef ENABLE_AUTOSCROLL
+    "$$AUTOSCROLL"="Auto Scroll"
+    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+#endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         "© 1998-1999 Bill Clagett\n"\
@@ -413,7 +441,9 @@ begin
                                     "Use a opção \'Mostre linha da página anterior\' para repetir a última "\
                                     "linha da página anterior quando avançar uma página.\n\n"\
                                     "A escolha de \'Ação de toque\' controla que ação é executada quando "\
-                                    "você toca a tela."
+                                    "você toca a tela.\n\n"\
+                                    "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+                                    "are in 100ths of a second. 60-80 is the recommended speed."
     "$$NO DOCS"="Não há arquivos DOC instalados!\n\nPor favor tente novamente o CSpotRun depois de instalar um ou dois documentos."
 
     "$$ERROR ALERT"="Oops!"
@@ -505,9 +535,14 @@ BEGIN
     BUTTON "$$FIND BUTTON"       ID buttonID_search        AT (prevright+1 PREVTOP 8 PREVHEIGHT) 
     BUTTON "$$FIND AGAIN BUTTON" ID buttonID_searchAgain   AT (prevright+1 PREVTOP 14 PREVHEIGHT) 
 #endif
+
     GADGET ID gadgetID_lineSpacing0 AT (prevright+4 PREVTOP 7 PREVHEIGHT) 
     GADGET ID gadgetID_lineSpacing1 AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) 
     GADGET ID gadgetID_lineSpacing2 AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) 
+
+#ifdef ENABLE_AUTOSCROLL
+    GADGET ID gadgetID_autoScroll   AT (prevright+1 PREVTOP 8 PREVHEIGHT) 
+#endif
 
     POPUPTRIGGER "99%" popupID_percent AT (PREVRIGHT PREVTOP AUTO AUTO) LEFTANCHOR
     LIST "$$TOP" "10%" "20%" "30%" "40%" "50%" "60%" "70%" "80%" "90%" "$$BOTTOM" ID listID_percent AT (PREVLEFT PREVTOP PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 11
@@ -522,7 +557,11 @@ BEGIN
     POPUPLIST popupID_percent listID_percent
 END
 
+#ifdef ENABLE_AUTOSCROLL
+FORM ID formID_controls AT (2 2 156 156)
+#else
 FORM ID formID_controls AT (2 12 156 146)
+#endif
 FRAME
 MODAL
 USABLE
@@ -531,8 +570,13 @@ HELPID stringID_controlsHelp
 BEGIN
     TITLE "$$CONFIGURE CONTROLS"
 
+#ifdef ENABLE_AUTOSCROLL
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@156-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@156-3 50 AUTO) 
+#else
     BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@146-3 50 AUTO) 
     BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@146-3 50 AUTO) 
+#endif
 
     CHECKBOX "" ID checkboxID_UCGUI0        AT (30 20 10 auto) USABLE LEFTANCHOR 
     CHECKBOX "" ID checkboxID_UCGUI0+1    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
@@ -547,6 +591,9 @@ BEGIN
     CHECKBOX "" ID checkboxID_UCGUI0+10 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
     CHECKBOX "" ID checkboxID_UCGUI0+11 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
     CHECKBOX "" ID checkboxID_UCGUI0+12 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+#ifdef ENABLE_AUTOSCROLL
+    CHECKBOX "" ID checkboxID_UCGUI0+13 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+#endif
 
     FIELD ID fieldID_UCGUI0+0 AT (0 0 70 30) USABLE NONEDITABLE DYNAMICSIZE rightalign
     FIELD ID fieldID_UCGUI0+1 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE DYNAMICSIZE rightalign
@@ -555,9 +602,16 @@ BEGIN
     FIELD ID fieldID_UCGUI0+4 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
     FIELD ID fieldID_UCGUI0+5 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
     FIELD ID fieldID_UCGUI0+6 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+#ifdef ENABLE_AUTOSCROLL
+    FIELD ID fieldID_UCGUI0+7 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+#endif
 END
 
+#ifdef ENABLE_AUTOSCROLL
+FORM ID formID_globalPrefs AT (2 70 156 88)
+#else
 FORM ID formID_globalPrefs AT (2 72 156 86)
+#endif
 FRAME
 MODAL
 USABLE
@@ -567,16 +621,30 @@ BEGIN
     TITLE "$$GLOBAL PREFERENCES"
 
 
+#ifdef ENABLE_AUTOSCROLL
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@88-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@88-3 50 AUTO) 
+#else
     BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@86-3 50 AUTO) 
     BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@86-3 50 AUTO) 
+#endif
 
-    CHECKBOX "$$SWAP UPDOWN"    ID checkboxID_reversePageButtons    AT (5 20 auto auto) USABLE LEFTANCHOR 
+    CHECKBOX "$$SWAP UPDOWN"    ID checkboxID_reversePageButtons    AT (5 15 auto auto) USABLE LEFTANCHOR 
     CHECKBOX "$$SHOW PREV LINE"    ID checkboxID_showLine                AT (PREVLEFT PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
     
-    LABEL "$$TAP ACTION" ID 9000 AT (2 PREVBOTTOM+2)
+    LABEL "$$TAP ACTION" ID 9000 AT (10 PREVBOTTOM+2)
     PUSHBUTTON "$$PAGE"        ID pushID_tapAction0    AT (prevright+4 prevtop auto auto) GROUP 69
     PUSHBUTTON "$$HALF PAGE"    ID pushID_tapAction0+1    AT (prevright+1 prevtop auto auto) GROUP 69
     PUSHBUTTON "$$LINE"        ID pushID_tapAction0+2    AT (prevright+1 prevtop auto auto) GROUP 69
+
+#ifdef ENABLE_AUTOSCROLL
+    LABEL "$$AUTOSCROLLSPEED" ID 9002 AT (28 PREVBOTTOM+2)
+
+    POPUPTRIGGER "60" popupID_autoScrollSpeed AT (PREVRIGHT+1 PREVTOP AUTO AUTO) LEFTANCHOR
+    LIST "40" "50" "60" "70" "80" "90" "100" "110" "120" "130" "140" "150" ID listID_autoScrollSpeed AT (PREVLEFT PREVTOP PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 12
+
+    POPUPLIST popupID_autoScrollSpeed listID_autoScrollSpeed
+#endif
     
 END
 
@@ -623,6 +691,10 @@ BEGIN
         MENUITEM "$$LINE SPACING 1"  menuitemID_lineSpacing0    "L"
         MENUITEM "$$LINE SPACING 2"  menuitemID_lineSpacing1    "M"
         MENUITEM "$$LINE SPACING 3"  menuitemID_lineSpacing2    "N"
+#ifdef ENABLE_AUTOSCROLL
+        MENUITEM SEPARATOR 
+        MENUITEM "$$AUTOSCROLL"      menuitemID_autoScroll      "U"
+#endif
 #ifdef ENABLE_ROTATION
         MENUITEM SEPARATOR
         MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
@@ -668,6 +740,11 @@ STRING ID stringID_globalPrefsHelp "$$GLOBAL PREFS HELP"
 STRING ID stringID_ucguiFonts      "$$FONTS"
 STRING ID stringID_ucguiRotate     "$$ROTATE"
 STRING ID stringID_ucguiSpacing    "$$SPACING"
+
+#ifdef ENABLE_AUTOSCROLL
+STRING ID stringID_ucguiAutoScroll    "$$AUTOSCROLL"
+#endif
+
 STRING ID stringID_ucguiGotoPerc   "$$GOTO PER"
 STRING ID stringID_ucguiPickDoc    "$$PICK DOC"
 STRING ID stringID_noDocs          "$$NO DOCS" 
