@@ -1,6 +1,15 @@
-set TAG=CSPOTRUN_0_9_4
-set SRCZIP=CSpotRunSrc0p9p4.zip
-set VERSION=0.9.4
+
+set V1=0
+set V2=9
+set V3=5
+
+set TAG=CSPOTRUN_%V1%_%V2%_%V3%
+set SRCZIP=CSpotRunSrc%V1%p%V2%p%V3%.zip
+set VERSION=%V1%.%V2%.%V3%
+
+#set TAG=CSPOTRUN_0_9_4
+#set SRCZIP=CSpotRunSrc0p9p4.zip
+#set VERSION=0.9.4
 
 #set TAG=CSPOTRUN_0_9_3
 #set SRCZIP=CSpotRunSrc0p9p3.zip
