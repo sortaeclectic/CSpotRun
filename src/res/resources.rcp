@@ -61,7 +61,7 @@ begin
                                     "line from the previous page when you page up or down.\n\n"\
                                     "The \'tap action\' choice controls what action is performed with you "\
                                     "tap on the screen.\n\n"\
-                                    "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+                                    "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
                                     "are in 100ths of a second. 60-80 is the recommended speed."
     "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
 
@@ -205,7 +205,7 @@ begin
         "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
         "L'option \'Tape' définit l'ampleur de défilement du texte lorsque "\
         "le stylet touche le document à l'écran.\n\n"\
-        "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+        "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
         "are in 100ths of a second. 60-80 is the recommended speed."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
@@ -307,7 +307,7 @@ begin
         "Use \'Mostrar línea anterior\', para repetir una línea individual "\
         "de la página anterior cuando cambia de página.\n\n"\
         "\'Acción al tocar\' controla cuánto se mueve la página cuando toca la pantalla con el lápiz óptico.\n\n"\
-        "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+        "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
         "are in 100ths of a second. 60-80 is the recommended speed."
         
     "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor    pruebe CSpotRun"\
@@ -400,7 +400,7 @@ begin
         "Die \'Tippen\'-Schaltflächen steuern den Umfang des Blätterns, "\
         "wenn Sie mit dem Stift auf die obere bzw. untere Hälfte des "\
         "Bildschirms tippen.\n\n"\
-        "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+        "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
         "are in 100ths of a second. 60-80 is the recommended speed."
 
     "$$NO DOCS"="Es sind keine Dokumente installiert!\n\nBitte starten Sie CSpotRun erneut,"\
@@ -442,7 +442,7 @@ begin
                                     "linha da página anterior quando avançar uma página.\n\n"\
                                     "A escolha de \'Ação de toque\' controla que ação é executada quando "\
                                     "você toca a tela.\n\n"\
-                                    "\'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+                                    "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
                                     "are in 100ths of a second. 60-80 is the recommended speed."
     "$$NO DOCS"="Não há arquivos DOC instalados!\n\nPor favor tente novamente o CSpotRun depois de instalar um ou dois documentos."
 
