@@ -61,7 +61,9 @@ void DocList_populateList(ListPtr listPtr)
 
     // Count documents
     _dbCount = 0;
-    while (0 == DmGetNextDatabaseByTypeCreator(newSearch, &searchState, DOC_TYPE, DOC_CREATOR, false, &cardNo, &dbID))
+    while (0 == DmGetNextDatabaseByTypeCreator(newSearch, &searchState, 
+                                               DOC_TYPE, DOC_CREATOR, 
+                                               false, &cardNo, &dbID))
     {
         _dbCount++;
         newSearch = false;
@@ -70,19 +72,37 @@ void DocList_populateList(ListPtr listPtr)
     if (_dbCount)
     {
         // Allocate arrays to hold info on all docs
-        _dbInfoArray = MemHandleLock(MemHandleNew(_dbCount * sizeof(*_dbInfoArray)));
-        _listItemPtrs = MemHandleLock(MemHandleNew(_dbCount * sizeof(*_listItemPtrs)));
-        _map = MemHandleLock(MemHandleNew(_dbCount * sizeof(*_map)));
+        _dbInfoArray = 
+            MemHandleLock(MemHandleNew(_dbCount * sizeof(*_dbInfoArray)));
+        _listItemPtrs = 
+            MemHandleLock(MemHandleNew(_dbCount * sizeof(*_listItemPtrs)));
+        _map = 
+            MemHandleLock(MemHandleNew(_dbCount * sizeof(*_map)));
     }
 
     // populate those arrays.
     newSearch = true;
     _dbCount = 0;
-    while (0 == DmGetNextDatabaseByTypeCreator(newSearch, &searchState, DOC_TYPE, DOC_CREATOR, false, &cardNo, &dbID))
+    while (0 == DmGetNextDatabaseByTypeCreator(newSearch, &searchState, 
+                                               DOC_TYPE, DOC_CREATOR, 
+                                               false, &cardNo, &dbID))
     {
-        newSearch = false;
+        UInt16 recordCount = 0;
+        DmOpenRef db;
+        newSearch = false;       
 
-        DmDatabaseInfo(cardNo, dbID, name, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        DmDatabaseInfo(cardNo, dbID, name, 
+                       NULL, NULL, NULL, NULL, NULL, 
+                       NULL, NULL, NULL, NULL, NULL);
+
+        db = DmOpenDatabase(cardNo, dbID, dmModeReadOnly);
+        if (db) {
+            recordCount = DmNumRecords(db);
+            DmCloseDatabase(db);
+        }
+        if (recordCount < 2)
+            continue;
+
         MemMove(_dbInfoArray[_dbCount].name, name, dmDBNameLength);
         _dbInfoArray[_dbCount].cardNo = cardNo;
         _dbCount++;
@@ -101,17 +121,15 @@ void DocList_populateList(ListPtr listPtr)
 
 Char* DocList_getTitle(int i)
 {
-//    ErrFatalDisplayIf(!(i>=0 && i<_dbCount), "h");
     return _dbInfoArray[_map[i]].name;
 }
 LocalID DocList_getID(int i)
 {
-//    ErrFatalDisplayIf(!(i>=0 && i<_dbCount), "i");
-    return DmFindDatabase(_dbInfoArray[_map[i]].cardNo, _dbInfoArray[_map[i]].name);
+    return DmFindDatabase(_dbInfoArray[_map[i]].cardNo, 
+                          _dbInfoArray[_map[i]].name);
 }
 UInt16 DocList_getCardNo(int i)
 {
-//    ErrFatalDisplayIf(!(i>=0 && i<_dbCount), "j");
     return _dbInfoArray[_map[i]].cardNo;
 }
 
@@ -142,7 +160,8 @@ static void _buildMap()
     {
         for(j = i+1; j < _dbCount; j++)
         {
-            if (0 < StrCaselessCompare(_dbInfoArray[_map[i]].name, _dbInfoArray[_map[j]].name))
+            if (0 < StrCaselessCompare(_dbInfoArray[_map[i]].name, 
+                                       _dbInfoArray[_map[j]].name))
             {
                 tmp = _map[i];
                 _map[i] = _map[j];
