@@ -261,7 +261,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Défilement"
     "$$AUTOSCROLLSPEED"="Vitesse de défilement :"
-    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
+    "$$TOGGLE AUTOSCROLL"="M/A défilement par bouton 'Adr.'"
 #endif
 
     "$$GLOBAL PREFERENCES"="Préférences"
@@ -318,14 +318,16 @@ begin
         "apparaître. \n\nPensez à cacher les boutons que vous utilisez rarement. "\
         "Chaque bouton a un équivalent dans le menu."
         
-    "$$GLOBAL PREFS HELP"="L'option \'Inverser boutons haut/bas\' permet "\
-        "d'inverser l'effet des boutons \'haut\' et \'bas\' de l'appareil "\
+    "$$GLOBAL PREFS HELP"="L'option \"Inverser boutons haut/bas\" permet "\
+        "d'inverser l'effet des boutons \"haut\" et \"bas\" de l'appareil "\
         "lorsque le texte est en vue latérale.\n\n"\
-        "L'option \'Ligne de la page précédente\' est utile pour garder à l'écran "\
+        "L'option \"Ligne de la page précédente\" est utile pour garder à l'écran "\
         "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
-        "L'option \'Tape' définit l'ampleur de défilement du texte lorsque "\
+        "L'option \"M/A défilement par bouton 'Adr.'\" permet d'utiliser le bouton "\
+        "\"Adresses\" de l'appareil pour démarrer ou arrêter le défilement automatique.\n\n"\
+        "L'option \"Tape\" définit l'ampleur de défilement du texte lorsque "\
         "le stylet touche le document à l'écran.\n\n"\
-        "Le champ \'Vitesse de défilement\' spécifie la vitesse de défilement "\
+        "Le champ \"Vitesse de défilement\" spécifie la vitesse de défilement "\
         "automatique du texte en 100èmes de seconde (15-25 sont des valeurs recommandées)."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
