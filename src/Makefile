@@ -4,8 +4,6 @@
 # TODO: get some gnow-it-all to make this more gnu-like.
 # TODO: dist target
 #
-# note: You MUST have sed and awk to compile this.
-#
 
 CC = m68k-palmos-coff-gcc
 ZIP = zip
@@ -32,9 +30,10 @@ OBJS = pilotmain.o mainform.o doclist.o doc.o \
 STDDEP = Makefile resources.h app.h appstate.h callback.h
 
 CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH ENABLE_AUTOSCROLL
-DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt))
-#CFLAGS =  -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch
-CFLAGS =   -O2  $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch
+DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt)) -DNON_INTERNATIONAL 
+
+#CFLAGS = -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
+CFLAGS = -O2 $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
 
 RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) defined[tmp[s]]=""; d=0}\
 					{\
