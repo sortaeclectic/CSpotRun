@@ -61,8 +61,11 @@ struct RECORD0_STR
     Byte    crap;               //Because wVersion was 1026 (1024+2) in one doc when it should have been 2.
     Byte    wVersion;           // 1=plain text, 2=compressed
     Word    wSpare;             //??
-    DWord   munged_dwStoryLen;  // in bytes, when decompressed.  Appears to be wrong in some DOCs.
-    Word    wNumRecs;           // text records only; equals tDocHeader.wNumRecs-1. Use this, because AportisDoc adds records beyond these.
+    DWord   munged_dwStoryLen;  // in bytes, when decompressed.
+                                //Appears to be wrong in some DOCs.
+    Word    munged_wNumRecs;    // text records only; equals tDocHeader.wNumRecs-1.
+                                //Use this, because AportisDoc adds records beyond these.
+                                //Appears to be too big in some DOCs.
     Word    wRecSize;           // usually 0x1000
     DWord   dwSpare2;           //??
 };
@@ -87,6 +90,7 @@ DWord               _fixedStoryLen;
 RectangleType       _textGadgetBounds;
 RectangleType       _apparentTextBounds;
 UShort              _lineHeight = 0;
+Word                _wNumRecs;
 
 #ifdef ENABLE_AUTOSCROLL
 static UShort       _pixelOffset = 0;
@@ -137,8 +141,11 @@ void Doc_open(UInt cardNo, LocalID dbID, char name[dmDBNameLength])
     _decodedRecordLen = 0;
     _recordDecoded = 0;
 
+    //I saw a document with wNumRecs was too big. Kill me now.
+    _wNumRecs = min(_record0Ptr->munged_wNumRecs, DmNumRecords(_dbRef) - 1);
+
     //allocate record len array
-    _recLensHandle =    MemHandleNew(_record0Ptr->wNumRecs*sizeof(*_recLens));
+    _recLensHandle =    MemHandleNew(_wNumRecs*sizeof(*_recLens));
     ErrFatalDisplayIf(!_recLensHandle, "q");
 
     _recLens =            MemHandleLock(_recLensHandle);
@@ -150,7 +157,7 @@ void Doc_open(UInt cardNo, LocalID dbID, char name[dmDBNameLength])
     DocPrefs_loadPrefs(name, &_docPrefs);
 
     //if location is bad, go to beginning.
-    if (_docPrefs.location.record > _record0Ptr->wNumRecs || _docPrefs.location.ch >= _recLens[_docPrefs.location.record-1])
+    if (_docPrefs.location.record > _wNumRecs || _docPrefs.location.ch >= _recLens[_docPrefs.location.record-1])
     {
         _docPrefs.location.record = _docPrefs.location.ch = 0;
     }
@@ -639,7 +646,7 @@ static void _loadCurrentRecord()
         _decodeLen = _decodedRecordLen = decodeRecord(_dbRef, _record0Ptr->wVersion, _decodeBuf, recToLoad, _decodeBufLen-1);
         _recordDecoded = _docPrefs.location.record;
         //If this is the last record, make the null appear to belong to this record
-        if (recToLoad == _record0Ptr->wNumRecs)
+        if (recToLoad == _wNumRecs)
         {
             _decodedRecordLen++;
         }
@@ -647,7 +654,7 @@ static void _loadCurrentRecord()
         else
         {
             //While there are remaining records, and space to fill in the buffer, decode next records.
-            while (++recToLoad <= _record0Ptr->wNumRecs && _decodeLen < _decodeBufLen-1)
+            while (++recToLoad <= _wNumRecs && _decodeLen < _decodeBufLen-1)
                 _decodeLen += decodeRecord(_dbRef, _record0Ptr->wVersion, &_decodeBuf[_decodeLen], recToLoad, (_decodeBufLen-1) - _decodeLen);
         }
         _decodeBuf[_decodeLen] = '\0';
@@ -660,7 +667,7 @@ static void _loadCurrentRecord()
     //If current location is in the next record, normalize
     else if (_docPrefs.location.ch >= _decodedRecordLen)
     {
-ErrFatalDisplayIf(_docPrefs.location.record+1>_record0Ptr->wNumRecs, "sheez");
+ErrFatalDisplayIf(_docPrefs.location.record+1>_wNumRecs, "sheez");
         _docPrefs.location.ch -= _decodedRecordLen;
         _docPrefs.location.record++;
         _loadCurrentRecord();
@@ -672,7 +679,7 @@ static DWord _fixStoryLen(Word *recLens)
     DWord storyLen = 0;
     Word i;
 
-    for (i = 0; i < _record0Ptr->wNumRecs; i++)
+    for (i = 0; i < _wNumRecs; i++)
     {
 /*        _docPrefs.location.ch = 0;
         _docPrefs.location.record = i+1;
@@ -682,7 +689,7 @@ static DWord _fixStoryLen(Word *recLens)
 */
         storyLen += (recLens[i] = decodedRecordLen(_dbRef, _record0Ptr->wVersion, i+1));
     }
-    recLens[_record0Ptr->wNumRecs-1]++;//for the null at the end of the last record.
+    recLens[_wNumRecs-1]++;//for the null at the end of the last record.
     storyLen++;
 
     return storyLen;
@@ -754,7 +761,7 @@ void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop, Boolean ca
 
                 _docPrefs.location.ch = 0;
                 _docPrefs.location.record++;
-                if (_docPrefs.location.record > _record0Ptr->wNumRecs)
+                if (_docPrefs.location.record > _wNumRecs)
                     _docPrefs.location.record = 1;
             }
         }
