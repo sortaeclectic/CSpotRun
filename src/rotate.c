@@ -21,6 +21,7 @@
 #include <PalmOS.h>
 #include "rotate.h"
 #include "app.h"
+#include <PalmOSGlue.h>
 
 typedef UInt16 Pyte;
 #define BITS_PER_PYTE (8 * sizeof(Pyte))
@@ -81,29 +82,27 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
     unsigned int fromRowPytes;
     unsigned int toRowPytes;
 
-    int         dToXdx, dToYdx;
-    int         dToPyte;
+    int        dToXdx, dToYdx;
+    int        dToPyte;
     Pyte       toBitMask;
     Pyte       fromBitMask;
     Pyte       startingFromBitMask;
-    int          pyteCol = -1;
+    int        pyteCol = -1;
     Pyte       toBlackBits;
 
     to = windowBits(toWindowH);
     from = windowBits(fromWindowH);
 
     if (UtilOSIsAtLeast(3, 5)) {
-        BitmapType *bmp;
-
-        bmp = WinGetBitmap(fromWindowH);
-        fromRowPytes = (bmp->rowBytes * 8) / BITS_PER_PYTE;
-        fromWidth = bmp->width;
-        fromHeight = bmp->height;
-
-        bmp = WinGetBitmap(toWindowH);
-        toRowPytes = (bmp->rowBytes * 8) / BITS_PER_PYTE;
-        toWidth = bmp->width;
-        toHeight = bmp->height;
+        UInt16 rowBytes;
+        BmpGlueGetDimensions(WinGetBitmap(fromWindowH),
+                             &fromWidth, &fromHeight,
+                             &rowBytes);
+        fromRowPytes = (rowBytes * 8) / BITS_PER_PYTE;
+        BmpGlueGetDimensions(WinGetBitmap(toWindowH),
+                             &toWidth, &toHeight,
+                             &rowBytes);
+        toRowPytes = (rowBytes * 8) / BITS_PER_PYTE;
     }
     else if (fromWindowH->bitmapP)
     {
