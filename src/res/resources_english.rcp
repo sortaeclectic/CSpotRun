@@ -5,12 +5,10 @@ begin
     "$$CONFIGURE CONTROLS"="Configure Controls"
     "$$ROTATE"="Rotate"
     "$$SPACING"="Spacing"
-#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Scroll"
     "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
-#endif
     "$$GOTO PER"="Goto %"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\

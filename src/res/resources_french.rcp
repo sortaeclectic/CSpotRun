@@ -12,12 +12,10 @@ begin
     "$$SPACING"="Interlignes"
     "$$GOTO PER"="Aller à %"
     "$$PICK DOC"="Choisir"
-#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Défilement"
     "$$AUTOSCROLL TYPE AND SPEED"="Mode et vitesse de défilement"
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="M/A défilement par bouton 'Adr.'"
-#endif
 
     "$$GLOBAL PREFERENCES"="Préférences"
     "$$SWAP UPDOWN"="Inverser boutons haut/bas"

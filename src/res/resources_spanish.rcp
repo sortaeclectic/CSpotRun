@@ -13,12 +13,10 @@ begin
     "$$SPACING"="Espaciado"
     "$$GOTO PER"="Ir a %"
     "$$PICK DOC"="Elegir Doc"
-#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Autoscroll"
     "$$AUTOSCROLL TYPE AND SPEED"="Vel. y tipo de Autoscroll:"
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Autoscroll en el Bot'on de Dir."
-#endif
 
     "$$GLOBAL PREFERENCES"="Preferencias Globales"
     "$$SWAP UPDOWN"="Cambiar orientación lateral"

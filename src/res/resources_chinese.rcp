@@ -10,12 +10,10 @@ begin
     "$$CONFIGURE CONTROLS"="設定控制列"
     "$$ROTATE"="旋轉"
     "$$SPACING"="行距"
-#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="捲動"
     "$$AUTOSCROLL TYPE AND SPEED"="捲動類型與速度:"
     "$$PIXEL"="一點"
     "$$TOGGLE AUTOSCROLL"="按地址按鈕開始捲動  "
-#endif
     "$$GOTO PER"="跳至 %"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\

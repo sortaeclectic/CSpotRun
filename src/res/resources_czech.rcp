@@ -10,12 +10,10 @@ begin
     "$$CONFIGURE CONTROLS"="Nastavit ovládání"
     "$$ROTATE"="Rotovat"
     "$$SPACING"="Øádkování"
-#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Samoposuv"
     "$$AUTOSCROLL TYPE AND SPEED"="Samoposuv, druh a rychlost:"
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Samoposuv ovládat adres.tlaè."
-#endif
     "$$GOTO PER"="Jdi na %"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\

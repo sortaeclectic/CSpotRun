@@ -14,12 +14,10 @@ begin
     "$$SPACING"="Zeilenabstand"
     "$$GOTO PER"="GeheZu %"
     "$$PICK DOC"="Dok ausw‰hlen"
-#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto-Bildlauf"
     "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Auto-Bildlauf mit Adreﬂbuchknopf"
-#endif
 
     "$$GLOBAL PREFERENCES"="Allgemeine Einstellungen"
     "$$SWAP UPDOWN"="Tausche Bildlauftasten"

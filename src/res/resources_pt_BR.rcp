@@ -12,12 +12,10 @@ begin
     "$$ROTATE"="Girar"
     "$$SPACING"="Espaçamento"
     "$$GOTO PER"="Ir para %"
-#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
     "$$AUTOSCROLL TYPE AND SPEED"="Ajustes de Auto rolagem:"
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Auto rolagem no botão Addr. Book"
-#endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         "© 1998-2000 Bill Clagett\n"\

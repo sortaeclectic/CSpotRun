@@ -11,12 +11,10 @@ begin
     "$$CONFIGURE CONTROLS"="Kontrollinställningar"
     "$$ROTATE"="Rotera"
     "$$SPACING"="Radavstånd"
-#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Textrullning"
     "$$AUTOSCROLL TYPE AND SPEED"="Textrullning, typ och hastighet:"
     "$$PIXEL"="Pixel"
     "$$TOGGLE AUTOSCROLL"="Textrullning på adressboksknapp"
-#endif
     "$$GOTO PER"="Gå till %"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\

@@ -10,12 +10,10 @@ begin
     "$$CONFIGURE CONTROLS"="Aktif Kontroller"
     "$$ROTATE"="Döndürme"
     "$$SPACING"="Satýr Aralarý"
-#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Oto. Kaydýrma"
     "$$AUTOSCROLL TYPE AND SPEED"="Oto. Kaydýrma Tipi ve Hýzý:"
     "$$PIXEL"="Çizgi"
     "$$TOGGLE AUTOSCROLL"="Oto.Kaydýrma için Adres Butonu"
-#endif
     "$$GOTO PER"="%\'ye Git"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
