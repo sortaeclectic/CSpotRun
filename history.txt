@@ -67,3 +67,11 @@ Chinese translation from Chen-hsiung Chan (frankch@waru.life.nthu.edu.tw).
 2/27/2000
 
 Released as 1.0
+
+8/27/2000
+
+Dutch translation from Aa Schreuder (aaschreuder@usa.net).
+Estonian translation from Rauno Varblas (raunov@yahoo.com).
+Italian translation from Mad IP Adress (badipadress@yahoo.com).
+Polish translation from Slawomir Lipski (slawek@altkom.com.pl).
+
