@@ -1,2 +1,12 @@
+#include "http://www.pobox.com/~wtc/palmos/cspotrun"
+
 Make the rotation stuff work on 3.5? Is it finally possible without touching memory manually?
+
+Replace the "F" and "FA" on the find and find again buttons with meaningful pictures for internationalization's sake.
+
+Internationalize menu shortcuts. Probably need to tweak pilrc to do this.
+
+Cache rendered next and prev pages to speed up paging?
+
+Go to "next" doc when a doc is deleted. Would next/previous document navigation make sense?
 
