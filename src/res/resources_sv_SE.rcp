@@ -54,7 +54,10 @@ begin
         "Med bidrag från:\n\n"\
         "Jonas Kämpe\njonas@ehand.com\nSvensk översättning\n\n"\
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nTextrullning\n"
+        "Daniel Zahn\nsclug@sclug.org\nTextrullning\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
 
     "$$CONTROLS HELP"="Varje kryssruta motsvarar en kontroll på skärmen. "\
         "Välj de kontroller du vill ska synas.\n\n"\

@@ -26,8 +26,10 @@ begin
         "Kaastööd:\n\n"\
         "Rauno Varblas\nraunov@yahoo.com\nTõlge eesti keelde\n\n"\
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nIserullumine\n"
-
+        "Daniel Zahn\nsclug@sclug.org\nIserullumine\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+        
     "$$CONTROLS HELP"="Iga valikuruut vastab ekraanil olevatele seadistustele. "\
                                 "Vali seadistused, mida soovid ekraanil näha .\n\n"\
                                 "Mõttekas on mitte valida neid, mida harva kasutad. "\

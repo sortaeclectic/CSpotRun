@@ -56,7 +56,10 @@ begin
         "Carlos Morgado\nchbm@chbm.nu\nPortuguese (PT) translation.\n\n"\
         "Rui A. Rebelo\nrui.rebe@zaz.com.br\nOriginal Portuguese translation\n\n"\
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
 
     "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela. "\
                       "Selecione o controle que você deseja que fique visível.\n\n"\

@@ -52,7 +52,9 @@ begin
         "Contributors:\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Chen-hsiung Chan\nfrankch@waru.life.nthu.edu.tw\nChineseTranslation\n"
+        "Chen-hsiung Chan\nfrankch@waru.life.nthu.edu.tw\nChineseTranslation\n\n"\
+        "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
     "$$CONTROLS HELP"="每一個選項對應到控制列上的一個控制元件。"\
 				"選取你想顯示出的控制元件。"\
 				"你可以將不常使用的控制元件隱藏起來。"\

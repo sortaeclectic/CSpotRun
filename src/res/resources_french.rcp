@@ -88,7 +88,9 @@ begin
       "Remerciements à :\n\n"\
       "Vincent Poty\n(vincent.poty@bigfoot.com)\npour la traduction en français\n\n"\
       "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-      "Daniel Zahn\n(sclug@sclug.org)\npour le défilement automatique\n"
+      "Daniel Zahn\n(sclug@sclug.org)\npour le défilement automatique\n\n"\
+      "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+      "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
 
     "$$DELETE PROMPT"="Supprimer définitivement \"^1\" ?"
     "$$CONFIRM DELETE"="Confirmer la suppression"

@@ -99,7 +99,9 @@ begin
         "Beiträge von:\n\n"\
         "Arne Nickel\narne.nickel@gmx.de\nDeutsche Übersetzung\n\n"\
         "Alexey Raschepkin\napr@direct.ru\nLesezeichen\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-Bildlauf\n"
+        "Daniel Zahn\nsclug@sclug.org\nAuto-Bildlauf\n\n"\
+        "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
 
     "$$DELETE PROMPT"="Dokument \"^1\" endgültig löschen?"
     "$$CONFIRM DELETE"="Löschen bestätigen"

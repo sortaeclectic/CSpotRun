@@ -29,8 +29,10 @@ begin
         "Contributi:\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-	"Mad IP Address\nbadipadress@yahoo.com\nTraduzione in italiano\n\n"
-
+	"Mad IP Address\nbadipadress@yahoo.com\nTraduzione in italiano\n\n"\
+        "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+      
     "$$CONTROLS HELP"="Ogni casella corrisponde ad un controllo sullo schermo. "\
                                 "Selezionare i controlli da rendere visibili.\n\n"\
                                 "E\' consigliabile nascondere i controlli poco usati. "\

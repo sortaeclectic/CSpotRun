@@ -46,9 +46,10 @@ begin
         "http://32768.com/cspotrun/\n\n"\
         ""\
         "Contributors:\n\n"\
-
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
 
     "$$CONTROLS HELP"="Each checkbox corresponds to an on-screen control. "\
                                 "Select the controls which you want to be visible.\n\n"\

@@ -24,7 +24,9 @@ begin
        	"Nederlandse vertaling\n"\
        	"\n"\
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-doorvoer\n"
+        "Daniel Zahn\nsclug@sclug.org\nAuto-doorvoer\n\n"\
+        "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
 
     "$$CONTROLS HELP"="Elk vakje komt overeen met een knop onderin het scherm "\
                                 "Geef aan welke knoppen u zichtbaar wilt hebben.\n\n"\

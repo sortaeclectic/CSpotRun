@@ -54,7 +54,10 @@ begin
         "Katkýda bulunanlar:\n\n"\
         "Selçuk Demiray\nsdemiray@bigfoot.com\nTürkçe Çeviri\n\n"\
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nOtomatik Kaydýrma\n"
+        "Daniel Zahn\nsclug@sclug.org\nOtomatik Kaydýrma\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
 
     "$$CONTROLS HELP"="Her kutucuk ekran üzerindeki bir kontrole karþý düþmektedir. "\
                                 "Görülmesini istediðiniz kontrolleri seçiniz.\n\n"\

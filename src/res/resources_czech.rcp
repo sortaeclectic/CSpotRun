@@ -52,8 +52,10 @@ begin
         "Contributors:\n\n"\
         "Ivo Panáèek\nIvo.Panacek@regionet.cz\nCzech translation\n\n"\
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
-
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+        
     "$$CONTROLS HELP"="Každý checkbox odpovídá ovládacímu prvku na displeji. "\
                       "Vyberte si prvky, které chcete mít viditelné.\n\n"\
                       "Zvažte, zda neskrýt ty prvky, které užíváte zøídka. "\

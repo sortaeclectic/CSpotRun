@@ -25,7 +25,10 @@ begin
         ""\
         "Wspó³praca:\n\n"\
         "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
 
     "$$CONTROLS HELP"="Ka¿da kratka odpowiada jednemu narzêdziu na ekranie."\
                                 "Zanacz, które narzêdzia chcesz widzieæ na ekranie.\n\n"\
