@@ -19,7 +19,8 @@ GNUTURDS = ../copying.txt ../readme.txt
 PROGNAME = CSpotRun
 VERSION = dev 
 APPID = CSBR
-LANGUAGES = czech english french german pt_BR pt_PT spanish turkish
+LANGUAGES = czech english french german pt_BR pt_PT turkish sv_SE spanish sv_SE 
+
 ICONTEXT = $(PROGNAME)
 
 OBJS = pilotmain.o mainform.o doclist.o doc.o \
@@ -49,6 +50,7 @@ RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) def
 
 PRCS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).prc)
 ZIPS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).zip) 
+RCPS = $(foreach lang, $(LANGUAGES), $(RESDIR)/resources_$(lang).rcp) 
 
 englishprconly: CSpotRun_english.prc
 allprcs: $(PRCS) 
@@ -72,6 +74,9 @@ code.stamp: $(PROGNAME)
 	$(OBJRES) $(PROGNAME) ;
 	touch $@ 
 
+$(RESDIR)/resources.rcp: $(RESDIR)/resources_neutral.rcp $(RCPS)
+	cat $(RCPS) $(RESDIR)/resources_neutral.rcp > $@
+
 $(RESDIR)/fixed_resources.rcp: $(RESDIR)/resources.rcp
 	cat $^ | sed -e "s/@@CSR_VERSION@@/$(VERSION)/g" | $(RCP_IFDEFFER)  > $@
 
@@ -85,5 +90,5 @@ $(PROGNAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@
 
 clean:
-	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(LANGUAGES) $(ZIPS) 
+	rm -rf *.[oa] $(PROGNAME) *.prs *.bin *.stamp *.resstamp *.grc $(PRCS) fixed_resources.h $(RESDIR)/fixed_resources.rcp $(RESDIR)/resources.rcp $(LANGUAGES) $(ZIPS) 
 
