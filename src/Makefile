@@ -19,7 +19,9 @@ GNUTURDS = ../copying.txt ../readme.txt
 PROGNAME = CSpotRun
 VERSION = dev 
 APPID = CSBR
-LANGUAGES = czech english french german pt_BR pt_PT turkish sv_SE spanish  
+LANGUAGES = chinese czech english french \
+            german pt_BR pt_PT turkish sv_SE \
+            spanish  
 
 ICONTEXT = $(PROGNAME)
 

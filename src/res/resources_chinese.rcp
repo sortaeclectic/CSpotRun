@@ -10,73 +10,47 @@ begin
     "$$CONFIGURE CONTROLS"="³]©w±±¨î¦C"
     "$$ROTATE"="±ÛÂà"
     "$$SPACING"="¦æ¶Z"
+#ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="±²°Ê"
-    "$$AUTOSCROLL TYPE AND SPEED"="±²°ÊÃþ«¬»P³t«×¡G"
-    "$$PIXEL"="¤@ÂI"
-    "$$TOGGLE AUTOSCROLL"="³q°T¿ý«ö¶s¦Û°Ê±²°Ê"
+    "$$AUTOSCROLL TYPE AND SPEED"="±²°ÊÃþ«¬»P³t«×:"
+    "$$PIXEL"="ÂI"
+    "$$TOGGLE AUTOSCROLL"="«ö¦a§}«ö¶s¶}©l±²°Ê"
+#endif
     "$$GOTO PER"="¸õ¦Ü %"
 
-    "$$BOOKMARKS"="®ÑÅÒ"
-    "$$BOOKMARKS_TRIGGER"="®ÑÅÒ"
-    "$$EDIT BOOKMARKS"="®ÑÅÒ³]©w¡K"
-    "$$EDIT BOOKMARKS LIST"="* ®ÑÅÒ³]©w¡K"
-    "$$DEL ALL BOOKMARKS"="§R°£©Ò¦³®ÑÅÒ"
-    "$$SORT BOOKMARKS"="®ÑÅÒ±Æ§Ç¡K"
-    "$$ADD BOOKMARK"="·s¼W®ÑÅÒ¡K"
-    "$$ADD BOOKMARK LIST"="* ·s¼W®ÑÅÒ¡K"
-    "$$ADD BOOKMARK TITLE"="·s¼W®ÑÅÒ"
-    "$$NAME BOOKMARK"="¬°®ÑÅÒ©R¦W"
-    "$$NAME"="¦WºÙ"
-    "$$DUP NAME"="¦P¦Wªº®ÑÅÒ¤w¸g¦s¦b¡C§A­n«ç»ò°µ©O¡H"
-    "$$REPLACE"="¨ú¥N"
-    "$$NEW"="·s¼W"
-    "$$MOVE UP"="¤W²¾"
-    "$$MOVE DOWN"="¤U²¾"
-    "$$RENAME"="§ó¦W"
-    "$$DELETE"="§R°£"
-    "$$DONE"="§¹¦¨"
-    "$$GOTO"="²¾¦Ü"
-    "$$SORT BOOKMARKS"="®ÑÅÒ±Æ§Ç"
-    "$$POSITION"="¦ì¸m"
-    "$$SORT BOOKMARKS BY"="±Æ§Ç®ÑÅÒ¡A¨Ì·Ó¡K"
-    "$$BMK DELETE PROMPT"="¥Ã¤[§R°£®ÑÅÒ¡H"
-    "$$NO MEMORY"="°O¾ÐÅé¤£¨¬"
-    "$$BMK DOC NOT OPENED"="¤å¥ó©|¥¼¶}±Ò"
-
-    "$$ABOUT BODY"=
-        "¥»µ{¦¡¨º­ì©l½X¬O¨Ì¾Ú GNU General Public License(GPL) "\
-        "¦Ó´²§Gªº¡C§A¥i¥H¦b http://www.gnu.org/copyleft/gpl.html "\
-        "§ä¨ì GPL ªº¤º®e¡C\n\n"\
-        "­ì©l½X¤Î³Ì·sª©¥»¥i¥H¦b http://32768.com/cspotrun/ §ä¨ì¡C\n\n"\
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+        "© 1998-2000 Bill Clagett\n"\
+        "bill@32768.com\n\n"\
+        "¥»µ{¦¡ªº­ì©l½X¬O¨Ì¾Ú GNU General Public License(GPL) "\
+        "¦Ó´²§Gªº. §A¥i¥H¦b http://www.gnu.org/copyleft/gpl.html "\
+        "§ä¨ì GPL ªº¤º®e.\n\n"\
+        "­ì©l½X¤Î³Ì·sª©¥»¥i¥H¦b http://32768.com/cspotrun/ §ä¨ì.\n\n"\
         ""\
         "Contributors:\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
-        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Chen-hsiung Chan\nfrankch@waru.life.nthu.edu.tw\nChineseTranslation\n\n"\
-        "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
-        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
-    "$$CONTROLS HELP"="¨C¤@­Ó¿ï¶µ¹ïÀ³¨ì±±¨î¦C¤Wªº¤@­Ó±±¨î¤¸¥ó¡C"\
-				"¿ï¨ú§A·QÅã¥Ü¥Xªº±±¨î¤¸¥ó¡C"\
-				"§A¥i¥H±N¤£±`¨Ï¥Îªº±±¨î¤¸¥óÁôÂÃ°_¨Ó¡C"\
-				"¨C­Ó±±¨î¤¸¥ó³£¦³¹ïÀ³ªº¿ï³æ¿ï¶µ¡C"
-    "$$GLOBAL PREFS HELP"="¨Ï¥Î¡§±ÛÂà®É¥æ´«¤W/¤UÁä¡¨¿ï¶µ"\
-    				    "¦bµe­±¥ª¥k±ÛÂà®É¥æ´«¤W/¤UÁäªº¥\\¯à¡C\n\n "\
-    				    "¨Ï¥Î¡§Åã¥Ü«e¤@­Óµe­±ªº³¡¥÷¤å¦r¡¨¿ï¶µÅý«e¤@­¶ªº³Ì«á¤@¦æ"\
-    				    "©Î«á¤@­¶ªº²Ä¤@¦æ¦b¥Ø«eµe­±Åã¥Ü¥X¨Ó¡C\n\n"\
-    				    "¡§Tap ®É±²°Ê¡¨¿ï¶µ³]©w¦b¿Ã¹õ¤W»´ÂI®Éªº¹ïÀ³°Ê§@¡C\n\n"\
-    				    "¡§±²°ÊÃþ«¬»P³t«×¡¨¿ï¶µ³]©w¦Û°Ê±²°Ê®É¬O¥HÂI©Î¦æ¬°³æ¦ì¡A¤Î"\
-    				    "¦Û°Ê±²°Ê®Éªº±²°Ê³t«×¡C±²°Ê³t«×¬O¥H¦Ê¤À¤§¤@¬í¬°³æ¦ì¡C "\
-    				    "¦Û°Ê±²°Ê®É¡A¤W/¤UÁä¥i¥H¥Î¨Ó½Õ¾ã±²°Ê³t«×¡C\n\n"
+        "Chen-hsiung Chan\nfrankch@waru.life.nthu.edu.tw\nChineseTranslation\n"
+    "$$CONTROLS HELP"="¨C¤@­Ó¿ï¶µ¹ïÀ³¨ì±±¨î¦C¤Wªº¤@­Ó±±¨î¤¸¥ó. "\
+				"¿ï¨ú§A·QÅã¥Ü¥Xªº±±¨î¤¸¥ó. "\
+				"§A¥i¥H±N¤£±`¨Ï¥Îªº±±¨î¤¸¥óÁôÂÃ°_¨Ó. "\
+				"¨C­Ó±±¨î¤¸¥ó³£¦³¹ïÀ³ªº¿ï³æ¿ï¶µ."
+    "$$GLOBAL PREFS HELP"="¨Ï¥Î\'¥ª¥k±ÛÂà®É¥æ´«¤W/¤UÁä¥\¯à\'¿ï¶µ"\
+    				    "¦bµe­±¥ª¥k±ÛÂà®É¥æ´«¤W/¤UÁäªº¥\¯à.\n\n "\
+    				    "¨Ï¥Î\'Åã¥Ü«e¤@­Óµe­±ªº³¡¤À¤å¦r\'¿ï¶µÅý«e¤@­¶ªº³Ì«á¤@¦æ"\
+    				    "©Î«á¤@­¶ªº²Ä¤@¦æ¦b¥Ø«eµe­±Åã¥Ü¥X¨Ó.\n\n"\
+    				    "\'Tap ®É±²°Ê\'¿ï¶µ³]©w¦b¿Ã¹õ¤W»´ÂI®Éªº¹ïÀ³°Ê§@.\n\n"\
+    				    "\'±²°ÊÃþ«¬»P³t«×\'¿ï¶µ³]©w¦Û°Ê±²°Ê®É¬O¥HÂI©Î¦æ¬°³æ¦ì¤Î"\
+    				    "±²°Ê³t«×. ±²°Ê³t«×¬O¥H¦Ê¤À¤§¤@¬í¬°³æ¦ì. "\
+    				    "¦Û°Ê±²°Ê®É, ¤W/¤UÁä¥i¥H¥Î¨Ó½Õ¾ã±²°Ê³t«×.\n\n"
 
                                     
-    "$$NO DOCS"="§ä¤£¨ì¤å¥ó¡I\n\n½Ð¥ý¦w¸Ë¤@¨â­Ó¤å¥ó¦A°õ¦æ CSpotRun¡C"
+    "$$NO DOCS"="§ä¤£¨ì¤å¥ó!\n\n½Ð¥ý¦w¸Ë¤@¨â­Ó¤å¥ó¦A°õ¦æ CSpotRun."
 
-    "$$ERROR ALERT"="§¹¤F¡I"
+    "$$ERROR ALERT"="§¹¤F!"
 
-    "$$DELETE PROMPT"="¥Ã¤[§R°£ \"^1\"¡H"
+    "$$DELETE PROMPT"="¥Ã¤[§R°£ \"^1\"?"
     "$$GLOBAL PREFERENCES"="¾ãÅé³]©w"
-    "$$SWAP UPDOWN"="±ÛÂà®É¥æ´«¤W/¤UÁä"
-    "$$SHOW PREV LINE"="Åã¥Ü«e¤@­Óµe­±ªº³¡¥÷¤å¦r"
+    "$$SWAP UPDOWN"="¥ª¥k±ÛÂà®É¥æ´«¤W/¤UÁä¥\¯à"
+    "$$SHOW PREV LINE"="Åã¥Ü«e¤@­Óµe­±ªº¤@¦æ¤å¦r"
 
     "$$TAP ACTION"="Tap ®É±²°Ê"
     "$$PAGE"="¤@­¶"
@@ -92,12 +66,10 @@ begin
     "$$ROTATE RIGHT"="¶¶®É°w±ÛÂà"
     "$$ROTATE LEFT"="°f®É°w±ÛÂà"
     "$$OPTIONS"="¿ï¶µ"
-    "$$JUSTIFY"="Justify"
-    "$$HYPHEN"="Hyphenation"
     "$$TOGGLE CONTROLS"="¤Á´«±±¨î¦C"
-    "$$CONTROLSDDD"="±±¨î¦C¤º®e¡K"
-    "$$PREFERENCESDDD"="°Ñ¼Æ³]©w¡K"
-    "$$ABOUTDDD"="Ãö©ó¡K"
+    "$$CONTROLSDDD"="±±¨î¦C¤º®e..."
+    "$$PREFERENCESDDD"="°Ñ¼Æ³]©w..."
+    "$$ABOUTDDD"="Ãö©ó..."
     "$$PICK DOC"="ÂI¿ï¤å¥ó"
     "$$DELETE DOC"="§R°£¤å¥ó"
     "$$CONFIRM DELETE"="½T»{§R°£"
@@ -111,7 +83,7 @@ begin
     
     "$$FIND"="§ä´M"
     "$$FIND AGAIN"="¦A«×§ä´M"
-    "$$FINDDDD"="§ä´M¡K"
+    "$$FINDDDD"="§ä´M..."
     "$$FIND IN DOCUMENT"="¦b¤å¥ó¤º§ä´M"
     "$$FIND PROMPT"="§ä´M:"
     "$$SEARCH FROM TOP"="¦Û¶}ÀY§ä´M"
