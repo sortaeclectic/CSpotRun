@@ -21,7 +21,7 @@
 
 #include <PalmOS.h>
 #include <PalmOSGlue.h>
-#include <Core/System/CharAttr.h>
+#include "myCharAttr.h"
 #include "hyphenate.h"
 
 #ifdef ENABLE_HYPHEN

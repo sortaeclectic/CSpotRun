@@ -19,7 +19,7 @@
  */
 
 #include <PalmOS.h>
-#include <Core/System/CharAttr.h>
+#include "myCharAttr.h"
 #include <PalmOSGlue.h>
 #include "appstate.h"
 #include "rotate.h"
