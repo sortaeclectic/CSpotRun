@@ -4,7 +4,7 @@ pushd .
 
 set V1=0
 set V2=9
-set V3=8
+set V3=9
 
 set TAG=CSPOTRUN_%V1%_%V2%_%V3%
 set SRCZIP=CSpotRunSrc%V1%p%V2%p%V3%.zip
@@ -30,11 +30,11 @@ pkzip -recurse -path=current -add %OUTPUTDIR%\resources.zip src\res\*.rcp
 cd src
 
 rem ### COMPILE
-make -e VERSION=%VERSION% zips
+make -s -e VERSION=%VERSION% zips
 
 move *.zip %OUTPUTDIR%
 
 popd
 
-@echo ### The crap should be in %OUTPUTDIR%
+@echo ### The goodies should be in %OUTPUTDIR%
 
