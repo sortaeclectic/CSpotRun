@@ -16,7 +16,6 @@ cvs export -r %TAG% cspotrun
 rem ### MAKE SOURCE ZIPBALL
 cd cspotrun
 pkzip -recurse -path=current -add %OUTPUTDIR%\%SRCZIP% src\* *.txt
-pkzip -recurse -path=current -add %OUTPUTDIR%\resources.zip src\res\*.rcp 
 cd src
 
 rem ### COMPILE
