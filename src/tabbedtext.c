@@ -22,6 +22,7 @@
 #include <PalmOS.h>
 #include <Core/System/CharAttr.h>
 #include "tabbedtext.h"
+#include <PalmOSGlue.h>
 
 #define TAB_PIXELS (160/8)    //to match AportisDoc
 
@@ -122,7 +123,7 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
 
 
     // if the char next to the last one is an alpha, then we make hyphenation
-    if (( (*p) != '-') && TxtCharIsAlpha(chars[len]))
+    if (( (*p) != '-') && TxtGlueCharIsAlpha(chars[len]))
         bHyphen=1;
 
     old = start[0] = chars;
@@ -171,7 +172,7 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
 
     // If hyphenation, add the size of the hyphen
     if (bHyphen)
-        wlength += TxtCharWidth('-');
+        wlength += TxtGlueCharWidth('-');
 
     // if a bug in the length
     if (wlength > extend) {
@@ -198,7 +199,7 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
 
     // if hyphenation draw the hyphen
     if (bHyphen)
-        WinDrawChar('-', wordx-space, y);
+        WinDrawChars("-", 1, wordx-space, y);
 }
 
 /*********************************************************************
@@ -241,7 +242,7 @@ UInt16 Hyphen_FntWordWrap (Char* chars, UInt16 extend)
     remainx = extend - FntCharsWidth(chars, lenx);
 
     // convert remaining pixels to remaining chars
-    remainx = remainx/TxtCharWidth('a');
+    remainx = remainx/TxtGlueCharWidth('a');
 
     // don't try hiphenation if less than 4 chars
     if (remainx<4) return len;
@@ -495,7 +496,8 @@ void savePDB (MemPtr cmdPBP)
 #endif
 
 # define tolower(c) \
-    ({ unsigned char __x = (c); TxtCharIsUpper(__x) ? (__x - 'A' + 'a') : __x;})
+    ({ unsigned char __x = (c); \
+     TxtGlueCharIsUpper(__x) ? (__x - 'A' + 'a') : __x;})
 
 //
 // Make the real hyphenation
@@ -538,7 +540,7 @@ UInt16 room, hlevel, hn;
 
     hyf[1] = 0; hyf[hn-1] = 0; hyf[hn] = 0; hyf[hn-2] = 0;
     for (j = 0; j<hn; j++) {
-        if (!TxtCharIsAlpha(word[j])) {
+        if (!TxtGlueCharIsAlpha(word[j])) {
             hyf[j+1] = 0;
             hyf[j+2] = 0;
             hyf[j] = 0;

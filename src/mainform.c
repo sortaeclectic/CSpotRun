@@ -643,11 +643,11 @@ static void _drawJustifyGadget()
 
     if (Doc_getJustify()) {
         WinDrawRectangleFrame(roundFrame, &bounds);
-        WinDrawChar('J', bounds.topLeft.x + 1, bounds.topLeft.y + 1);
+        WinDrawChars("J", 1, bounds.topLeft.x + 1, bounds.topLeft.y + 1);
     }
     else {
         WinDrawRectangleFrame(roundFrame, &bounds);
-        WinDrawChar('L', bounds.topLeft.x + 1, bounds.topLeft.y + 1);
+        WinDrawChars("L", 1, bounds.topLeft.x + 1, bounds.topLeft.y + 1);
     }
 }
 

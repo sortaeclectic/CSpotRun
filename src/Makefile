@@ -35,28 +35,32 @@ STDDEP = Makefile resources.h app.h appstate.h callback.h
 
 CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH ENABLE_AUTOSCROLL ENABLE_BMK ENABLE_HYPHEN SUPER0 
 DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt)) -DNON_INTERNATIONAL 
-
+LIBS = -lPalmOSGlue
 ifdef DEBUG
 CFLAGS = -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
 else
 CFLAGS = -O2 $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
 endif
 
-RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) defined[tmp[s]]=""; d=0}\
-					{\
-						if ($$0 ~ "\#ifdef") \
-							{stack[d]=($$2 in defined); d++;} \
-						else if ($$0 ~ "\#ifndef") \
-							{stack[d]=!($$2 in defined); d++;} \
-						else if ($$0 ~ "\#else") \
-							{stack[d-1]=!stack[d-1];} \
-						else if ($$0 ~ "\#endif") \
-							{d--; delete stack[d];} \
-						else { \
-							for (s in stack) if (!stack[s]) next;\
-							print $$0;\
-						}\
-					}'
+RCP_IFDEFFER = awk '\
+	BEGIN { \
+		split("$(CSR_OPTIONS)", tmp, " "); \
+		for (s in tmp) defined[tmp[s]]=""; d=0\
+	}\
+	{\
+		if ($$0 ~ "\#ifdef") \
+			{stack[d]=($$2 in defined); d++;} \
+		else if ($$0 ~ "\#ifndef") \
+			{stack[d]=!($$2 in defined); d++;} \
+		else if ($$0 ~ "\#else") \
+			{stack[d-1]=!stack[d-1];} \
+		else if ($$0 ~ "\#endif") \
+			{d--; delete stack[d];} \
+		else { \
+			for (s in stack) if (!stack[s]) next;\
+			print $$0;\
+		}\
+	}'
 
 PRCS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).prc)
 ZIPS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).zip) 
@@ -70,8 +74,8 @@ zips: $(ZIPS) resources.zip
 release: $(ZIPS) $(PRCS)
 	cp $(ZIPS) $(PRCS) $(OUTPUTDIR)
 
-$(PROGNAME)_%.zip: $(PROGNAME)_%.prc
-	$(ZIP) $@ $^ $(GNUTURDS); 
+$(PROGNAME)_%.zip: $(PROGNAME)_%.prc 
+	$(ZIP) -j $@ $^ $(GNUTURDS)
 
 $(PROGNAME)_%.prc: cspotrun.def %.resstamp $(PROGNAME) 
 	$(BUILDPRC) cspotrun.def -o $@ $(PROGNAME) *.bin 
@@ -90,7 +94,7 @@ fixed_resources.h: resources.h
 	$(CC) $(DEFINES) -E -dD resources.h > $@
 
 $(PROGNAME): $(OBJS) 
-	$(CC) $(CFLAGS) $(OBJS) -o $@ cspotrun-sections.ld
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@ cspotrun-sections.ld
 
 .o: 
 	$(CC) $(CFLAGS) -o $@
@@ -135,12 +139,5 @@ prefsform.o: mainform.h resources.h rotate.h ucgui.h
 rotate.o: app.h rotate.h
 searchform.o: app.h appstate.h callback.h doc.h docprefs.h mainform.h
 searchform.o: resources.h rotate.h searchform.h
-tabbedtext.o: segments.h tabbedtext.h /usr/include/bits/endian.h
-tabbedtext.o: /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h
-tabbedtext.o: /usr/include/bits/types.h /usr/include/ctype.h
-tabbedtext.o: /usr/include/endian.h /usr/include/features.h
-tabbedtext.o: /usr/include/gnu/stubs.h /usr/include/sys/cdefs.h
-tabbedtext.o: /usr/include/xlocale.h
-tabbedtext.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+tabbedtext.o: segments.h tabbedtext.h
 ucgui.o: appstate.h docprefs.h fontselect.h resources.h ucgui.h
-xrotate.o: app.h rotate.h
