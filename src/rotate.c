@@ -24,11 +24,14 @@
 #include "rotate.h"
 #include <UI/ScrDriverNew.h>
 
-#define BYTE_WITH_BITS(pos, len, v)    ((v)<<(8-(len)-(pos)))
-#define PIXEL_BYTE_INDEX(x, y, rbts, bpp)    ((y)*(rbts)+((x)*(bpp))/8)
+typedef Word Pyte;
+#define BITS_PER_PYTE (8 * sizeof(Pyte))
+
+#define PYTE_WITH_BITS(pos, len, v)    ((v)<<(BITS_PER_PYTE-(len)-(pos)))
+#define PIXEL_PYTE_INDEX(x, y, rbts, bpp)    ((y)*(rbts)+((x)*(bpp))/BITS_PER_PYTE)
 #define X_ROTATE(x, y, a) ((x)*cosTable[(a)] - (y)*sinTable[(a)])
 #define Y_ROTATE(x, y, a) ((y)*cosTable[(a)] + (x)*sinTable[(a)])
-#define PIXEL_BIT_INDEX(x, bpp) (((x)*(bpp))%8)
+#define PIXEL_BIT_INDEX(x, bpp) (((x)*(bpp))%BITS_PER_PYTE)
 
 #ifdef ENABLE_ROTATION
 
@@ -49,40 +52,40 @@ int RotateY(int x, int y, OrientationType a)
 
 void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
 {
+    register Pyte  fromPyte;
     int toX, toY;               //writing to
     unsigned int fromX, fromY;  //copying from
     int xOffset, yOffset;       //Base delta to the lower right hand corner pixel's coordinates
     WinHandle toWindowH = WinGetDrawWindow();
 
-    Byte* to =        toWindowH->displayAddrV20;
-    Byte* from =    fromWindowH->displayAddrV20;
-    Byte fromByte;
-    BytePtr fromPtr;
-    int dToXdFromY, dToYdFromY; //Change in to coords per change in from y coords
+    Pyte* to =      toWindowH->displayAddrV20;
+    Pyte* from =    fromWindowH->displayAddrV20;
+    Pyte* fromPtr;
+    int   dToXdFromY, dToYdFromY; //Change in to coords per change in from y coords
 
-    Byte v;
-    BytePtr toByte;
+    Pyte v;
+    Pyte* toPyte;
 
     int fromBpp;
     int toBpp;
     unsigned int fromWidth, fromHeight;
     unsigned int toWidth, toHeight;
-    unsigned int fromRowBytes;
-    unsigned int toRowBytes;
+    unsigned int fromRowPytes;
+    unsigned int toRowPytes;
 
-    int            dToXdx, dToYdx;
-    int            dToByte;
-    Byte        toBitMask;
-    Byte        fromBitMask;
-    Byte        startingFromBitMask;
-    int byteCol = -1;
-    Byte        toBlackBits;
+    int         dToXdx, dToYdx;
+    int         dToPyte;
+    Pyte        toBitMask;
+    Pyte        fromBitMask;
+    Pyte        startingFromBitMask;
+    int         pyteCol = -1;
+    Pyte        toBlackBits;
 
     if (fromWindowH->gDeviceP)
     {
         //OS3
-        fromRowBytes = fromWindowH->gDeviceP->rowBytes;
-        toRowBytes = toWindowH->gDeviceP->rowBytes;
+        fromRowPytes = (fromWindowH->gDeviceP->rowBytes * 8) / BITS_PER_PYTE;
+        toRowPytes = (toWindowH->gDeviceP->rowBytes * 8) / BITS_PER_PYTE;
         fromBpp = fromWindowH->gDeviceP->pixelSize;
         toBpp = toWindowH->gDeviceP->pixelSize;
         fromWidth = fromWindowH->displayWidthV20;
@@ -106,12 +109,12 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
         toHeight = y;
 
         fromBpp = 1;
-        fromRowBytes = 20;//(fromWidth*fromBpp+7)/8;
+        fromRowPytes =  (20 * 8) / BITS_PER_PYTE;
         toBpp = 1;
-        toRowBytes = 20;//(toWidth*toBpp+7)/8;
+        toRowPytes = (20 * 8) / BITS_PER_PYTE;
     }
 
-    toBlackBits = ~(0xFF << toBpp);
+    toBlackBits = ~((~(Pyte)0x0) << toBpp);
 
     xOffset = X_ROTATE(fromWidth-1, fromHeight-1, a);
     xOffset = (xOffset < 0 ? -xOffset : 0);
@@ -121,13 +124,13 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
     dToXdx = X_ROTATE(1,0,a);
     dToYdx = Y_ROTATE(1,0,a);
     if (dToYdx > 0)
-        dToByte = toRowBytes;
+        dToPyte = toRowPytes;
     else if (dToYdx < 0)
-        dToByte = -toRowBytes;
+        dToPyte = -toRowPytes;
     else
-        dToByte = 0;
+        dToPyte = 0;
 
-    startingFromBitMask = ~(((Byte)0xFF)>>fromBpp);
+    startingFromBitMask = ~((~(Pyte)0x0)>>fromBpp);
     for (fromY=0; fromY < fromHeight; fromY++)
     {
         fromX = 0;
@@ -137,46 +140,46 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
         //If the not sideways, and only this pixel were on, toByte would be equal to
         //toBitMask. Note that upon moving to the pixels to the immediate left or right,
         //toBitMask just needs to be shifted by toBpp.
-        toBitMask = BYTE_WITH_BITS(PIXEL_BIT_INDEX(toX, toBpp), toBpp, toBlackBits);
+        toBitMask = PYTE_WITH_BITS(PIXEL_BIT_INDEX(toX, toBpp), toBpp, toBlackBits);
 
         //If only this pixel were on, *fromPtr would be equal to fromBitMask. Same shifting
         //silliness.
         fromBitMask = startingFromBitMask;
 
-        fromPtr = &from[PIXEL_BYTE_INDEX(0, fromY, fromRowBytes, fromBpp)];
+        fromPtr = &from[PIXEL_PYTE_INDEX(0, fromY, fromRowPytes, fromBpp)];
 
-        toByte = to + PIXEL_BYTE_INDEX(toX, toY, toRowBytes, toBpp);
+        toPyte = to + PIXEL_PYTE_INDEX(toX, toY, toRowPytes, toBpp);
 
         //If sideways and on new byte column, wipe out whole column of bytes.
         if (dToYdx)
         {
-            int newByteCol = (toByte-to)%toRowBytes;
-            if (byteCol != newByteCol)
+            int newPyteCol = (toPyte-to)%toRowPytes;
+            if (pyteCol != newPyteCol)
             {
-                byteCol = newByteCol;
+                pyteCol = newPyteCol;
                 for (; fromX < fromWidth; fromX++)
                 {
-                    *toByte = 0;
-                    toByte += dToByte;
+                    *toPyte = 0;
+                    toPyte += dToPyte;
                 }
                 fromX = 0;
-                toByte = to + PIXEL_BYTE_INDEX(toX, toY, toRowBytes, toBpp);
+                toPyte = to + PIXEL_PYTE_INDEX(toX, toY, toRowPytes, toBpp);
             }
         }
 
-        fromByte = *fromPtr;
+        fromPyte = *fromPtr;
         for (; fromX < fromWidth; fromX++)
         {
             //If any bit in the from-pixel is on, make a black to-pixel.
-            if (fromByte & fromBitMask)
-                *toByte |= toBitMask;
+            if (fromPyte & fromBitMask)
+                *toPyte |= toBitMask;
             //else
                 //*toByte &= ~toBitMask;
 
             if (dToYdx)
             {
                 //We're sideways.
-                toByte += dToByte;
+                toPyte += dToPyte;
             }
             else if (dToXdx<0)
             {
@@ -185,9 +188,9 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
                 if (!toBitMask)
                 {
                     //We left this to-byte, move on to the next
-                    toBitMask = BYTE_WITH_BITS(8-toBpp, toBpp, toBlackBits);
-                    toByte--;
-                    *toByte=0;
+                    toBitMask = PYTE_WITH_BITS(BITS_PER_PYTE-toBpp, toBpp, toBlackBits);
+                    toPyte--;
+                    *toPyte=0;
                 }
             }
             else if (dToXdx>0)
@@ -197,9 +200,9 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
                 if (!toBitMask)
                 {
                     //We left this to-byte, move on to the next
-                    toBitMask = BYTE_WITH_BITS(0, toBpp, toBlackBits);
-                    toByte++;
-                    *toByte=0;
+                    toBitMask = PYTE_WITH_BITS(0, toBpp, toBlackBits);
+                    toPyte++;
+                    *toPyte=0;
                 }
             }
 
@@ -208,7 +211,7 @@ void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a)
                 //We left this fromByte, move to the next
                 fromBitMask = startingFromBitMask;
                 fromPtr++;
-                fromByte = *fromPtr;
+                fromPyte = *fromPtr;
             }
         }
     }

@@ -18,7 +18,7 @@ GNUTURDS = ../copying.txt ../readme.txt
 
 
 PROGNAME = CSpotRun
-VERSION = 0.7
+VERSION = 0.7.1
 APPID = CSBR
 LANGUAGES = english german spanish french
 ICONTEXT = $(PROGNAME)
@@ -27,7 +27,6 @@ OBJS = pilotmain.o mainform.o doclist.o doc.o \
 		decode.o docprefs.o tabbedtext.o controlsform.o \
 		fontselect.o ucgui.o rotate.o prefsform.o searchform.o
 
-#CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH
 CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH
 DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt))
 #CFLAGS =  -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch

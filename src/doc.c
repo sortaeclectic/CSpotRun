@@ -760,7 +760,8 @@ static void _movePastWord()
 {
     WordPtr attrs = GetCharAttr();
 
-    while (! IsSpace(attrs, _decodeBuf[_docPrefs.location.ch]))
+    while (! IsSpace(attrs, _decodeBuf[_docPrefs.location.ch])
+            && '\0' != _decodeBuf[_docPrefs.location.ch])
     {
         _docPrefs.location.ch++;
     }
