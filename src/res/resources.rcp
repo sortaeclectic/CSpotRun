@@ -352,8 +352,8 @@ begin
     "$$GOTO PER"="GeheZu %"
     "$$PICK DOC"="Dok ausw‰hlen"
 #ifdef ENABLE_AUTOSCROLL
-    "$$AUTOSCROLL"="Auto Scroll"
-    "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+    "$$AUTOSCROLL"="Automatisch bl‰ttern"
+    "$$AUTOSCROLLSPEED"="Geschwindigkeit:"
 #endif
 
     "$$GLOBAL PREFERENCES"="Allgemeine Einstellungen"
@@ -388,7 +388,7 @@ begin
     "$$FIND"="Suchen"
     "$$FIND AGAIN"="Weitersuchen"
     "$$FINDDDD"="Suchen..."
-    "$$FIND IN DOCUMENT"="Find in Document"
+    "$$FIND IN DOCUMENT"="Im Dokument finden"
     "$$FIND PROMPT"="Suchen:"
     "$$SEARCH FROM TOP"="Ab Dokumentanfang"
     "$$CASE SENSITIVE"="Groﬂ-/Kleinschreibung"
@@ -424,13 +424,14 @@ begin
         "Die \'Tippen\'-Schaltfl‰chen steuern den Umfang des Bl‰tterns, "\
         "wenn Sie mit dem Stift auf die obere bzw. untere H‰lfte des "\
         "Bildschirms tippen.\n\n"\
-        "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
-        "are in 100ths of a second. 60-80 is the recommended speed."
+        "Der Eintrag im Feld \'Geschwindigkeit'\ bestimmt die Geschwindigkeit des "\
+        "automatischen Bl‰tterns und wird in 100stel Sekunden angegeben. Ein guter "\
+        "Richtwert liegt zwischen 60 und 80."
 
     "$$NO DOCS"="Es sind keine Dokumente installiert!\n\nBitte starten Sie CSpotRun erneut,"\
         "nachdem Sie ein oder mehrere Dokumente installiert haben."
 
-    "$$ERROR ALERT"="Oops!"
+    "$$ERROR ALERT"="Hoppla!"
 end
 
 TRANSLATION "portuguese"
