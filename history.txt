@@ -1,0 +1,7 @@
+9/27/1999 
+
+Changed license to GPL. Original version by Bill Clagett (wtc@pobox.com). 
+Spanish translation by Marcelo Rinesi (rinesi@espacio.com.ar). 
+German translation by Arne Nickel (anickel@edm.de).
+
+ 

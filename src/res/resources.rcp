@@ -1,0 +1,408 @@
+#include "fixed_resources.h"
+
+TRANSLATION "english"
+begin
+    "$$DOC"="Doc"
+    "$$FONTS"="Fonts"
+    "$$CONFIGURE CONTROLS"="Configure Controls"
+    "$$ROTATE"="Rotate"
+    "$$SPACING"="Spacing"
+    "$$GOTO PER"="Goto %"
+    "$$PICK DOC"="Pick Doc"
+
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+        "© 1998-1999 Bill Clagett\n"\
+        "wtc@pobox.com\n\n"\
+        "The source code for this program is distributed under "\
+        "the GNU General Public License (GPL). You may "\
+        "find it at: http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "The source code and the latest version is available at: "\
+        "http://www.pobox.com/~wtc/palmos/cspotrun/\n\n"\
+        "Fnord."
+
+    "$$CONTROLS HELP"="Each checkbox corresponds to an on-screen control. "\
+                                "Select the controls which you want to be visible.\n\n"\
+                                "Consider hiding controls which you seldom use. "\
+                                "Note that all controls have equivalent menu items."
+    "$$GLOBAL PREFS HELP"="Use the \'Swap up/down when sideways\' option to reverse the "\
+                                    "function of the page up and page down buttons when the "\
+                                    "screen is rotated.\n\n"\
+                                    "Use the \'Show line from previous page\' option to repeat a single "\
+                                    "line from the previous page when you page up or down.\n\n"\
+                                    "The \'tap action\' choice controls what action is performed with you "\
+                                    "tap on the screen."
+    "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
+    "$$DELETE PROMPT"="Permanantly delete \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Global Preferences"
+    "$$SWAP UPDOWN"="Swap up/down when sideways"
+    "$$SHOW PREV LINE"="Show line from previous page"
+
+    "$$TAP ACTION"="Tap action"
+    "$$PAGE"="Page"
+    "$$HALF PAGE"="1/2 Page"
+    "$$LINE"="Line"
+
+    "$$TOP"="Top"
+    "$$BOTTOM"="Bottom"
+
+    "$$LINE SPACING 1"="Line Spacing 1    "
+    "$$LINE SPACING 2"="Line Spacing 2"
+    "$$LINE SPACING 3"="Line Spacing 3"
+    "$$LINE SPACING 4"="Line Spacing 4"
+    "$$ROTATE RIGHT"="Rotate Right"
+    "$$ROTATE LEFT"="Rotate Left"
+    "$$OPTIONS"="Options"
+    "$$TOGGLE CONTROLS"="Toggle Controls    "
+    "$$CONTROLSDDD"="Controls..."
+    "$$PREFERENCESDDD"="Preferences..."
+    "$$ABOUTDDD"="About..."
+    "$$PICK DOC"="Pick Doc    "
+    "$$DELETE DOC"="Delete Doc"
+    "$$CONFIRM DELETE"="Confirm Delete"
+    "$$CANCEL"="Cancel"
+    "$$MAKE DEFAULT"="Make Settings Default    "
+    "$$VIEW"="View"
+    "$$FONT 1"="Font 1"
+    "$$FONT 2"="Font 2"
+    "$$FONT 3"="Font 3"
+    "$$FONT 4"="Font 4"
+end
+
+TRANSLATION "spanish"
+begin
+    "$$DOC"="Doc"
+
+    "$$FONTS"="Fuentes"
+    "$$CONFIGURE CONTROLS"="Configurar Controles"
+    "$$ROTATE"="Rotar"
+    "$$SPACING"="Espaciado"
+    "$$GOTO PER"="Ir a %"
+    "$$PICK DOC"="Elegir Doc"
+
+    "$$GLOBAL PREFERENCES"="Preferencias Globales"
+    "$$SWAP UPDOWN"="Cambiar orientación lateral"
+
+    "$$SHOW PREV LINE"="Mostrar línea anterior"
+    "$$TAP ACTION"="Acción al tocar"
+    "$$PAGE"="Pág"
+    "$$HALF PAGE"="1/2 Pág"
+    "$$LINE"="Línea"
+
+    "$$TOP"="Comienzo"
+    "$$BOTTOM"="Final"
+
+    "$$PICK DOC"="Elegir Documento    "
+    "$$DELETE DOC"="Borrar Documento"
+    "$$MAKE DEFAULT"="Memorizar las opciones    "
+
+    "$$VIEW"="Ver"
+    "$$FONT 1"="Fuente 1"
+    "$$FONT 2"="Fuente 2"
+    "$$FONT 3"="Fuente 3"
+    "$$FONT 4"="Fuente 4"
+    "$$LINE SPACING 1"="Interlineado 1"
+    "$$LINE SPACING 2"="Interlineado 2"
+    "$$LINE SPACING 3"="Interlineado 3"
+    "$$ROTATE RIGHT"="Rotar a la derecha    "
+    "$$ROTATE LEFT"="Rotar a la izquierda"
+    "$$OPTIONS"="Opciones"
+    "$$TOGGLE CONTROLS"="¿Controles visibles?    "
+    "$$CONTROLSDDD"="Controles..."
+    "$$PREFERENCESDDD"="Preferencias..."
+    "$$ABOUTDDD"="Sobre CSpotRun..."
+
+    "$$ABOUT TITLE"="Sobre CSpotRun"
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+      "© 1998-1999 Bill Clagett\n"\
+      "wtc@pobox.com\n\n"\
+      "El código fuente para este programa está distribuido "\
+      "bajo la GNU General Public License (GPL). Puede "\
+      "encontrarla en: http://www.gnu.org/copyleft/gpl.html\n\n"\
+      "El código fuente y la última versión están en: "\
+      "http://www.pobox.com/~wtc/palmos/cspotrun/"
+
+    "$$DELETE PROMPT"="¿Borrar permanentemente \"^1\"?"
+    "$$CONFIRM DELETE"="Confirmar borrado"
+    "$$CANCEL"="Cancelar"
+
+    "$$CONTROLS HELP"="Cada checkbox corresponde a un control en pantalla. "\
+        "Seleccione los controles que quiere que sean visibles. \n\n"\
+        "Considere ocultar los controles que use raramente. "\
+        "Tenga en cuenta que todos los controles tienen sus opciones equivalentes en los menues."
+        
+    "$$GLOBAL PREFS HELP"="Use la opción \'Cambiar orientación lateral\', para invertir "\
+        "las funciones de los botones de cambio de página cuando la "\
+        "pantalla está rotada.\n\n"\
+        "Use \'Mostrar línea anterior\', para repetir una línea individual "\
+        "de la página anterior cuando cambia de página.\n\n"\
+        "\'Acción al tocar\' controla cuánto se mueve la página cuando toca la pantalla con el lápiz óptico."
+        
+    "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor    pruebe CSpotRun"\
+        "de nuevo, después de instalar al menos un documento."
+end
+
+TRANSLATION "german"
+begin
+
+    "$$DOC"="Dok"
+
+    "$$FONTS"="Schriftart"
+    "$$CONFIGURE CONTROLS"="Symbole anzeigen"
+    "$$ROTATE"="Drehung"
+    "$$SPACING"="Zeilenabstand"
+    "$$GOTO PER"="GeheZu %"
+    "$$PICK DOC"="Dok auswählen"
+
+    "$$GLOBAL PREFERENCES"="Allgemeine Einstellungen"
+    "$$SWAP UPDOWN"="Tausche Bildlauftasten"
+    "$$SHOW PREV LINE"="Zeige Zeile der vorigen Seite"
+    "$$TAP ACTION"="Tippen"
+    "$$PAGE"="Seite"
+    "$$HALF PAGE"="1/2 Seite"
+    "$$LINE"="Zeile"
+
+    "$$TOP"="Anfang"
+    "$$BOTTOM"="Ende"
+
+    "$$PICK DOC"="Dok auswählen    "
+    "$$DELETE DOC"="Dok löschen"
+    "$$MAKE DEFAULT"="Als Vorgabewerte    "
+    "$$VIEW"="Ansicht"
+    "$$FONT 1"="Schrift 1"
+    "$$FONT 2"="Schrift 2"
+    "$$FONT 3"="Schrift 3"
+    "$$FONT 4"="Schrift 4"
+    "$$LINE SPACING 1"="Zeilenabstand 1    "
+    "$$LINE SPACING 2"="Zeilenabstand 2"
+    "$$LINE SPACING 3"="Zeilenabstand 3"
+    "$$ROTATE RIGHT"="Rechts drehen"
+    "$$ROTATE LEFT"="Links drehen"
+    "$$OPTIONS"="Option"
+    "$$TOGGLE CONTROLS"="Vollbildmodus"
+    "$$CONTROLSDDD"="Symbole..."
+    "$$PREFERENCESDDD"="Einstellungen..."
+    "$$ABOUTDDD"="CSpotRun Info...    "
+
+    "$$ABOUT TITLE"="Über CSpotRun"
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+        "© 1998-1999 Bill Clagett\n"\
+        "wtc@pobox.com\n\n"\
+        "Die Quelltexte dieses Programms werden unter der "\
+        "GNU General Public License (GPL) veröffentlicht. Hinweise "\
+        "hierzu finden sich unter: http://www.gnu.org/copyleft/gpl.html.\n\n"\
+        "Die Quelltexte und die aktuellste Version sind hier verfügbar:"\
+        "http://www.pobox.com/~wtc/palmos/cspotrun/"
+
+    "$$DELETE PROMPT"="Dokument \"^1\" endgültig löschen?"
+    "$$CONFIRM DELETE"="Löschen bestätigen"
+    "$$CANCEL"="Abbrechen"
+
+
+    "$$CONTROLS HELP"="Jedes Kontrollkästchen entspricht einem Symbol auf "\
+        "dem Bildschirm. Wählen Sie die Symbole aus, die "\
+        "angezeigt werden sollen.\n\nSie können selten benutzte "\
+        "Symbole ausblenden, denn eine entsprechende Funktion "\
+        "kann im Menü \'Ansicht\' ausgewählt werden."
+
+    "$$GLOBAL PREFS HELP"="Verwenden Sie \'Tausche Bildlauftasten\', um die Richtung "\
+        "bei Betätigung der Bildlauftaste umzukehren, wenn die "\
+        "Anzeige gedreht ist.\n\n"\
+        "Verwenden Sie \'Zeige Zeile der vorigen Seite\', um die letzte "\
+        "Zeile der vorigen Seite beim Blättern zu wiederholen.\n\n"\
+        "Die \'Tippen\'-Schaltflächen steuern den Umfang des Blätterns, "\
+        "wenn Sie mit dem Stift auf die obere bzw. untere Hälfte des "\
+        "Bildschirms tippen."
+
+    "$$NO DOCS"="Es sind keine Dokumente installiert!\n\nBitte starten Sie CSpotRun erneut,"\
+        "nachdem Sie ein oder mehrere Dokumente installiert haben."
+end
+
+FORM ID formID_main AT ( 0 0 160 160 )
+NOFRAME
+USABLE
+MENUID menuID_main
+BEGIN
+    PUSHBUTTON "A" ID pushID_font0    AT (1 BOTTOM@159 10 12) GROUP 1 FONT 0 
+    PUSHBUTTON "A" ID pushID_font1    AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) GROUP 1 FONT 1 
+    PUSHBUTTON "A" ID pushID_font2    AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) GROUP 1 FONT 2 
+    PUSHBUTTON "A" ID pushID_font3    AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) GROUP 1 FONT 7
+#ifdef ENABLE_ROTATION
+    BUTTON "\03" ID buttonID_rotateLeft        AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) NOFRAME FONT 3
+    BUTTON "\04" ID buttonID_rotateRight    AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) NOFRAME FONT 3
+#endif    
+#ifdef ENABLE_SEARCH
+    BUTTON "S"    ID buttonID_search        AT (prevright+1 PREVTOP AUTO PREVHEIGHT) 
+    BUTTON "SA" ID buttonID_searchAgain    AT (prevright+1 PREVTOP AUTO PREVHEIGHT) 
+#endif
+    GADGET ID gadgetID_lineSpacing0 AT (prevright+4 PREVTOP 7 PREVHEIGHT) 
+    GADGET ID gadgetID_lineSpacing1 AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) 
+    GADGET ID gadgetID_lineSpacing2 AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) 
+
+    POPUPTRIGGER "99%" popupID_percent AT (PREVRIGHT PREVTOP AUTO AUTO) LEFTANCHOR
+    LIST "$$TOP" "10%" "20%" "30%" "40%" "50%" "60%" "70%" "80%" "90%" "$$BOTTOM" ID listID_percent AT (PREVLEFT PREVTOP PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 11
+
+    POPUPTRIGGER "$$DOC" ID popupID_doc AT (PREVRIGHT PREVTOP AUTO AUTO) LEFTANCHOR
+    LIST "" ID listID_doc AT (PREVLEFT-25 PREVTOP 120 AUTO) NONUSABLE VISIBLEITEMS 1
+        
+    GADGET gadgetID_text AT (0 0 160 PREVTOP-1)
+
+    POPUPLIST popupID_doc listID_doc
+
+    POPUPLIST popupID_percent listID_percent
+END
+
+FORM ID formID_controls AT (2 42 156 116)
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_ok
+HELPID stringID_controlsHelp
+BEGIN
+    TITLE "$$CONFIGURE CONTROLS"
+
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@116-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@116-3 50 AUTO) 
+
+    CHECKBOX "" ID checkboxID_UCGUI0        AT (30 20 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+1    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+2    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+3    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+4    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+5    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+6    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+7    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+8    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+9    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+10 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+11 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+12 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+
+    FIELD ID fieldID_UCGUI0+0 AT (0 0 70 30) USABLE NONEDITABLE DYNAMICSIZE rightalign
+    FIELD ID fieldID_UCGUI0+1 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE DYNAMICSIZE rightalign
+    FIELD ID fieldID_UCGUI0+2 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+    FIELD ID fieldID_UCGUI0+3 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+    FIELD ID fieldID_UCGUI0+4 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+    FIELD ID fieldID_UCGUI0+5 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+    FIELD ID fieldID_UCGUI0+6 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+END
+
+FORM ID formID_globalPrefs AT (2 72 156 86)
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_ok
+HELPID stringID_globalPrefsHelp
+BEGIN
+    TITLE "$$GLOBAL PREFERENCES"
+
+
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@86-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@86-3 50 AUTO) 
+
+    CHECKBOX "$$SWAP UPDOWN"    ID checkboxID_reversePageButtons    AT (5 20 auto auto) USABLE LEFTANCHOR 
+    CHECKBOX "$$SHOW PREV LINE"    ID checkboxID_showLine                AT (PREVLEFT PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
+    
+    LABEL "$$TAP ACTION" ID 9000 AT (2 PREVBOTTOM+2)
+    PUSHBUTTON "$$PAGE"        ID pushID_tapAction0    AT (prevright+4 prevtop auto auto) GROUP 69
+    PUSHBUTTON "$$HALF PAGE"    ID pushID_tapAction0+1    AT (prevright+1 prevtop auto auto) GROUP 69
+    PUSHBUTTON "$$LINE"        ID pushID_tapAction0+2    AT (prevright+1 prevtop auto auto) GROUP 69
+    
+END
+
+#ifdef ENABLE_SEARCH
+FORM ID formID_search AT (2 67 156 91)
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_ok
+BEGIN
+    TITLE "Search for String"
+    LABEL "String" ID 9001 AT (10 20)
+    FIELD ID fieldID_searchString AT (PREVRIGHT+2 PREVTOP 113 auto) UNDERLINED USABLE EDITABLE DYNAMICSIZE MAXCHARS 40
+
+    CHECKBOX "Case Sensitive" ID checkboxID_caseSensitive at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
+    CHECKBOX "Search From Top" ID checkboxID_searchFromTop at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
+
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@91-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@91-3 50 AUTO) 
+END
+#endif 
+
+MENU ID menuID_main
+BEGIN
+    PULLDOWN "$$DOC"
+    BEGIN
+        MENUITEM "$$GOTO PER"            menuitemID_percent        "G"
+        menuitem separator
+        MENUITEM "$$PICK DOC"            menuitemID_doc        "D"        
+        MENUITEM "$$DELETE DOC"        menuitemID_delete    
+    END    
+    PULLDOWN "$$VIEW"
+    BEGIN
+        MENUITEM "$$FONT 1"            menuitemID_font0    "1"
+        MENUITEM "$$FONT 2"            menuitemID_font1    "2"
+        MENUITEM "$$FONT 3"            menuitemID_font2    "3"
+        MENUITEM "$$FONT 4"            menuitemID_font3    "4"
+        MENUITEM SEPARATOR
+        MENUITEM "$$LINE SPACING 1"    menuitemID_lineSpacing0    "L"
+        MENUITEM "$$LINE SPACING 2"    menuitemID_lineSpacing1    "M"
+        MENUITEM "$$LINE SPACING 3"    menuitemID_lineSpacing2    "N"
+#ifdef ENABLE_ROTATION
+        MENUITEM SEPARATOR
+        MENUITEM "$$ROTATE RIGHT"        menuitemID_rotateRight    "R"
+        MENUITEM "$$ROTATE LEFT"        menuitemID_rotateLeft    "S"
+#endif
+#ifdef ENABLE_SEARCH
+        MENUITEM SEPARATOR
+        MENUITEM "Search"            menuitemID_search        "H"
+        MENUITEM "Search Again    " menuitemID_searchAgain    "I"
+#endif
+    END
+    PULLDOWN "$$OPTIONS"
+    BEGIN
+        MENUITEM "$$TOGGLE CONTROLS"        menuitemID_controls        "T"
+        MENUITEM "$$MAKE DEFAULT"            menuitemID_makeDefault    "K"
+        menuitem separator
+        MENUITEM "$$CONTROLSDDD"            menuitemID_controlPrefs    "C"
+        MENUITEM "$$PREFERENCESDDD"        menuitemID_globalPrefs    "P"
+        MENUITEM "$$ABOUTDDD"                menuitemID_about        "A"
+    END
+END
+
+string stringID_aboutBody "$$ABOUT BODY"
+
+ALERT ID alertID_confirmDelete
+CONFIRMATION
+BEGIN
+  TITLE "$$CONFIRM DELETE"
+  MESSAGE "$$DELETE PROMPT"
+  BUTTONS "Ok" "$$CANCEL"
+END
+
+ALERT ID alertID_error
+WARNING
+BEGIN
+  TITLE "Oops!"
+  MESSAGE "^1"
+  BUTTONS "Ok"
+END
+
+ICON "appicon.bmp"
+SMALLICON "smallappicon.bmp" 
+VERSION 1 "@@CSR_VERSION@@"
+
+STRING ID stringID_controlsHelp    "$$CONTROLS HELP"                                
+STRING ID stringID_globalPrefsHelp "$$GLOBAL PREFS HELP"
+                                    
+STRING ID    stringID_ucguiFonts            "$$FONTS"
+STRING ID    stringID_ucguiRotate        "$$ROTATE"
+STRING ID    stringID_ucguiSpacing        "$$SPACING"
+STRING ID    stringID_ucguiGotoPerc        "$$GOTO PER"
+STRING ID    stringID_ucguiPickDoc        "$$PICK DOC"
+#ifdef ENABLE_SEARCH
+    STRING ID    stringID_ucguiSearch        "Search"
+    STRING ID    stringID_ucguiSearchAgain    "Search Again"
+#endif
+
+STRING ID    stringID_noDocs            "$$NO DOCS" 
+

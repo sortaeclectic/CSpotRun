@@ -1,0 +1,144 @@
+TRANSLATION "english"
+begin
+    "$$DOC"="Doc"
+    "$$FONTS"="Fonts"
+    "$$CONFIGURE CONTROLS"="Configure Controls"
+    "$$ROTATE"="Rotate"
+    "$$SPACING"="Spacing"
+    "$$AUTOSCROLL"="Auto Scroll"
+    "$$AUTOSCROLL TYPE AND SPEED"="Autoscroll Type and Speed:"
+    "$$PIXEL"="Pixel"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
+    "$$GOTO PER"="Goto %"
+
+    "$$BOOKMARKS"="Bookmarks"
+    "$$BOOKMARKS_TRIGGER"="BM"
+    "$$EDIT BOOKMARKS"="Bookmarks..."
+    "$$EDIT BOOKMARKS LIST"="* Bookmarks..."
+    "$$DEL ALL BOOKMARKS"="Del All"
+    "$$SORT BOOKMARKS"="Sort..."
+    "$$ADD BOOKMARK"="Add Bookmark..."
+    "$$ADD BOOKMARK LIST"="* Add Bookmark..."
+    "$$ADD BOOKMARK TITLE"="Add Bookmark"
+    "$$NAME BOOKMARK"="Name Bookmark"
+    "$$NAME"="Name"
+    "$$DUP NAME"="Bookmark with this name already exists. What do you want to do?"
+    "$$REPLACE"="Replace"
+    "$$NEW"="Create New"
+    "$$MOVE UP"="Move Up"
+    "$$MOVE DOWN"="Move Down"
+    "$$RENAME"="Rename"
+    "$$DELETE"="Delete"
+    "$$DONE"="Done"
+    "$$GOTO"="GoTo"
+    "$$SORT BOOKMARKS"="Sort Bookmarks"
+    "$$POSITION"="Position"
+    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..."
+    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?"
+    "$$NO MEMORY"="Not Enough Memory"
+    "$$BMK DOC NOT OPENED"="Document is not opened"
+
+    "$$ABOUT BODY"=
+        "The source code for this program is distributed under "\
+        "the GNU General Public License (GPL). You may "\
+        "find it at: http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "The source code and the latest version is available at: "\
+        "http://32768.com/cspotrun/\n\n"\
+        ""\
+        "Contributors:\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+    "$$CONTROLS HELP"="Each checkbox corresponds to an on-screen control. "\
+                                "Select the controls which you want to be visible.\n\n"\
+                                "Consider hiding controls which you seldom use. "\
+                                "Note that all controls have equivalent menu items."
+    "$$GLOBAL PREFS HELP"="Use the \'Swap up/down when sideways\' option to reverse the "\
+                                    "function of the page up and page down buttons when the "\
+                                    "screen is rotated.\n\n"\
+                                    "Use the \'Show line from previous page\' option to repeat a single "\
+                                    "line from the previous page when you page up or down.\n\n"\
+                                    "The \'tap action\' choice controls what action is performed with you "\
+                                    "tap on the screen.\n\n"\
+                                    "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
+                                    "are in 100ths of a second. 15-20 is the recommended speed. "\
+                                    "While autoscrolling, the page up and page down "\
+                                    "buttons can be used to adjust the speed.\n\n"\
+                                    "The \'Auto Scroll Type\` choice determines whether text "\
+                                    "advances by pixel or by line."
+
+                                    
+    "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
+
+    "$$ERROR ALERT"="Oops!"
+
+    "$$DELETE PROMPT"="Permanantly delete \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Global Preferences"
+    "$$SWAP UPDOWN"="Swap up/down when sideways"
+    "$$SHOW PREV LINE"="Show line from previous page"
+
+    "$$TAP ACTION"="Tap action"
+    "$$PAGE"="Page"
+    "$$HALF PAGE"="\xBD Page"
+    "$$LINE"="Line"
+
+    "$$TOP"="Top"
+    "$$BOTTOM"="Bottom"
+
+    "$$LINE SPACING 1"="Line Spacing 1    "
+    "$$LINE SPACING 2"="Line Spacing 2"
+    "$$LINE SPACING 3"="Line Spacing 3"
+    "$$ROTATE RIGHT"="Rotate Right"
+    "$$ROTATE LEFT"="Rotate Left"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+    "$$OPTIONS"="Options"
+    "$$TOGGLE CONTROLS"="Toggle Controls    "
+    "$$CONTROLSDDD"="Controls..."
+    "$$PREFERENCESDDD"="Preferences..."
+    "$$ABOUTDDD"="About..."
+    "$$PICK DOC"="Pick Doc    "
+    "$$DELETE DOC"="Delete Doc"
+    "$$CONFIRM DELETE"="Confirm Delete"
+    "$$CANCEL"="Cancel"
+    "$$MAKE DEFAULT"="Make Settings Default "
+    "$$VIEW"="View"
+    "$$FONT 1"="Font 1"
+    "$$FONT 2"="Font 2"
+    "$$FONT 3"="Font 3"
+    "$$FONT 4"="Font 4"
+    
+    "$$FIND"="Find"
+    "$$FIND AGAIN"="Find Again"
+    "$$FINDDDD"="Find..."
+    "$$FIND IN DOCUMENT"="Find in Document"
+    "$$FIND PROMPT"="Find:"
+    "$$SEARCH FROM TOP"="Search from top"
+    "$$CASE SENSITIVE"="Case sensitive"
+    "$$FIND BUTTON"="F"
+    "$$FIND AGAIN BUTTON"="FA"
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="G"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="R"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="F"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="P"
+*/    
+end
+

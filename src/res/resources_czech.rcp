@@ -1,0 +1,145 @@
+/*
+ * CONTRIBUTORS:
+ *    Czech translation: Ivo Panacek (Ivo.Panacek@regionet.cz)
+ */
+
+TRANSLATION "czech"
+begin
+    "$$DOC"="Dokumenty"
+    "$$FONTS"="Fonty"
+    "$$CONFIGURE CONTROLS"="Nastavit ovl·d·nÌ"
+    "$$ROTATE"="Rotovat"
+    "$$SPACING"="ÿ·dkov·nÌ"
+    "$$AUTOSCROLL"="Samoposuv"
+    "$$AUTOSCROLL TYPE AND SPEED"="Samoposuv, druh a rychlost:"
+    "$$PIXEL"="Pixel"
+    "$$TOGGLE AUTOSCROLL"="Samoposuv ovl·dat adres.tlaË."
+    "$$GOTO PER"="Jdi na %"
+
+    "$$BOOKMARKS"="Z·loûky"
+    "$$BOOKMARKS_TRIGGER"="Z·loûky"
+    "$$EDIT BOOKMARKS"="Z·loûky..."
+    "$$EDIT BOOKMARKS LIST"="* Z·loûky..."
+    "$$DEL ALL BOOKMARKS"="Smaû vöechny z·loûky"
+    "$$SORT BOOKMARKS"="Set¯iÔ z·loûky..."
+    "$$ADD BOOKMARK"="P¯idej z·loûku..."
+    "$$ADD BOOKMARK LIST"="* p¯idej z·loûku..."
+    "$$ADD BOOKMARK TITLE"="P¯idej z·loûku"
+    "$$NAME BOOKMARK"="Pojmenuj z·loûku"
+    "$$NAME"="N·zev"
+    "$$DUP NAME"="Z·loûka s tÌmto n·zvem jiû existuje. Co m·m dÏlat?"
+    "$$REPLACE"="Nahradit"
+    "$$NEW"="UdÏlat novou"
+    "$$MOVE UP"="Nahoru"
+    "$$MOVE DOWN"="Dol˘"
+    "$$RENAME"="P¯ejmenuj"
+    "$$DELETE"="Smaû"
+    "$$DONE"="Hotovo"
+    "$$GOTO"="Jdi na"
+    "$$SORT BOOKMARKS"="Set¯iÔ z·loûky"
+    "$$POSITION"="Pozice"
+    "$$SORT BOOKMARKS BY"="Set¯iÔ z·loûky podle..."
+    "$$BMK DELETE PROMPT"="Trvale smazat z·loûky?"
+    "$$NO MEMORY"="NenÌ dost pamÏti"
+    "$$BMK DOC NOT OPENED"="Dokument nenÌ otev¯en"
+
+    "$$ABOUT BODY"=
+        "Zdrojov˝ kÛd tohoto programu je öÌ¯en podle "\
+        "GNU General Public License (GPL). M˘ûete ji nalÈzt "\
+        "na: http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "Zdrojov˝ kÛd a poslednÌ verze jsou k dispozici na: "\
+        "32768.com/cspotrun/.\n\n"\
+        "Contributors:\n\n"\
+        "Ivo Pan·Ëek\nIvo.Panacek@regionet.cz\nCzech translation\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+        
+    "$$CONTROLS HELP"="Kaûd˝ checkbox odpovÌd· ovl·dacÌmu prvku na displeji. "\
+                      "Vyberte si prvky, kterÈ chcete mÌt viditelnÈ.\n\n"\
+                      "Zvaûte, zda neskr˝t ty prvky, kterÈ uûÌv·te z¯Ìdka. "\
+                      "VöimnÏte si, ûe vöechny prvky majÌ odpovÌdajÌcÌ poloûky v menu."
+    "$$GLOBAL PREFS HELP"=" NastavenÌm \'P¯ehodit nahoru/dolu\' "\
+                          "se zamÏnÌ tlaËÌtka nahoru a dolu v situaci, kdy "\
+                          "je obrazovka p¯evr·cena.\n\n"\
+                          "NastavenÌm \'Ukaû ¯·dku z p¯edchozÌ strany\' zachov·te "\
+                          "p¯i posunu o str·nku viditelnou jednu ¯·dku ze str·nky p¯edchozÌ.\n\n"\
+                          "NastavenÌm \'çuknutÌ\' zvolÌte, jak· akce se vykon·, "\
+                          "kdyû ùuknete na displej.\n\n"\
+                          "\'Rychlost samoposuvu\' nastavÌ rychlost automatickÈho "\
+                          "posunu v setin·ch vte¯iny. Lze doporuËit 15-25.\n"\
+                          "\'Druh samoposuvu\' je pixel nebo ¯·dka, tj. za zadanou jednotku "\
+                          "Ëasu se p¯esune o 1 pixel nebo o celou ¯·dku."
+    "$$NO DOCS"="Nenaöel jsem û·dnÈ DOC datab·ze!\n\nZkuste spustit CSpotRun znovu aû po nainstalov·nÌ jednoho Ëi dvou dokument˘."
+
+    "$$ERROR ALERT"="Ajajaj!"
+
+    "$$DELETE PROMPT"="Navûdy smazat \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Glob·lnÌ nastavenÌ"
+    "$$SWAP UPDOWN"="P¯ehodit nahoru/dolu"
+    "$$SHOW PREV LINE"="Ukaû ¯·dku z p¯edchozÌ strany"
+
+    "$$TAP ACTION"="çuknutÌ"
+    "$$PAGE"="Strana"
+    "$$HALF PAGE"="P˘lstr."
+    "$$LINE"="ÿ·dka"
+
+    "$$TOP"="ZaË·tek"
+    "$$BOTTOM"="Konec"
+
+    "$$LINE SPACING 1"="ÿ·dkov·nÌ 1    "
+    "$$LINE SPACING 2"="ÿ·dkov·nÌ 2"
+    "$$LINE SPACING 3"="ÿ·dkov·nÌ 3"
+    "$$ROTATE RIGHT"="Rotace vpravo"
+    "$$ROTATE LEFT"="Rotace vlevo"
+    "$$OPTIONS"="Moûnosti"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+    "$$TOGGLE CONTROLS"="Zobrazit/skr˝t ovl·d·nÌ "
+    "$$CONTROLSDDD"="Ovl·dacÌ prvky..."
+    "$$PREFERENCESDDD"="NastavenÌ..."
+    "$$ABOUTDDD"="O aplikaci..."
+    "$$PICK DOC"="Vybrat Doc    "
+    "$$DELETE DOC"="Smazat Doc"
+    "$$CONFIRM DELETE"="PotvrÔte smaz·nÌ"
+    "$$CANCEL"="Storno"
+    "$$MAKE DEFAULT"="Nastavit jako v˝chozÌ"
+    "$$VIEW"="Ukaû"
+    "$$FONT 1"="Font 1"
+    "$$FONT 2"="Font 2"
+    "$$FONT 3"="Font 3"
+    "$$FONT 4"="Font 4"
+    
+    "$$FIND"="Hledat"
+    "$$FIND AGAIN"="Hledat dalöÌ"
+    "$$FINDDDD"="Hledat..."
+    "$$FIND IN DOCUMENT"="Hledat v dokumentu"
+    "$$FIND PROMPT"="Hledat:"
+    "$$SEARCH FROM TOP"="Hledat od zaË·tku"
+    "$$CASE SENSITIVE"="Rozliöovat pÌsmena"
+    "$$FIND BUTTON"="H"
+    "$$FIND AGAIN BUTTON"="HD"
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="G"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="R"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="F"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="P"
+*/    
+end
+

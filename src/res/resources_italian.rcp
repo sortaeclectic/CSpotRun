@@ -1,0 +1,161 @@
+/*
+ * Ehi guys, I've translated this stuff into italian! (duh :)
+ * Anyway, seems I'm Mad IP Address (badipadress@yahoo.com and some others) but I'm not too sure
+ * You can usually find me on the Italian Palm User Group (ITAPug) www.itapug.org or the it.comp.hardware.palmari ng
+ *
+ * Tempus fugit. Try to shoot him in the back!
+*/
+
+TRANSLATION "italian"
+begin
+    "$$DOC"="Doc"
+    "$$FONTS"="Caratteri"
+    "$$CONFIGURE CONTROLS"="Configurazione Controlli"
+    "$$ROTATE"="Rotazione"
+    "$$SPACING"="Spaziatura"
+    "$$AUTOSCROLL"="Scorrim. testo"
+    "$$AUTOSCROLL TYPE AND SPEED"="Tipo e velocita\' Scorrimento testo:"
+    "$$PIXEL"="Pixel"
+    "$$TOGGLE AUTOSCROLL"="Scorrimento su pulsante Rubrica" 
+    "$$GOTO PER"="Vai a %"
+
+    "$$ABOUT BODY"=
+        "Il codice sorgente di questo programma e\' distribuito "\
+        "sotto licenza \'GNU General Public License (GPL)\' "\
+        "Disponibile presso:http://www.gnu.org/copyleft/gpl.html\n\n"\
+	"Il codice sorgente e l\'ultima versione del programma "\
+        "sono disponibili presso: http://32768.com/cspotrun/\n\n"\
+	""\
+        "Contributi:\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+	"Mad IP Address\nbadipadress@yahoo.com\nTraduzione in italiano\n\n"\
+        "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+      
+    "$$CONTROLS HELP"="Ogni casella corrisponde ad un controllo sullo schermo. "\
+                                "Selezionare i controlli da rendere visibili.\n\n"\
+                                "E\' consigliabile nascondere i controlli poco usati. "\
+                                "Tutti i controlli hanno comunque una voce di menu equivalente."
+    "$$GLOBAL PREFS HELP"="Usare l'opzione \'Scroll a schermo ruotato\' per "\
+                                    "invertire le funzioni dei tasti Su e Giu quando "\
+                                    "lo schermo e\' ruotato.\n\n"\
+                                    "Usare l\'opzione \'Una riga della pagina precedente\' per "\
+                                    "ripetere una riga della pagina precedente nella nuova pagina.\n\n"\
+                                    "Per specificare l\'azione da eseguire quando si fa il Tap sullo Schermo "\
+                                    "usare \'Azione Tap\'.\n\n"\
+                                    "L\'opzione \'Scorrimento su pulsante Rubrica\' attiva lo scorrimento automatico"\
+                                    "con la pressione del tasto della rubrica.\n\n"\
+                                    "L\'opzione \'Velocita\' scorrimento testo\' regola la velocita\' di scorrimento, "\
+                                    "misurata in centesimi di secondo. 15-20 e\' la velocita\' raccomandata. "\ 
+                                    "Durante lo scorrimento del testo, i tasti su e giu "\
+                                    "regolano la velocita\'.\n\n"\
+                                    "L'opzione \'Tipo scorrimento testo\' fa scorrere il testo "\
+                                    "per pixel o per righe."
+
+                                    
+    "$$NO DOCS"="Non ci sono documenti DOC installati!\n\nPer favore caricane qualcuno e riavvia CSpotRun."
+
+    "$$ERROR ALERT"="Oops!"
+
+    "$$DELETE PROMPT"="Cancellare definitivamente \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Opzioni Generali"
+    "$$SWAP UPDOWN"="Scroll a schermo ruotato" 
+    "$$SHOW PREV LINE"="Una riga della pagina precedente"
+  
+    "$$TAP ACTION"="Azione Tap"
+    "$$PAGE"="Pagina"
+    "$$HALF PAGE"="\xBD Pag."
+    "$$LINE"="Riga"
+
+    "$$TOP"="Inizio"
+    "$$BOTTOM"="Fine"
+
+    "$$LINE SPACING 1"="Spaziatura Righe 1"
+    "$$LINE SPACING 2"="Spaziatura Righe 2"
+    "$$LINE SPACING 3"="Spaziatura Righe 3"
+    "$$ROTATE RIGHT"="Ruota verso Destra"
+    "$$ROTATE LEFT"="Ruota verso Sinistra"
+    "$$OPTIONS"="Opzioni"
+    "$$TOGGLE CONTROLS"="(Dis)attiva Controlli"
+    "$$CONTROLSDDD"="Controlli..."
+    "$$PREFERENCESDDD"="Opzioni..."
+    "$$ABOUTDDD"="Informazioni Su..."
+    "$$PICK DOC"="Leggi Doc."
+    "$$DELETE DOC"="Cancella Documento"
+    "$$CONFIRM DELETE"="Conferma Cancellazione"
+    "$$CANCEL"="Annulla"
+    "$$MAKE DEFAULT"="Salva settaggi"
+
+    "$$VIEW"="Vista"
+    "$$FONT 1"="Carattere 1"
+    "$$FONT 2"="Carattere 2"
+    "$$FONT 3"="Carattere 3"
+    "$$FONT 4"="Carattere 4"
+
+    "$$HYPHEN"="Hyphenation"
+    "$$JUSTIFY"="Justification"
+    
+    "$$FIND"="Trova"
+    "$$FIND AGAIN"="Trova Successivo"
+    "$$FINDDDD"="Trova..."
+    "$$FIND IN DOCUMENT"="Trova nel documento"
+    "$$FIND PROMPT"="Trova:"
+    "$$SEARCH FROM TOP"="Cerca dall\'inizio"
+    "$$CASE SENSITIVE"="MAIUSCOLE/minuscole"
+    "$$FIND BUTTON"="T"
+    "$$FIND AGAIN BUTTON"="TS"
+
+    "$$BOOKMARKS"="Segnalibri" 
+    "$$BOOKMARKS_TRIGGER"="SL" 
+    "$$EDIT BOOKMARKS"="Segnalibri..." 
+    "$$EDIT BOOKMARKS LIST"="* Segnalibri..." 
+    "$$DEL ALL BOOKMARKS"="Cancella tutti i S." 
+    "$$SORT BOOKMARKS"="Ordina Segnalibri..." 
+    "$$ADD BOOKMARK"="Aggiungi Segnalibro..." 
+    "$$ADD BOOKMARK LIST"="* Aggiungi Segnalibro..." 
+    "$$ADD BOOKMARK TITLE"="Aggiungi Segnalibro" 
+    "$$NAME BOOKMARK"="Nome Segnalibro" 
+    "$$NAME"="Nome" 
+    "$$DUP NAME"="Un Segnalibro con questo nome esiste gia\'. Cosa vuoi fare?"
+    "$$REPLACE"="Rimpiazza" 
+    "$$NEW"="Nuovo" 
+    "$$MOVE UP"="Muovi Su" 
+    "$$MOVE DOWN"="Muovi Giu" 
+    "$$RENAME"="Rinomina" 
+    "$$DELETE"="Cancella" 
+    "$$DONE"="Fatto" 
+    "$$GOTO"="Vai a" 
+    "$$SORT BOOKMARKS"="Ordina Segnalibri" 
+    "$$POSITION"="Posizione" 
+    "$$SORT BOOKMARKS BY"="Ordina Segnalibri per..." 
+    "$$BMK DELETE PROMPT"="Cancella definitivamente tutti i Segnalibri?" 
+    "$$NO MEMORY"="Memoria insufficiente" 
+    "$$BMK DOC NOT OPENED"="Documento non aperto" 
+   
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    // 
+    // Mad IP Adress : urgh... whatta hard finda decent letters...
+    // Need to make up some new letters to do this! :)
+    "$$SC GOTO PER"="V"
+    "$$SC PICK DOC"="O"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="I"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="D"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="T"
+    "$$SC SEARCH AGAIN"="R"
+    "$$SC TOGGLE CONTROLS"="A"
+    "$$SC MAKE DEFAULT"="P"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="O"
+*/    
+end
+

@@ -1,0 +1,32 @@
+The DRM (Digital Rights Management) is an addition to the Palm DOC
+format. The most useful part of these changes for most people will be
+the zlib compression which is quite a bit better than the RLE
+compression used in standard DOC files.
+
+The way it is implemented to try not to break most DOC readers is by
+using a DOC version number higher than normally used. The current
+implementations use 1 as non-compressed and 2 as RLE compressed. I've
+added a block of numbers from 0x100 (256) to 0x1ff (511) to represent
+the DRM encrypted files. The exception is 0x100 is a plain zlib
+compressed DOC. All encrypted files will use zlib compression. The
+reader will not enforce this as the DRM module will be responsible for
+the decompress.
+
+0x100  zlib compressed DOC with no encryption.
+0x101  simple add 13 encryption as a demonstration.
+0x102  Embiid book.
+0x103 - 0x1ff unassigned.
+
+If you are a publisher and want a number assigned please ask. It is
+expected that a publisher actually using this system will insert their
+own encryption. I'm not going to give advice on how to do this.
+
+This modified C Spot Run will link to a DRM module called csrdrmXX
+where the XX is the hex digits 00 through FF. The module has a creator
+id of 'CS\xf3\xXX where the XX is the same as the XX in the name. These
+digits correspond with the 0x100 through 0x1FF version numbers. The
+decompress step is performed by the DRM module. A module called
+csrdrm00 implements plain zlib decompression.
+
+Greg Weeks
+greg@durendal.org

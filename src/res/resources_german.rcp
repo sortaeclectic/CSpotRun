@@ -1,0 +1,135 @@
+/*
+ * CONTRIBUTORS:
+ *    German translation: Arne Nickel (arne.nickel@gmx.de)
+ */
+
+TRANSLATION "german"
+begin
+
+    "$$DOC"="Dok"
+
+    "$$FONTS"="Schriftart"
+    "$$CONFIGURE CONTROLS"="Symbole anzeigen"
+    "$$ROTATE"="Drehung"
+    "$$SPACING"="Zeilenabstand"
+    "$$GOTO PER"="GeheZu %"
+
+    "$$BOOKMARKS"="Lesezeichen"
+    "$$BOOKMARKS_TRIGGER"="Lesezeichen"
+    "$$EDIT BOOKMARKS"="Lesezeichen..."
+    "$$EDIT BOOKMARKS LIST"="* Lesezeichen..."
+    "$$DEL ALL BOOKMARKS"="Alle Lesezeichen löschen"
+    "$$SORT BOOKMARKS"="Lesezeichen sortieren..."
+    "$$ADD BOOKMARK"="Neues Lesezeichen..."
+    "$$ADD BOOKMARK LIST"="* Lesezeichen hinzufügen..."
+    "$$ADD BOOKMARK TITLE"="Lesezeichen hinzufügen"
+    "$$NAME BOOKMARK"="Lesezeichen benennen"
+    "$$NAME"="Name"
+    "$$DUP NAME"="Ein Lesezeichen mit diesem Namen gibt es bereits. Wie möchten Sie fortfahren?"
+    "$$REPLACE"="Ersetzen"
+    "$$NEW"="Neu"
+    "$$MOVE UP"="Nach oben"
+    "$$MOVE DOWN"="Nach unten"
+    "$$RENAME"="Umbenennen"
+    "$$DELETE"="Löschen"
+    "$$DONE"="Fertig"
+    "$$GOTO"="Gehezu"
+    "$$SORT BOOKMARKS"="Lesezeichen sortieren"
+    "$$POSITION"="Position"
+    "$$SORT BOOKMARKS BY"="Sortiere Lesezeichen nach..."
+    "$$BMK DELETE PROMPT"="Lesezeichen endgültig löschen?"
+    "$$NO MEMORY"="Zuwenig freier Speicher"
+    "$$BMK DOC NOT OPENED"="Dokument ist nicht geöffnet"
+
+    "$$PICK DOC"="Dok auswählen"
+    "$$AUTOSCROLL"="Auto-Bildlauf"
+    "$$AUTOSCROLL TYPE AND SPEED"="Auto-Bildlauf Typ und Rate:"
+    "$$PIXEL"="Pixel"
+    "$$TOGGLE AUTOSCROLL"="Auto-Bildlauf mit Adressentaste"
+
+    "$$GLOBAL PREFERENCES"="Allgemeine Einstellungen"
+    "$$SWAP UPDOWN"="Tausche Bildlauftasten"
+    "$$SHOW PREV LINE"="Zeige Zeile der vorigen Seite"
+    "$$TAP ACTION"="Tippen"
+    "$$PAGE"="Seite"
+    "$$HALF PAGE"="\xBD Seite"
+    "$$LINE"="Zeile"
+
+    "$$TOP"="Anfang"
+    "$$BOTTOM"="Ende"
+
+    "$$DELETE DOC"="Dok löschen"
+    "$$MAKE DEFAULT"="Als Vorgabewerte    "
+    "$$VIEW"="Ansicht"
+    "$$FONT 1"="Schrift 1"
+    "$$FONT 2"="Schrift 2"
+    "$$FONT 3"="Schrift 3"
+    "$$FONT 4"="Schrift 4"
+    "$$LINE SPACING 1"="Zeilenabstand 1    "
+    "$$LINE SPACING 2"="Zeilenabstand 2"
+    "$$LINE SPACING 3"="Zeilenabstand 3"
+    "$$ROTATE RIGHT"="Rechts drehen"
+    "$$ROTATE LEFT"="Links drehen"
+    "$$OPTIONS"="Option"
+    "$$TOGGLE CONTROLS"="Vollbildmodus"
+    "$$CONTROLSDDD"="Symbole..."
+    "$$PREFERENCESDDD"="Einstellungen..."
+    "$$ABOUTDDD"="CSpotRun Info...    "
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+
+    "$$FIND"="Suchen"
+    "$$FIND AGAIN"="Weitersuchen"
+    "$$FINDDDD"="Suchen..."
+    "$$FIND IN DOCUMENT"="Im Dokument finden"
+    "$$FIND PROMPT"="Suchen:"
+    "$$SEARCH FROM TOP"="Ab Dokumentanfang"
+    "$$CASE SENSITIVE"="Groß-/Kleinschreibung"
+    "$$FIND BUTTON"="S"
+    "$$FIND AGAIN BUTTON"="W"
+
+    "$$ABOUT TITLE"="Über CSpotRun"
+    "$$ABOUT BODY"=
+        "Die Quelltexte dieses Programms werden unter der "\
+        "GNU General Public License (GPL) veröffentlicht. Hinweise "\
+        "hierzu finden sich unter: http://www.gnu.org/copyleft/gpl.html.\n\n"\
+        "Die Quelltexte und die aktuellste Version sind hier verfügbar:"\
+        "http://32768.com/cspotrun/"\
+        ""\
+        "Beiträge von:\n\n"\
+        "Arne Nickel\narne.nickel@gmx.de\nDeutsche Übersetzung\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nLesezeichen\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-Bildlauf\n\n"\
+        "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+    "$$DELETE PROMPT"="Dokument \"^1\" endgültig löschen?"
+    "$$CONFIRM DELETE"="Löschen bestätigen"
+    "$$CANCEL"="Abbrechen"
+
+
+    "$$CONTROLS HELP"="Jedes Kontrollkästchen entspricht einem Symbol auf "\
+        "dem Bildschirm. Wählen Sie die Symbole aus, die "\
+        "angezeigt werden sollen.\n\nSie können selten benutzte "\
+        "Symbole ausblenden, denn eine entsprechende Funktion "\
+        "kann im Menü \'Ansicht\' ausgewählt werden."
+
+    "$$GLOBAL PREFS HELP"="Verwenden Sie \'Tausche Bildlauftasten\', um die Richtung "\
+        "bei Betätigung der Bildlauftaste umzukehren, wenn die "\
+        "Anzeige gedreht ist.\n\n"\
+        "Verwenden Sie \'Zeige Zeile der vorigen Seite\', um die letzte "\
+        "Zeile der vorigen Seite beim Blättern zu wiederholen.\n\n"\
+        "Die \'Tippen\'-Schaltflächen steuern den Umfang des Blätterns, "\
+        "wenn Sie mit dem Stift auf die obere bzw. untere Hälfte des "\
+        "Bildschirms tippen.\n\n"\
+        "Der automatische Bildlauf kann mit der Taste der Addressbuchanwendung "\
+        "ein- und ausgeschaltet werden.\n\n"\
+        "Der Eintrag im Feld \'Typ und Rate'\ bestimmt die Geschwindigkeit des "\
+        "automatischen Bildlaufs und wird in 100stel Sekunden angegeben. Ein guter "\
+        "Richtwert liegt zwischen 15 und 25."
+
+    "$$NO DOCS"="Es sind keine Dokumente installiert!\n\nBitte starten Sie CSpotRun erneut,"\
+        "nachdem Sie ein oder mehrere Dokumente installiert haben."
+
+    "$$ERROR ALERT"="Hoppla!"
+end

@@ -1,0 +1,147 @@
+/*
+ * CONTRIBUTORS:
+ *  Swedish translation: Jonas Kämpe (jonas@ehand.com)
+ */
+
+
+TRANSLATION "sv_SE"
+begin
+    "$$DOC"="Dok"
+    "$$FONTS"="Typsnitt"
+    "$$CONFIGURE CONTROLS"="Kontrollinställningar"
+    "$$ROTATE"="Rotera"
+    "$$SPACING"="Radavstånd"
+    "$$AUTOSCROLL"="Textrullning"
+    "$$AUTOSCROLL TYPE AND SPEED"="Textrullning, typ och hastighet:"
+    "$$PIXEL"="Pixel"
+    "$$TOGGLE AUTOSCROLL"="Textrullning på adressboksknapp"
+    "$$GOTO PER"="Gå till %"
+
+    "$$BOOKMARKS"="Bookmarks"
+    "$$BOOKMARKS_TRIGGER"="BM"
+    "$$EDIT BOOKMARKS"="Bookmarks..."
+    "$$EDIT BOOKMARKS LIST"="* Bookmarks..."
+    "$$DEL ALL BOOKMARKS"="Del All"
+    "$$SORT BOOKMARKS"="Sort..."
+    "$$ADD BOOKMARK"="Add Bookmark..."
+    "$$ADD BOOKMARK LIST"="* Add Bookmark..."
+    "$$ADD BOOKMARK TITLE"="Add Bookmark"
+    "$$NAME BOOKMARK"="Name Bookmark"
+    "$$NAME"="Name"
+    "$$DUP NAME"="Bookmark with this name already exists. What would you want to do?"
+    "$$REPLACE"="Replace"
+    "$$NEW"="Create New"
+    "$$MOVE UP"="Move Up"
+    "$$MOVE DOWN"="Move Down"
+    "$$RENAME"="Rename"
+    "$$DELETE"="Delete"
+    "$$DONE"="Done"
+    "$$GOTO"="GoTo"
+    "$$SORT BOOKMARKS"="Sort Bookmarks"
+    "$$POSITION"="Position"
+    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..."
+    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?"
+    "$$NO MEMORY"="Not Enough Memory"
+    "$$BMK DOC NOT OPENED"="Document is not opened"
+
+    "$$ABOUT BODY"=
+        "Källkoden till detta program distribueras under "\
+        "GNU General Public License (GPL). Den finns "\
+        "på: http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "Källkoden och den senaste versionen finns på: "\
+        "http://32768.com/cspotrun/\n\n"\
+        ""\
+        "Med bidrag från:\n\n"\
+        "Jonas Kämpe\njonas@ehand.com\nSvensk översättning\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nTextrullning\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+
+    "$$CONTROLS HELP"="Varje kryssruta motsvarar en kontroll på skärmen. "\
+        "Välj de kontroller du vill ska synas.\n\n"\
+        "Kanske vill du dölja kontroller du sällan använder. "\
+        "Kom ihåg att alla kontroller alltid kan nås via menyerna."
+        "$$GLOBAL PREFS HELP"="\'Växla upp/ner när liggande\' väljs för att växla "\
+            "funktionen på sid-upp- och sid-ner-knapparna när "\
+            "texten är vänd liggande.\n\n"\
+            "Använd \'Visa rad från föregående sida\' för att upprepa den sista "\
+            "raden från föregående sida när du rör dig upp och ner i dokumentet.\n\n"\
+            "\'Pekfunktion\' avgör vad som händer då du pekar på skärmen.\n\n"\
+            "Använd \'Rullningshastighet\' för att ställa in hastigheten på textrullningen. "\
+            "Hastigheten anges i hundradels sekunder. 15-20 rekommenderas."
+    "$$NO DOCS"="Det finns inga DOC-databaser installerade!\n\nFörsök igen efter att ha installerat något eller några dokument."
+
+    "$$ERROR ALERT"="Oj, då!"
+
+    "$$DELETE PROMPT"="Radera permanent \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Övergripande inställningar"
+    "$$SWAP UPDOWN"="Växla upp/ner när liggande"
+    "$$SHOW PREV LINE"="Visa rad från föregående sida"
+
+    "$$TAP ACTION"="Pekfunktion"
+    "$$PAGE"="Sida"
+    "$$HALF PAGE"="\xBD sida"
+    "$$LINE"="Rad"
+    "$$JUSTIFY"="Justify"
+
+    "$$TOP"="Start"
+    "$$BOTTOM"="Slut"
+
+    "$$LINE SPACING 1"="Radavstånd 1      "
+    "$$LINE SPACING 2"="Radavstånd 2"
+    "$$LINE SPACING 3"="Radavstånd 3"
+    "$$ROTATE RIGHT"="Rotera höger"
+    "$$ROTATE LEFT"="Rotera vänster"
+    "$$OPTIONS"="Inställningar"
+    "$$TOGGLE CONTROLS"="Kontroller av/på   "
+    "$$CONTROLSDDD"="Kontroller..."
+    "$$PREFERENCESDDD"="Övergripande..."
+    "$$ABOUTDDD"="Om..."
+    "$$PICK DOC"="Välj dokument  "
+    "$$DELETE DOC"="Radera dokument"
+    "$$CONFIRM DELETE"="Bekräfta radera"
+    "$$CANCEL"="Avbryt"
+    "$$MAKE DEFAULT"="Spar inställningar"
+    "$$VIEW"="Visa"
+    "$$FONT 1"="Typsnitt 1"
+    "$$FONT 2"="Typsnitt 2"
+    "$$FONT 3"="Typsnitt 3"
+    "$$FONT 4"="Typsnitt 4"
+
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+
+    "$$FIND"="Sök"
+    "$$FIND AGAIN"="Sök igen"
+    "$$FINDDDD"="Sök..."
+    "$$FIND IN DOCUMENT"="Sök i dokumentet"
+    "$$FIND PROMPT"="Sök:"
+    "$$SEARCH FROM TOP"="Sök från början"
+    "$$CASE SENSITIVE"="Skilj på stora och små tecken"
+    "$$FIND BUTTON"="F"
+    "$$FIND AGAIN BUTTON"="FA"
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="G"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="R"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="F"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="P"
+*/
+end
+

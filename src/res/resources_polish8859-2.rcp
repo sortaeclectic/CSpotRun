@@ -1,0 +1,150 @@
+/*
+ * CONTRIBUTORS:
+ *    Polish translation: S³awek Lipski (lipski@mail.com)
+ */
+
+TRANSLATION "polish8859-2"
+begin
+    "$$DOC"="Lista"
+    "$$FONTS"="Fonty"
+    "$$CONFIGURE CONTROLS"="Konfiguracja narzêdzi"
+    "$$ROTATE"="Obrót"
+    "$$SPACING"="Odstêpy"
+    "$$AUTOSCROLL"="Auto przewijanie"
+    "$$AUTOSCROLL TYPE AND SPEED"="Typ i prêdko¶æ przewijania:"
+    "$$PIXEL"="Piksel"
+    "$$TOGGLE AUTOSCROLL"="Przewijaj guzikiem Adresy"
+    "$$GOTO PER"="Id¼ do %"
+
+    "$$ABOUT BODY"=
+        "Kod ¼ród³owy tego programu jest rozprowadzany zgodnie "\
+        "z licencj± GNU General Public License (GPL). Wiêcej o tym "\
+        "pod adresem: http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "Kod ¼ród³owy i najnowsza wersja programu sa dostêpne "\
+        "pod adresem http://32768.com/cspotrun/\n\n"\
+        ""\
+        "Wspó³praca:\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+
+    "$$CONTROLS HELP"="Ka¿da kratka odpowiada jednemu narzêdziu na ekranie."\
+                                "Zanacz, które narzêdzia chcesz widzieæ na ekranie.\n\n"\
+                                "Rozwa¿ ukrycie narzêdzi, z których rzadko korzystasz. "\
+                                "Wszystkie narzêdzia maj± odpowiadaj±ce im polecenia w menu."
+    "$$GLOBAL PREFS HELP"="\'Prze³±cz góra/dó³ przy obrocie\' - ta opcja zmienia "\
+                                    "dzia³anie przycisku góra/dó³ przy obróconym ekranie.\n"\
+                                    "\'Linia z poprzedniej strony\' - ta opcja pokazuje  "\
+                                    "ostatni± liniê z poprzedniej strony przy przewijaniu.\n\n"\
+                                    "Wybory w \'Klikanie\' ustawiaj± co siê stanie po "\
+                                    "klikaniu rysikiem w ekran.\n\n"\
+                                    "\'Predko¶æ autoprzewijania\' - ta opcja ustawia prêdko¶æ autoprzewijania. "\
+                                    "Liczby podane w 1/100 s. 15-20 to zalecana prêdko¶æ. "\
+                                    "Podczas przewijania przycisku góra/dó³ mo¿na u¿ywaæ do "\
+                                    "zmiany prêdko¶ci przewijania.\n\n"\
+                                    "\'Typ autoprzewijania\` - ta opcja decyduje o tym, czy "\
+                                    "przewijanie bêdzie po liniach, czy po pikselach."
+
+                                    
+    "$$NO DOCS"="Nie ma zainstalowanego ¿adnego dokumentu!\n\nProszê w³±czyæ CSpotRun ponownie po zainstalowaniu dokumentów."
+
+    "$$ERROR ALERT"="Oops! Blad!"
+
+    "$$DELETE PROMPT"="Nieodwo³alnie usun±æ \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Ustawienia globalne"
+    "$$SWAP UPDOWN"="Prze³±cz góra/dó³ przy obrocie"
+    "$$SHOW PREV LINE"="Linia z poprzedniej strony"
+
+    "$$TAP ACTION"="Klikanie"
+    "$$PAGE"="Strona"
+    "$$HALF PAGE"="\xBD Strony"
+    "$$LINE"="Linia"
+
+    "$$TOP"="Góra"
+    "$$BOTTOM"="Dó³"
+
+    "$$LINE SPACING 1"="Odstêpy 1  "
+    "$$LINE SPACING 2"="Odstêpy 2"
+    "$$LINE SPACING 3"="Odstêpy 3"
+    "$$ROTATE RIGHT"="Obrót prawo"
+    "$$ROTATE LEFT"="Obrót lewo"
+    "$$OPTIONS"="Opcje"
+    "$$TOGGLE CONTROLS"="Prze³±cz narzêdzia "
+    "$$CONTROLSDDD"="Narzêdzia ..."
+    "$$PREFERENCESDDD"="Preferencje ..."
+    "$$ABOUTDDD"="O programie ..."
+    "$$PICK DOC"="Wybór dokum."
+    "$$DELETE DOC"="Usuñ dokument"
+    "$$CONFIRM DELETE"="Potwierdzenie usuwania"
+    "$$CANCEL"="Anuluj"
+    "$$MAKE DEFAULT"="Ustaw domy¶lnie"
+    "$$VIEW"="Widok"
+    "$$FONT 1"="Font 1"
+    "$$FONT 2"="Font 2"
+    "$$FONT 3"="Font 3"
+    "$$FONT 4"="Font 4"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+    
+    "$$FIND"="Znajd¼"
+    "$$FIND AGAIN"="Znajd¼ ponownie"
+    "$$FINDDDD"="Znajd¼..."
+    "$$FIND IN DOCUMENT"="Znajd¼ w dokumencie"
+    "$$FIND PROMPT"="Znajd¼:"
+    "$$SEARCH FROM TOP"="Szukaj od góry"
+    "$$CASE SENSITIVE"="Uwzglêdniaj wielko¶æ liter"
+    "$$FIND BUTTON"="Z"
+    "$$FIND AGAIN BUTTON"="ZP"
+
+    "$$BOOKMARKS"="Zak³adki" 
+    "$$BOOKMARKS_TRIGGER"="BM" 
+    "$$EDIT BOOKMARKS"="Zak³adki..." 
+    "$$EDIT BOOKMARKS LIST"="* Zak³adki..." 
+    "$$DEL ALL BOOKMARKS"="Usuñ Zak³adki" 
+    "$$SORT BOOKMARKS"="Sortuj Zak³adki..." 
+    "$$ADD BOOKMARK"="Dodaj Zak³adkê..." 
+    "$$ADD BOOKMARK LIST"="* Dodaj Zak³adkê..." 
+    "$$ADD BOOKMARK TITLE"="Dodaj Zak³adkê" 
+    "$$NAME BOOKMARK"="Nazwij Zak³adkê" 
+    "$$NAME"="Nazwa" 
+    "$$DUP NAME"="Zak³adka z tak± nazw± ju¿ istnieje. Co zrobiæ?" 
+    "$$REPLACE"="Zast±p" 
+    "$$NEW"="Utwórz now±" 
+    "$$MOVE UP"="Do góry" 
+    "$$MOVE DOWN"="Do do³u" 
+    "$$RENAME"="Zmieñ nazwê" 
+    "$$DELETE"="Usuñ" 
+    "$$DONE"="Zrobione" 
+    "$$GOTO"="Id¼ do" 
+    "$$SORT BOOKMARKS"="Sortuj Zak³adki" 
+    "$$POSITION"="Pozycja" 
+    "$$SORT BOOKMARKS BY"="Sortuj Zak³adki po..." 
+    "$$BMK DELETE PROMPT"="Nieodwo³alnie usun±æ zak³adki?" 
+    "$$NO MEMORY"="Za ma³o pamiêci" 
+    "$$BMK DOC NOT OPENED"="Nie otwarto dokumentu" 
+
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="I"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="G"
+    "$$SC LINESPACING 2"="N"
+    "$$SC LINESPACING 3"="R"
+    "$$SC ROTATE RIGHT"="P"
+    "$$SC ROTATE LEFT"="L"
+    "$$SC SEARCHDDD"="Z"
+    "$$SC SEARCH AGAIN"="J"
+    "$$SC TOGGLE CONTROLS"="A"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="K"
+    "$$SC PREFERENCESDDD"="E"
+*/    
+end
+

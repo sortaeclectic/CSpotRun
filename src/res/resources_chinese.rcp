@@ -1,0 +1,143 @@
+/*
+ * CONTRIBUTORS:
+ *    Chinese translation: Chen-hsiung Chan (frankch@waru.life.nthu.edu.tw)
+ */
+ 
+TRANSLATION "chinese"
+begin
+    "$$DOC"="文件"
+    "$$FONTS"="字型"
+    "$$CONFIGURE CONTROLS"="設定控制列"
+    "$$ROTATE"="旋轉"
+    "$$SPACING"="行距"
+    "$$AUTOSCROLL"="捲動"
+    "$$AUTOSCROLL TYPE AND SPEED"="捲動類型與速度："
+    "$$PIXEL"="一點"
+    "$$TOGGLE AUTOSCROLL"="通訊錄按鈕自動捲動"
+    "$$GOTO PER"="跳至 %"
+
+    "$$BOOKMARKS"="書籤"
+    "$$BOOKMARKS_TRIGGER"="書籤"
+    "$$EDIT BOOKMARKS"="書籤設定…"
+    "$$EDIT BOOKMARKS LIST"="* 書籤設定…"
+    "$$DEL ALL BOOKMARKS"="刪除所有書籤"
+    "$$SORT BOOKMARKS"="書籤排序…"
+    "$$ADD BOOKMARK"="新增書籤…"
+    "$$ADD BOOKMARK LIST"="* 新增書籤…"
+    "$$ADD BOOKMARK TITLE"="新增書籤"
+    "$$NAME BOOKMARK"="為書籤命名"
+    "$$NAME"="名稱"
+    "$$DUP NAME"="同名的書籤已經存在。你要怎麼做呢？"
+    "$$REPLACE"="取代"
+    "$$NEW"="新增"
+    "$$MOVE UP"="上移"
+    "$$MOVE DOWN"="下移"
+    "$$RENAME"="更名"
+    "$$DELETE"="刪除"
+    "$$DONE"="完成"
+    "$$GOTO"="移至"
+    "$$SORT BOOKMARKS"="書籤排序"
+    "$$POSITION"="位置"
+    "$$SORT BOOKMARKS BY"="排序書籤，依照…"
+    "$$BMK DELETE PROMPT"="永久刪除書籤？"
+    "$$NO MEMORY"="記憶體不足"
+    "$$BMK DOC NOT OPENED"="文件尚未開啟"
+
+    "$$ABOUT BODY"=
+        "本程式那原始碼是依據 GNU General Public License(GPL) "\
+        "而散佈的。你可以在 http://www.gnu.org/copyleft/gpl.html "\
+        "找到 GPL 的內容。\n\n"\
+        "原始碼及最新版本可以在 http://32768.com/cspotrun/ 找到。\n\n"\
+        ""\
+        "Contributors:\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+        "Chen-hsiung Chan\nfrankch@waru.life.nthu.edu.tw\nChineseTranslation\n\n"\
+        "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+    "$$CONTROLS HELP"="每一個選項對應到控制列上的一個控制元件。"\
+				"選取你想顯示出的控制元件。"\
+				"你可以將不常使用的控制元件隱藏起來。"\
+				"每個控制元件都有對應的選單選項。"
+    "$$GLOBAL PREFS HELP"="使用“旋轉時交換上/下鍵”選項"\
+    				    "在畫面左右旋轉時交換上/下鍵的功\能。\n\n "\
+    				    "使用“顯示前一個畫面的部份文字”選項讓前一頁的最後一行"\
+    				    "或後一頁的第一行在目前畫面顯示出來。\n\n"\
+    				    "“Tap 時捲動”選項設定在螢幕上輕點時的對應動作。\n\n"\
+    				    "“捲動類型與速度”選項設定自動捲動時是以點或行為單位，及"\
+    				    "自動捲動時的捲動速度。捲動速度是以百分之一秒為單位。 "\
+    				    "自動捲動時，上/下鍵可以用來調整捲動速度。\n\n"
+
+                                    
+    "$$NO DOCS"="找不到文件！\n\n請先安裝一兩個文件再執行 CSpotRun。"
+
+    "$$ERROR ALERT"="完了！"
+
+    "$$DELETE PROMPT"="永久刪除 \"^1\"？"
+    "$$GLOBAL PREFERENCES"="整體設定"
+    "$$SWAP UPDOWN"="旋轉時交換上/下鍵"
+    "$$SHOW PREV LINE"="顯示前一個畫面的部份文字"
+
+    "$$TAP ACTION"="Tap 時捲動"
+    "$$PAGE"="一頁"
+    "$$HALF PAGE"="半頁"
+    "$$LINE"="一行"
+
+    "$$TOP"="開頭"
+    "$$BOTTOM"="結尾"
+
+    "$$LINE SPACING 1"="行距 1"
+    "$$LINE SPACING 2"="行距 2"
+    "$$LINE SPACING 3"="行距 3"
+    "$$ROTATE RIGHT"="順時針旋轉"
+    "$$ROTATE LEFT"="逆時針旋轉"
+    "$$OPTIONS"="選項"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+    "$$TOGGLE CONTROLS"="切換控制列"
+    "$$CONTROLSDDD"="控制列內容…"
+    "$$PREFERENCESDDD"="參數設定…"
+    "$$ABOUTDDD"="關於…"
+    "$$PICK DOC"="點選文件"
+    "$$DELETE DOC"="刪除文件"
+    "$$CONFIRM DELETE"="確認刪除"
+    "$$CANCEL"="取消"
+    "$$MAKE DEFAULT"="讓目前設定成為預設值"
+    "$$VIEW"="檢視"
+    "$$FONT 1"="字型 1"
+    "$$FONT 2"="字型 2"
+    "$$FONT 3"="字型 3"
+    "$$FONT 4"="字型 4"
+    
+    "$$FIND"="找尋"
+    "$$FIND AGAIN"="再度找尋"
+    "$$FINDDDD"="找尋…"
+    "$$FIND IN DOCUMENT"="在文件內找尋"
+    "$$FIND PROMPT"="找尋:"
+    "$$SEARCH FROM TOP"="自開頭找尋"
+    "$$CASE SENSITIVE"="分別大小寫"
+    "$$FIND BUTTON"="F"
+    "$$FIND AGAIN BUTTON"="FA"
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="G"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="R"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="F"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="P"
+*/    
+end
+

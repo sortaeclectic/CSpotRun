@@ -1,0 +1,149 @@
+/*
+ * CONTRIBUTORS:
+ *    Portuguese (PT) translation: Carlos Morgado (chbm@chbm.nu)
+ *    Original Portuguese (BR) translation: Rui A. Rebelo (rui.rebe@zaz.com.br)
+ */
+
+TRANSLATION "pt_PT"
+begin
+    "$$DOC"="Doc"
+    "$$FONTS"="Fontes"
+    "$$CONFIGURE CONTROLS"="Configurar Controles"
+    "$$ROTATE"="Girar"
+    "$$SPACING"="Espaçamento"
+    "$$GOTO PER"="Ir para %"
+
+    "$$BOOKMARKS"="Marcadroes"
+    "$$BOOKMARKS_TRIGGER"="Marcadroes"
+    "$$EDIT BOOKMARKS"="Marcadores..."
+    "$$EDIT BOOKMARKS LIST"="* Marcadores..."
+    "$$DEL ALL BOOKMARKS"="Apagar todos os Marcadores"
+    "$$SORT BOOKMARKS"="Ordenar Marcadores..."
+    "$$ADD BOOKMARK"="Adicionar Marcador..."
+    "$$ADD BOOKMARK LIST"="* Adicionar Marcador..."
+    "$$ADD BOOKMARK TITLE"="Adicionar Marcador"
+    "$$NAME BOOKMARK"="Nomear Marcador"
+    "$$NAME"="Nome"
+    "$$DUP NAME"="Ja existe um marcador com este nome. O que deseja fazer?"
+    "$$REPLACE"="Substituir"
+    "$$NEW"="Criar nova"
+    "$$MOVE UP"="Subir"
+    "$$MOVE DOWN"="Descer"
+    "$$RENAME"="Renomear"
+    "$$DELETE"="Apagar"
+    "$$DONE"="Ok"
+    "$$GOTO"="IrPara"
+    "$$SORT BOOKMARKS"="Ordenar Marcadores"
+    "$$POSITION"="Posigco"
+    "$$SORT BOOKMARKS BY"="Ordenar Marcadores por..."
+    "$$BMK DELETE PROMPT"="Apagar os marcadores definitivamente?"
+    "$$NO MEMORY"="Memsria Insuficiente"
+    "$$BMK DOC NOT OPENED"="O documento nco esta aberto" 
+
+    "$$AUTOSCROLL"="Auto Rolagem"
+    "$$AUTOSCROLL TYPE AND SPEED"="Tipo e Velocidade de AutoRolagem:"
+    "$$PIXEL"="Pixel"
+    "$$TOGGLE AUTOSCROLL"="AutoRolagem c/ botão Addr.Book"
+
+    "$$ABOUT BODY"=
+        "O código fonte para este programa é distribuído sob "\
+        "a GNU General Public License (GPL). Você poderá "\
+        "encontrá-la em: http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "O código fonte e a última versão podem ser encontrados em: "\
+        "http://32768.com/cspotrun/\n\n"\
+        ""\
+        "Contributors:\n\n"\
+        "Carlos Morgado\nchbm@chbm.nu\nPortuguese (PT) translation.\n\n"\
+        "Rui A. Rebelo\nrui.rebe@zaz.com.br\nOriginal Portuguese translation\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+
+    "$$CONTROLS HELP"="Cada checkbox corresponde a um controle na tela. "\
+                      "Selecione o controle que você deseja que fique visível.\n\n"\
+                      "Considere esconder os controles que raramente usa. "\
+                      "Perceba que todos os controles tem itens de menu equivalentes."
+    "$$GLOBAL PREFS HELP"="Use a opção \'Alternar pág.acima/pág.abaixo\' para reverter a "\
+                             "função dos botões página acima e página abaixo quando a "\
+                             "tela está rotacionada.\n\n"\
+                             "Use a opção \'Mostre linha da página anterior\' para repetir a última "\
+                             "linha da página anterior quando avançar uma página.\n\n"\
+                             "A escolha de \'Ação de toque\' controla que ação é executada quando "\
+                             "você toca a tela.\n\n"\
+                             "Use a opção \'Veloc. de Auto Rolagem\' para controlar a velocidade de rolagem automática. Os números "\
+                             "estão em centésimos de segundo. 15-25 é a velocidade recomendada."
+    "$$NO DOCS"="Não há arquivos DOC instalados!\n\nPor favor tente novamente o CSpotRun depois de instalar um ou dois documentos."
+
+    "$$ERROR ALERT"="Oops!"
+
+    "$$DELETE PROMPT"="Apagar definitivamente \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Preferências Globais"
+    "$$SWAP UPDOWN"="Alternar pág.acima/pág.abaixo"
+    "$$SHOW PREV LINE"="Mostra linha da página anterior"
+
+    "$$TAP ACTION"="Acção de toque"
+    "$$PAGE"="Pág."
+    "$$HALF PAGE"="\xBD Pág."
+    "$$LINE"="Linha"
+
+    "$$TOP"="Topo"
+    "$$BOTTOM"="Fundo"
+
+    "$$LINE SPACING 1"="Entrelinha 1"
+    "$$LINE SPACING 2"="Entrelinha 2"
+    "$$LINE SPACING 3"="Entrelinha 3"
+    "$$ROTATE RIGHT"="Rodar à Direita"
+    "$$ROTATE LEFT"="Rodar à Esquerda"
+    "$$OPTIONS"="Opções"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+
+    "$$TOGGLE CONTROLS"="Controles Visíveis?"
+    "$$CONTROLSDDD"="Controles..."
+    "$$PREFERENCESDDD"="Preferências..."
+    "$$ABOUTDDD"="Sobre..."
+    "$$PICK DOC"="Escolher Doc"
+    "$$DELETE DOC"="Apagar Doc"
+    "$$CONFIRM DELETE"="Confirmar Apagar"
+    "$$CANCEL"="Cancelar"
+    "$$MAKE DEFAULT"="Tornar Ajustes Padrão"
+    "$$VIEW"="Ver"
+    "$$FONT 1"="Fonte 1"
+    "$$FONT 2"="Fonte 2"
+    "$$FONT 3"="Fonte 3"
+    "$$FONT 4"="Fonte 4"
+    
+    "$$FIND"="Procurar"
+    "$$FIND AGAIN"="Procurar de novo"
+    "$$FINDDDD"="Procurar..."
+    "$$FIND IN DOCUMENT"="Procurar no Documento"
+    "$$FIND PROMPT"="Procurar:"
+    "$$SEARCH FROM TOP"="Procurar a partir do topo"
+    "$$CASE SENSITIVE"="Sensível a mais/minusculas"
+    "$$FIND BUTTON"="B"
+    "$$FIND AGAIN BUTTON"="BN"
+
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="V"
+    "$$SC PICK DOC"="E"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="G"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="P"
+    "$$SC ROTATE RIGHT"="D"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="P"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="P"
+*/    
+end

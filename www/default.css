@@ -1,0 +1,33 @@
+
+BODY {
+	font-family: helvetica;
+	background-color:white;
+	color:#000000;	
+	margin-left:30px;
+	margin-right:30px;
+}
+
+P, TD, TH, OL, OL LI {
+  font-family: helvetica;
+}
+
+H1,H2, H3, H4, H5, H6 {
+  letter-spacing: 0.1em;
+  font-family: helvetica;
+}
+
+H1, H2 {
+  border-bottom: 2px solid black;
+}
+
+P {
+  margin: 4pt 3pt 15pt 0pt;
+  list-style-type: none;
+}
+
+P.legal {
+  margin-top: 30px;
+  font-size: 75%;
+  clear=all;
+}
+

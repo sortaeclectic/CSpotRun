@@ -1,0 +1,134 @@
+/*
+ * CONTRIBUTORS:
+ *    Spanish translation: Marcelo Rinesi (rinesi@espacio.com.ar)
+ */
+
+TRANSLATION "spanish"
+begin
+    "$$DOC"="Doc"
+
+    "$$FONTS"="Fuentes"
+    "$$CONFIGURE CONTROLS"="Configurar Controles"
+    "$$ROTATE"="Rotar"
+    "$$SPACING"="Espaciado"
+    "$$GOTO PER"="Ir a %"
+
+    "$$BOOKMARKS"="Bookmarks"
+    "$$BOOKMARKS_TRIGGER"="BM"
+    "$$EDIT BOOKMARKS"="Bookmarks..."
+    "$$EDIT BOOKMARKS LIST"="* Bookmarks..."
+    "$$DEL ALL BOOKMARKS"="Del All"
+    "$$SORT BOOKMARKS"="Sort..."
+    "$$ADD BOOKMARK"="Add Bookmark..."
+    "$$ADD BOOKMARK LIST"="* Add Bookmark..."
+    "$$ADD BOOKMARK TITLE"="Add Bookmark"
+    "$$NAME BOOKMARK"="Name Bookmark"
+    "$$NAME"="Name"
+    "$$DUP NAME"="Bookmark with this name already exists. What would you want to do?"
+    "$$REPLACE"="Replace"
+    "$$NEW"="Create New"
+    "$$MOVE UP"="Move Up"
+    "$$MOVE DOWN"="Move Down"
+    "$$RENAME"="Rename"
+    "$$DELETE"="Delete"
+    "$$DONE"="Done"
+    "$$GOTO"="GoTo"
+    "$$SORT BOOKMARKS"="Sort Bookmarks"
+    "$$POSITION"="Position"
+    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..."
+    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?"
+    "$$NO MEMORY"="Not Enough Memory"
+    "$$BMK DOC NOT OPENED"="Document is not opened"
+
+    "$$PICK DOC"="Elegir Doc"
+    "$$AUTOSCROLL"="Autoscroll"
+    "$$AUTOSCROLL TYPE AND SPEED"="Vel. y tipo de Autoscroll:"
+    "$$PIXEL"="Pixel"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll en el Bot'on de Dir."
+
+    "$$GLOBAL PREFERENCES"="Preferencias Globales"
+    "$$SWAP UPDOWN"="Cambiar orientación lateral"
+
+    "$$SHOW PREV LINE"="Mostrar línea anterior"
+    "$$TAP ACTION"="Acción al tocar"
+    "$$PAGE"="Pág"
+    "$$HALF PAGE"="\xBD Pág"
+    "$$LINE"="Línea"
+
+    "$$TOP"="Comienzo"
+    "$$BOTTOM"="Final"
+
+    "$$DELETE DOC"="Borrar Documento"
+    "$$MAKE DEFAULT"="Memorizar las opciones    "
+
+    "$$VIEW"="Ver"
+    "$$FONT 1"="Fuente 1"
+    "$$FONT 2"="Fuente 2"
+    "$$FONT 3"="Fuente 3"
+    "$$FONT 4"="Fuente 4"
+    "$$LINE SPACING 1"="Interlineado 1"
+    "$$LINE SPACING 2"="Interlineado 2"
+    "$$LINE SPACING 3"="Interlineado 3"
+    "$$ROTATE RIGHT"="Rotar a la derecha    "
+    "$$ROTATE LEFT"="Rotar a la izquierda"
+    "$$OPTIONS"="Opciones"
+    "$$TOGGLE CONTROLS"="¿Controles visibles?    "
+    "$$CONTROLSDDD"="Controles..."
+    "$$PREFERENCESDDD"="Preferencias..."
+    "$$ABOUTDDD"="Sobre CSpotRun..."
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+
+    "$$FIND"="Buscar Texto"
+    "$$FIND AGAIN"="Repetir búsqueda"
+    "$$FINDDDD"="Buscar Texto..."
+    "$$FIND IN DOCUMENT"="Buscar Texto en Documento"
+    "$$FIND PROMPT"="Texto:"
+    "$$SEARCH FROM TOP"="Buscar desde el inicio"
+    "$$CASE SENSITIVE"="Discriminar Mayúsculas"
+    "$$FIND BUTTON"="B"
+    "$$FIND AGAIN BUTTON"="RB"
+
+    "$$ABOUT TITLE"="Sobre CSpotRun"
+    "$$ABOUT BODY"=
+      "El código fuente para este programa está distribuido "\
+      "bajo la GNU General Public License (GPL). Puede "\
+      "encontrarla en: http://www.gnu.org/copyleft/gpl.html\n\n"\
+      "El código fuente y la última versión están en: "\
+      "http://32768.com/cspotrun/"\
+      ""\
+      "Contribuciones:\n\n"\
+      "Marcelo Rinesi\nrinesi@espacio.com.ar\nTraducción al español\n\n"\
+      "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+      "Daniel Zahn\nsclug@sclug.org\nAuto-scroll\n\n"\
+      "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+      "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+      
+
+    "$$DELETE PROMPT"="¿Borrar permanentemente \"^1\"?"
+    "$$CONFIRM DELETE"="Confirmar borrado"
+    "$$CANCEL"="Cancelar"
+
+    "$$CONTROLS HELP"="Cada checkbox corresponde a un control en pantalla. "\
+        "Seleccione los controles que quiere que sean visibles. \n\n"\
+        "Considere ocultar los controles que use raramente. "\
+        "Tenga en cuenta que todos los controles tienen sus opciones equivalentes en los menues."
+        
+    "$$GLOBAL PREFS HELP"="Use la opción \'Cambiar orientación lateral\', para invertir "\
+        "las funciones de los botones de cambio de página cuando la "\
+        "pantalla está rotada.\n\n"\
+        "Use \'Mostrar línea anterior\', para repetir una línea individual "\
+        "de la página anterior cuando cambia de página.\n\n"\
+        "\'Acción al tocar\' controla cuánto se mueve la página cuando toca la pantalla con el lápiz óptico.\n\n"\
+        "Use la opción  \'Velocidad de autoscroll\' para controlar la velocidad de lectura. Los números "\
+        "están en centésimas de segundo. 15-25 es la velocidad recomendada."\
+	"Asimismo, puede usar los botones de cambio de página controlar la velocidad durante la lectura."\
+	"El \'Tipo de Autoscroll\' determina si el texto avanza por pixel o por línea."
+		
+        
+    "$$NO DOCS"="¡No hay documentos instalados!\n\nPor favor pruebe CSpotRun"\
+        "de nuevo, después de instalar al menos un documento."
+
+    "$$ERROR ALERT"="Oops!"
+end

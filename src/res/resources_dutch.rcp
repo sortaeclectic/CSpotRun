@@ -1,0 +1,121 @@
+TRANSLATION "dutch"
+begin
+    "$$DOC"="Doc"
+    "$$FONTS"="Lettertype"
+    "$$CONFIGURE CONTROLS"="Knoppenbalk instellen"
+    "$$ROTATE"="Rotatie"
+    "$$SPACING"="Regelafstand"
+    "$$AUTOSCROLL"="Auto Doorvoer"
+    "$$AUTOSCROLL TYPE AND SPEED"="Autodoorvoer Type en Snelheid:"
+    "$$PIXEL"="Pixel"
+    "$$TOGGLE AUTOSCROLL"="Autodoorvoer Addr. Boek Knop"
+    "$$GOTO PER"="Ga naar %"
+
+    "$$ABOUT BODY"=
+        "De broncode voor dit programma is verspreid onder"\
+        "de GNU General Public License (GPL). U kunt deze "\
+        "vinden op: http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "De broncode en de nieuwste versie is beschikbaar op:"\
+        "http://32768.com/cspotrun/\n\n"\
+        ""\
+        "Bijdragen van:\n\n"\
+        "Aa Schreuder\n"\
+        "Robbert Flipse\nrobbert@flipse-partners.nl\n"\
+       	"Nederlandse vertaling\n"\
+       	"\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nAuto-doorvoer\n\n"\
+        "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+    "$$CONTROLS HELP"="Elk vakje komt overeen met een knop onderin het scherm "\
+                                "Geef aan welke knoppen u zichtbaar wilt hebben.\n\n"\
+                                "U kunt knoppen verbergen die u zelden gebruikt. "\
+                                "Alle knoppen komen overeen met een optie in het menu."
+    "$$GLOBAL PREFS HELP"="Gebruik de \' Wissel op/neer als overdwars\' optie om de"\
+                                    "functie van de pagina op en neer knoppen om te wisselen "\
+                                    "als het scherm geroteerd is.\n\n"\
+                                    "Gebruik de \'Toon regel van vorige pagina\' optie om een enkele "\
+                                    "regel van de vorige pagina te tonen bij pagina op en neer.\n\n"\
+                                    "De \'tik actie\' keuze bepaalt welke actie uitgevoerd wordt al u"\
+                                    "op het schep tikt.\n\n"\
+                                    "De \'Auto Doorvoer Snelheid\' optie regelt de snelheid van autodoorvoer. De getallen "\
+                                    "zijn in 1/100e seconden. 15-20 is de aanbevolen snelheid. "\
+                                    "Tijdens autodoorvoer kunnen de pagina op en neer"\
+                                    "knoppen gebruikt worden om de snelheid te regelen.\n\n"\
+                                    "De \'Auto Doorvoer Type\` keuze bepaalt op de tekst "\
+                                    "per pixel of per regel doorgevoerd wordt."
+
+                                    
+    "$$NO DOCS"="Er zijn geen DOC bestanden geinstalleerd!\n\nProbeer CSpotRun aub nadat u een paar documenten geinstalleerd heeft."
+
+    "$$ERROR ALERT"="Oeps!"
+
+    "$$DELETE PROMPT"="Permanent wissen van \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Algemene Voorkeuren"
+    "$$SWAP UPDOWN"="Wissel op/neer als overdwars"
+    "$$SHOW PREV LINE"="Toon regel van vorige pagina"
+
+    "$$TAP ACTION"="Tik actie"
+    "$$PAGE"="Pagina"
+    "$$HALF PAGE"="\xBD Pagina"
+    "$$LINE"="Regel"
+
+    "$$TOP"="Begin"
+    "$$BOTTOM"="Einde"
+
+    "$$LINE SPACING 1"="Regelafstand 1    "
+    "$$LINE SPACING 2"="Regelafstand 2"
+    "$$LINE SPACING 3"="Regelafstand 3"
+    "$$ROTATE RIGHT"="Roteer Rechtsom"
+    "$$ROTATE LEFT"="Roteer Linksom"
+    "$$OPTIONS"="Opties"
+    "$$TOGGLE CONTROLS"="Knoppen aan/uit    "
+    "$$CONTROLSDDD"="Knoppen..."
+    "$$PREFERENCESDDD"="Voorkeuren..."
+    "$$ABOUTDDD"="Informatie..."
+    "$$PICK DOC"="Kies Doc    "
+    "$$DELETE DOC"="Wis Doc"
+    "$$CONFIRM DELETE"="Bevestig Wissen"
+    "$$CANCEL"="Annuleren"
+    "$$MAKE DEFAULT"="Maak Inst. Standaard "
+    "$$VIEW"="Beeld"
+    "$$FONT 1"="Lettertype 1"
+    "$$FONT 2"="Lettertype 2"
+    "$$FONT 3"="Lettertype 3"
+    "$$FONT 4"="Lettertype 4"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+
+    "$$FIND"="Zoek"
+    "$$FIND AGAIN"="Zoek Opnieuw"
+    "$$FINDDDD"="Zoek..."
+    "$$FIND IN DOCUMENT"="Zoek in Document"
+    "$$FIND PROMPT"="Zoek:"
+    "$$SEARCH FROM TOP"="Zoek vanaf begin"
+    "$$CASE SENSITIVE"="Hoofd/Kleine letters"
+    "$$FIND BUTTON"="Z"
+    "$$FIND AGAIN BUTTON"="ZO"
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="G"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="R"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="F"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="K"
+    "$$SC PREFERENCESDDD"="V"
+*/    
+end
+

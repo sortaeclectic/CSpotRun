@@ -1,0 +1,429 @@
+/*
+ * CSpotRun: A doc-format database reader for the Palm Computing Platform.
+ * Copyright (C) 1998-2004  by Bill Clagett (bill@32768.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
+#include "fixed_resources.h"
+
+
+FORM ID formID_main AT ( 0 0 160 160 )
+NOFRAME
+USABLE
+MENUID menuID_main
+BEGIN
+    SELECTORTRIGGER "A" ID pushID_font    AT (1 1 AUTO 12) FONT 0 NONUSABLE
+#ifdef ENABLE_ROTATION
+    BUTTON "\03" ID buttonID_rotateLeft  AT (1 1 10 PREVHEIGHT) NOFRAME FONT 3 NONUSABLE
+    BUTTON "\04" ID buttonID_rotateRight AT (1 1 PREVWIDTH PREVHEIGHT) NOFRAME FONT 3 NONUSABLE
+#endif    
+#ifdef ENABLE_SEARCH
+    BUTTON "$$FIND BUTTON"       ID buttonID_search        AT (1 1 8 PREVHEIGHT) NONUSABLE
+    BUTTON "$$FIND AGAIN BUTTON" ID buttonID_searchAgain   AT (1 1 12 PREVHEIGHT) NONUSABLE
+#endif
+
+    GADGET ID gadgetID_lineSpacing0 AT (1 1  7 PREVHEIGHT) NONUSABLE
+    GADGET ID gadgetID_lineSpacing1 AT (1 1  PREVWIDTH PREVHEIGHT) NONUSABLE
+    GADGET ID gadgetID_lineSpacing2 AT (1 1  PREVWIDTH PREVHEIGHT) NONUSABLE
+
+#ifdef ENABLE_AUTOSCROLL
+    GADGET ID gadgetID_autoScroll   AT (1 1  8 PREVHEIGHT) NONUSABLE
+#endif
+    GADGET ID gadgetID_justify   AT (1 1  7 PREVHEIGHT) NONUSABLE
+
+    POPUPTRIGGER "99%" popupID_percent AT (1 1  AUTO AUTO) LEFTANCHOR NONUSABLE
+    LIST "$$TOP" "10%" "20%" "30%" "40%" "50%" "60%" "70%" "80%" "90%" "$$BOTTOM" ID listID_percent AT (1 1  PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 11
+
+    POPUPTRIGGER "$$DOC" ID popupID_doc AT (1 1  AUTO AUTO) LEFTANCHOR NONUSABLE
+    LIST "" ID listID_doc AT (1 1   120 AUTO) NONUSABLE VISIBLEITEMS 1
+
+#ifdef ENABLE_BMK
+	POPUPTRIGGER "$$BOOKMARKS_TRIGGER" ID popupID_bmk AT (1 1 AUTO AUTO) LEFTANCHOR
+	LIST "" ID listID_bmk AT (1 1  120 AUTO) NONUSABLE
+		VISIBLEITEMS 1
+	POPUPLIST popupID_bmk listID_bmk
+#endif
+        
+    GADGET gadgetID_text AT (0 0 160 PREVTOP-1) 
+
+    POPUPLIST popupID_doc listID_doc
+
+    POPUPLIST popupID_percent listID_percent
+END
+
+#ifdef ENABLE_AUTOSCROLL
+FORM ID formID_controls AT (2 2 156 156)
+#else
+FORM ID formID_controls AT (2 12 156 146)
+#endif
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_ok
+HELPID stringID_controlsHelp
+BEGIN
+    TITLE "$$CONFIGURE CONTROLS"
+
+#ifdef ENABLE_AUTOSCROLL
+    BUTTON "Ok"        ID buttonID_ok        AT (center@120 BOTTOM@156-18 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@120 BOTTOM@156-3 50 AUTO) 
+#else
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@146-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@146-3 50 AUTO) 
+#endif
+
+    CHECKBOX "" ID checkboxID_UCGUI0        AT (30 20 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+1    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+2    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+3    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+4    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+5    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+6    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+7    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+8    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+9    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+10 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+11 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+    CHECKBOX "" ID checkboxID_UCGUI0+12 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+#ifdef ENABLE_AUTOSCROLL
+    CHECKBOX "" ID checkboxID_UCGUI0+13 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
+#endif
+
+#ifdef ENABLE_BMK
+    CHECKBOX "" ID checkboxID_UCGUI0+14 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR
+#endif
+    CHECKBOX "" ID checkboxID_UCGUI0+15 AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR
+
+    FIELD ID fieldID_UCGUI0+0 AT (0 0 70 30) USABLE NONEDITABLE DYNAMICSIZE rightalign
+    FIELD ID fieldID_UCGUI0+1 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE DYNAMICSIZE rightalign
+    FIELD ID fieldID_UCGUI0+2 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+    FIELD ID fieldID_UCGUI0+3 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+    FIELD ID fieldID_UCGUI0+4 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+    FIELD ID fieldID_UCGUI0+5 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+    FIELD ID fieldID_UCGUI0+6 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+#ifdef ENABLE_AUTOSCROLL
+    FIELD ID fieldID_UCGUI0+7 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+#endif
+
+#ifdef ENABLE_BMK
+    FIELD ID fieldID_UCGUI0+8 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+#endif
+    
+    FIELD ID fieldID_UCGUI0+9 AT (PREVLEFT PREVBOTTOM+0 70 20) USABLE NONEDITABLE rightalign
+END
+
+#ifdef ENABLE_AUTOSCROLL
+FORM ID formID_globalPrefs AT (2 42 156 116)
+#else
+FORM ID formID_globalPrefs AT (2 72 156 86)
+#endif
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_ok
+HELPID stringID_globalPrefsHelp
+BEGIN
+    TITLE "$$GLOBAL PREFERENCES"
+
+
+#ifdef ENABLE_AUTOSCROLL
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@116-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@116-3 50 AUTO) 
+#else
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@86-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@86-3 50 AUTO) 
+#endif
+
+    CHECKBOX "$$SWAP UPDOWN"    ID checkboxID_reversePageButtons    AT (5 15 auto auto) USABLE LEFTANCHOR 
+    CHECKBOX "$$SHOW PREV LINE" ID checkboxID_showLine              AT (PREVLEFT PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
+
+    LABEL "$$TAP ACTION"     ID 9000 AT (5 PREVBOTTOM+2)
+    PUSHBUTTON "$$PAGE"      ID pushID_tapAction0    AT (prevright+4 prevtop auto auto) GROUP 69
+    PUSHBUTTON "$$HALF PAGE" ID pushID_tapAction0+1  AT (prevright+1 prevtop auto auto) GROUP 69
+    PUSHBUTTON "$$LINE"      ID pushID_tapAction0+2  AT (prevright+1 prevtop auto auto) GROUP 69
+
+#ifdef ENABLE_AUTOSCROLL
+    CHECKBOX "$$TOGGLE AUTOSCROLL"  ID checkboxID_toggleAsAddButt AT (5 PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
+
+    LABEL "$$AUTOSCROLL TYPE AND SPEED"   ID 9003 AT (5 PREVBOTTOM+1)
+    
+    PUSHBUTTON "$$PIXEL"    ID pushID_autoScrollType0    AT (20 PREVBOTTOM+2 AUTO AUTO) GROUP 70
+
+    POPUPTRIGGER "20" popupID_autoScrollSpeed0 AT (PREVRIGHT+1 PREVTOP AUTO AUTO) LEFTANCHOR
+    LIST "5" "10" "15" "20" "25" "30" "35" "40" "45" "50" "55" "60" "65" "70" ID listID_autoScrollSpeed0 AT (PREVLEFT PREVTOP PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 14
+    POPUPLIST popupID_autoScrollSpeed0 listID_autoScrollSpeed0
+
+    PUSHBUTTON "$$LINE"     ID pushID_autoScrollType0+1  AT (PREVRIGHT+3 PREVTOP AUTO AUTO) GROUP 70
+
+    POPUPTRIGGER "20" popupID_autoScrollSpeed1 AT (PREVRIGHT+1 PREVTOP AUTO AUTO) LEFTANCHOR
+    LIST "100" "110" "120" "130" "140" "150" "160" "170" "180" "190" "200" "210" "220" "230" ID listID_autoScrollSpeed1 AT (PREVLEFT PREVTOP PREVWIDTH PREVHEIGHT) NONUSABLE VISIBLEITEMS 14
+    POPUPLIST popupID_autoScrollSpeed1 listID_autoScrollSpeed1
+#endif
+    
+END
+
+#ifdef ENABLE_SEARCH
+FORM ID formID_search AT (2 67 156 91)
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_ok
+BEGIN
+    TITLE "$$FIND IN DOCUMENT"
+    LABEL "$$FIND PROMPT" ID 9001 AT (10 20)
+    FIELD ID fieldID_searchString AT (PREVRIGHT+2 PREVTOP 113 auto) UNDERLINED USABLE EDITABLE DYNAMICSIZE MULTIPLELINES MAXCHARS 40
+
+    CHECKBOX "$$CASE SENSITIVE" ID checkboxID_caseSensitive at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
+    CHECKBOX "$$SEARCH FROM TOP" ID checkboxID_searchFromTop at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
+
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@91-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@91-3 50 AUTO) 
+END
+#endif 
+
+#ifdef ENABLE_BMK
+FORM ID formID_bmkName AT (2 97 156 61)
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_cancel
+BEGIN
+    TITLE "$$NAME BOOKMARK"
+    LABEL "$$NAME" AUTOID AT (10 20)
+	FIELD ID fieldID_bmkName AT (PREVRIGHT+2 PREVTOP 113 auto)
+		UNDERLINED USABLE EDITABLE DYNAMICSIZE SINGLELINE MAXCHARS 15
+    BUTTON "Ok" ID buttonID_ok AT (center@39 BOTTOM@61-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel AT (center@117 BOTTOM@61-3 50 AUTO) 
+END
+
+FORM ID formID_bmkEd AT (2 2 156 156)
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_cancel
+BEGIN
+    TITLE "$$BOOKMARKS"
+    LIST "" ID listID_bmkEd AT (4 16 92 135) USABLE
+    BUTTON "$$MOVE UP" ID buttonID_bmkMoveUp AT (center@127 18 50 AUTO)
+    BUTTON "$$MOVE DOWN" ID buttonID_bmkMoveDown AT (PREVLEFT PREVBOTTOM+4 PREVWIDTH PREVHEIGHT)
+	
+    BUTTON "$$GOTO" ID buttonID_bmkGoTo AT (PREVLEFT PREVBOTTOM+4 PREVWIDTH PREVHEIGHT)
+
+    BUTTON "$$RENAME" ID buttonID_bmkRename AT (PREVLEFT PREVBOTTOM+4 PREVWIDTH PREVHEIGHT)
+    BUTTON "$$DELETE" ID buttonID_bmkDelete AT (PREVLEFT PREVBOTTOM+4 PREVWIDTH PREVHEIGHT)
+
+    BUTTON "$$DEL ALL BOOKMARKS" buttonID_bmkDelAll  AT (PREVLEFT PREVBOTTOM+8 PREVWIDTH PREVHEIGHT)
+    BUTTON "$$SORT BOOKMARKS"    buttonID_bmkSort  AT (PREVLEFT PREVBOTTOM+4 PREVWIDTH PREVHEIGHT)
+	
+    BUTTON "$$DONE" ID buttonID_cancel AT (PREVLEFT PREVBOTTOM+8 PREVWIDTH PREVHEIGHT)
+END
+
+FORM ID formID_bmkEd_ro AT (2 2 156 156)
+FRAME
+MODAL
+USABLE
+DEFAULTBTNID buttonID_cancel
+BEGIN
+    TITLE "$$BOOKMARKS"
+    LIST "" ID listID_bmkEd AT (4 16 92 135) USABLE
+    BUTTON "$$GOTO" ID buttonID_bmkGoTo AT (center@127 18 50 AUTO)
+	
+    BUTTON "$$DONE" ID buttonID_cancel AT (PREVLEFT PREVBOTTOM+16 PREVWIDTH PREVHEIGHT)
+END
+
+ALERT ID alertID_bmkSort 
+CONFIRMATION
+BEGIN
+    TITLE "$$SORT BOOKMARKS"
+    MESSAGE "$$SORT BOOKMARKS BY"
+    BUTTONS "$$NAME" "$$POSITION""$$CANCEL"
+END
+#endif
+
+MENU ID menuID_main
+BEGIN
+    PULLDOWN "$$DOC"
+    BEGIN
+        MENUITEM "$$GOTO PER"        menuitemID_percent         "G"
+        menuitem separator
+        MENUITEM "$$PICK DOC"        menuitemID_doc             "D"
+        MENUITEM "$$DELETE DOC"      menuitemID_delete    
+#ifdef ENABLE_SEARCH
+        MENUITEM SEPARATOR
+        MENUITEM "$$FINDDDD"         menuitemID_search          "F"
+        MENUITEM "$$FIND AGAIN"      menuitemID_searchAgain     "A"
+#endif
+#ifdef ENABLE_BMK
+		MENUITEM SEPARATOR
+		MENUITEM "$$ADD BOOKMARK"    menuitemID_bmkAdd			"M"
+		MENUITEM "$$EDIT BOOKMARKS"  menuitemID_bmkEd			"B"
+#endif
+    END    
+    PULLDOWN "$$VIEW"
+    BEGIN
+        MENUITEM "$$FONTS"     menuitemID_font            "1"
+        MENUITEM SEPARATOR 
+        MENUITEM "$$LINE SPACING 1"  menuitemID_lineSpacing0
+        MENUITEM "$$LINE SPACING 2"  menuitemID_lineSpacing1
+        MENUITEM "$$LINE SPACING 3"  menuitemID_lineSpacing2
+        MENUITEM SEPARATOR 
+        MENUITEM "$$JUSTIFY"		menuitemID_justify		"J"
+#ifdef ENABLE_HYPHEN
+        MENUITEM "$$HYPHEN"			menuitemID_hyphen		"H"
+#endif
+    END
+    PULLDOWN "$$OPTIONS"
+    BEGIN
+#ifdef ENABLE_AUTOSCROLL
+        MENUITEM "$$AUTOSCROLL"      menuitemID_autoScroll      "U"
+#endif
+#ifdef ENABLE_ROTATION
+        MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
+        MENUITEM "$$ROTATE LEFT"     menuitemID_rotateLeft      "S"
+#endif
+        MENUITEM SEPARATOR
+        MENUITEM "$$TOGGLE CONTROLS" menuitemID_controls        "T"
+        MENUITEM "$$MAKE DEFAULT"    menuitemID_makeDefault     "K"
+        menuitem separator
+        MENUITEM "$$CONTROLSDDD"     menuitemID_controlPrefs    "C"
+        MENUITEM "$$PREFERENCESDDD"  menuitemID_globalPrefs     "P"
+        MENUITEM "$$ABOUTDDD"        menuitemID_about       
+    END
+END
+
+MENU ID menuID_main_ro
+BEGIN
+    PULLDOWN "$$DOC"
+    BEGIN
+        MENUITEM "$$GOTO PER"        menuitemID_percent         "G"
+        menuitem separator
+        MENUITEM "$$PICK DOC"        menuitemID_doc             "D"
+        MENUITEM "$$DELETE DOC"      menuitemID_delete    
+#ifdef ENABLE_SEARCH
+        MENUITEM SEPARATOR
+        MENUITEM "$$FINDDDD"         menuitemID_search          "F"
+        MENUITEM "$$FIND AGAIN"      menuitemID_searchAgain     "A"
+#endif
+#ifdef ENABLE_BMK
+		MENUITEM SEPARATOR
+		MENUITEM "$$EDIT BOOKMARKS"  menuitemID_bmkEd			"B"
+#endif
+    END    
+    PULLDOWN "$$VIEW"
+    BEGIN
+        MENUITEM "$$FONT"          menuitemID_font           "1"
+        MENUITEM SEPARATOR 
+        MENUITEM "$$LINE SPACING 1"  menuitemID_lineSpacing0
+        MENUITEM "$$LINE SPACING 2"  menuitemID_lineSpacing1
+        MENUITEM "$$LINE SPACING 3"  menuitemID_lineSpacing2
+#ifdef ENABLE_AUTOSCROLL
+        MENUITEM SEPARATOR 
+        MENUITEM "$$AUTOSCROLL"      menuitemID_autoScroll      "U"
+#endif
+        MENUITEM "$$JUSTIFY"		menuitemID_justify		"J"
+        MENUITEM "$$HYPHEN"			menuitemID_hyphen		"H"
+#ifdef ENABLE_ROTATION
+        MENUITEM SEPARATOR
+        MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
+        MENUITEM "$$ROTATE LEFT"     menuitemID_rotateLeft      "S"
+#endif
+    END
+    PULLDOWN "$$OPTIONS"
+    BEGIN
+        MENUITEM "$$TOGGLE CONTROLS" menuitemID_controls        "T"
+        MENUITEM "$$MAKE DEFAULT"    menuitemID_makeDefault     "K"
+        menuitem separator
+        MENUITEM "$$CONTROLSDDD"     menuitemID_controlPrefs    "C"
+        MENUITEM "$$PREFERENCESDDD"  menuitemID_globalPrefs     "P"
+        MENUITEM "$$ABOUTDDD"        menuitemID_about       
+    END
+END
+
+
+
+string stringID_aboutBody "CSpotRun @@CSR_VERSION@@\n"\
+			  "© 1998-2004 Bill Clagett\n"\
+			  "bill@32768.com\n\n"\
+			  "$$ABOUT BODY"
+
+ALERT ID alertID_confirmDelete
+CONFIRMATION
+BEGIN
+  TITLE "$$CONFIRM DELETE"
+  MESSAGE "$$DELETE PROMPT"
+  BUTTONS "Ok" "$$CANCEL"
+END
+
+ALERT ID alertID_error
+WARNING
+BEGIN
+  TITLE "$$ERROR ALERT"
+  MESSAGE "^1"
+  BUTTONS "Ok"
+END
+
+#ifdef ENABLE_BMK
+ALERT ID alertID_bmkDupName
+INFORMATION
+DEFAULTBUTTON 1
+BEGIN
+  TITLE "$$ADD BOOKMARK TITLE"
+  MESSAGE "$$DUP NAME"
+  BUTTONS "$$REPLACE" "$$NEW" "$$CANCEL"
+END
+
+ALERT ID alertID_bmkConfirmDel
+CONFIRMATION
+BEGIN
+  TITLE "$$CONFIRM DELETE"
+  MESSAGE "$$BMK DELETE PROMPT"
+  BUTTONS "Ok" "$$CANCEL"
+END
+#endif
+
+ICON "appicon.bmp"
+SMALLICON "smallappicon.bmp" 
+VERSION ID 1 "@@CSR_VERSION@@"
+
+STRING ID stringID_controlsHelp    "$$CONTROLS HELP"                                
+STRING ID stringID_globalPrefsHelp "$$GLOBAL PREFS HELP"
+                                    
+STRING ID stringID_ucguiFonts      "$$FONTS"
+STRING ID stringID_ucguiRotate     "$$ROTATE"
+STRING ID stringID_ucguiSpacing    "$$SPACING"
+
+#ifdef ENABLE_AUTOSCROLL
+STRING ID stringID_ucguiAutoScroll    "$$AUTOSCROLL"
+#endif
+
+STRING ID stringID_ucguiGotoPerc   "$$GOTO PER"
+STRING ID stringID_ucguiPickDoc    "$$PICK DOC"
+STRING ID stringID_noDocs          "$$NO DOCS" 
+#ifdef ENABLE_SEARCH
+    STRING ID    stringID_ucguiSearch        "$$FIND"
+    STRING ID    stringID_ucguiSearchAgain   "$$FIND AGAIN"
+#endif
+
+#ifdef ENABLE_BMK
+    STRING ID	stringID_ucguiBmk	"$$BOOKMARKS_TRIGGER"
+    STRING ID	stringID_bmkAdd		"$$ADD BOOKMARK LIST"
+    STRING ID	stringID_bmkEd		"$$EDIT BOOKMARKS LIST"
+    STRING ID	stringID_noMem		"$$NO MEMORY"
+    STRING ID	stringID_bmkDocNotOpened "$$BMK DOC NOT OPENED"
+#endif
+
+STRING ID stringID_ucguiJustify          "$$JUSTIFY" 
+

@@ -1,0 +1,150 @@
+/*
+ * CONTRIBUTORS:
+ *  Norwegian translation: Knut Zakariassen (knut@zakariassen.net)
+ */
+
+
+TRANSLATION "no_NO"
+begin
+    "$$DOC"="Dok"
+    "$$FONTS"="Font"
+    "$$CONFIGURE CONTROLS"="Kontrollinstillninger"
+    "$$ROTATE"="Rotér"
+    "$$SPACING"="Linjeavstand"
+    "$$AUTOSCROLL"="Rulletekst"
+    "$$AUTOSCROLL TYPE AND SPEED"="Rulletekst, type og hastighet:"
+    "$$PIXEL"="Piksel"
+    "$$TOGGLE AUTOSCROLL"="Rulletekst på adressebokknappen"
+    "$$GOTO PER"="Gå til %"
+
+    "$$BOOKMARKS"="Bookmarks"
+    "$$BOOKMARKS_TRIGGER"="BM"
+    "$$EDIT BOOKMARKS"="Bookmarks..."
+    "$$EDIT BOOKMARKS LIST"="* Bookmarks..."
+    "$$DEL ALL BOOKMARKS"="Del All"
+    "$$SORT BOOKMARKS"="Sort..."
+    "$$ADD BOOKMARK"="Add Bookmark..."
+    "$$ADD BOOKMARK LIST"="* Add Bookmark..."
+    "$$ADD BOOKMARK TITLE"="Add Bookmark"
+    "$$NAME BOOKMARK"="Name Bookmark"
+    "$$NAME"="Name"
+    "$$DUP NAME"="Bookmark with this name already exists. What do you want to do?"
+    "$$REPLACE"="Replace"
+    "$$NEW"="Create New"
+    "$$MOVE UP"="Move Up"
+    "$$MOVE DOWN"="Move Down"
+    "$$RENAME"="Rename"
+    "$$DELETE"="Delete"
+    "$$DONE"="Done"
+    "$$GOTO"="GoTo"
+    "$$SORT BOOKMARKS"="Sort Bookmarks"
+    "$$POSITION"="Position"
+    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..."
+    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?"
+    "$$NO MEMORY"="Not Enough Memory"
+    "$$BMK DOC NOT OPENED"="Document is not opened"
+ 
+    "$$ABOUT BODY"=
+        "© 1998-2000 Bill Clagett\n"\
+        "bill@32768.com\n\n"\
+        "Kildekoden til dette programmet distribueres under "\
+        "GNU General Public License (GPL). Kopi av denne"\
+        "finner du på: http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "Kildekoden og siste versjon finnes på: "\
+        "http://32768.com/cspotrun/\n\n"\
+        ""\
+        "Med bidrag fra:\n\n"\
+        "Knut Zakariassen\nknut@zakariassen.net\nNorsk oversettelse\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nRulletekst\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+    "$$CONTROLS HELP"="Hver avkrysningsboks tilsvarer en kontroll på skjermen. "\
+        "Velg de kontrollene du vil skal vises.\n\n"\
+        "Du kan skjule de kontrollene du sjelden bruker. "\
+        "Husk at alle kontrollene hele tiden kan nås gjennom menyene."
+        "$$GLOBAL PREFS HELP"="\'Bytt opp/ned når liggende\' velges for å bytte om "\
+            "funksjonen på bla opp og ned knappene når "\
+            "teksten vises i landskapsmodus.\n\n"\
+            "Bruk \'Vis linje fra forrige side\' for å vise den siste "\
+            "linja fra forrige side når du beveger deg opp og ned i dokumentet.\n\n"\
+            "\'Pekefunksjon\' styrer hva som skjer når du peker på skjermen.\n\n"\
+            "Bruk \'Rulletekst hastighet\' for å stille inn hvor raskt teksten skal rulle over skjermen. "\
+            "Hastigheten angis i hundredels sekunder. 15-20 anbefales."\
+		"Du kan justere hastigheten underveis med bla opp/ned tastene.\n\n"\
+		"\'Rulletekst type\' angir om teksten ruller"\
+		"pikselvis eller linjevis."
+
+
+    "$$NO DOCS"="Du har ikke installert noen DOC-databaser!\n\nPrøv igjen når du har installert et eller flere dokument."
+
+    "$$ERROR ALERT"="Oops!"
+
+    "$$DELETE PROMPT"="Slett permanent\"^1\"?"
+    "$$GLOBAL PREFERENCES"="Globale preferanser"
+    "$$SWAP UPDOWN"="Bytt om opp/ned når liggende"
+    "$$SHOW PREV LINE"="Vis linje fra forrige side"
+
+    "$$TAP ACTION"="Pekefunksjon"
+    "$$PAGE"="Side"
+    "$$HALF PAGE"="\xBD side"
+    "$$LINE"="Linje"
+
+    "$$TOP"="Start"
+    "$$BOTTOM"="Slutt"
+
+    "$$LINE SPACING 1"="Linjeavstand 1      "
+    "$$LINE SPACING 2"="Linjeavstand 2"
+    "$$LINE SPACING 3"="Linjeavstand 3"
+    "$$ROTATE RIGHT"="Rot. m høyre"
+    "$$ROTATE LEFT"="Rot. m venstre"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+    "$$OPTIONS"="Instillninger"
+    "$$TOGGLE CONTROLS"="Kontroller av/på   "
+    "$$CONTROLSDDD"="Kontroller..."
+    "$$PREFERENCESDDD"="Preferanser..."
+    "$$ABOUTDDD"="Om..."
+    "$$PICK DOC"="Velg dokument  "
+    "$$DELETE DOC"="Slette dokument"
+    "$$CONFIRM DELETE"="Bekreft sletting"
+    "$$CANCEL"="Avbryt"
+    "$$MAKE DEFAULT"="Lagre instillninger"
+    "$$VIEW"="Vis"
+    "$$FONT 1"="Font 1"
+    "$$FONT 2"="Font 2"
+    "$$FONT 3"="Font 3"
+    "$$FONT 4"="Font 4"
+
+    "$$FIND"="Søk etter"
+    "$$FIND AGAIN"="Søk etter neste"
+    "$$FINDDDD"="Søk..."
+    "$$FIND IN DOCUMENT"="Søk i dokumentet"
+    "$$FIND PROMPT"="Søk:"
+    "$$SEARCH FROM TOP"="Søk fra begynnelsen"
+    "$$CASE SENSITIVE"="Skill mellom store og små bokst."
+    "$$FIND BUTTON"="S"
+    "$$FIND AGAIN BUTTON"="SN"
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="G"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="R"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="F"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="P"
+*/
+end

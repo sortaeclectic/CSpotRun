@@ -1,0 +1,153 @@
+/*
+ * CONTRIBUTORS:
+ *    Turkish translation: Selçuk Demiray (sdemiray@bigfoot.com)
+ */
+
+TRANSLATION "turkish"
+begin
+    "$$DOC"="Doküman"
+    "$$FONTS"="Fontlar"
+    "$$CONFIGURE CONTROLS"="Aktif Kontroller"
+    "$$ROTATE"="Döndürme"
+    "$$SPACING"="Satýr Aralarý"
+    "$$AUTOSCROLL"="Oto. Kaydýrma"
+    "$$AUTOSCROLL TYPE AND SPEED"="Oto. Kaydýrma Tipi ve Hýzý:"
+    "$$PIXEL"="Çizgi"
+    "$$TOGGLE AUTOSCROLL"="Oto.Kaydýrma için Adres Butonu"
+    "$$GOTO PER"="%\'ye Git"
+
+    "$$BOOKMARKS"="Kýsayollar"
+    "$$BOOKMARKS_TRIGGER"="Kýsayollar"
+    "$$EDIT BOOKMARKS"="Kýsayollar..."
+    "$$EDIT BOOKMARKS LIST"="* Kýsayollar..."
+    "$$DEL ALL BOOKMARKS"="Tüm Kýsayollarý Sil"
+    "$$SORT BOOKMARKS"="Kýsayollarý sýrala..."
+    "$$ADD BOOKMARK"="Kýsayol Ekle..."
+    "$$ADD BOOKMARK LIST"="* Kýsayol Ekle..."
+    "$$ADD BOOKMARK TITLE"="Kýsayol Ekle"
+    "$$NAME BOOKMARK"="Kýsayola isim ver"
+    "$$NAME"="Ýsim"
+    "$$DUP NAME"="Bu isimde bir kýsayol zaten var. Ne yapmak istersiniz?"
+    "$$REPLACE"="Deðiþtir"
+    "$$NEW"="Yeni yarat"
+    "$$MOVE UP"="Yukarý"
+    "$$MOVE DOWN"="Aþaðý"
+    "$$RENAME"="Deðiþtir"
+    "$$DELETE"="Sil"
+    "$$DONE"="Tamam"
+    "$$GOTO"="Git"
+    "$$SORT BOOKMARKS"="Kýsayollarý Sýrala"
+    "$$POSITION"="Pozisyon"
+    "$$SORT BOOKMARKS BY"="Neye göre..."
+    "$$BMK DELETE PROMPT"="Kýsayollarý tamamen sileyim mi?"
+    "$$NO MEMORY"="Yetersiz Hafýza"
+    "$$BMK DOC NOT OPENED"="Doküman açýlamadý"
+
+    "$$ABOUT BODY"=
+        "Bu programýn kaynak kodu GNU General Public "\
+        "License (GPL) kurallarý altýnda daðýtýlmýþtýr "\
+        "Þu adresten temin edilebilir: "\
+        "http://www.gnu.org/copyleft/gpl.html\n\n"\
+        "Kaynak kodu ve son sürümü ise aþaðýdaki adresten bulunabilir: "\
+        "http://32768.com/cspotrun/\n\n"\
+        ""\
+        "Katkýda bulunanlar:\n\n"\
+        "Selçuk Demiray\nsdemiray@bigfoot.com\nTürkçe Çeviri\n\n"\
+        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+        "Daniel Zahn\nsclug@sclug.org\nOtomatik Kaydýrma\n\n"\
+	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+	"Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+
+    "$$CONTROLS HELP"="Her kutucuk ekran üzerindeki bir kontrole karþý düþmektedir. "\
+                                "Görülmesini istediðiniz kontrolleri seçiniz.\n\n"\
+                                "Az kullandýðýnýz kontrolleri gizlemeyi düþünebilirsiniz. "\
+                                "Bütün kontrollerin karþý düþen menü seçenekleri de vardýr."
+    "$$GLOBAL PREFS HELP"="Ekran yan döndürüldüðünde sayfa yukarý ve sayfa aþaðý butonlarýnýn "\
+                                 "fonksiyonunu ters çevirmek için "\
+                                 "\'Dönünce yuk/aþ butonu takas et\' seçeneðini "\
+                                 "kullanýnýz.\n\n"\
+                                    "Sayfalar arasý yukarý aþaðý gittiðinizde önceki "\ 
+                                    "sayfanýn son satýrýný görmek istiyorsanýz "\   
+                                    " \'Önceki sayfadan satýr göster\' seçeneðini  kullanýnýz.\n\n"\
+                                    "\'Týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
+                                    "ne yapýlmasý gerektiðini belirler.\n\n"\
+                                    "\'Oto.Kaydýrma Tipi ve Hýzý\' seçeneði ile otomatik kaydýrmanýn tipini ve hýzýný ayarlayabilirsiniz.\n\n "\
+				    " \'Oto Kaydýrma Tipi\' yazýnýn çizgisel mi yoksa "\
+                                    "satýr satýr mý ilerleyeceðini belirler. "\
+                                    "Çizgi ve Satýr tiplerinde en uygun deðerler sýrasýyla  20 ve 60 olup "\
+                                    "kaydýrma esnasýnda yukarý aþaðý butonlarýna basarak kendinize en uygun hýzý ayarlayabilirsiniz.\n\n"\
+                                    "\'Oto.Kaydýrma için Adres Butonu\' seçeneði aktif ise Otomatik Kaydýrma çalýþýrken Adres Defteri butonu ile durdurup devam ettirebilirsiniz."
+
+    "$$NO DOCS"="Þu anda hiç DOC database yok!\n\nLütfen en az bir doküman yükledikten sonra CSpotRun\'ý yeniden çalýþtýrýn."
+
+    "$$ERROR ALERT"="Amanýnnn !"
+
+    "$$DELETE PROMPT"="Tamamen sileyim mi \"^1\"?"
+    "$$GLOBAL PREFERENCES"="Genel Tercihler"
+    "$$SWAP UPDOWN"="Dönünce yuk/aþ butonu takas et"
+    "$$SHOW PREV LINE"="Önceki sayfadan satýr göster"
+
+    "$$TAP ACTION"="Týklayýnca"
+    "$$PAGE"="Syf."
+    "$$HALF PAGE"="\xBD Syf."
+    "$$LINE"="Satýr"
+
+    "$$TOP"="Baþý"
+    "$$BOTTOM"="Sonu"
+
+    "$$LINE SPACING 1"="Satýr Aralýðý 1  "
+    "$$LINE SPACING 2"="Satýr Aralýðý 2"
+    "$$LINE SPACING 3"="Satýr Aralýðý 3"
+    "$$ROTATE RIGHT"="Saða Döndür"
+    "$$ROTATE LEFT"="Sola Döndür"
+    "$$OPTIONS"="Seçimler"
+    "$$TOGGLE CONTROLS"="Kontroller Var/Yok "
+    "$$CONTROLSDDD"="Kontroller..."
+    "$$PREFERENCESDDD"="Tercihler..."
+    "$$ABOUTDDD"="Hakkýnda..."
+    "$$PICK DOC"="Doküman Seç   "
+    "$$DELETE DOC"="Dokümaný Sil"
+    "$$CONFIRM DELETE"="Silme Onayý"
+    "$$CANCEL"="Ýptal"
+    "$$MAKE DEFAULT"="Ayarlarý Kalýcý Yap "
+    "$$VIEW"="Görünüþ"
+    "$$FONT 1"="Font 1"
+    "$$FONT 2"="Font 2"
+    "$$FONT 3"="Font 3"
+    "$$FONT 4"="Font 4"
+    "$$JUSTIFY"="Justify"
+    "$$HYPHEN"="Hyphenation"
+    
+    "$$FIND"="Ara"
+    "$$FIND AGAIN"="Tekrar Ara"
+    "$$FINDDDD"="Ara..."
+    "$$FIND IN DOCUMENT"="Dokümanda Bul"
+    "$$FIND PROMPT"="Aranan:"
+    "$$SEARCH FROM TOP"="Baþlangýçtan itibaren ara"
+    "$$CASE SENSITIVE"="Büyük/Küçük harflere duyarlý"
+    "$$FIND BUTTON"="A"
+    "$$FIND AGAIN BUTTON"="TA"
+/*
+    // Want to internationalize the menu shortcuts.
+    // Need to fix pilrc to do this.
+    "$$SC GOTO PER"="G"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="R"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="F"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="P"
+*/    
+end
+

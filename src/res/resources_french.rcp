@@ -1,0 +1,156 @@
+/*
+ * CONTRIBUTORS:
+ *    French translation: Vincent Poty (vincent.poty@bigfoot.com)
+ */
+
+TRANSLATION "french"
+begin
+    "$$DOC"="Doc"
+    "$$FONTS"="Polices"
+    "$$CONFIGURE CONTROLS"="Configuration des boutons"
+    "$$ROTATE"="Rotation"
+    "$$SPACING"="Interlignes"
+    "$$GOTO PER"="Aller à %"
+
+    "$$BOOKMARKS"="Signets"
+    "$$BOOKMARKS_TRIGGER"="Signets"
+    "$$EDIT BOOKMARKS"="Modifier les signets..."
+    "$$EDIT BOOKMARKS LIST"="* Modifier les signets..."
+    "$$DEL ALL BOOKMARKS"="Suppr. tous les signets"
+    "$$SORT BOOKMARKS"="Trier les signets..."
+    "$$ADD BOOKMARK"="Ajouter un signet..."
+    "$$ADD BOOKMARK LIST"="* Ajouter un signet..."
+    "$$ADD BOOKMARK TITLE"="Ajout d'un signet"
+    "$$NAME BOOKMARK"="Nommez le nouveau signet"
+    "$$NAME"="Nom"
+    "$$DUP NAME"="Un signet du même nom existe déjà. Que voulez-vous faire ?"
+    "$$REPLACE"="Remplacer"
+    "$$NEW"="Nouveau"
+    "$$MOVE UP"="Remonter"
+    "$$MOVE DOWN"="Descendre"
+    "$$RENAME"="Renommer"
+    "$$DELETE"="Supprimer"
+    "$$DONE"="OK"
+    "$$GOTO"="Aller à"
+    "$$POSITION"="Position"
+    "$$SORT BOOKMARKS BY"="Classer les signets selon :"
+    "$$BMK DELETE PROMPT"="Effacer définitivement tous les signets ?"
+    "$$NO MEMORY"="Mémoire insuffisante"
+    "$$BMK DOC NOT OPENED"="Document non ouvert"
+
+    "$$PICK DOC"="Choisir"
+    "$$AUTOSCROLL"="Défilement"
+    "$$AUTOSCROLL TYPE AND SPEED"="Mode et vitesse de défilement"
+    "$$PIXEL"="Pixel"
+    "$$TOGGLE AUTOSCROLL"="M/A défilement par bouton 'Adr.'"
+
+    "$$GLOBAL PREFERENCES"="Préférences"
+    "$$SWAP UPDOWN"="Inverser boutons haut/bas"
+    "$$SHOW PREV LINE"="Ligne de la page précédente"
+    "$$TAP ACTION"="Tape :"
+    "$$PAGE"="Page"
+    "$$HALF PAGE"="\xBD page"
+    "$$LINE"="Ligne"
+
+    "$$TOP"="Début"
+    "$$BOTTOM"="Fin"
+
+    "$$DELETE DOC"="Supprimer"
+    "$$MAKE DEFAULT"="Enregistrer"
+
+    "$$VIEW"="Vue"
+    "$$FONT 1"="Police 1"
+    "$$FONT 2"="Police 2"
+    "$$FONT 3"="Police 3"
+    "$$FONT 4"="Police 4"
+    "$$LINE SPACING 1"="Interligne 1"
+    "$$LINE SPACING 2"="Interligne 2"
+    "$$LINE SPACING 3"="Interligne 3"
+    "$$ROTATE RIGHT"="Basculer à droite"
+    "$$ROTATE LEFT"="Basculer à gauche"
+    "$$JUSTIFY"="Justifié"
+    "$$HYPHEN"="Césure"
+
+    "$$OPTIONS"="Options"
+    "$$TOGGLE CONTROLS"="Plein écran"
+    "$$CONTROLSDDD"="Boutons..."
+    "$$PREFERENCESDDD"="Préférences..."
+    "$$ABOUTDDD"="A propos de CSpotRun..."
+
+    "$$ABOUT TITLE"="A propos de CSpotRun"
+    "$$ABOUT BODY"=
+      "Le code source de ce programme est distribué selon les "\
+      "termes de la Licence Publique Générale GNU (GPL). Vous "\
+      "pouvez trouver celle-ci sur www.gnu.org/copyleft/gpl.html .\n\n"\
+      "Le code source et la dernière version sont disponibles sur "\
+      "32768.com/cspotrun/.\n\n"\
+      ""\
+      "Remerciements à :\n\n"\
+      "Vincent Poty\n(vincent.poty@bigfoot.com)\npour la traduction en français\n\n"\
+      "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
+      "Daniel Zahn\n(sclug@sclug.org)\npour le défilement automatique\n\n"\
+      "Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
+      "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
+
+    "$$DELETE PROMPT"="Supprimer définitivement \"^1\" ?"
+    "$$CONFIRM DELETE"="Confirmer la suppression"
+    "$$CANCEL"="Annuler"
+
+    "$$CONTROLS HELP"="Chaque case correspond à un bouton sur l'écran. "\
+        "Cochez les cases correspondant aux boutons que vous voulez voir "\
+        "apparaître. \n\nPensez à cacher les boutons que vous utilisez rarement. "\
+        "Chaque bouton a un équivalent dans le menu."
+        
+    "$$GLOBAL PREFS HELP"="L'option \"Inverser boutons haut/bas\" permet "\
+        "d'inverser l'effet des boutons \"haut\" et \"bas\" de l'appareil "\
+        "lorsque le texte est en vue latérale.\n\n"\
+        "L'option \"Ligne de la page précédente\" est utile pour garder à l'écran "\
+        "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
+        "L'option \"M/A défilement par bouton 'Adr.' \" permet d'utiliser le bouton "\
+        "\"Adresses\" de l'appareil pour démarrer ou arrêter le défilement automatique.\n\n"\
+        "L'option \"Tape\" définit l'ampleur de défilement du texte lorsque "\
+        "le stylet touche le document à l'écran.\n\n"\
+        "Les options \"Mode et vitesse de défilement\" permettent de choisir un défilement "\
+        "automatique du texte par ligne ou par pixel et de fixer sa vitesse (valeurs en "\
+        "100èmes de seconde). Cette vitesse peut également être modifiée en cours de "\
+        "défilement grâce aux boutons \"haut\" et \"bas\" de l'appareil."
+        
+    "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
+                "Essayez à nouveau CSpotRun après avoir installé un ou "\
+                "plusieurs documents au format DOC."
+
+    "$$ERROR ALERT"="Oups !"
+
+    "$$FIND"="Chercher"
+    "$$FIND AGAIN"="Suivant"
+    "$$FINDDDD"="Chercher..."
+    "$$FIND IN DOCUMENT"="Recherche"
+    "$$FIND PROMPT"="Chercher : "
+    "$$SEARCH FROM TOP"="Commencer au début du texte"
+    "$$CASE SENSITIVE"="Respecter la casse"
+    "$$FIND BUTTON"="C"
+    "$$FIND AGAIN BUTTON"="S"
+/*
+    // For internationalizing the menu shortcuts...
+    // List of used shortcuts: A B C D E G L M N O P S T V 1 2 3 4
+    "$$SC GOTO PER"="A"         // Aller
+    "$$SC PICK DOC"="O"         // Ouvrir
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"    // Large
+    "$$SC LINESPACING 2"="M"    // Moyen
+    "$$SC LINESPACING 3"="N"    // 
+//  "$$SC LINESPACING 4"=" "    // 
+//  "$$SC AUTOSCROLL"="V"       // Défilement (>)
+    "$$SC ROTATE RIGHT"="D"     // Droite
+    "$$SC ROTATE LEFT"="G"      // Gauche
+    "$$SC SEARCHDDD"="C"        // Chercher
+    "$$SC SEARCH AGAIN"="S"     // Suivant
+    "$$SC TOGGLE CONTROLS"="T"  // Ecran total
+    "$$SC MAKE DEFAULT"="E"     // Enregistrer
+    "$$SC CONTROLSDDD"="B"      // Boutons
+    "$$SC PREFERENCESDDD"="P"   // Préférences
+*/    
+end
