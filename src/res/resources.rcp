@@ -1,6 +1,6 @@
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998,1999  by Bill Clagett (wtc@pobox.com)
+ * Copyright (C) 1998,1999  by Bill Clagett (bill@32768.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,12 +43,12 @@ begin
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         " 1998-1999 Bill Clagett\n"\
-        "wtc@pobox.com\n\n"\
+        "bill@32768.com\n\n"\
         "Zdrojový kód tohoto programu je šíøen podle "\
         "GNU General Public License (GPL). Mùžete ji nalézt "\
         "na: http://www.gnu.org/copyleft/gpl.html\n\n"\
         "Zdrojový kód a poslední verze jsou k dispozici na: "\
-        "www.pobox.com/~wtc/palmos/cspotrun/."\
+        "32768.com/cspotrun/."\
         ""\
         "Contributors:\n\n"\
         "Ivo Panáèek\nIvo.Panacek@regionet.cz\nCzech translation\n\n"\
@@ -152,12 +152,12 @@ begin
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         "© 1998-1999 Bill Clagett\n"\
-        "wtc@pobox.com\n\n"\
+        "bill@32768.com\n\n"\
         "The source code for this program is distributed under "\
         "the GNU General Public License (GPL). You may "\
         "find it at: http://www.gnu.org/copyleft/gpl.html\n\n"\
         "The source code and the latest version is available at: "\
-        "http://www.pobox.com/~wtc/palmos/cspotrun/\n\n"\
+        "http://32768.com/cspotrun/\n\n"\
         ""\
         "Contributors:\n\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
@@ -294,12 +294,12 @@ begin
     "$$ABOUT TITLE"="A propos de CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
       "© 1998-1999 Bill Clagett\n"\
-      "wtc@pobox.com\n\n"\
+      "bill@32768.com\n\n"\
       "Le code source de ce programme est distribué selon les "\
       "termes de la Licence Publique Générale GNU (GPL). Vous "\
       "pouvez trouver celle-ci sur www.gnu.org/copyleft/gpl.html .\n\n"\
       "Le code source et la dernière version sont disponibles sur "\
-      "www.pobox.com/~wtc/palmos/cspotrun/.\n\n"\
+      "32768.com/cspotrun/.\n\n"\
       ""\
       "Remerciements à :\n\n"\
       "Vincent Poty\n(vincent.poty@bigfoot.com)\npour la traduction en français\n\n"\
@@ -423,12 +423,12 @@ begin
     "$$ABOUT TITLE"="Sobre CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
       "© 1998-1999 Bill Clagett\n"\
-      "wtc@pobox.com\n\n"\
+      "bill@32768.com\n\n"\
       "El código fuente para este programa está distribuido "\
       "bajo la GNU General Public License (GPL). Puede "\
       "encontrarla en: http://www.gnu.org/copyleft/gpl.html\n\n"\
       "El código fuente y la última versión están en: "\
-      "http://www.pobox.com/~wtc/palmos/cspotrun/"\
+      "http://32768.com/cspotrun/"\
       ""\
       "Contribuciones:\n\n"\
       "Marcelo Rinesi\nrinesi@espacio.com.ar\nTraducción al español\n\n"\
@@ -517,12 +517,12 @@ begin
     "$$ABOUT TITLE"="Über CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         "© 1998-1999 Bill Clagett\n"\
-        "wtc@pobox.com\n\n"\
+        "bill@32768.com\n\n"\
         "Die Quelltexte dieses Programms werden unter der "\
         "GNU General Public License (GPL) veröffentlicht. Hinweise "\
         "hierzu finden sich unter: http://www.gnu.org/copyleft/gpl.html.\n\n"\
         "Die Quelltexte und die aktuellste Version sind hier verfügbar:"\
-        "http://www.pobox.com/~wtc/palmos/cspotrun/"\
+        "http://32768.com/cspotrun/"\
         ""\
         "Contributors:\n\n"\
         "Arne Nickel\narne.nickel@gmx.de\nGerman translation\n\n"\
@@ -572,12 +572,12 @@ begin
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         "© 1998-1999 Bill Clagett\n"\
-        "wtc@pobox.com\n\n"\
+        "bill@32768.com\n\n"\
         "O código fonte para este programa é distribuído sob "\
         "a GNU General Public License (GPL). Você poderá "\
         "encontrá-la em: http://www.gnu.org/copyleft/gpl.html\n\n"\
         "O código fonte e a última versão podem ser encontrados em: "\
-        "http://www.pobox.com/~wtc/palmos/cspotrun/\n\n"\
+        "http://32768.com/cspotrun/\n\n"\
         ""\
         "Contributors:\n\n"\
         "Rui A. Rebelo\nrui.rebe@zaz.com.br\nPortuguese translation\n\n"\
