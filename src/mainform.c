@@ -33,9 +33,6 @@
 #include "fontselect.h"
 #include "bmk.h"
 #include "bmknamefrm.h"
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 
 static void        HandleFormOpenEvent();
 static void        HandleFormCloseEvent();
@@ -80,10 +77,6 @@ int         _documentIndex = -1;
 static Boolean      autoScrollEnabled = false;
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
-
 Boolean MainFormHandleEvent(EventType *e)
 {
     Boolean        handled = false;
@@ -101,55 +94,56 @@ static Boolean _MainFormHandleEvent(EventType *e)
     Err err;
 
     _setHandyPointers();
-    switch(e->eType)
+    switch(e->eType)    
     {
-        case ctlSelectEvent:
-            if (IS_FONTSELECT_PUSHID(e->data.ctlSelect.controlID))
-            {
-                FS_changeFont(FONTSELECT_PUSHID_TO_INDEX(e->data.ctlSelect.controlID));
-                return true;
-            }
-
-            switch (e->data.ctlSelect.controlID)
-            {
+    case ctlSelectEvent:
+        if (IS_FONTSELECT_PUSHID(e->data.ctlSelect.controlID)) 
+        {
+            int i = FONTSELECT_PUSHID_TO_INDEX(e->data.ctlSelect.controlID);
+            FS_changeFont(i);
+            return true;
+        }
+        
+        switch (e->data.ctlSelect.controlID)
+        {
 #ifdef ENABLE_ROTATION
-                case buttonID_rotateLeft:
-                    _rotate(-1);
-                    return true;
-                case buttonID_rotateRight:
-                    _rotate(1);
-                    return true;
+        case buttonID_rotateLeft:
+            _rotate(-1);
+            return true;
+        case buttonID_rotateRight:
+            _rotate(1);
+            return true;
 #endif
 #ifdef ENABLE_SEARCH
-                case buttonID_search:
-                    FrmPopupForm(formID_search);
-                    return true;
-                case buttonID_searchAgain:
-                    Doc_doSearch(searchStringHandle, false, appStatePtr->caseSensitive, formID_main);
-                    return true;
+        case buttonID_search:
+            FrmPopupForm(formID_search);
+            return true;
+        case buttonID_searchAgain:
+            Doc_doSearch(searchStringHandle, false, 
+                         appStatePtr->caseSensitive, formID_main);
+            return true;
 #endif
-}
-            break;
-        case popSelectEvent:
-            switch(e->data.popSelect.listID)
-            {
-                case listID_doc:
-                    //if (e->data.popSelect.selection != e->data.popSelect.priorSelection)
-                    HandleDocSelect(e->data.popSelect.selection);
-                    return true;
-                case listID_percent:
-                    Doc_setPercent(10*e->data.popSelect.selection);
-                    Doc_drawPage();
-                    _updatePercent();
-                    return true;
+        }
+        break;
+    case popSelectEvent:
+        switch(e->data.popSelect.listID)
+        {
+        case listID_doc:
+            HandleDocSelect(e->data.popSelect.selection);
+            return true;
+        case listID_percent:
+            Doc_setPercent(10*e->data.popSelect.selection);
+            Doc_drawPage();
+            _updatePercent();
+            return true;
 #ifdef ENABLE_BMK
-                case listID_bmk:
+        case listID_bmk:
 		    a = BmkGetAction(e->data.popSelect.selection);
 		    if(a == A_NEW) {
 			    FrmPopupForm(formID_bmkName);
 			    return true;
 		    } else if(a == A_EDIT) {
-                            _popupBmkEd();
+                _popupBmkEd();
 			    return true;
 		    }
 		    
@@ -158,179 +152,187 @@ static Boolean _MainFormHandleEvent(EventType *e)
                     _updatePercent();
                     return true;
 #endif
-            }
-            break;
-        case menuEvent:
-            switch (e->data.menu.itemID)
-            {
+        }
+        break;
+    case menuEvent:
+        switch (e->data.menu.itemID)
+        {
 #ifdef ENABLE_SEARCH
-                case menuitemID_search:
-                    MenuEraseStatus(NULL);
-                    FrmPopupForm(formID_search);
-                    return true;
-                case menuitemID_searchAgain:
-                    MenuEraseStatus(NULL);
-                    Doc_doSearch(searchStringHandle, false, appStatePtr->caseSensitive, formID_main);
-                    return true;
+        case menuitemID_search:
+            MenuEraseStatus(NULL);
+            FrmPopupForm(formID_search);
+            return true;
+        case menuitemID_searchAgain:
+            MenuEraseStatus(NULL);
+            Doc_doSearch(searchStringHandle, false, 
+                         appStatePtr->caseSensitive, formID_main);
+            return true;
 #endif
-                case menuitemID_makeDefault:
-                    MenuEraseStatus(NULL);
-                    Doc_makeSettingsDefault();
-                    return true;
-                case menuitemID_about:
-                    FrmHelp(stringID_aboutBody);
-                    return true;
-                case menuitemID_delete:
-                    MenuEraseStatus(NULL);
-                    _deleteDoc();
-                    return true;
-                case menuitemID_controlPrefs:
-                    MenuEraseStatus(NULL);
-                    FrmPopupForm(formID_controls);
-                    return true;
-                case menuitemID_globalPrefs:
-                    FrmPopupForm(formID_globalPrefs);
-                    return true;
-                case menuitemID_controls:
-                    MenuEraseStatus(NULL);
-                    appStatePtr->hideControls = ~appStatePtr->hideControls;
-                    MainForm_UCGUIChanged();
-                    return true;
+        case menuitemID_makeDefault:
+            MenuEraseStatus(NULL);
+            Doc_makeSettingsDefault();
+            return true;
+        case menuitemID_about:
+            FrmHelp(stringID_aboutBody);
+            return true;
+        case menuitemID_delete:
+            MenuEraseStatus(NULL);
+            _deleteDoc();
+            return true;
+        case menuitemID_controlPrefs:
+            MenuEraseStatus(NULL);
+            FrmPopupForm(formID_controls);
+            return true;
+        case menuitemID_globalPrefs:
+            FrmPopupForm(formID_globalPrefs);
+            return true;
+        case menuitemID_controls:
+            MenuEraseStatus(NULL);
+            appStatePtr->hideControls = ~appStatePtr->hideControls;
+            MainForm_UCGUIChanged();
+            return true;
 #ifdef ENABLE_AUTOSCROLL
-                case menuitemID_autoScroll:
-                    MenuEraseStatus(NULL);
-                    MainForm_ToggleAutoScroll();
-                    return true;
+        case menuitemID_autoScroll:
+            MenuEraseStatus(NULL);
+            MainForm_ToggleAutoScroll();
+            return true;
 #endif
-                case menuitemID_doc:
-                    MenuEraseStatus(NULL);
-                    CtlHitControl(docPopupPtr);
-                    return true;
-                case menuitemID_percent:
-                    MenuEraseStatus(NULL);
-                    CtlHitControl(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_percent)));
-                    return true;
+        case menuitemID_doc:
+            MenuEraseStatus(NULL);
+            CtlHitControl(docPopupPtr);
+            return true;
+        case menuitemID_percent:
+            MenuEraseStatus(NULL);
+            CtlHitControl(FrmGetObjectPtr(formPtr,  
+                                          FrmGetObjectIndex(formPtr, 
+                                                            popupID_percent)));
+            return true;
 #ifdef ENABLE_ROTATION
-                case menuitemID_rotateLeft:
-                    MenuEraseStatus(NULL);
-                    _rotate(-1);
-                    return true;
-                case menuitemID_rotateRight:
-                    MenuEraseStatus(NULL);
-                    _rotate(1);
-                    return true;
+        case menuitemID_rotateLeft:
+            MenuEraseStatus(NULL);
+            _rotate(-1);
+            return true;
+        case menuitemID_rotateRight:
+            MenuEraseStatus(NULL);
+            _rotate(1);
+            return true;
 #endif
-
+            
 #ifdef ENABLE_BMK
 		case menuitemID_bmkAdd:
-                    MenuEraseStatus(NULL);
+            MenuEraseStatus(NULL);
 		    FrmPopupForm(formID_bmkName);
 		    return true;
-
+            
 		case menuitemID_bmkEd:
 		    MenuEraseStatus(NULL);
-                    _popupBmkEd();
+            _popupBmkEd();
 		    return true;
 #endif
-            }
-
-            MenuEraseStatus(NULL);
-            if (IS_FONTSELECT_MENUID(e->data.menu.itemID))
-            {
-                FS_changeFont(FONTSELECT_MENUID_TO_INDEX(e->data.menu.itemID));
-                FS_updateFontButtons(formPtr);
-                return true;
-            }
-            if (e->data.menu.itemID >= menuitemID_lineSpacing0 && e->data.menu.itemID < (menuitemID_lineSpacing0 + LINE_SPACING_GADGET_COUNT))
-            {
-                _changeLineSpacing(e->data.ctlSelect.controlID - menuitemID_lineSpacing0);
-                return true;
-            }
-
-            break;
-        case frmUpdateEvent:
-            if (e->data.frmUpdate.formID == formID_main)
-            {
-#ifdef ENABLE_BMK
-		_redrawBmkList();
-#endif
-
-                FrmDrawForm(formPtr);
-                Doc_drawPage();
-                _updatePercent();
-                _drawLineSpacingGadgets();
-#ifdef ENABLE_AUTOSCROLL
-                _drawAutoScrollGadget();
-#endif
-                return true;
-            }
-            break;
-        case penDownEvent:
-            {
-                RectangleType r;
-                int i;
-                Int16 index;
-                // If user clicked on the document
-                if (RctPtInRectangle (e->screenX, e->screenY, Doc_getGadgetBounds()))
-                {
-                    _scroll(Doc_inBottomHalf(e->screenX, e->screenY) ? PAGEDIR_DOWN : PAGEDIR_UP, appStatePtr->tapAction);
-                    return true;
-                }
-                // If user clicked on a line spacing doodad
-                for (i = 0; i < LINE_SPACING_GADGET_COUNT; i++)
-                {
-                    index = FrmGetObjectIndex(formPtr, gadgetID_lineSpacing0+i);    
-                    FrmGetObjectBounds (formPtr, index, &r);
-                    if (RctPtInRectangle (e->screenX, e->screenY, &r) 
-                        && Ucgui_gadgetVisible(formPtr, index))
-                    {
-                        _changeLineSpacing(i);
-                        return true;
-                    }
-                }
-#ifdef ENABLE_AUTOSCROLL
-                index = FrmGetObjectIndex(formPtr, gadgetID_autoScroll);    
-                FrmGetObjectBounds (formPtr, index, &r);
-                if ( RctPtInRectangle (e->screenX, e->screenY, &r)
-                     && Ucgui_gadgetVisible(formPtr, index))  {
-                    MainForm_ToggleAutoScroll();
-                    return true;
-                }
-#endif
-            }
-            break;
-        case keyDownEvent:
-            switch (e->data.keyDown.chr)
-            {
-                case pageDownChr:
-                    _scroll(Doc_translatePageButton(PAGEDIR_DOWN), TA_PAGE);
-                    return true;
-                case pageUpChr:
-                    _scroll(Doc_translatePageButton(PAGEDIR_UP), TA_PAGE);
-                    return true;
-            }
-            break;
-        case frmOpenEvent:
-            HandleFormOpenEvent();
+        }
+        
+        MenuEraseStatus(NULL);
+        if (IS_FONTSELECT_MENUID(e->data.menu.itemID))
+        {
+            FS_changeFont(FONTSELECT_MENUID_TO_INDEX(e->data.menu.itemID));
+            FS_updateFontButtons(formPtr);
             return true;
-        case frmCloseEvent:
-            HandleFormCloseEvent();
-            return false;
-
+        }
+        if (e->data.menu.itemID >= menuitemID_lineSpacing0 
+            && e->data.menu.itemID < 
+                 (menuitemID_lineSpacing0 + LINE_SPACING_GADGET_COUNT))
+        {
+            _changeLineSpacing(e->data.ctlSelect.controlID 
+                               - menuitemID_lineSpacing0);
+            return true;
+        }
+        
+        break;
+    case frmUpdateEvent:
+        if (e->data.frmUpdate.formID == formID_main)
+        {
 #ifdef ENABLE_BMK
-        case bmkNameFrmOkEvt:
-            /* add the bookmark, new name is in 'bmkName' */
-            err = BmkAdd(bmkName, 0);
-            if(err)
-                BmkReportError(err);
             _redrawBmkList();
-            return true;
-
-        case bmkRedrawListEvt:
+#endif
+            
+            FrmDrawForm(formPtr);
             Doc_drawPage();
             _updatePercent();
-            _redrawBmkList();
+            _drawLineSpacingGadgets();
+#ifdef ENABLE_AUTOSCROLL
+            _drawAutoScrollGadget();
+#endif
             return true;
+        }
+        break;
+    case penDownEvent:
+    {
+        RectangleType r;
+        int i;
+        Int16 index;
+        // If user clicked on the document
+        if (RctPtInRectangle (e->screenX, e->screenY, Doc_getGadgetBounds()))
+        {
+            Boolean inBottomHalf = Doc_inBottomHalf(e->screenX, e->screenY);
+            _scroll(inBottomHalf ? PAGEDIR_DOWN : PAGEDIR_UP, 
+                    appStatePtr->tapAction);
+            return true;
+        }
+        // If user clicked on a line spacing doodad
+        for (i = 0; i < LINE_SPACING_GADGET_COUNT; i++)
+        {
+            index = FrmGetObjectIndex(formPtr, gadgetID_lineSpacing0+i);    
+            FrmGetObjectBounds (formPtr, index, &r);
+            if (RctPtInRectangle (e->screenX, e->screenY, &r) 
+                && Ucgui_gadgetVisible(formPtr, index))
+            {
+                _changeLineSpacing(i);
+                return true;
+            }
+        }
+#ifdef ENABLE_AUTOSCROLL
+        index = FrmGetObjectIndex(formPtr, gadgetID_autoScroll);    
+        FrmGetObjectBounds (formPtr, index, &r);
+        if ( RctPtInRectangle (e->screenX, e->screenY, &r)
+             && Ucgui_gadgetVisible(formPtr, index))  {
+            MainForm_ToggleAutoScroll();
+            return true;
+        }
+#endif
+    }
+    break;
+    case keyDownEvent:
+        switch (e->data.keyDown.chr)
+        {
+        case pageDownChr:
+            _scroll(Doc_translatePageButton(PAGEDIR_DOWN), TA_PAGE);
+            return true;
+        case pageUpChr:
+            _scroll(Doc_translatePageButton(PAGEDIR_UP), TA_PAGE);
+            return true;
+        }
+        break;
+    case frmOpenEvent:
+        HandleFormOpenEvent();
+        return true;
+    case frmCloseEvent:
+        HandleFormCloseEvent();
+        return false;
+        
+#ifdef ENABLE_BMK
+    case bmkNameFrmOkEvt:
+        /* add the bookmark, new name is in 'bmkName' */
+        err = BmkAdd(bmkName, 0);
+        if(err)
+            BmkReportError(err);
+        _redrawBmkList();
+        return true;
+        
+    case bmkRedrawListEvt:
+        Doc_drawPage();
+        _updatePercent();
+        _redrawBmkList();
+        return true;
 #endif
     }
     return false;
@@ -340,25 +342,23 @@ static void    HandleDocSelect(int documentIndex)
 {
     Doc_close();
     _documentIndex = documentIndex;
-
+    
     Doc_open(DocList_getCardNo(documentIndex),
-        DocList_getID(documentIndex), DocList_getTitle(documentIndex));
-
-    // When the doc was opened, prefs changed.
-
-    //Set the document popup label
-    //Changed popup trigger to simply "Doc", otherwise it resizes which causes UCGUI funkiness.
-    //CtlSetLabel(docPopupPtr, DocList_getTitle(documentIndex));
-
-
+             DocList_getID(documentIndex), DocList_getTitle(documentIndex));
+    
+    /* When the doc was opened, prefs changed.
+     * Set the document popup label
+     * Changed popup trigger to simply "Doc", otherwise it resizes 
+     * which causes UCGUI funkiness. */
+    
     FS_updateFontButtons(formPtr);
-
+    
     /* set menu accroding to the document mode */
     if(Doc_getDbMode() == dmModeReadOnly)
         FrmSetMenu(formPtr, menuID_main_ro);
     else
         FrmSetMenu(formPtr, menuID_main);
-
+    
     FrmUpdateForm(formID_main, 0);
 }
 
@@ -366,19 +366,19 @@ static void    HandleDocSelect(int documentIndex)
 static void _setHandyPointers()
 {
     formPtr = FrmGetActiveForm();
-
-    docListPtr = FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, listID_doc));
+    
+    docListPtr = FrmGetObjectPtr(formPtr, 
+                                 FrmGetObjectIndex(formPtr, listID_doc));
 #ifdef ENABLE_BMK
     bmkListIndex = FrmGetObjectIndex(formPtr, listID_bmk);
     bmkListPtr = FrmGetObjectPtr(formPtr, bmkListIndex);
 #endif
-    docPopupPtr = FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_doc));
-    percentPopupPtr = FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_percent));
+    docPopupPtr = FrmGetObjectPtr(formPtr, 
+                                  FrmGetObjectIndex(formPtr, popupID_doc));
+    percentPopupPtr = FrmGetObjectPtr(formPtr, 
+                                      FrmGetObjectIndex(formPtr, 
+                                                        popupID_percent));
 }
-
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 
 static void HandleFormOpenEvent()
 {
@@ -400,13 +400,13 @@ static void _openDefaultDoc()
     int index;
     char name[dmDBNameLength];
     DocPrefs_getRecentDocName(name);
-
+    
     index = DocList_getIndex(name);
-
+    
     // If doc not found, open the first one
     if (index < 0 && DocList_getDocCount())
         index = 0;
-
+    
     if (index >= 0)
     {
         LstSetSelection(docListPtr, index);
@@ -416,13 +416,13 @@ static void _openDefaultDoc()
     {
         EventType    newEvent;
         MemHandle    noDocsH;
-
+        
         // No documents installed here!
         noDocsH = DmGetResource(strRsc, stringID_noDocs);
         FrmCustomAlert(alertID_error, (Char*) MemHandleLock(noDocsH), " ", " ");
         MemHandleUnlock(noDocsH);
         DmReleaseResource(noDocsH);
-
+        
         // Start the App app (from page 72 of ref2.pdf)
         newEvent.eType = keyDownEvent;
         newEvent.data.keyDown.chr = launchChr;
@@ -430,11 +430,6 @@ static void _openDefaultDoc()
         EvtAddEventToQueue(&newEvent);
     }
 }
-
-
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 
 static void HandleFormCloseEvent()
 {
@@ -456,10 +451,12 @@ static void _layoutForm()
 {
     RectangleType textBounds;
     _setHandyPointers();
+    
+    Ucgui_layout(formPtr, 
+                 appStatePtr->hideControls ? 0 : appStatePtr->UCGUIBits);
 
-    Ucgui_layout(formPtr, appStatePtr->hideControls ? 0 : appStatePtr->UCGUIBits);
-
-    FrmGetObjectBounds(formPtr, FrmGetObjectIndex(formPtr, gadgetID_text), &textBounds);
+    FrmGetObjectBounds(formPtr, 
+                       FrmGetObjectIndex(formPtr, gadgetID_text), &textBounds);
     Doc_setBounds(&textBounds);
 }
 
@@ -480,15 +477,33 @@ static void _drawAutoScrollGadget()
 
     if(autoScrollEnabled) // show pause
     {
-        WinDrawLine(bounds.topLeft.x + 2, bounds.topLeft.y + 3, bounds.topLeft.x + 2, bounds.topLeft.y + bounds.extent.y - 3);
-        WinDrawLine(bounds.topLeft.x + bounds.extent.x - 3, bounds.topLeft.y + 3, bounds.topLeft.x + bounds.extent.x - 3, bounds.topLeft.y + bounds.extent.y - 3);
+        WinDrawLine(bounds.topLeft.x + 2, 
+                    bounds.topLeft.y + 3, 
+                    bounds.topLeft.x + 2, 
+                    bounds.topLeft.y + bounds.extent.y - 3);
+        WinDrawLine(bounds.topLeft.x + bounds.extent.x - 3, 
+                    bounds.topLeft.y + 3, 
+                    bounds.topLeft.x + bounds.extent.x - 3, 
+                    bounds.topLeft.y + bounds.extent.y - 3);
     }
     else // show play
     {
-        WinDrawLine(bounds.topLeft.x + 2, bounds.topLeft.y + 3, bounds.topLeft.x + 2, bounds.topLeft.y + bounds.extent.y - 3);
-        WinDrawLine(bounds.topLeft.x + 3, bounds.topLeft.y + 4, bounds.topLeft.x + 3, bounds.topLeft.y + bounds.extent.y - 4);
-        WinDrawLine(bounds.topLeft.x + 4, bounds.topLeft.y + 5, bounds.topLeft.x + 4, bounds.topLeft.y + bounds.extent.y - 5);
-        WinDrawLine(bounds.topLeft.x + 5, bounds.topLeft.y + 6, bounds.topLeft.x + 5, bounds.topLeft.y + bounds.extent.y - 6);
+        WinDrawLine(bounds.topLeft.x + 2, 
+                    bounds.topLeft.y + 3, 
+                    bounds.topLeft.x + 2, 
+                    bounds.topLeft.y + bounds.extent.y - 3);
+        WinDrawLine(bounds.topLeft.x + 3, 
+                    bounds.topLeft.y + 4, 
+                    bounds.topLeft.x + 3, 
+                    bounds.topLeft.y + bounds.extent.y - 4);
+        WinDrawLine(bounds.topLeft.x + 4, 
+                    bounds.topLeft.y + 5, 
+                    bounds.topLeft.x + 4, 
+                    bounds.topLeft.y + bounds.extent.y - 5);
+        WinDrawLine(bounds.topLeft.x + 5, 
+                    bounds.topLeft.y + 6, 
+                    bounds.topLeft.x + 5, 
+                    bounds.topLeft.y + bounds.extent.y - 6);
     }
 }
 
@@ -567,15 +582,25 @@ static void _drawLineSpacingGadget(int i)
     {
         Boolean rowOn;
         rowOn = (row > 0)
-                    && (row < bounds.extent.y-1)
-                    && (0 == ((row-selectableLineSpacings[i]+4) % (4-selectableLineSpacings[i])));
+            && (row < bounds.extent.y-1)
+            && (0 == ((row-selectableLineSpacings[i]+4) 
+                      % (4-selectableLineSpacings[i])));
         if (rowOn)
-            WinDrawGrayLine(bounds.topLeft.x, bounds.topLeft.y+row, bounds.topLeft.x+bounds.extent.x-1, bounds.topLeft.y+row);
+            WinDrawGrayLine(bounds.topLeft.x, 
+                            bounds.topLeft.y+row, 
+                            bounds.topLeft.x+bounds.extent.x-1, 
+                            bounds.topLeft.y+row);
         else
             if (isSelected)
-                WinDrawLine(bounds.topLeft.x, bounds.topLeft.y+row, bounds.topLeft.x+bounds.extent.x-1, bounds.topLeft.y+row);
+                WinDrawLine(bounds.topLeft.x, 
+                            bounds.topLeft.y+row, 
+                            bounds.topLeft.x+bounds.extent.x-1, 
+                            bounds.topLeft.y+row);
             else
-                WinEraseLine(bounds.topLeft.x, bounds.topLeft.y+row, bounds.topLeft.x+bounds.extent.x-1, bounds.topLeft.y+row);
+                WinEraseLine(bounds.topLeft.x, 
+                             bounds.topLeft.y+row, 
+                             bounds.topLeft.x+bounds.extent.x-1, 
+                             bounds.topLeft.y+row);
     }
 }
 
@@ -587,10 +612,12 @@ static void    _updatePercent()
 
 static void _deleteDoc()
 {
-    if (0 == FrmCustomAlert(alertID_confirmDelete, DocList_getTitle(_documentIndex), " ", " "))
+    if (0 == FrmCustomAlert(alertID_confirmDelete, 
+                            DocList_getTitle(_documentIndex), " ", " "))
     {
         Doc_close();
-        DmDeleteDatabase(DocList_getCardNo(_documentIndex), DocList_getID(_documentIndex));
+        DmDeleteDatabase(DocList_getCardNo(_documentIndex), 
+                         DocList_getID(_documentIndex));
         _documentIndex = -1;
         DocList_freeList();
         DocList_populateList(docListPtr);
