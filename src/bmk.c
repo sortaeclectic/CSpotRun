@@ -39,6 +39,8 @@ static int          scuts_num = 0;
                         /* in the list buffer */
 static Char*      bmkAddStr = NULL;
 static Char*      bmkEdStr = NULL;
+MemHandle bmkAddStrHandle;
+MemHandle bmkEdStrHandle;
 
 /* local functions */
 
@@ -57,8 +59,6 @@ static Err  BmkInsertionSort(int);
 static Err  BmkRefillListBuf(void);
 static void BmkClearListBuf(void);
 
-
-
 /*
  * BmkStart()
  * initialize the bookmark subsystem
@@ -67,10 +67,10 @@ Err BmkStart(void)
 {
     Err err;
 
-    bmkAddStr = (Char*)MemHandleLock(
-            DmGetResource(strRsc, stringID_bmkAdd));
-    bmkEdStr = (Char*)MemHandleLock(
-            DmGetResource(strRsc, stringID_bmkEd));
+    bmkAddStrHandle = DmGetResource(strRsc, stringID_bmkAdd);
+    bmkAddStr = (Char*)MemHandleLock(bmkAddStrHandle);
+    bmkEdStrHandle = DmGetResource(strRsc, stringID_bmkEd);
+    bmkEdStr = (Char*)MemHandleLock(bmkEdStrHandle);
 
     return 0;
 }
@@ -82,22 +82,18 @@ Err BmkStart(void)
  */
 void BmkStop(void)
 {
-    MemHandle h;
-
     BmkClearListBuf();
 
     /* release all string resources */
 
     if(bmkAddStr) {
-        h = MemPtrRecoverHandle(bmkAddStr);
-        MemHandleUnlock(h);
-        DmReleaseResource(h);
+        MemHandleUnlock(bmkAddStrHandle);
+        DmReleaseResource(bmkAddStrHandle);
     }
 
     if(bmkEdStr) {
-        h = MemPtrRecoverHandle(bmkEdStr);
-        MemHandleUnlock(h);
-        DmReleaseResource(h);
+        MemHandleUnlock(bmkEdStrHandle);
+        DmReleaseResource(bmkEdStrHandle);
     }
 }
 
