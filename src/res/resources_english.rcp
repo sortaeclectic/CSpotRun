@@ -12,6 +12,7 @@ begin
     "$$GOTO PER"="Goto %"
 
     "$$BOOKMARKS"="Bookmarks"
+    "$$BOOKMARKS_TRIGGER"="BM"
     "$$EDIT BOOKMARKS"="Bookmarks..."
     "$$EDIT BOOKMARKS LIST"="* Bookmarks..."
     "$$DEL ALL BOOKMARKS"="Del All Bookmarks"

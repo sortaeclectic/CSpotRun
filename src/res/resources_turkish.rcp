@@ -17,6 +17,7 @@ begin
     "$$GOTO PER"="%\'ye Git"
 
     "$$BOOKMARKS"="Kýsayollar"
+    "$$BOOKMARKS_TRIGGER"="Kýsayollar"
     "$$EDIT BOOKMARKS"="Kýsayollar..."
     "$$EDIT BOOKMARKS LIST"="* Kýsayollar..."
     "$$DEL ALL BOOKMARKS"="Tüm Kýsayollarý Sil"

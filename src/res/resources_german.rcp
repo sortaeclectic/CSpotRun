@@ -15,6 +15,7 @@ begin
     "$$GOTO PER"="GeheZu %"
 
     "$$BOOKMARKS"="Lesezeichen"
+    "$$BOOKMARKS_TRIGGER"="Lesezeichen"
     "$$EDIT BOOKMARKS"="Lesezeichen..."
     "$$EDIT BOOKMARKS LIST"="* Lesezeichen..."
     "$$DEL ALL BOOKMARKS"="Alle Lesezeichen löschen"

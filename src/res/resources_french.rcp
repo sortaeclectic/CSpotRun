@@ -13,6 +13,7 @@ begin
     "$$GOTO PER"="Aller à %"
 
     "$$BOOKMARKS"="Signets"
+    "$$BOOKMARKS_TRIGGER"="Signets"
     "$$EDIT BOOKMARKS"="Signets..."
     "$$EDIT BOOKMARKS LIST"="* Signets..."
     "$$DEL ALL BOOKMARKS"="Suppr. tout signet"

@@ -14,6 +14,7 @@ begin
     "$$GOTO PER"="Ir para %"
 
     "$$BOOKMARKS"="Marcadroes"
+    "$$BOOKMARKS_TRIGGER"="Marcadroes"
     "$$EDIT BOOKMARKS"="Marcadores..."
     "$$EDIT BOOKMARKS LIST"="* Marcadores..."
     "$$DEL ALL BOOKMARKS"="Apagar todos os Marcadores"

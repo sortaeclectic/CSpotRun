@@ -17,6 +17,7 @@ begin
     "$$GOTO PER"="跳至 %"
 
     "$$BOOKMARKS"="書籤"
+    "$$BOOKMARKS_TRIGGER"="書籤"
     "$$EDIT BOOKMARKS"="書籤設定…"
     "$$EDIT BOOKMARKS LIST"="* 書籤設定…"
     "$$DEL ALL BOOKMARKS"="刪除所有書籤"

@@ -17,6 +17,7 @@ begin
     "$$GOTO PER"="Jdi na %"
 
     "$$BOOKMARKS"="Záložky"
+    "$$BOOKMARKS_TRIGGER"="Záložky"
     "$$EDIT BOOKMARKS"="Záložky..."
     "$$EDIT BOOKMARKS LIST"="* Záložky..."
     "$$DEL ALL BOOKMARKS"="Smaž všechny záložky"
