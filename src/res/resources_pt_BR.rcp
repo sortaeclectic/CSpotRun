@@ -44,7 +44,9 @@ begin
                              "A escolha de \'Ação de toque\' controla que ação é executada quando "\
                              "você toca a tela.\n\n"\
                              "Use a opção \'Veloc. de Auto Rolagem\' para controlar a velocidade de rolagem automática. Os números "\
-                             "estão em centésimos de segundo. 15-25 é a velocidade recomendada."
+                             "estão em centésimos de segundo. 15-25 é a velocidade recomendada.\nVocê pode usar o botão"\
+                             "Pág.Acima/Pág.Abaixo para regular a velocidade.\n\n"\
+                             "O \'Ajuste de Auto rolagem\' determina se o texto avança por ponto ou linha."
     "$$NO DOCS"="Não há arquivos DOC instalados!\n\nPor favor tente novamente o CSpotRun depois de instalar um ou dois documentos."
 
     "$$ERROR ALERT"="Oops!"
