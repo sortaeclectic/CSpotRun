@@ -8,15 +8,17 @@ begin
     "$$DOC"="Dokument"
     "$$FONTS"="Kirjatüübid"
     "$$CONFIGURE CONTROLS"="Muuda seadistusi"
-    "$$ROTATE"="Pööramine"
+    "$$ROTATE"="Pööra"
     "$$SPACING"="Reavahe"
     "$$AUTOSCROLL"="Iserullumine"
     "$$AUTOSCROLL TYPE AND SPEED"="Iserullumise tüüp ja kiirus:"
     "$$PIXEL"="Piksel"
-    "$$TOGGLE AUTOSCROLL"="Iserull. aadressiraamatu nupuga"
+    "$$TOGGLE AUTOSCROLL"="Iserullumine aadressiraamatu nupuga"
     "$$GOTO PER"="Mine %"
 
-    "$$ABOUT BODY"=
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+        "© 1998-2000 Bill Clagett\n"\
+        "bill@32768.com\n\n"\
         "Selle programmi lähtekood on avaldatud "\
         "GNU General Public License (GPL) tingimustel. Need on "\
         "leitavad aadressil: http://www.gnu.org/copyleft/gpl.html\n\n"\
@@ -25,27 +27,24 @@ begin
         ""\
         "Kaastööd:\n\n"\
         "Rauno Varblas\nraunov@yahoo.com\nTõlge eesti keelde\n\n"\
-        "Alexey Raschepkin\napr@direct.ru\nBookmarks\n\n"\
-        "Daniel Zahn\nsclug@sclug.org\nIserullumine\n\n"\
-	"Florian Deckert\nfdeckert@club-internet.fr\nHyphenation and Justification\n\n"\
-        "Greg Weeks\ngreg@durendal.org\nDigital Rights Management\n"
-        
+        "Daniel Zahn\nsclug@sclug.org\nIserullumine\n"
+
     "$$CONTROLS HELP"="Iga valikuruut vastab ekraanil olevatele seadistustele. "\
                                 "Vali seadistused, mida soovid ekraanil näha .\n\n"\
                                 "Mõttekas on mitte valida neid, mida harva kasutad. "\
                                 "Kõiki seadistusi saab ka läbi menüüde teha."
     "$$GLOBAL PREFS HELP"="Kasuta \'Vaheta üles/alla kui küljetsi\' valikut, et "\
-                                    "vahetada üles ja alla nupud kui lehekülg on "\
+                                    "vahetada nupud üles ja alla kui lehekülg on "\
                                     "ees küljetsi.\n\n"\
                                     "Vali \'Näita rida eelmiselt leheküljelt\' et näidata "\
-                                    "viimast rida eelmiselt leheküljelt kui liigud edasi või tagasi.\n\n"\
+                                    "viimast rida eelmiselt leheküljelt kui sa liigud edasi või tagasi.\n\n"\
                                     "\'Toksamine\' valik näitab, mida tehakse siis kui "\
                                     "toksad ekraanile.\n\n"\
-                                    "\'Iserullumise kiirus\' valikust saad kontrollida teksti rullumise kiirust. "\
+                                    "Kasuta \'Iserullumise kiirus\' valikut et kontrollida teksti rullumise kiirust."\
                                     "Numbrid tähendavad sajandiksekundeid. Soovitatav on 15-20. "\
                                     "Rullumise ajal saad kiirust suurendada või "\
                                     "vähendada kasutades üles/alla nuppe.\n\n"\
-                                    "\'Iserullumise tüüp\' valik näitab, kas teksti "\
+                                    "\'Iserullumise tüüp\` valik näitab, kas teksti "\
                                     "rullitakse pikseli- või reakaupa."
 
                                     
@@ -86,46 +85,16 @@ begin
     "$$FONT 2"="Kirjatüüp 2"
     "$$FONT 3"="Kirjatüüp 3"
     "$$FONT 4"="Kirjatüüp 4"
-    "$$JUSTIFY"="Justify"
-    "$$HYPHEN"="Hyphenation"
-   
+    
     "$$FIND"="Otsi"
     "$$FIND AGAIN"="Otsi uuesti"
     "$$FINDDDD"="Otsi..."
     "$$FIND IN DOCUMENT"="Otsi dokumendist"
     "$$FIND PROMPT"="Otsi:"
-    "$$SEARCH FROM TOP"="Alusta ülevalt"
+    "$$SEARCH FROM TOP"="Alust ülevalt"
     "$$CASE SENSITIVE"="Tõstutundlik"
     "$$FIND BUTTON"="O"
     "$$FIND AGAIN BUTTON"="OU"
-    
-    "$$BOOKMARKS"="Bookmarks" 
-    "$$BOOKMARKS_TRIGGER"="BM"
-    "$$EDIT BOOKMARKS"="Bookmarks..." 
-    "$$EDIT BOOKMARKS LIST"="* Bookmarks..." 
-    "$$DEL ALL BOOKMARKS"="Del All" 
-    "$$SORT BOOKMARKS"="Sort..." 
-    "$$ADD BOOKMARK"="Add Bookmark..." 
-    "$$ADD BOOKMARK LIST"="* Add Bookmark..." 
-    "$$ADD BOOKMARK TITLE"="Add Bookmark" 
-    "$$NAME BOOKMARK"="Name Bookmark" 
-    "$$NAME"="Name" 
-    "$$DUP NAME"="Bookmark with this name already exists. What would you want to do?" 
-    "$$REPLACE"="Replace" 
-    "$$NEW"="Create New" 
-    "$$MOVE UP"="Move Up" 
-    "$$MOVE DOWN"="Move Down" 
-    "$$RENAME"="Rename" 
-    "$$DELETE"="Delete" 
-    "$$DONE"="Done" 
-    "$$GOTO"="GoTo" 
-    "$$SORT BOOKMARKS"="Sort Bookmarks" 
-    "$$POSITION"="Position" 
-    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..." 
-    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?" 
-    "$$NO MEMORY"="Not Enough Memory" 
-    "$$BMK DOC NOT OPENED"="Document is not opened" 
-
 /*
     // Want to internationalize the menu shortcuts.
     // Need to fix pilrc to do this.
