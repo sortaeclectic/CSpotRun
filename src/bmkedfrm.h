@@ -3,8 +3,10 @@
 #ifndef _BMKEDFRM_H_
 #define _BMKEDFRM_H_
 
+#include "segments.h"
+
 #ifdef ENABLE_BMK
-Boolean BmkEdFormHandleEvent(EventType *e);
+Boolean BmkEdFormHandleEvent(EventType *e) BMK_SEGMENT;
 #endif
 
 #endif
