@@ -8,7 +8,7 @@
 #
 
 CC = m68k-palmos-coff-gcc
-ZIP = pkzip
+ZIP = zip
 PILRC = pilrc -q
 OBJRES = m68k-palmos-coff-obj-res
 BUILDPRC = build-prc
@@ -63,7 +63,7 @@ release: $(ZIPS) $(PRCS)
 	cp $(ZIPS) $(PRCS) $(OUTPUTDIR)
 
 $(PROGNAME)_%.zip: $(PROGNAME)_%.prc
-	$(ZIP)  -add $@ $^ $(GNUTURDS); 
+	$(ZIP) $@ $^ $(GNUTURDS); 
 
 $(PROGNAME)_%.prc: %.resstamp code.stamp
 	$(BUILDPRC) $@ $(ICONTEXT) $(APPID) *.grc *.bin ;
