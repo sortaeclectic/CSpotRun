@@ -49,3 +49,8 @@ Turkish translation from Selcuk Demiray (sdemiray@bigfoot.com).
 pt_PT tranlation from Carlos Morgado (chbm@chbm.nu).
 Renamed existing Portuguese translation to pt_BR.
 Fixed little memory stomper in the upside-down case.
+
+1/29/2000
+
+Option to use pixel or line autoscrolling from Daniel Zahn (sclug@sclug.org).
+Split the resource file up into pieces, as suggested by Ivo Panecek a long time ago.
