@@ -36,8 +36,21 @@ OBJS = pilotmain.o mainform.o doclist.o doc.o \
 
 STDDEP = Makefile resources.h app.h appstate.h callback.h
 
-CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH ENABLE_AUTOSCROLL ENABLE_BMK ENABLE_HYPHEN SUPER0 
-DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt)) -DNON_INTERNATIONAL 
+CSR_OPTIONS = 	\
+	ENABLE_ROTATION \
+	ENABLE_SEARCH \
+	ENABLE_AUTOSCROLL \
+	ENABLE_BMK \
+	ENABLE_HYPHEN \
+	SUPER0 
+
+DEFINES = \
+	-DAPPID=$(APPID) \
+	-DappId=\'$(APPID)\' \
+	-DERROR_CHECK_LEVEL=ERROR_CHECK_FULL \
+	$(foreach opt, $(CSR_OPTIONS), -D$(opt)) \
+	-DNON_INTERNATIONAL 
+
 LIBS = -lPalmOSGlue
 ifdef DEBUG
 CFLAGS = -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
@@ -147,7 +160,8 @@ doc.o: resources.h rotate.h segments.h tabbedtext.h
 docprefs.o: appstate.h doclist.h docprefs.h rotate.h segments.h
 hyphenate.o: hyphenate.h segments.h
 mainform.o: app.h appstate.h bmk.h bmknamefrm.h callback.h doc.h doclist.h
-mainform.o: docprefs.h mainform.h resources.h rotate.h segments.h ucgui.h
+mainform.o: docprefs.h mainform.h resources.h rotate.h segments.h sonyclie.h
+mainform.o: ucgui.h
 pilotmain.o: app.h appstate.h bmkedfrm.h bmk.h bmknamefrm.h controlsform.h
 pilotmain.o: decode.h docprefs.h hyphenate.h mainform.h prefsform.h
 pilotmain.o: resources.h searchform.h segments.h tabbedtext.h ucgui.h
@@ -157,4 +171,4 @@ rotate.o: app.h rotate.h segments.h
 searchform.o: app.h appstate.h callback.h doc.h docprefs.h mainform.h
 searchform.o: resources.h rotate.h searchform.h segments.h
 tabbedtext.o: segments.h tabbedtext.h
-ucgui.o: appstate.h docprefs.h resources.h segments.h ucgui.h
+ucgui.o: appstate.h docprefs.h resources.h rotate.h segments.h ucgui.h
