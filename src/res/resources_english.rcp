@@ -22,7 +22,7 @@ begin
     "$$ADD BOOKMARK TITLE"="Add Bookmark"
     "$$NAME BOOKMARK"="Name Bookmark"
     "$$NAME"="Name"
-    "$$DUP NAME"="Bookmark with this name already exists. What would you want to do?"
+    "$$DUP NAME"="Bookmark with this name already exists. What do you want to do?"
     "$$REPLACE"="Replace"
     "$$NEW"="Create New"
     "$$MOVE UP"="Move Up"
