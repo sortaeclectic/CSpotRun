@@ -819,11 +819,11 @@ static Boolean _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos, B
         UInt    i;
 
         for(i = 0; i < needleLen; i++)
-            clNeedle[i] = convTable[needle[i]];
+            clNeedle[i] = convTable[(int) needle[i]];
         clNeedle[i]='\0';
 
         for(i = 0; i < haystackLen; i++)
-            clHaystack[i] = convTable[haystack[i]];
+            clHaystack[i] = convTable[(int)haystack[i]];
         clHaystack[i]='\0';
 
         haystack = clHaystack;

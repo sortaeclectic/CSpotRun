@@ -62,6 +62,6 @@ void FS_updateFontButtons(FormPtr formPtr)
 
 FontID FS_getFontByIndex(UShort index)
 {
-    static selectableFonts[FONT_BUTTON_COUNT] = {stdFont, boldFont, largeFont, largeBoldFont};
+    const int selectableFonts[FONT_BUTTON_COUNT] = {stdFont, boldFont, largeFont, largeBoldFont};
     return selectableFonts[index];
 }
