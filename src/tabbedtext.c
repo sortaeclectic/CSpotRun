@@ -121,13 +121,28 @@ void Justify_WinDrawChars (Char* chars, UInt16 len, Int16 x, Int16 y, UInt16 ext
     if (( (*p) != '-') && TxtGlueCharIsAlpha((UInt8)chars[len]))
         bHyphen=1;
 
-    old = start[0] = chars;
+    // take care of leading spaces & tabs
+    p = chars;
+    switch (*p) {
+        case ' ':
+        case '\t':
+            while (((*p) == ' ') || (*p) == '\t') { len--; p++; };
+            extend -= TAB_PIXELS;
+            x += TAB_PIXELS;
+            break;
+
+        default:
+            p = chars;    // jump over the first char
+    }
+
+    old = start[0] = p;
+    
     i=0;
     wlength=0;
 
     // count and memorize words
     wordx=len;
-    for (p = chars+1; --wordx; p++) {
+    for (p++; --wordx; p++) {
         switch (*p) {
             case '\t':
                 Tab_WinDrawChars (chars, len, x, y);

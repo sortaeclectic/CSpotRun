@@ -184,8 +184,12 @@ void Doc_open(UInt16 cardNo, LocalID dbID, char name[dmDBNameLength])
     gDoc.recLens = MemHandleLock(gDoc.recLensHandle);
     ErrFatalDisplayIf(!gDoc.recLens, "r");
 
+#ifdef SUPER0
     gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens, false);
-
+#else
+    gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens);
+#endif
+    
     //load prefs for this document
     DocPrefs_loadPrefs(name, &_docPrefs);
 
@@ -245,8 +249,10 @@ void Doc_drawPage()
 
     screenWindow = WinGetDrawWindow();
 
+#ifdef ENABLE_AUTOSCROLL
     Doc_pixelScrollClear(false);
-
+#endif
+    
     if(_boundsChanged == true)
     {
         if(osPageWindow)
@@ -611,12 +617,21 @@ static void _drawPage(RectanglePtr boundsPtr,
 #endif
 
     if(drawOffscreenPart)
+#ifdef ENABLE_AUTOSCROLL
         linesToShow = (boundsPtr->extent.y + _osExtraForAS) / _lineHeight + 1;
+#else    
+        linesToShow = (boundsPtr->extent.y) / _lineHeight + 1;
+#endif    
     else
         linesToShow = (boundsPtr->extent.y) / _lineHeight;
 
-    y = boundsPtr->topLeft.y - _pixelOffset;
 
+#ifdef ENABLE_AUTOSCROLL
+    y = boundsPtr->topLeft.y - _pixelOffset;
+#else
+    y = boundsPtr->topLeft.y;
+#endif
+    
     p = & gDoc.decodeBuf[_docPrefs.location.ch];
     _draw_buf_len=0;
 
@@ -772,6 +787,7 @@ static void _loadCurrentRecord()
                            gDoc.decodeBuf,
                            recToLoad, gDoc.decodeBufLen-1);
 
+#ifdef SUPER0
         // Compare this decoded len to the one stored in the RECORD0
         // If we find a bug, recompute the table to fix it directly in the RECORD0
         if (gDoc.decodeLen != gDoc.recLens[recToLoad - 1]) {
@@ -781,7 +797,8 @@ static void _loadCurrentRecord()
             } else if (gDoc.decodeLen != (gDoc.recLens[recToLoad - 1]-1))
                 gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens, true);
         }
-
+#endif
+        
         gDoc.recordDecoded = _docPrefs.location.record;
 
         /* If this is the last record, make the null appear to belong
@@ -1077,6 +1094,8 @@ void Doc_prepareForPixelScrolling()
     fromRect.extent.y = _lineHeight;
     fromRect.topLeft.x = 0;
     fromRect.topLeft.y = _apparentTextBounds.extent.y-fromRect.extent.y;
+
+#ifdef ENABLE_ROTATION    
     if (_docPrefs.orient == angle0)
     {
         WinCopyRectangle(osPageWindow, w, &fromRect,
@@ -1089,6 +1108,12 @@ void Doc_prepareForPixelScrolling()
                     _apparentTextBounds.extent.y-1,
                     _docPrefs.orient);
     }
+#else
+        WinCopyRectangle(osPageWindow, w, &fromRect,
+                     _textGadgetBounds.topLeft.x + fromRect.topLeft.x,
+                     _textGadgetBounds.topLeft.y + fromRect.topLeft.y,
+                     winPaint);
+#endif
 }
 
 void Doc_pixelScroll()
@@ -1099,11 +1124,16 @@ void Doc_pixelScroll()
     Boolean       endOfDocument;
 
     drawWindow = WinGetDrawWindow();
+
+#ifdef ENABLE_ROTATION
     if (_docPrefs.orient == angle0)
         WinScrollRectangle(&_textGadgetBounds, winUp, 1, &vacated);
     else
         RotScrollRectangleUp(&_textGadgetBounds, _docPrefs.orient);
-
+#else
+        WinScrollRectangle(&_textGadgetBounds, winUp, 1, &vacated);
+#endif
+    
     WinSetDrawWindow(osPageWindow);
 
     // if scrolled enough to draw a line, scroll down 1 and draw the page.
@@ -1131,6 +1161,7 @@ void Doc_pixelScroll()
 
     WinSetDrawWindow(drawWindow);
 
+#ifdef ENABLE_ROTATION
     if (_docPrefs.orient == angle0)
     {
         RectangleType fromRect;
@@ -1153,6 +1184,20 @@ void Doc_pixelScroll()
                         _apparentTextBounds.extent.y-1,
                         _docPrefs.orient);
     }
+#else
+    {
+        RectangleType fromRect;
+        //Now fill in the gap at the bottom
+        fromRect.extent.x = _apparentTextBounds.extent.x;
+        fromRect.extent.y = _lineHeight;
+        fromRect.topLeft.x = 0;
+        fromRect.topLeft.y = _apparentTextBounds.extent.y-fromRect.extent.y;
+        WinCopyRectangle(osPageWindow, drawWindow, &fromRect,
+                         _textGadgetBounds.topLeft.x + fromRect.topLeft.x,
+                         _textGadgetBounds.topLeft.y + fromRect.topLeft.y,
+                         winPaint);
+    }
+#endif    
 }
 
 void Doc_pixelScrollClear(Boolean forceReset)
