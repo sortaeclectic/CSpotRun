@@ -290,8 +290,6 @@ UInt16 Hyphen_FntWordWrap (Char* chars, UInt16 extend)
  * Greg Lee, 4/10/92.
  */
 
-#include <ctype.h>
-
 #ifdef SAVE_HYPHEN_PDB
 #include "hyph_eng.h"
     extern unsigned short *trie_link;
@@ -495,6 +493,9 @@ void savePDB (MemPtr cmdPBP)
     DmCloseDatabase (hyph);
 }
 #endif
+
+# define tolower(c) \
+    ({ unsigned char __x = (c); TxtCharIsUpper(__x) ? (__x - 'A' + 'a') : __x;})
 
 //
 // Make the real hyphenation
