@@ -23,9 +23,10 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
 void RotScrollRectangleUp(RectangleType *rect, OrientationType o) ROTATE_SEGMENT;
 #else
 void RotCopyWindow(WinHandle fromWindowH, int ox, int oy, OrientationType a) ROTATE_SEGMENT;
-#endif
+#endif /* ENABLE_AUTOSCROLL */
 
 int RotateY(int x, int y, OrientationType a) ROTATE_SEGMENT;
+Boolean RotCanDoRotation();
 
-#endif
+#endif /* ENABLE_ROTATION */
 #endif

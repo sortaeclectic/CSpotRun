@@ -22,6 +22,7 @@
 #include "resources.h"
 #include "ucgui.h"
 #include "appstate.h"
+#include "rotate.h"
 
 struct UCGUI_ELEM_STR
 {
@@ -185,6 +186,10 @@ static void moveListToPopup(FormPtr formPtr, UInt16 popupID, UInt16 listID)
 
 static Boolean isControlAllowed(UInt16 id)
 {
+#ifdef ENABLE_ROTATION
+    if (id == buttonID_rotateLeft || id == buttonID_rotateRight)
+        return RotCanDoRotation();
+#endif
     return true;
 }
 

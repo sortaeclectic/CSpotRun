@@ -138,6 +138,23 @@ void Doc_makeSettingsDefault()
     MemMove(&appStatePtr->defaultDocPrefs, &_docPrefs, sizeof(_docPrefs));
 }
 
+static WinHandle myWinCreateOffscreenWindow(Coord width, Coord height,
+                                            UInt16 *error) 
+{
+    UInt32 version;
+    Err err = 0;
+    WindowFormatType format;
+
+    err = FtrGet(sysFtrCreator, sysFtrNumWinVersion, &version);
+    if (version >= 4)
+        format = nativeFormat;
+    else 
+        format = screenFormat;
+
+    return WinCreateOffscreenWindow(width, height,
+                                    format, error);
+}
+
 void Doc_open(UInt16 cardNo, LocalID dbID, char name[dmDBNameLength])
 {
     UInt16 dbAttrs = 0;
@@ -257,14 +274,12 @@ void Doc_drawPage()
         if(osPageWindow)
             WinDeleteWindow(osPageWindow, false);
 #ifdef ENABLE_AUTOSCROLL
-        osPageWindow = WinCreateOffscreenWindow(_apparentTextBounds.extent.x,
+        osPageWindow = myWinCreateOffscreenWindow(_apparentTextBounds.extent.x,
                         _apparentTextBounds.extent.y + _osExtraForAS,
-                                                screenFormat,
                                                 &errorUInt16);
 #else
-        osPageWindow = WinCreateOffscreenWindow(_apparentTextBounds.extent.x,
+        osPageWindow = myWinCreateOffscreenWindow(_apparentTextBounds.extent.x,
                                                 _apparentTextBounds.extent.y,
-                                                screenFormat,
                                                 &errorUInt16);
 #endif
         ErrFatalDisplayIf(NULL == osPageWindow, "f1");
@@ -609,9 +624,9 @@ static void _drawPage(RectanglePtr boundsPtr,
     osLineBounds.topLeft.x = osLineBounds.topLeft.y = 0;
     osLineBounds.extent.x = boundsPtr->extent.x;
     osLineBounds.extent.y = FntBaseLine()+FntDescenderHeight();
-    osLineWindow = WinCreateOffscreenWindow(osLineBounds.extent.x,
+    osLineWindow = myWinCreateOffscreenWindow(osLineBounds.extent.x,
                                             osLineBounds.extent.y,
-                                            genericFormat, &errorUInt16);
+                                            &errorUInt16);
     ErrFatalDisplayIf(NULL == osLineWindow, "f");
 
     //Set drawing to go to the osLine window

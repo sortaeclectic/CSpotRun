@@ -313,4 +313,23 @@ void RotScrollRectangleUp(RectangleType *rect, OrientationType o)
     WinScrollRectangle(rect, dir, 1, &vacated);
 
 }
+
+Boolean RotCanDoRotation() 
+{
+    UInt32 version;
+    Err err = 0;
+    
+    err = FtrGet(sysFtrCreator, sysFtrNumWinVersion, &version);
+
+    if (err)
+        /* This must be an old (pre-OS4?) OS. We can do rotation. */
+        return true; 
+    else if (version >= 4) 
+        /* version 4 has the hi-density api. here we assume that
+         * this implies that it's a hi-density device. */
+        return false;
+    else
+        return true;
+}
+
 #endif

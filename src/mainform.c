@@ -723,11 +723,14 @@ static void _changeHyphenation()
 #ifdef ENABLE_ROTATION
 static void        _rotate(int dir)
 {
-    OrientationType or = Doc_getOrientation();
-
-    or = (or+ORIENTATION_COUNT+dir) % ORIENTATION_COUNT;
-    Doc_setOrientation(or);
-    Doc_drawPage();
+    if (RotCanDoRotation()) 
+    {
+        OrientationType or = Doc_getOrientation();
+        
+        or = (or+ORIENTATION_COUNT+dir) % ORIENTATION_COUNT;
+        Doc_setOrientation(or);
+        Doc_drawPage();
+    }
 }
 #endif
 
