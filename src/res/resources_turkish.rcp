@@ -43,13 +43,13 @@ begin
                                     "Sayfalar arasý yukarý aþaðý gittiðinizde önceki "\ 
                                     "sayfanýn son satýrýný görmek istiyorsanýz "\   
                                     " \'Önceki sayfadan satýr göster\' seçeneðini  kullanýnýz.\n\n"\
-                                    "\'týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
+                                    "\'Týklayýnca\' seçeneði ekrana týkladýðýnýzda "\
                                     "ne yapýlmasý gerektiðini belirler.\n\n"\
-                                    "\'Oto.Kaydýrma Tipi ve Hýzý\' seçeneði ile otomatik kaydýrmanýn tipini ve hýzýný ayarlayabilirsiniz. "\
-				    "The \'Oto Kaydýrma Tipi\' yazýnýn çizgisel mi yoksa"\
-                                    "satýr satýr mý ilerleyeceðini belirler."\
-                                    "Çizgi ve Satýr tiplerinde en uygun deðerler sýrasýyla  20 ve 60 dýr."\
-                                    "Kaydýrma esnasýnda yukarý aþaðý butonlarýna basarak kendinize en uygun hýzý ayarlayabilirsiniz.\n\n"\
+                                    "\'Oto.Kaydýrma Tipi ve Hýzý\' seçeneði ile otomatik kaydýrmanýn tipini ve hýzýný ayarlayabilirsiniz.\n\n "\
+				    " \'Oto Kaydýrma Tipi\' yazýnýn çizgisel mi yoksa "\
+                                    "satýr satýr mý ilerleyeceðini belirler. "\
+                                    "Çizgi ve Satýr tiplerinde en uygun deðerler sýrasýyla  20 ve 60 olup "\
+                                    "kaydýrma esnasýnda yukarý aþaðý butonlarýna basarak kendinize en uygun hýzý ayarlayabilirsiniz.\n\n"\
                                     "\'Oto.Kaydýrma için Adres Butonu\' seçeneði aktif ise Otomatik Kaydýrma çalýþýrken Adres Defteri butonu ile durdurup devam ettirebilirsiniz."
 
     "$$NO DOCS"="Þu anda hiç DOC database yok!\n\nLütfen en az bir doküman yükledikten sonra CSpotRun\'ý yeniden çalýþtýrýn."
