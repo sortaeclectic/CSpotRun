@@ -61,6 +61,10 @@ static Boolean _SearchFormHandleEvent(EventType *e)
             switch (e->data.ctlSelect.controlID)
             {
                 case buttonID_ok:
+                    searchFromTop = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_searchFromTop)));
+                    appStatePtr->caseSensitive = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_caseSensitive)));
+                    Doc_doSearch(searchStringHandle, searchFromTop, appStatePtr->caseSensitive, formID_main);
+
                     HandleFormCloseEvent();// Because this form doesnt seem to get a frmCloseEvent on FrmReturnToForm.
                     FrmReturnToForm(0);
                     return true;
@@ -90,8 +94,7 @@ static void HandleFormOpenEvent()
     inputFieldPtr = FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, fieldID_searchString));
 
     FldSetTextHandle(inputFieldPtr, (Handle) searchStringHandle);
-
-    CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_searchFromTop)), false);
+	CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_searchFromTop)), false);
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_caseSensitive)), appStatePtr->caseSensitive);
 
     FrmDrawForm(formPtr);
@@ -104,12 +107,7 @@ static void HandleFormOpenEvent()
 
 static void HandleFormCloseEvent()
 {
-    searchFromTop = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_searchFromTop)));
-    appStatePtr->caseSensitive = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_caseSensitive)));
-
     FldSetTextHandle(inputFieldPtr, NULL);
     formPtr = NULL;
-
-    Doc_doSearch(searchStringHandle, searchFromTop, appStatePtr->caseSensitive, formID_main);
 }
 #endif

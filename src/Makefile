@@ -18,9 +18,9 @@ GNUTURDS = ../copying.txt ../readme.txt
 
 
 PROGNAME = CSpotRun
-VERSION = 0.6
+VERSION = 0.7
 APPID = CSBR
-LANGUAGES = english german spanish
+LANGUAGES = english german spanish french
 ICONTEXT = $(PROGNAME)
 
 OBJS = pilotmain.o mainform.o doclist.o doc.o \
@@ -28,7 +28,7 @@ OBJS = pilotmain.o mainform.o doclist.o doc.o \
 		fontselect.o ucgui.o rotate.o prefsform.o searchform.o
 
 #CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH
-CSR_OPTIONS = DEBUG ENABLE_ROTATION 
+CSR_OPTIONS = DEBUG ENABLE_ROTATION ENABLE_SEARCH
 DEFINES = -DAPPID=$(APPID) -DappId=\'$(APPID)\' -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL $(foreach opt, $(CSR_OPTIONS), -D$(opt))
 #CFLAGS =  -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch
 CFLAGS =   -O2  $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch
@@ -46,7 +46,7 @@ RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) def
 					}'
 
 PRCS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).prc)
-ZIPS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).zip)
+ZIPS = $(foreach lang, $(LANGUAGES), $(PROGNAME)_$(lang).zip) CSpotRun.zip
 
 englishprconly: CSpotRun_english.prc
 allprcs: $(PRCS) 
@@ -56,9 +56,8 @@ zips: $(ZIPS) CSpotRun.zip
 release: $(ZIPS) $(PRCS)
 	cp $(ZIPS) $(PRCS) $(OUTPUTDIR)
 
-
 CSpotRun.zip:
-	$(ZIP) -add ../output/CSpotRun.zip $(PRCS) $(GNUTURDS)
+	$(ZIP) -add CSpotRun.zip $(PRCS) $(GNUTURDS)
 
 $(PROGNAME)_%.zip: $(PROGNAME)_%.prc
 	$(ZIP)  -add $@ $^ $(GNUTURDS); 

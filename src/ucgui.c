@@ -42,7 +42,7 @@ struct UCGUI_ELEM_STR
                                   ROTATION_BUTTON_COUNT + \
                                   SEARCH_BUTTON_COUNT)
 
-#define DEFAULT_UCGUI_WORD 0xFFFF
+#define DEFAULT_UCGUI_WORD (0xFFFF - (1<<11) - (1<<12))
 
 //Note that these get added in this order!
 static const struct UCGUI_ELEM_STR gElements[UCGUI_ELEM_COUNT] =

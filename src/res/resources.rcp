@@ -1,3 +1,29 @@
+/*
+ * CSpotRun: A doc-format database reader for the Palm Computing Platform.
+ * Copyright (C) 1998,1999  by Bill Clagett (wtc@pobox.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
+/*
+ * CONTRIBUTORS:
+ *    French translation: Vincent Poty (vincent_poty@yahoo.fr)
+ *    German translation: Arne Nickel (arne.nickel@gmx.de)
+ *    Spanish translation: Marcelo Rinesi (rinesi@espacio.com.ar)
+ */
+
 #include "fixed_resources.h"
 
 TRANSLATION "english"
@@ -66,6 +92,108 @@ begin
     "$$FONT 2"="Font 2"
     "$$FONT 3"="Font 3"
     "$$FONT 4"="Font 4"
+    
+    "$$FIND"="Find"
+    "$$FIND AGAIN"="Find Again"
+    "$$FINDDDD"="Find..."
+    "$$FIND IN DOCUMENT"="Find in Document"
+    "$$FIND PROMPT"="Find:"
+    "$$SEARCH FROM TOP"="Search from top"
+    "$$CASE SENSITIVE"="Case sensitive"
+/*
+    "$$SC GOTO PER"="G"
+    "$$SC PICK DOC"="D"
+    "$$SC FONT 1"="1"
+    "$$SC FONT 2"="2"
+    "$$SC FONT 3"="3"
+    "$$SC FONT 4"="4"
+    "$$SC LINESPACING 1"="L"
+    "$$SC LINESPACING 2"="M"
+    "$$SC LINESPACING 3"="N"
+    "$$SC ROTATE RIGHT"="R"
+    "$$SC ROTATE LEFT"="S"
+    "$$SC SEARCHDDD"="F"
+    "$$SC SEARCH AGAIN"="G"
+    "$$SC TOGGLE CONTROLS"="T"
+    "$$SC MAKE DEFAULT"="M"
+    "$$SC CONTROLSDDD"="C"
+    "$$SC PREFERENCESDDD"="P"
+*/    
+end
+
+TRANSLATION "french"
+begin
+    "$$DOC"="Doc"
+
+    "$$FONTS"="Polices"
+    "$$CONFIGURE CONTROLS"="Configuration des boutons"
+    "$$ROTATE"="Rotation"
+    "$$SPACING"="Espacement"
+    "$$GOTO PER"="Aller à %"
+    "$$PICK DOC"="Choix d'un document"
+
+    "$$GLOBAL PREFERENCES"="Options générales"
+    "$$SWAP UPDOWN"="Inverser haut et bas en vue latérale"
+
+    "$$SHOW PREV LINE"="Ligne de la page précédente"
+    "$$TAP ACTION"="En tappant"
+    "$$PAGE"="Page"
+    "$$HALF PAGE"="1/2 page"
+    "$$LINE"="Ligne"
+
+    "$$TOP"="Début"
+    "$$BOTTOM"="Fin"
+
+    "$$PICK DOC"="Choisir"
+    "$$DELETE DOC"="Supprimer"
+    "$$MAKE DEFAULT"="Enregistrer les options"
+
+    "$$VIEW"="Vue"
+    "$$FONT 1"="Police 1"
+    "$$FONT 2"="Police 2"
+    "$$FONT 3"="Police 3"
+    "$$FONT 4"="Police 4"
+    "$$LINE SPACING 1"="Interligne 1"
+    "$$LINE SPACING 2"="Interligne 2"
+    "$$LINE SPACING 3"="Interligne 3"
+    "$$ROTATE RIGHT"="Basculer à droite"
+    "$$ROTATE LEFT"="Basculer à gauche"
+    "$$OPTIONS"="Options"
+    "$$TOGGLE CONTROLS"="Plein écran"
+    "$$CONTROLSDDD"="Boutons..."
+    "$$PREFERENCESDDD"="Préférences..."
+    "$$ABOUTDDD"="A propos de CSpotRun..."
+
+    "$$ABOUT TITLE"="A propos de CSpotRun"
+    "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
+      "© 1998-1999 Bill Clagett\n"\
+      "wtc@pobox.com\n\n"\
+      "Le code source de ce programme est distribué selon les "\
+      "termes de la Licence Publique Générale GNU (GPL). Vous "\
+      "pouvez trouver celle-ci sur www.gnu.org/copyleft/gpl.html .\n\n"\
+      "Le code source et la dernière version sont disponibles sur "\
+      "www.pobox.com/~wtc/palmos/cspotrun/."
+
+    "$$DELETE PROMPT"="Supprimer définitivement \"^1\" ?"
+    "$$CONFIRM DELETE"="Confirmer la suppression"
+    "$$CANCEL"="Annuler"
+
+    "$$CONTROLS HELP"="Chaque case correspond à un bouton sur l'écran. "\
+        "Cochez les cases correspondant aux boutons que vous voulez voir "\
+        "apparaître. \n\nPensez à cacher les boutons que vous utilisez rarement. "\
+        "Chaque bouton a un équivalent dans le menu."
+        
+    "$$GLOBAL PREFS HELP"="Utiliser l'option \'Inverser haut et bas en vue latérale\' "\
+        "pour inverser l'effet des boutons \'haut\' et \'bas\' de l'appareil "\
+        "lorsque le texte est en vue latérale.\n\n"\
+        "Utiliser \'Ligne de la page précédente\' pour rappeler à l'écran "\
+        "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
+        "L'option \'En tappant\' définit l'ampleur de déplacement du texte lorsque "\
+        "le stylet touche le document à l'écran."
+        
+    "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
+                "Essayez à nouveau CSpotRun après avoir installé un ou "\
+                "plusieurs documents au format DOC."
 end
 
 TRANSLATION "spanish"
@@ -110,6 +238,13 @@ begin
     "$$CONTROLSDDD"="Controles..."
     "$$PREFERENCESDDD"="Preferencias..."
     "$$ABOUTDDD"="Sobre CSpotRun..."
+
+    "$$FIND"="Buscar Texto"
+    "$$FINDDDD"="Buscar Texto..."
+    "$$FIND IN DOCUMENT"="Buscar Texto en Documento"
+    "$$FIND PROMPT"="Texto:"
+    "$$SEARCH FROM TOP"="Buscar desde el inicio"
+    "$$CASE SENSITIVE"="Discriminar Mayúsculas"
 
     "$$ABOUT TITLE"="Sobre CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -183,6 +318,14 @@ begin
     "$$PREFERENCESDDD"="Einstellungen..."
     "$$ABOUTDDD"="CSpotRun Info...    "
 
+    "$$FIND"="Suchen"
+    "$$FIND AGAIN"="Weitersuchen"
+    "$$FINDDDD"="Suchen..."
+    "$$FIND IN DOCUMENT"="Find in Document"
+    "$$FIND PROMPT"="Suchen:"
+    "$$SEARCH FROM TOP"="Ab Dokumentanfang"
+    "$$CASE SENSITIVE"="Groß-/Kleinschreibung"
+
     "$$ABOUT TITLE"="Über CSpotRun"
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         "© 1998-1999 Bill Clagett\n"\
@@ -231,8 +374,8 @@ BEGIN
     BUTTON "\04" ID buttonID_rotateRight    AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) NOFRAME FONT 3
 #endif    
 #ifdef ENABLE_SEARCH
-    BUTTON "S"    ID buttonID_search        AT (prevright+1 PREVTOP AUTO PREVHEIGHT) 
-    BUTTON "SA" ID buttonID_searchAgain    AT (prevright+1 PREVTOP AUTO PREVHEIGHT) 
+    BUTTON "F"    ID buttonID_search        AT (prevright+1 PREVTOP 8 PREVHEIGHT) 
+    BUTTON "FA" ID buttonID_searchAgain    AT (prevright+1 PREVTOP 14 PREVHEIGHT) 
 #endif
     GADGET ID gadgetID_lineSpacing0 AT (prevright+4 PREVTOP 7 PREVHEIGHT) 
     GADGET ID gadgetID_lineSpacing1 AT (prevright+1 PREVTOP PREVWIDTH PREVHEIGHT) 
@@ -251,7 +394,7 @@ BEGIN
     POPUPLIST popupID_percent listID_percent
 END
 
-FORM ID formID_controls AT (2 42 156 116)
+FORM ID formID_controls AT (2 12 156 146)
 FRAME
 MODAL
 USABLE
@@ -260,8 +403,8 @@ HELPID stringID_controlsHelp
 BEGIN
     TITLE "$$CONFIGURE CONTROLS"
 
-    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@116-3 50 AUTO) 
-    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@116-3 50 AUTO) 
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@146-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@146-3 50 AUTO) 
 
     CHECKBOX "" ID checkboxID_UCGUI0        AT (30 20 10 auto) USABLE LEFTANCHOR 
     CHECKBOX "" ID checkboxID_UCGUI0+1    AT (PREVLEFT PREVBOTTOM+0 10 auto) USABLE LEFTANCHOR 
@@ -316,12 +459,12 @@ MODAL
 USABLE
 DEFAULTBTNID buttonID_ok
 BEGIN
-    TITLE "Search for String"
-    LABEL "String" ID 9001 AT (10 20)
+    TITLE "$$FIND IN DOCUMENT"
+    LABEL "$$FIND PROMPT" ID 9001 AT (10 20)
     FIELD ID fieldID_searchString AT (PREVRIGHT+2 PREVTOP 113 auto) UNDERLINED USABLE EDITABLE DYNAMICSIZE MAXCHARS 40
 
-    CHECKBOX "Case Sensitive" ID checkboxID_caseSensitive at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
-    CHECKBOX "Search From Top" ID checkboxID_searchFromTop at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
+    CHECKBOX "$$CASE SENSITIVE" ID checkboxID_caseSensitive at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
+    CHECKBOX "$$SEARCH FROM TOP" ID checkboxID_searchFromTop at (10 PREVBOTTOM+5 auto auto) USABLE LEFTANCHOR 
 
     BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@91-3 50 AUTO) 
     BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@91-3 50 AUTO) 
@@ -332,40 +475,40 @@ MENU ID menuID_main
 BEGIN
     PULLDOWN "$$DOC"
     BEGIN
-        MENUITEM "$$GOTO PER"            menuitemID_percent        "G"
+        MENUITEM "$$GOTO PER"        menuitemID_percent         "G"
         menuitem separator
-        MENUITEM "$$PICK DOC"            menuitemID_doc        "D"        
-        MENUITEM "$$DELETE DOC"        menuitemID_delete    
+        MENUITEM "$$PICK DOC"        menuitemID_doc             "D"
+        MENUITEM "$$DELETE DOC"      menuitemID_delete    
     END    
     PULLDOWN "$$VIEW"
     BEGIN
-        MENUITEM "$$FONT 1"            menuitemID_font0    "1"
-        MENUITEM "$$FONT 2"            menuitemID_font1    "2"
-        MENUITEM "$$FONT 3"            menuitemID_font2    "3"
-        MENUITEM "$$FONT 4"            menuitemID_font3    "4"
-        MENUITEM SEPARATOR
-        MENUITEM "$$LINE SPACING 1"    menuitemID_lineSpacing0    "L"
-        MENUITEM "$$LINE SPACING 2"    menuitemID_lineSpacing1    "M"
-        MENUITEM "$$LINE SPACING 3"    menuitemID_lineSpacing2    "N"
+        MENUITEM "$$FONT 1"          menuitemID_font0           "1"
+        MENUITEM "$$FONT 2"          menuitemID_font1           "2"
+        MENUITEM "$$FONT 3"          menuitemID_font2           "3"
+        MENUITEM "$$FONT 4"          menuitemID_font3           "4"
+        MENUITEM SEPARATOR 
+        MENUITEM "$$LINE SPACING 1"  menuitemID_lineSpacing0    "L"
+        MENUITEM "$$LINE SPACING 2"  menuitemID_lineSpacing1    "M"
+        MENUITEM "$$LINE SPACING 3"  menuitemID_lineSpacing2    "N"
 #ifdef ENABLE_ROTATION
         MENUITEM SEPARATOR
-        MENUITEM "$$ROTATE RIGHT"        menuitemID_rotateRight    "R"
-        MENUITEM "$$ROTATE LEFT"        menuitemID_rotateLeft    "S"
+        MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
+        MENUITEM "$$ROTATE LEFT"     menuitemID_rotateLeft      "S"
 #endif
 #ifdef ENABLE_SEARCH
         MENUITEM SEPARATOR
-        MENUITEM "Search"            menuitemID_search        "H"
-        MENUITEM "Search Again    " menuitemID_searchAgain    "I"
+        MENUITEM "$$FINDDDD"         menuitemID_search          "F"
+        MENUITEM "$$FIND AGAIN"      menuitemID_searchAgain     "G"
 #endif
     END
     PULLDOWN "$$OPTIONS"
     BEGIN
-        MENUITEM "$$TOGGLE CONTROLS"        menuitemID_controls        "T"
-        MENUITEM "$$MAKE DEFAULT"            menuitemID_makeDefault    "K"
+        MENUITEM "$$TOGGLE CONTROLS" menuitemID_controls        "T"
+        MENUITEM "$$MAKE DEFAULT"    menuitemID_makeDefault     "K"
         menuitem separator
-        MENUITEM "$$CONTROLSDDD"            menuitemID_controlPrefs    "C"
-        MENUITEM "$$PREFERENCESDDD"        menuitemID_globalPrefs    "P"
-        MENUITEM "$$ABOUTDDD"                menuitemID_about        "A"
+        MENUITEM "$$CONTROLSDDD"     menuitemID_controlPrefs    "C"
+        MENUITEM "$$PREFERENCESDDD"  menuitemID_globalPrefs     "P"
+        MENUITEM "$$ABOUTDDD"        menuitemID_about       
     END
 END
 
@@ -400,8 +543,8 @@ STRING ID    stringID_ucguiSpacing        "$$SPACING"
 STRING ID    stringID_ucguiGotoPerc        "$$GOTO PER"
 STRING ID    stringID_ucguiPickDoc        "$$PICK DOC"
 #ifdef ENABLE_SEARCH
-    STRING ID    stringID_ucguiSearch        "Search"
-    STRING ID    stringID_ucguiSearchAgain    "Search Again"
+    STRING ID    stringID_ucguiSearch        "$$FIND"
+    STRING ID    stringID_ucguiSearchAgain    "$$FIND AGAIN"
 #endif
 
 STRING ID    stringID_noDocs            "$$NO DOCS" 

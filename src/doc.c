@@ -266,38 +266,12 @@ static void _drawPage(RectanglePtr boundsPtr)
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Doc_linesDown(Word linesToMove)
-{
-    char*    p;
-    FontID oldFont;
 
-    oldFont = FntGetFont();
-    FntSetFont(_docPrefs.font);
-
-    p = & _decodeBuf[_docPrefs.location.ch];
-
-    // advance p through linesToShow lines of worth of characters
-    while(linesToMove--)
-        p += FntWordWrap(p, _apparentTextBounds.extent.x);
-
-
-    // Advance the current location by how far we advanced p
-    _docPrefs.location.ch += (p - & _decodeBuf[_docPrefs.location.ch]);
-    _loadCurrentRecord();
-
-    _scrollUpIfLastPage();
-
-    FntSetFont(oldFont);
-}
-
-static void _scrollUpIfLastPage()
+static Boolean _onLastPage()
 {
     char*    p;
     int        linesToShow;
     FontID oldFont;
-
-    if (_docPrefs.location.ch == 0 && _docPrefs.location.record == 0)
-        return;
 
     oldFont = FntGetFont();
     FntSetFont(_docPrefs.font);
@@ -308,14 +282,52 @@ static void _scrollUpIfLastPage()
     while(linesToShow--)
         p += FntWordWrap(p, _apparentTextBounds.extent.x);
 
+    FntSetFont(oldFont);
+
+    return (*p == NULL);
+}
+
+void Doc_linesDown(Word linesToMove)
+{
+    char*    p;
+    FontID oldFont;
+
+    if (_onLastPage())
+        return;
+
+    oldFont = FntGetFont();
+    FntSetFont(_docPrefs.font);
+
+    p = & _decodeBuf[_docPrefs.location.ch];
+
+    // advance p through linesToShow lines of worth of characters
+    while(linesToMove--)
+        p += FntWordWrap(p, _apparentTextBounds.extent.x);
+
+    // Advance the current location by how far we advanced p
+    _docPrefs.location.ch += (p - & _decodeBuf[_docPrefs.location.ch]);
+    _loadCurrentRecord();
+
+    //_scrollUpIfLastPage();
+
+    FntSetFont(oldFont);
+}
+
+static void _scrollUpIfLastPage()
+{
+    if (_docPrefs.location.ch == 0 && _docPrefs.location.record == 0)
+        return;
+
     //if it was, go to end and page up.
-    if (! *p)
+    if (_onLastPage())
     {
+        char* p = & _decodeBuf[_docPrefs.location.ch];
+        while (*p)
+            p++;
         _docPrefs.location.ch += (p - & _decodeBuf[_docPrefs.location.ch]);
         _loadCurrentRecord();
         Doc_scroll(PAGEDIR_UP, TA_PAGE);
     }
-    FntSetFont(oldFont);
 }
 
 void Doc_linesUp(Word linesToMove)
@@ -328,16 +340,20 @@ void Doc_linesUp(Word linesToMove)
     FntSetFont(_docPrefs.font);
 
     lastCharIndex = _docPrefs.location.ch;
+/*
     //Prev page will end at end of this page's first line.
-    lastCharIndex = _docPrefs.location.ch
-                    + FntWordWrap(&_decodeBuf[_docPrefs.location.ch], _apparentTextBounds.extent.x);//xxx-1;
-    linesToMove++; //Because we are starting one line past start of page.
-
+    if (!_onLastPage())
+    {
+        lastCharIndex += FntWordWrap(&_decodeBuf[_docPrefs.location.ch], _apparentTextBounds.extent.x);//xxx-1;
+        linesToMove++; //Because we are starting one line past start of page.
+    }
+*/
     while(true)
     {
         //Try to wrap back a whole page.
         firstCharIndex = lastCharIndex;
-        FntWordWrapReverseNLines(_decodeBuf, _apparentTextBounds.extent.x, &linesToMove, &firstCharIndex);
+        if (firstCharIndex != 0)
+            FntWordWrapReverseNLines(_decodeBuf, _apparentTextBounds.extent.x, &linesToMove, &firstCharIndex);
 
         //If that only got back to the beginning of the decode buffer and it wasn't the first record...
         if (firstCharIndex == 0 && _docPrefs.location.record > 1)
@@ -663,9 +679,9 @@ void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop, Boolean ca
 
     if (found && formId)
     {
-        _loadCurrentRecord();
+//        _loadCurrentRecord();
 //        _rewindToStartOfWord();
-//        _movePastWord();_loadCurrentRecord();Doc_linesUp(1);
+        _movePastWord();_loadCurrentRecord();Doc_linesUp(1);
 //        _loadCurrentRecord();Doc_linesDown(1);Doc_linesUp(1);
 
         FrmUpdateForm(formId, 0);
@@ -678,39 +694,56 @@ void Doc_doSearch(VoidHand searchStringHandle, Boolean searchFromTop, Boolean ca
 
 }
 
-//_findString works a lot like FindStrInStr
+//_findString works a lot like FindStrInStr. Except correctly. And optionally case-sensitively.
 static Boolean _findString(CharPtr haystack, CharPtr needle, WordPtr foundPos, Boolean caseSensitive)
 {
     UInt    needleLen = StrLen(needle);
+    UInt    haystackLen = StrLen(haystack);
+    Boolean rv;
+    CharPtr foundPtr;
 
-    if (caseSensitive)
+    if (! caseSensitive)
     {
-        CharPtr foundPtr = StrStr(haystack, needle);
-        if (foundPtr)
-        {
-            *foundPos = foundPtr - haystack;
-            return true;
-        }
-        else
-            return false;
-    }
-    else
-    {
+        //FindStrInStr will only find the search string if is at the beginning of a word. So, it will
+        //find "foo" in "foobar" but not in "barfoo".
+        //Really should just write our own FindStrInStr...
+
         BytePtr convTable = GetCharCaselessValue();
-        CharPtr caselessString = (CharPtr) MemHandleLock(MemHandleNew(needleLen+1));
+        CharPtr clNeedle = (CharPtr) MemHandleLock(MemHandleNew(needleLen+1));
+        CharPtr clHaystack = (CharPtr) MemPtrNew(haystackLen+1); //yuck.
         Boolean toReturn;
         UInt    i;
 
         for(i = 0; i < needleLen; i++)
-            caselessString[i] = convTable[needle[i]];
-        caselessString[i]='\0';
+            clNeedle[i] = convTable[needle[i]];
+        clNeedle[i]='\0';
 
-        toReturn = FindStrInStr(haystack, caselessString, foundPos);
+        for(i = 0; i < haystackLen; i++)
+            clHaystack[i] = convTable[haystack[i]];
+        clHaystack[i]='\0';
 
-        MemPtrFree(caselessString);
-
-        return toReturn;
+        haystack = clHaystack;
+        needle = clNeedle;
     }
+
+    foundPtr = StrStr(haystack, needle);
+    if (foundPtr)
+    {
+        *foundPos = foundPtr - haystack;
+        rv = true;
+    }
+    else
+    {
+        rv = false;
+    }
+
+    if (! caseSensitive)
+    {
+        MemPtrFree((void*)needle);
+        MemPtrFree((void*)haystack);
+    }
+
+    return rv;
 }
 
 static void _rewindToStartOfWord()
@@ -731,9 +764,11 @@ static void _movePastWord()
     {
         _docPrefs.location.ch++;
     }
+/*
     while (IsSpace(attrs, _decodeBuf[_docPrefs.location.ch]))
     {
         _docPrefs.location.ch++;
     }
+*/
 }
 #endif
