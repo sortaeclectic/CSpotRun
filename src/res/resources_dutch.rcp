@@ -8,19 +8,23 @@ begin
     "$$AUTOSCROLL"="Auto Doorvoer"
     "$$AUTOSCROLL TYPE AND SPEED"="Autodoorvoer Type en Snelheid:"
     "$$PIXEL"="Pixel"
-    "$$TOGGLE AUTOSCROLL"="Autodoorvoer op Addr. Boek Knop"
+    "$$TOGGLE AUTOSCROLL"="Autodoorvoer Addr. Boek Knop"
     "$$GOTO PER"="Ga naar %"
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
         "© 1998-2000 Bill Clagett\n"\
         "bill@32768.com\n\n"\
         "De broncode voor dit programma is verspreid onder"\
-        "de GNU General Public License (GPL). U kunt deze"\
+        "de GNU General Public License (GPL). U kunt deze "\
         "vinden op: http://www.gnu.org/copyleft/gpl.html\n\n"\
         "De broncode en de nieuwste versie is beschikbaar op:"\
         "http://32768.com/cspotrun/\n\n"\
         ""\
         "Bijdragen van:\n\n"\
+        "Aa Schreuder\n"\
+        "Robbert Flipse\nrobbert@flipse-partners.nl\n"\
+       	"Dutch translation\n"\
+       	"\n"\
         "Daniel Zahn\nsclug@sclug.org\nAuto-doorvoer\n"
 
     "$$CONTROLS HELP"="Elk vakje komt overeen met een knop onderin het scherm "\
@@ -28,21 +32,21 @@ begin
                                 "U kunt knoppen verbergen die u zelden gebruikt. "\
                                 "Alle knoppen komen overeen met een optie in het menu."
     "$$GLOBAL PREFS HELP"="Gebruik de \' Wissel op/neer als overdwars\' optie om de"\
-                                    "functie van de pagina op en neer knoppen om te wisselen"\
+                                    "functie van de pagina op en neer knoppen om te wisselen "\
                                     "als het scherm geroteerd is.\n\n"\
                                     "Gebruik de \'Toon regel van vorige pagina\' optie om een enkele "\
                                     "regel van de vorige pagina te tonen bij pagina op en neer.\n\n"\
                                     "De \'tik actie\' keuze bepaalt welke actie uitgevoerd wordt al u"\
                                     "op het schep tikt.\n\n"\
-                                    "De \'Auto Doorvoer Snelheid\' optie regelt de snelheid van autodoorvoer. De getallen"\
-                                    "zijn in 100-sten seconden. 15-20 is de aanbevolen snelheid. "\
+                                    "De \'Auto Doorvoer Snelheid\' optie regelt de snelheid van autodoorvoer. De getallen "\
+                                    "zijn in 1/100e seconden. 15-20 is de aanbevolen snelheid. "\
                                     "Tijdens autodoorvoer kunnen de pagina op en neer"\
                                     "knoppen gebruikt worden om de snelheid te regelen.\n\n"\
                                     "De \'Auto Doorvoer Type\` keuze bepaalt op de tekst "\
                                     "per pixel of per regel doorgevoerd wordt."
 
                                     
-    "$$NO DOCS"="Er zijn geen DOC bestanden geinstalleerd!\n\nProbeer CSpotRun aub nadat u een paar ducementen geinstalleerd heeft."
+    "$$NO DOCS"="Er zijn geen DOC bestanden geinstalleerd!\n\nProbeer CSpotRun aub nadat u een paar documenten geinstalleerd heeft."
 
     "$$ERROR ALERT"="Oeps!"
 
@@ -73,7 +77,7 @@ begin
     "$$DELETE DOC"="Wis Doc"
     "$$CONFIRM DELETE"="Bevestig Wissen"
     "$$CANCEL"="Annuleren"
-    "$$MAKE DEFAULT"="Maak Instellingen Standaard "
+    "$$MAKE DEFAULT"="Maak Inst. Standaard "
     "$$VIEW"="Beeld"
     "$$FONT 1"="Lettertype 1"
     "$$FONT 2"="Lettertype 2"
@@ -86,7 +90,7 @@ begin
     "$$FIND IN DOCUMENT"="Zoek in Document"
     "$$FIND PROMPT"="Zoek:"
     "$$SEARCH FROM TOP"="Zoek vanaf begin"
-    "$$CASE SENSITIVE"="Hoofd/kleine letters"
+    "$$CASE SENSITIVE"="Hoofd/Kleine letters"
     "$$FIND BUTTON"="Z"
     "$$FIND AGAIN BUTTON"="ZO"
 /*
