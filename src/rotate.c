@@ -141,8 +141,9 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
         toWidth = x;
         toHeight = y;
 
-        fromRowPytes =  (20 * 8) / BITS_PER_PYTE;
-        toRowPytes = (20 * 8) / BITS_PER_PYTE;
+        //Assuming rows are multiples of words.
+        fromRowPytes =  (fromWidth + 15) / BITS_PER_PYTE;
+        toRowPytes = (toWidth + 15) / BITS_PER_PYTE;
     }
 
     fromHeight = stopRow + 1;
