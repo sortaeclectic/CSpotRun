@@ -40,7 +40,7 @@ CFLAGS = -g $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch
 else
 CFLAGS = -O2 $(DEFINES) $(INCLUDES) -Wall -W -Wno-unused -Wno-switch 
 endif
-# -fno-exceptions -fno-rtti
+
 RCP_IFDEFFER = awk 'BEGIN {split("$(CSR_OPTIONS)", tmp, " "); for (s in tmp) defined[tmp[s]]=""; d=0}\
 					{\
 						if ($$0 ~ "\#ifdef") \
