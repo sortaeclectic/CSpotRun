@@ -17,6 +17,7 @@ struct APP_STATE_STR
     Word showPreviousLine    : 1;
 #ifdef ENABLE_AUTOSCROLL
     Word autoScrollSpeed     : 8;
+    Word autoScrollButton    : 1;
 #endif
     Word caseSensitive       : 1;
     enum TAP_ACTION_ENUM tapAction;

@@ -94,7 +94,7 @@ static void HandleFormOpenEvent()
     inputFieldPtr = FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, fieldID_searchString));
 
     FldSetTextHandle(inputFieldPtr, (Handle) searchStringHandle);
-	CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_searchFromTop)), false);
+    CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_searchFromTop)), false);
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_caseSensitive)), appStatePtr->caseSensitive);
 
     FrmDrawForm(formPtr);

@@ -116,6 +116,7 @@ static void _prefsToGui()
 
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_reversePageButtons)), appStatePtr->reversePageUpDown);
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_showLine)), appStatePtr->showPreviousLine);
+    CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_toggleAsAddButt)), appStatePtr->autoScrollButton);
 
 #ifdef ENABLE_AUTOSCROLL
     StrPrintF(scrollSpeedString, "%d", (int)appStatePtr->autoScrollSpeed);
@@ -134,6 +135,7 @@ static void  _guiToPrefs()
 
     appStatePtr->reversePageUpDown = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_reversePageButtons)));
     appStatePtr->showPreviousLine = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_showLine)));
+    appStatePtr->autoScrollButton = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_toggleAsAddButt)));
 }
 
 

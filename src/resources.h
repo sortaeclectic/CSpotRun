@@ -24,7 +24,7 @@
 #define menuitemID_lineSpacing1    1221
 #define menuitemID_lineSpacing2    1222
 #ifdef ENABLE_AUTOSCROLL
-#define menuitemID_autoScroll      1223
+    #define menuitemID_autoScroll      1223
 #endif
 #define menuitemID_percent        1230
 #define menuitemID_doc            1231
@@ -36,14 +36,14 @@
 #define    listID_percent        1302
 
 #ifdef ENABLE_AUTOSCROLL
-#define    listID_autoScrollSpeed   1303
+    #define    listID_autoScrollSpeed   1303
 #endif
 
 #define popupID_doc            1401
 #define popupID_percent        1402
 
 #ifdef ENABLE_AUTOSCROLL
-#define popupID_autoScrollSpeed 1403
+    #define popupID_autoScrollSpeed 1403
 #endif
 
 
@@ -77,10 +77,10 @@
 #define    gadgetID_lineSpacing2    1803
 
 #ifdef ENABLE_AUTOSCROLL
-#define gadgetID_autoScroll  1804
-#define AUTOSCROLL_GADGET_COUNT 1
+    #define gadgetID_autoScroll  1804
+    #define AUTOSCROLL_GADGET_COUNT 1
 #else
-#define AUTOSCROLL_GADGET_COUNT 0
+    #define AUTOSCROLL_GADGET_COUNT 0
 #endif
 
 #define alertID_about            1900
@@ -106,6 +106,9 @@
     #define checkboxID_searchFromTop        1652
     #define checkboxID_caseSensitive        1653
 #endif
+#ifdef ENABLE_AUTOSCROLL
+    #define checkboxID_toggleAsAddButt              1654
+#endif
 
 #define stringID_controlsHelp        2100
 #define stringID_globalPrefsHelp    2101
@@ -116,11 +119,11 @@
 #define stringID_ucguiPickDoc        2106
 #define    stringID_noDocs                2107
 #ifdef ENABLE_SEARCH
-#define    stringID_ucguiSearch        2108
-#define    stringID_ucguiSearchAgain    2109
+    #define    stringID_ucguiSearch        2108
+    #define    stringID_ucguiSearchAgain    2109
 #endif
 #define stringID_aboutBody            2110
 
 #ifdef ENABLE_AUTOSCROLL
-#define stringID_ucguiAutoScroll      2111
+    #define stringID_ucguiAutoScroll      2111
 #endif

@@ -140,15 +140,18 @@ static void StartApp()
 static void InitAppState()
 {
     MemSet(appStatePtr, sizeof(*appStatePtr), 0);
-    appStatePtr->version = versionWord;
-    appStatePtr->UCGUIBits = Ucgui_getDefaultWord();
-    appStatePtr->hideControls = 0;
-    appStatePtr->reversePageUpDown = 0;
-    appStatePtr->showPreviousLine = 1;
+
+    appStatePtr->version            = versionWord;
+    appStatePtr->UCGUIBits          = Ucgui_getDefaultWord();
+    appStatePtr->hideControls       = 0;
+    appStatePtr->reversePageUpDown  = 0;
+    appStatePtr->showPreviousLine   = 1;
 #ifdef ENABLE_AUTOSCROLL
-    appStatePtr->autoScrollSpeed = 20;
+    appStatePtr->autoScrollSpeed    = 60;
+    appStatePtr->autoScrollButton   = 1;
 #endif
-    appStatePtr->tapAction = TA_PAGE;
+    appStatePtr->tapAction          = TA_PAGE;
+
     DocPrefs_initPrefs(&appStatePtr->defaultDocPrefs, "");
 }
 
@@ -201,7 +204,8 @@ static void EventLoop()
 
         // use Hard button 2 to toggle AutoScroll
         if((e.eType == keyDownEvent)&&(e.data.keyDown.chr == hard2Chr)
-           && (!(e.data.keyDown.modifiers & poweredOnKeyMask)))
+           &&(!(e.data.keyDown.modifiers & poweredOnKeyMask))
+           &&(appStatePtr->autoScrollButton == 1))
         {
             MainForm_ToggleAutoScroll();
             continue;

@@ -40,6 +40,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Samoposuv"
     "$$AUTOSCROLLSPEED"="Rychlost samoposuvu:"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
     "$$GOTO PER"="Jdi na %"
 
@@ -149,6 +150,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Scroll"
     "$$AUTOSCROLLSPEED"="Auto Scroll Speed:"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
     "$$GOTO PER"="Goto %"
 
@@ -176,8 +178,7 @@ begin
                                     "The \'tap action\' choice controls what action is performed with you "\
                                     "tap on the screen.\n\n"\
                                     "Use the \'Auto Scroll Speed\' option to control speed of autoscroll. The numbers "\
-                                    "are in 100ths of a second. 15-25 is the recommended speed. While autoscrolling,"\
-                                    "the page up and page down buttons can be used to adjust the speed."
+                                    "are in 100ths of a second. 60-80 is the recommended speed."
     "$$NO DOCS"="There are no DOC databases installed!\n\nPlease try CSpotRun again after installing a document or two."
 
     "$$ERROR ALERT"="Oops!"
@@ -260,6 +261,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Défilement"
     "$$AUTOSCROLLSPEED"="Vitesse de défilement :"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
 
     "$$GLOBAL PREFERENCES"="Préférences"
@@ -379,6 +381,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Autoscroll"
     "$$AUTOSCROLLSPEED"="Velocidad de autoscroll:"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
 
     "$$GLOBAL PREFERENCES"="Preferencias Globales"
@@ -475,6 +478,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto-Bildlauf"
     "$$AUTOSCROLLSPEED"="Geschwindigkeit:"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
 
     "$$GLOBAL PREFERENCES"="Allgemeine Einstellungen"
@@ -570,6 +574,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
     "$$AUTOSCROLLSPEED"="Veloc. de Auto Rolagem:"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -983,7 +988,7 @@ BEGIN
 END
 
 #ifdef ENABLE_AUTOSCROLL
-FORM ID formID_globalPrefs AT (2 70 156 88)
+FORM ID formID_globalPrefs AT (2 58 156 100)
 #else
 FORM ID formID_globalPrefs AT (2 72 156 86)
 #endif
@@ -997,8 +1002,8 @@ BEGIN
 
 
 #ifdef ENABLE_AUTOSCROLL
-    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@88-3 50 AUTO) 
-    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@88-3 50 AUTO) 
+    BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@100-3 50 AUTO) 
+    BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@100-3 50 AUTO) 
 #else
     BUTTON "Ok"        ID buttonID_ok        AT (center@39 BOTTOM@86-3 50 AUTO) 
     BUTTON "$$CANCEL" ID buttonID_cancel    AT (center@117 BOTTOM@86-3 50 AUTO) 
@@ -1006,6 +1011,10 @@ BEGIN
 
     CHECKBOX "$$SWAP UPDOWN"    ID checkboxID_reversePageButtons    AT (5 15 auto auto) USABLE LEFTANCHOR 
     CHECKBOX "$$SHOW PREV LINE"    ID checkboxID_showLine                AT (PREVLEFT PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
+
+#ifdef ENABLE_AUTOSCROLL
+    CHECKBOX "$$TOGGLE AUTOSCROLL"  ID checkboxID_toggleAsAddButt AT (5 PREVBOTTOM+2 auto auto) USABLE LEFTANCHOR 
+#endif
     
     LABEL "$$TAP ACTION"     ID 9000 AT (5 PREVBOTTOM+2)
     PUSHBUTTON "$$PAGE"      ID pushID_tapAction0    AT (prevright+4 prevtop auto auto) GROUP 69
