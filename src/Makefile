@@ -3,7 +3,7 @@
 # On Windows, I have to set MAKEMODE=UNIX in my environment to make
 # this work.
 
-CC = m68k-palmos-gcc -palmos4
+CC = m68k-palmos-gcc -palmos5
 MULTILINK = m68k-palmos-multilink
 ZIP = zip
 PILRC = pilrc -q

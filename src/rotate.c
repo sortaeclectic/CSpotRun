@@ -22,6 +22,7 @@
 #include "rotate.h"
 #include "app.h"
 #include <PalmOSGlue.h>
+#include <Window.h>
 
 typedef UInt16 Pyte;
 #define BITS_PER_PYTE (8 * sizeof(Pyte))
@@ -42,6 +43,25 @@ int RotateY(int x, int y, OrientationType a)
     return Y_ROTATE(x,y,a);
 }
 
+typedef struct OldWindowType
+{
+    Coord                                                 displayWidthV20;
+    // use WinGetDisplayExtent instead
+    Coord                                                 displayHeightV20;
+    // use WinGetDisplayExtent instead
+    void*                                                   displayAddrV20;
+    // use the drawing functions instead
+    UInt16 /*WindowFlagsType*/                      windowFlags;
+    RectangleType                         windowBounds;
+    AbsRectType                                   clippingBounds;
+    BitmapPtr                                    bitmapP;
+    FrameBitsType                         frameType;
+    DrawStateType*                          drawStateP;
+    // was GraphicStatePtr
+    struct WindowType*              nextWindow;
+}
+OldWindowType;
+
 // This is all crap, of course.
 //
 // It will surely break on the next os or device. If the API gave us
@@ -55,11 +75,13 @@ Pyte* windowBits(WinHandle win)
         BitmapType *bmp = WinGetBitmap(win);
         return BmpGetBits(bmp);
     } else {
-        return win->displayAddrV20;
+        return ((OldWindowType*)win)->displayAddrV20;
     }
 }
 
-void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, OrientationType a)
+void RotCopyWindow(WinHandle fromWindowH, 
+                   int startRow, int stopRow, 
+                   OrientationType a)
 {
     register Pyte  fromPyte;
     Coord toX, toY;               //writing to
@@ -104,7 +126,7 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
                              &rowBytes);
         toRowPytes = (rowBytes * 8) / BITS_PER_PYTE;
     }
-    else if (fromWindowH->bitmapP)
+    else if (((OldWindowType*)fromWindowH)->bitmapP)
     {
         //OS3
 
@@ -120,15 +142,17 @@ void RotCopyWindow(WinHandle fromWindowH, int startRow, int stopRow, Orientation
         };
         struct MyGDeviceType *fromDeviceP, *toDeviceP;
 
-        fromDeviceP = (struct MyGDeviceType*) fromWindowH->bitmapP;
+        fromDeviceP = (struct MyGDeviceType*) 
+            ((OldWindowType*)fromWindowH)->bitmapP;
         fromRowPytes = (fromDeviceP->rowBytes * 8) / BITS_PER_PYTE;
-        fromWidth = fromWindowH->displayWidthV20;
-        fromHeight = fromWindowH->displayHeightV20;
+        fromWidth = ((OldWindowType*)fromWindowH)->displayWidthV20;
+        fromHeight = ((OldWindowType*)fromWindowH)->displayHeightV20;
 
-        toDeviceP  = (struct MyGDeviceType*) toWindowH->bitmapP;
+        toDeviceP  = (struct MyGDeviceType*) 
+            ((OldWindowType*)toWindowH)->bitmapP;
         toRowPytes = (toDeviceP->rowBytes * 8) / BITS_PER_PYTE;
-        toWidth = toWindowH->displayWidthV20;
-        toHeight = toWindowH->displayHeightV20;
+        toWidth = ((OldWindowType*)toWindowH)->displayWidthV20;
+        toHeight = ((OldWindowType*)toWindowH)->displayHeightV20;
     }
     else
     {
