@@ -3,7 +3,7 @@
  *    Polish translation: S³awek Lipski (lipski@mail.com)
  */
 
-TRANSLATION "polish"
+TRANSLATION "polish8859-2"
 begin
     "$$DOC"="Lista"
     "$$FONTS"="Fonty"
