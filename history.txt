@@ -111,3 +111,8 @@ a single control per font.
 
 Added Norwegian from Knut Zakariassen [jobb@zakariassen.net]
 
+6/25/2002
+
+Added support for the Sony Jog Dial from Jesús Jiménez 
+[jesjimenez@telefonica.net].
+
