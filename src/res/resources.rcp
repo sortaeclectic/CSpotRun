@@ -470,7 +470,7 @@ begin
     "$$GOTO PER"="GeheZu %"
     "$$PICK DOC"="Dok auswählen"
 #ifdef ENABLE_AUTOSCROLL
-    "$$AUTOSCROLL"="Automatisch blättern"
+    "$$AUTOSCROLL"="Auto-Bildlauf"
     "$$AUTOSCROLLSPEED"="Geschwindigkeit:"
 #endif
 
@@ -547,7 +547,7 @@ begin
         "wenn Sie mit dem Stift auf die obere bzw. untere Hälfte des "\
         "Bildschirms tippen.\n\n"\
         "Der Eintrag im Feld \'Geschwindigkeit'\ bestimmt die Geschwindigkeit des "\
-        "automatischen Blätterns und wird in 100stel Sekunden angegeben. Ein guter "\
+        "automatischen Bildlaufs und wird in 100stel Sekunden angegeben. Ein guter "\
         "Richtwert liegt zwischen 60 und 80."
 
     "$$NO DOCS"="Es sind keine Dokumente installiert!\n\nBitte starten Sie CSpotRun erneut,"\
