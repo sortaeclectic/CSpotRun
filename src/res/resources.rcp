@@ -685,6 +685,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
     "$$AUTOSCROLLSPEED"="Veloc. de Auto Rolagem:"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -795,6 +796,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Oto. Kaydýrma"
     "$$AUTOSCROLLSPEED"="Otomatik Kaydýrma Hýzý:"
+    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
 #endif
     "$$GOTO PER"="%\'ye Git"
 
