@@ -1,24 +1,28 @@
-set V1=1
-set V2=0
-set V3=5
+rem For versions 1.0.5 and earlier, there is a tag for each version.
+rem I haven't copied all these into the cases below. See 1.0.5 
+rem for an example if you need earlier versions.
 
-rem ### TAG is the CVS tag.
-set TAG=CSPOTRUN_%V1%_%V2%
-if %V3% neq 0 set TAG=%TAG%_%V3%
+goto 1.0.5dev1
 
-rem ### SRCZIP is the name of the zipped source archive.
-set SRCZIP=CSpotRunSrc%V1%p%V2%
-if %V3% neq 0 set SRCZIP=%SRCZIP%p%V3%
-set SRCZIP=%SRCZIP%.zip
+:1.0.5dev1
+	set VERSION=1.0.5dev1
+	set CVSARGS=-D "Sun Jun 17 17:24:13 2001 UTC"
+	set DOSABLEVERSION=1p0p5dev1
+	goto gogogo
+	
+:1.0.5
+	set VERSION=1.0.5
+	set CVSARGS=-r CSPOTRUN_1_0_5
+	set DOSABLEVERSION=1p0p5
+	goto gogogo
 
-rem ### VERSION is the version string
-set VERSION=%V1%.%V2%
-if %V3% neq 0 set VERSION=%VERSION%.%V3%
+:gogogo
 
+echo building version %VERSION% (%DOSABLEVERSION%) 
+
+set SRCZIP=CSpotRunSrc%DOSABLEVERSION%.zip	
 set TEMPDRIVE=u:
 set TEMPDIR=%TEMPDRIVE%\tmp
-set OUTPUTDIR=%TEMPDIR%\%TAG%\output
-
+set OUTPUTDIR=%TEMPDIR%\%DOSABLEVERSION%\output
 set WEBDRIVE=c:
-set WEBDIR=%WEBDRIVE%\webroot\clagett\bill\palmos\cspotrun\%V1%p%V2%
-if %V3% neq 0 set WEBDIR=%WEBDIR%p%V3%
+set WEBDIR=%WEBDRIVE%\webroot\clagett\bill\palmos\cspotrun\%DOSABLEVERSION%
