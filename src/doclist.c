@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
+ * Copyright (C) 1998-2002  by Bill Clagett (wtc@pobox.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,8 +61,8 @@ void DocList_populateList(ListPtr listPtr)
 
     // Count documents
     _dbCount = 0;
-    while (0 == DmGetNextDatabaseByTypeCreator(newSearch, &searchState, 
-                                               DOC_TYPE, DOC_CREATOR, 
+    while (0 == DmGetNextDatabaseByTypeCreator(newSearch, &searchState,
+                                               DOC_TYPE, DOC_CREATOR,
                                                false, &cardNo, &dbID))
     {
         _dbCount++;
@@ -72,27 +72,27 @@ void DocList_populateList(ListPtr listPtr)
     if (_dbCount)
     {
         // Allocate arrays to hold info on all docs
-        _dbInfoArray = 
+        _dbInfoArray =
             MemHandleLock(MemHandleNew(_dbCount * sizeof(*_dbInfoArray)));
-        _listItemPtrs = 
+        _listItemPtrs =
             MemHandleLock(MemHandleNew(_dbCount * sizeof(*_listItemPtrs)));
-        _map = 
+        _map =
             MemHandleLock(MemHandleNew(_dbCount * sizeof(*_map)));
     }
 
     // populate those arrays.
     newSearch = true;
     _dbCount = 0;
-    while (0 == DmGetNextDatabaseByTypeCreator(newSearch, &searchState, 
-                                               DOC_TYPE, DOC_CREATOR, 
+    while (0 == DmGetNextDatabaseByTypeCreator(newSearch, &searchState,
+                                               DOC_TYPE, DOC_CREATOR,
                                                false, &cardNo, &dbID))
     {
         UInt16 recordCount = 0;
         DmOpenRef db;
-        newSearch = false;       
+        newSearch = false;
 
-        DmDatabaseInfo(cardNo, dbID, name, 
-                       NULL, NULL, NULL, NULL, NULL, 
+        DmDatabaseInfo(cardNo, dbID, name,
+                       NULL, NULL, NULL, NULL, NULL,
                        NULL, NULL, NULL, NULL, NULL);
 
         db = DmOpenDatabase(cardNo, dbID, dmModeReadOnly);
@@ -125,7 +125,7 @@ Char* DocList_getTitle(int i)
 }
 LocalID DocList_getID(int i)
 {
-    return DmFindDatabase(_dbInfoArray[_map[i]].cardNo, 
+    return DmFindDatabase(_dbInfoArray[_map[i]].cardNo,
                           _dbInfoArray[_map[i]].name);
 }
 UInt16 DocList_getCardNo(int i)
@@ -160,7 +160,7 @@ static void _buildMap()
     {
         for(j = i+1; j < _dbCount; j++)
         {
-            if (0 < StrCaselessCompare(_dbInfoArray[_map[i]].name, 
+            if (0 < StrCaselessCompare(_dbInfoArray[_map[i]].name,
                                        _dbInfoArray[_map[j]].name))
             {
                 tmp = _map[i];

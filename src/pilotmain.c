@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
+ * Copyright (C) 1998-2002  by Bill Clagett (wtc@pobox.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ MemHandle   searchStringHandle;
 Boolean     searchFromTop;
 #endif
 
-#define FORCE_1BIT_MODE 
+#define FORCE_1BIT_MODE
 
 void savePDB (MemPtr cmdPBP);
 
@@ -63,10 +63,10 @@ UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 
         // get the type/creator for this DB so we can see if it's a DOC file
         char startupDocName[dmDBNameLength];
-        DmDatabaseInfo(cardNo, dbID, startupDocName, NULL, NULL, NULL, 
+        DmDatabaseInfo(cardNo, dbID, startupDocName, NULL, NULL, NULL,
                        NULL, NULL, NULL, NULL, NULL, &type, &creator);
         if (!(type == 'TEXt' && creator == 'REAd')) {
-                FrmCustomAlert(alertID_error, 
+                FrmCustomAlert(alertID_error,
                                "You cannot open this type of database "\
                                "with CSpotRun. ", " ", " ");
                 return 1;
@@ -117,7 +117,7 @@ static void StartApp()
     if (UtilOSIsAtLeast(3,0))
     {
         UInt32 depth;
-        WinScreenMode(winScreenModeGetSupportedDepths, 
+        WinScreenMode(winScreenModeGetSupportedDepths,
                       NULL, NULL, &depth, NULL);
         if (depth & 0x1)
             WinScreenMode(winScreenModeSet, NULL, NULL, &newDepth, NULL);
@@ -126,13 +126,13 @@ static void StartApp()
     }
 #endif
 
-    if (noPreferenceFound  == PrefGetAppPreferences(appId, PREF_APPSTATE, 
+    if (noPreferenceFound  == PrefGetAppPreferences(appId, PREF_APPSTATE,
                                                     NULL, &prefsSize, true)
         || prefsSize != sizeof(*appStatePtr))
         InitAppState();
     else
     {
-        PrefGetAppPreferences(appId, PREF_APPSTATE, appStatePtr, 
+        PrefGetAppPreferences(appId, PREF_APPSTATE, appStatePtr,
                               &prefsSize, true);
         if (appStatePtr->version != versionUInt16)
             InitAppState();
@@ -140,7 +140,7 @@ static void StartApp()
     prefsSize = 0;
 
 #ifdef ENABLE_SEARCH
-    if (noPreferenceFound == PrefGetAppPreferences(appId, PREF_SEARCHSTRING, 
+    if (noPreferenceFound == PrefGetAppPreferences(appId, PREF_SEARCHSTRING,
                                                    NULL, &prefsSize, true))
     {
         searchStringHandle = MemHandleNew(2);
@@ -152,7 +152,7 @@ static void StartApp()
     {
         searchStringHandle = MemHandleNew(prefsSize);
         searchPtr = (Char*)MemHandleLock(searchStringHandle);
-        PrefGetAppPreferences(appId, PREF_SEARCHSTRING, searchPtr, 
+        PrefGetAppPreferences(appId, PREF_SEARCHSTRING, searchPtr,
                               &prefsSize, true);
         MemHandleUnlock(searchStringHandle);
     }
@@ -169,7 +169,7 @@ static void StartApp()
 #ifdef ENABLE_HYPHEN
     // extract hyphenation tables
     LockHyphenResource();
-#endif    
+#endif
 }
 
 static void InitAppState()
@@ -203,12 +203,12 @@ static void StopApp()
     // extract hyphenation tables
     UnlockHyphenResource();
 #endif
-    
+
 #ifdef ENABLE_BMK
     BmkStop();
 #endif
 
-    PrefSetAppPreferences(appId, PREF_APPSTATE, versionUInt16, 
+    PrefSetAppPreferences(appId, PREF_APPSTATE, versionUInt16,
                           appStatePtr, sizeof(*appStatePtr), true);
     MemPtrFree(appStatePtr);
 
@@ -216,7 +216,7 @@ static void StopApp()
 
 #ifdef ENABLE_SEARCH
     searchPtr = (Char*) MemHandleLock(searchStringHandle);
-    PrefSetAppPreferences(appId, PREF_SEARCHSTRING, versionUInt16, 
+    PrefSetAppPreferences(appId, PREF_SEARCHSTRING, versionUInt16,
                           searchPtr, MemHandleSize(searchStringHandle), true);
     MemHandleUnlock(searchStringHandle);
     MemHandleFree(searchStringHandle);
@@ -395,14 +395,14 @@ static Boolean AppHandleEvent(EventType *e)
 #endif
 
 #ifdef ENABLE_BMK
-		case formID_bmkName:
-		    newFormEventHandler = BmkNameFormHandleEvent;
-		    break;
+        case formID_bmkName:
+            newFormEventHandler = BmkNameFormHandleEvent;
+            break;
 
-		case formID_bmkEd:
-		case formID_bmkEd_ro:
-		    newFormEventHandler = BmkEdFormHandleEvent;
-		    break;
+        case formID_bmkEd:
+        case formID_bmkEd_ro:
+            newFormEventHandler = BmkEdFormHandleEvent;
+            break;
 
 #endif
             }

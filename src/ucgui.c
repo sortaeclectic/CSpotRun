@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
+ * Copyright (C) 1998-2002  by Bill Clagett (wtc@pobox.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,12 +66,12 @@ static const struct UCGUI_ELEM_STR gElements[] =
     {gadgetID_lineSpacing1,    1<<3, 0},//0x008},
     {gadgetID_lineSpacing2,    1<<4, 0},//0x010},
 
-    {gadgetID_justify,      1<<15, stringID_ucguiJustify}, // 2^15  
+    {gadgetID_justify,      1<<15, stringID_ucguiJustify}, // 2^15
 
 #ifdef ENABLE_AUTOSCROLL
     {gadgetID_autoScroll,      1<<13, stringID_ucguiAutoScroll}, // 2^13
 #endif
-    
+
 #ifdef ENABLE_SEARCH
     {buttonID_search,        1<<11, stringID_ucguiSearch},
     {buttonID_searchAgain,    1<<12, stringID_ucguiSearchAgain},
@@ -81,7 +81,7 @@ static const struct UCGUI_ELEM_STR gElements[] =
     {popupID_doc,            1<<0, stringID_ucguiPickDoc}, //0x001},
 
 #ifdef ENABLE_BMK
-    {popupID_bmk,	1<<14, stringID_ucguiBmk},
+    {popupID_bmk,   1<<14, stringID_ucguiBmk},
 #endif
 };
 
@@ -113,7 +113,7 @@ Boolean Ucgui_gadgetVisible(FormPtr formPtr, UInt16 objectIndex)
     return NULL != FrmGetGadgetData(formPtr, objectIndex);
 }
 
-static void myShowObject(FormPtr formPtr, UInt16 objectIndex, Boolean show) 
+static void myShowObject(FormPtr formPtr, UInt16 objectIndex, Boolean show)
 {
     if (FrmGetObjectType(formPtr, objectIndex) != frmGadgetObj)
         if (show)
@@ -145,7 +145,7 @@ void Ucgui_layout(FormPtr formPtr, UInt16 visibleControlMask)
 
         FrmGetObjectBounds(formPtr, objectIndex, &objectBounds);
 
-        if((visibleControlMask & gElements[i].bitmask) 
+        if((visibleControlMask & gElements[i].bitmask)
            && isControlAllowed(gElements[i].id))
         {
             if (x+1+objectBounds.extent.x > 160)
@@ -189,7 +189,7 @@ static void moveListToPopup(FormPtr formPtr, UInt16 popupID, UInt16 listID)
 
 static Boolean isControlAllowed(UInt16 id)
 {
-    if (IS_FONTSELECT_PUSHID(id) 
+    if (IS_FONTSELECT_PUSHID(id)
         && ! FS_fontIsLegal(FS_getFontByIndex(FONTSELECT_PUSHID_TO_INDEX(id))))
         return false;
     else

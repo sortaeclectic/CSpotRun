@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
+ * Copyright (C) 1998-2002  by Bill Clagett (wtc@pobox.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,9 +37,9 @@ static int decodeFromBuffer(UInt8* decodeTo, UInt8* decodeFrom, int decodeFromLe
 static int decodeLen(UInt8* decodeFrom, int recordIndex);
 static int drm_decodeFromBuffer(UInt16 moduleNum, UInt8* decodeTo, UInt8* decodeFrom, int decodeFromLen, int maxDecodeLen);
 static void drm_link_library(UInt16 moduleNum);
-static const char unknownCompressionMessage[] 
+static const char unknownCompressionMessage[]
                   = "Unknown record compression type! ";
-static char unknownCompressionMessageDRM[] 
+static char unknownCompressionMessageDRM[]
             = "Unknown record compression type! You need a DRM module. "\
               "See http://csrdrm.sourceforge.net/ for information on "\
               "CSRDRM00.PRC\n\n";
@@ -48,17 +48,17 @@ static const char hexcnvt[] = "0123456789ABCDEF";
 static UInt16 ModuleNum = NO_LIBRARY;
 static UInt16 refNum;
 
-UInt16 
+UInt16
 decodedRecordLen(DmOpenRef dbRef, UInt16 compressionType, int recordIndex)
 {
     MemHandle    recordHandle = NULL;
     int            recordLen = 0;
     Char*        recordPtr = NULL;
     int            decodedLen = 0;
-    
+
     if (dbRef == NULL)
         return 0;
-    
+
     recordHandle = DmQueryRecord(dbRef, recordIndex);
     recordLen = MemHandleSize(recordHandle);
     recordPtr = MemHandleLock(recordHandle);
@@ -66,7 +66,7 @@ decodedRecordLen(DmOpenRef dbRef, UInt16 compressionType, int recordIndex)
     if ((compressionType >= 0x100) && (compressionType < 0x200)) {
         zrecord *zrec = (zrecord *)(recordPtr);
         decodedLen = zrec->sizel | (zrec->sizeh << 8);
-    } else  
+    } else
         switch (compressionType)
         {
         case 1026:
@@ -79,7 +79,7 @@ decodedRecordLen(DmOpenRef dbRef, UInt16 compressionType, int recordIndex)
         default:
             decodedLen = StrLen(unknownCompressionMessage);
         }
-    
+
     MemHandleUnlock(recordHandle);
 
     return decodedLen;
@@ -91,27 +91,27 @@ int decodeRecord(DmOpenRef dbRef, UInt16 compressionType, Char* decodeTo, int re
     int            recordLen = 0;
     Char*        recordPtr = NULL;
     int            decodedLen = 0;
-    
+
     if (dbRef == NULL)
     {
         decodeTo[0]='\0';
         return StrLen(decodeTo);
     }
-    
+
     recordHandle = DmQueryRecord(dbRef, recordIndex);
     recordLen = MemHandleSize(recordHandle);
     recordPtr = MemHandleLock(recordHandle);
-    
+
     if ((compressionType >= 0x100) && (compressionType < 0x200)) {
-        decodedLen = drm_decodeFromBuffer(compressionType - 0x100, 
-                                          decodeTo, recordPtr, 
+        decodedLen = drm_decodeFromBuffer(compressionType - 0x100,
+                                          decodeTo, recordPtr,
                                           recordLen, maxDecodeLen);
-    } else  
+    } else
       switch (compressionType)
       {
         case 1026:
         case 2:
-            decodedLen = decodeFromBuffer(decodeTo, recordPtr, 
+            decodedLen = decodeFromBuffer(decodeTo, recordPtr,
                                           recordLen, maxDecodeLen);
             break;
         case 1:
@@ -128,8 +128,8 @@ int decodeRecord(DmOpenRef dbRef, UInt16 compressionType, Char* decodeTo, int re
     return decodedLen;
 }
 
-static int 
-decodeFromBuffer(UInt8* decodeTo, UInt8* decodeFrom, 
+static int
+decodeFromBuffer(UInt8* decodeTo, UInt8* decodeFrom,
                  int decodeFromLen, int maxDecodeLen)
 {
     UInt8* fromTooFar = &decodeFrom[decodeFromLen];
@@ -157,11 +157,11 @@ decodeFromBuffer(UInt8* decodeTo, UInt8* decodeFrom,
         else if (c >= 0x80)
         {
             // Move this to high bits and read low bits
-            c = (c<<8) | *(decodeFrom++);        
+            c = (c<<8) | *(decodeFrom++);
             // 3 + low 3 bits (Beirne's 'n'+3)
-            windowLen = 3 + (c & 0x7);        
+            windowLen = 3 + (c & 0x7);
             // next 11 bits (Beirne's 'm')
-            windowDist = (c >> 3) & 0x07FF;    
+            windowDist = (c >> 3) & 0x07FF;
             windowCopyFrom = decodeTo - windowDist;
 
             windowLen = min(windowLen, toTooFar - decodeTo);
@@ -210,9 +210,9 @@ static int decodeLen(UInt8* decodeFrom, int decodeFromLen)
         else if (c >= 0x80)
         {
             // Move this to high bits and read low bits
-            c = (c<<8) | *(decodeFrom++);        
+            c = (c<<8) | *(decodeFrom++);
             // 3 + low 3 bits (Beirne's 'n'+3)
-            len += 3 + (c & 0x7);        
+            len += 3 + (c & 0x7);
         }
         //self-representing, no command.
         else if (c >= 0x09)
@@ -237,7 +237,7 @@ static int decodeLen(UInt8* decodeFrom, int decodeFromLen)
 void fill_with_unknownCompressionMessageDRM(UInt8* decodeTo, int size)
 {
     int len = StrLen(unknownCompressionMessageDRM);
-    
+
     while (size > 0) {
         if (len > size)
             len = size;
@@ -248,8 +248,8 @@ void fill_with_unknownCompressionMessageDRM(UInt8* decodeTo, int size)
     return;
 }
 
-static int 
-drm_decodeFromBuffer(UInt16 moduleNum, UInt8* decodeTo, UInt8* decodeFrom, 
+static int
+drm_decodeFromBuffer(UInt16 moduleNum, UInt8* decodeTo, UInt8* decodeFrom,
                      int decodeFromLen, int maxDecodeLen)
 {
     Err err;
@@ -265,7 +265,7 @@ drm_decodeFromBuffer(UInt16 moduleNum, UInt8* decodeTo, UInt8* decodeFrom,
         fill_with_unknownCompressionMessageDRM(decodeTo, maxDecodeLen);
         return (maxDecodeLen);
     }
-    
+
     size = zrec->sizel | (zrec->sizeh << 8);
     if (size > maxDecodeLen) {
         buffer = MemPtrNew(size);
@@ -291,7 +291,7 @@ void drm_unlink_library(void)
 {
     if (ModuleNum == NO_LIBRARY)
         return;
-    
+
     if (csr_drm_lib_close(refNum))
         SysLibRemove(refNum);
 }
@@ -303,16 +303,16 @@ static void drm_link_library(UInt16 moduleNum)
     UInt32 creator_id = 'CSDR';
     UInt8 *cid = (UInt8 *)&creator_id;
     UInt16 version = CSR_DRM_LIB_INTERFACE_VERSION;
-    
+
     libname[7] = hexcnvt[(moduleNum & 0xf)];
     libname[6] = hexcnvt[((moduleNum & 0xf0) >> 4)];
-    unknownCompressionMessageDRM[StrLen(unknownCompressionMessageDRM)-7] 
+    unknownCompressionMessageDRM[StrLen(unknownCompressionMessageDRM)-7]
         = hexcnvt[(moduleNum & 0xf)];
-    unknownCompressionMessageDRM[StrLen(unknownCompressionMessageDRM)-8] 
+    unknownCompressionMessageDRM[StrLen(unknownCompressionMessageDRM)-8]
         = hexcnvt[((moduleNum & 0xf0) >> 4)];
     cid[2] = 0xf3;
     cid[3] = moduleNum & 0xff;
-    
+
     err = SysLibFind(libname, &refNum);
     if (err)
         err = SysLibLoad('libr', creator_id, &refNum);

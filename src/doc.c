@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
+ * Copyright (C) 1998-2002  by Bill Clagett (wtc@pobox.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -695,8 +695,8 @@ static Boolean _onLastPage()
     linesToShow = _apparentTextBounds.extent.y/_lineHeight;
     p = & gDoc.decodeBuf[_docPrefs.location.ch];
     while(linesToShow--)
-        p += (_docPrefs.justify && _docPrefs.hyphen) 
-            ? Hyphen_FntWordWrap(p, _apparentTextBounds.extent.x) 
+        p += (_docPrefs.justify && _docPrefs.hyphen)
+            ? Hyphen_FntWordWrap(p, _apparentTextBounds.extent.x)
             : FntWordWrap (p, _apparentTextBounds.extent.x);
 
     FntSetFont(oldFont);
@@ -776,9 +776,9 @@ static void _loadCurrentRecord()
         if (gDoc.decodeLen != gDoc.recLens[recToLoad - 1]) {
             gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens, true);
         }
-        
+
         gDoc.recordDecoded = _docPrefs.location.record;
-        
+
         /* If this is the last record, make the null appear to belong
          * to this record */
         if (recToLoad == gDoc.numRecs)
@@ -788,7 +788,7 @@ static void _loadCurrentRecord()
         //Otherwise load more records
         else
         {
-            /* While there are remaining records, and space to fill 
+            /* While there are remaining records, and space to fill
              * in buffer, decode next records. */
             while (++recToLoad <= gDoc.numRecs
                    && gDoc.decodeLen < gDoc.decodeBufLen-1)
@@ -830,7 +830,7 @@ static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
 
     if (!force)
         i = decodedRecordLen(gDoc.dbRef, gDoc.record0Ptr->wVersion, 1);
-    
+
     // look if the wRecordsSize if filled and complete
     if ((!force)
         && (MemPtrSize (gDoc.record0Ptr) >= sizeof(struct RECORD0_STR))
@@ -848,20 +848,20 @@ static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
     else {
         // Compute it and fill the table
         MemHandleUnlock(gDoc.record0Handle);
-        
+
         // Resize record0 to hold the table
         gDoc.record0Handle = DmResizeRecord(gDoc.dbRef, 0,
                 (UInt32)(sizeof (struct RECORD0_STR)
                          + gDoc.numRecs*sizeof(UInt16)));
         ErrFatalDisplayIf(!gDoc.record0Handle, "DmResizeRecord");
 
-        gDoc.record0Ptr 
+        gDoc.record0Ptr
             = (struct RECORD0_STR *)MemHandleLock(gDoc.record0Handle);
         ErrFatalDisplayIf(!gDoc.record0Ptr, "c");
 
         for (i = 0; i < gDoc.numRecs; i++)
         {
-            recLens[i] 
+            recLens[i]
                 = decodedRecordLen(gDoc.dbRef, gDoc.record0Ptr->wVersion, i+1);
             storyLen += recLens[i];
         }
@@ -898,7 +898,7 @@ static void _postDecodeProcessing()
 {
     Char* tooFar = &gDoc.decodeBuf[gDoc.decodeLen];
     Char* p = gDoc.decodeBuf;
-    
+
     do
     {
         if (*p == '\r')

@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * CSpotRun: A doc-format database reader for the Palm Computing Platform.
- * Copyright (C) 1998-2000  by Bill Clagett (wtc@pobox.com)
+ * Copyright (C) 1998-2002  by Bill Clagett (wtc@pobox.com)
  *
  * 27 Apr 2001, added bookmarks support, Alexey Raschepkin (apr@direct.ru)
  *
@@ -143,24 +143,24 @@ static Boolean _BmkEdFormHandleEvent(EventType *e)
 
             goto RET_REDRAW;
 
-        case buttonID_bmkSort: 
-	{
-	    int s = FrmAlert(alertID_bmkSort);
-	    if (s < 2) {
-	        err = BmkSort(s == 0 ? SORT_NAME : SORT_POS);
-	        if(err)
-		    BmkReportError(err);
+        case buttonID_bmkSort:
+    {
+        int s = FrmAlert(alertID_bmkSort);
+        if (s < 2) {
+            err = BmkSort(s == 0 ? SORT_NAME : SORT_POS);
+            if(err)
+            BmkReportError(err);
                 goto RET_REDRAW;
-	    } else
-	        return true;
-	}	    
+        } else
+            return true;
+    }
         case buttonID_bmkDelAll:
             if (FrmAlert(alertID_bmkConfirmDel) == 0) {
-	         err = BmkDeleteAll();
+             err = BmkDeleteAll();
                  goto RET_REDRAW;
-	    }
-	    return true;
-        }       
+        }
+        return true;
+        }
         break;
 
 
