@@ -18,8 +18,8 @@ GNUTURDS = ../copying.txt ../readme.txt
 PROGNAME = CSpotRun
 VERSION = dev 
 APPID = CSBR
-LANGUAGES = chinese czech english french \
-            german polish polish1250 polish8859-2\
+LANGUAGES = chinese czech dutch english estonian french \
+            german italian polish polish1250 polish8859-2\
             pt_BR pt_PT turkish sv_SE \
             spanish  
 
