@@ -285,22 +285,22 @@ BEGIN
         MENUITEM "$$LINE SPACING 1"  menuitemID_lineSpacing0
         MENUITEM "$$LINE SPACING 2"  menuitemID_lineSpacing1
         MENUITEM "$$LINE SPACING 3"  menuitemID_lineSpacing2
-#ifdef ENABLE_AUTOSCROLL
         MENUITEM SEPARATOR 
-        MENUITEM "$$AUTOSCROLL"      menuitemID_autoScroll      "U"
-#endif
         MENUITEM "$$JUSTIFY"		menuitemID_justify		"J"
 #ifdef ENABLE_HYPHEN
         MENUITEM "$$HYPHEN"			menuitemID_hyphen		"H"
 #endif
-#ifdef ENABLE_ROTATION
-        MENUITEM SEPARATOR
-        MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
-        MENUITEM "$$ROTATE LEFT"     menuitemID_rotateLeft      "S"
-#endif
     END
     PULLDOWN "$$OPTIONS"
     BEGIN
+#ifdef ENABLE_AUTOSCROLL
+        MENUITEM "$$AUTOSCROLL"      menuitemID_autoScroll      "U"
+#endif
+#ifdef ENABLE_ROTATION
+        MENUITEM "$$ROTATE RIGHT"    menuitemID_rotateRight     "R"
+        MENUITEM "$$ROTATE LEFT"     menuitemID_rotateLeft      "S"
+#endif
+        MENUITEM SEPARATOR
         MENUITEM "$$TOGGLE CONTROLS" menuitemID_controls        "T"
         MENUITEM "$$MAKE DEFAULT"    menuitemID_makeDefault     "K"
         menuitem separator
