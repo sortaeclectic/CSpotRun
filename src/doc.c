@@ -52,7 +52,6 @@ static void         _drawPage(RectanglePtr boundsPtr,
 static void         _setApparentTextBounds();
 static Boolean      _findString(Char* haystack, Char* needle,
                                 UInt16* foundPos, Boolean caseSensitive);
-static void         _rewindToStartOfUInt16();
 static void         _movePastWord();
 static Boolean      _onLastPage();
 
@@ -1040,17 +1039,6 @@ static Boolean _findString(Char* haystack, Char* needle,
     }
 
     return rv;
-}
-
-static void _rewindToStartOfWord()
-{
-    const UInt16* attrs = GetCharAttr();
-
-    while (_docPrefs.location.ch>0
-           && ! IsSpace(attrs, gDoc.decodeBuf[_docPrefs.location.ch-1]))
-    {
-        _docPrefs.location.ch--;
-    }
 }
 
 static void _movePastWord()
