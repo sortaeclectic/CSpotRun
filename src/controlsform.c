@@ -147,7 +147,9 @@ static void _setStates()
     int i;
 
     for (i=0; i<Ucgui_getElementCount(); i++)
-        CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_UCGUI0+i)),
+        CtlSetValue(FrmGetObjectPtr(formPtr, 
+                                    FrmGetObjectIndex(formPtr, 
+                                                      checkboxID_UCGUI0+i)),
                         Ucgui_getBitmask(i) & appStatePtr->UCGUIBits);
 }
 
