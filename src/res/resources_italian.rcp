@@ -1,9 +1,8 @@
 /*
  * Ehi guys, I've translated this stuff into italian! (duh :)
  * Anyway, seems I'm Mad IP Address (badipadress@yahoo.com and some others) but I'm not too sure
- * You can usually find me on the It.comp.hardware.palmari NG! (palmari means pda)
- * but, as smarter minds might have already spotted, the ng is in italian (oh, dear :)
- * CU Guys, CUSpot (run???? :)
+ * You can usually find me on the Italian Palm User Group (ITAPug) www.itapug.org or the it.comp.hardware.palmari ng
+ *
  * Tempus fugit. Try to shoot him in the back!
 */
 
@@ -82,7 +81,7 @@ begin
     "$$CONTROLSDDD"="Controlli..."
     "$$PREFERENCESDDD"="Opzioni..."
     "$$ABOUTDDD"="Informazioni Su..."
-    "$$PICK DOC"="Leggi Documento"
+    "$$PICK DOC"="Leggi Doc."
     "$$DELETE DOC"="Cancella Documento"
     "$$CONFIRM DELETE"="Conferma Cancellazione"
     "$$CANCEL"="Annulla"
@@ -103,34 +102,34 @@ begin
     "$$CASE SENSITIVE"="MAIUSCOLE/minuscole"
     "$$FIND BUTTON"="T"
     "$$FIND AGAIN BUTTON"="TS"
-    
-    "$$BOOKMARKS"="Bookmarks" 
-    "$$BOOKMARKS_TRIGGER"="BM" 
-    "$$EDIT BOOKMARKS"="Bookmarks..." 
-    "$$EDIT BOOKMARKS LIST"="* Bookmarks..." 
-    "$$DEL ALL BOOKMARKS"="Del All Bookmarks" 
-    "$$SORT BOOKMARKS"="Sort Bookmarks..." 
-    "$$ADD BOOKMARK"="Add Bookmark..." 
-    "$$ADD BOOKMARK LIST"="* Add Bookmark..." 
-    "$$ADD BOOKMARK TITLE"="Add Bookmark" 
-    "$$NAME BOOKMARK"="Name Bookmark" 
-    "$$NAME"="Name" 
-    "$$DUP NAME"="Bookmark with this name already exists. What would you want to do?" 
-    "$$REPLACE"="Replace" 
-    "$$NEW"="Create New" 
-    "$$MOVE UP"="Move Up" 
-    "$$MOVE DOWN"="Move Down" 
-    "$$RENAME"="Rename" 
-    "$$DELETE"="Delete" 
-    "$$DONE"="Done" 
-    "$$GOTO"="GoTo" 
-    "$$SORT BOOKMARKS"="Sort Bookmarks" 
-    "$$POSITION"="Position" 
-    "$$SORT BOOKMARKS BY"="Sort Bookmarks by..." 
-    "$$BMK DELETE PROMPT"="Permanently delete bookmarks?" 
-    "$$NO MEMORY"="Not Enough Memory" 
-    "$$BMK DOC NOT OPENED"="Document is not opened" 
-    
+
+    "$$BOOKMARKS"="Segnalibri" 
+    "$$BOOKMARKS_TRIGGER"="SL" 
+    "$$EDIT BOOKMARKS"="Segnalibri..." 
+    "$$EDIT BOOKMARKS LIST"="* Segnalibri..." 
+    "$$DEL ALL BOOKMARKS"="Cancella tutti i S." 
+    "$$SORT BOOKMARKS"="Ordina Segnalibri..." 
+    "$$ADD BOOKMARK"="Aggiungi Segnalibro..." 
+    "$$ADD BOOKMARK LIST"="* Aggiungi Segnalibro..." 
+    "$$ADD BOOKMARK TITLE"="Aggiungi Segnalibro" 
+    "$$NAME BOOKMARK"="Nome Segnalibro" 
+    "$$NAME"="Nome" 
+    "$$DUP NAME"="Un Segnalibro con questo nome esiste gia\'. Cosa vuoi fare?"
+    "$$REPLACE"="Rimpiazza" 
+    "$$NEW"="Nuovo" 
+    "$$MOVE UP"="Muovi Su" 
+    "$$MOVE DOWN"="Muovi Giu" 
+    "$$RENAME"="Rinomina" 
+    "$$DELETE"="Cancella" 
+    "$$DONE"="Fatto" 
+    "$$GOTO"="Vai a" 
+    "$$SORT BOOKMARKS"="Ordina Segnalibri" 
+    "$$POSITION"="Posizione" 
+    "$$SORT BOOKMARKS BY"="Ordina Segnalibri per..." 
+    "$$BMK DELETE PROMPT"="Cancella definitivamente tutti i Segnalibri?" 
+    "$$NO MEMORY"="Memoria insufficiente" 
+    "$$BMK DOC NOT OPENED"="Documento non aperto" 
+   
 /*
     // Want to internationalize the menu shortcuts.
     // Need to fix pilrc to do this.
