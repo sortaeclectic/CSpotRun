@@ -20,7 +20,7 @@
  */
 
 #include <PalmOS.h>
-#include <Core/System/CharAttr.h>
+#include "myCharAttr.h"
 #include "tabbedtext.h"
 #include <PalmOSGlue.h>
 
