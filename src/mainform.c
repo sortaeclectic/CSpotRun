@@ -59,14 +59,14 @@ static void        _layoutForm();
 static void        _rotate(int dir);
 
 
-FormPtr        formPtr;
-ListPtr        docListPtr;
-ControlPtr    docPopupPtr;
-ControlPtr    percentPopupPtr;
+FormPtr     formPtr;
+ListPtr     docListPtr;
+ControlPtr  docPopupPtr;
+ControlPtr  percentPopupPtr;
 
 Char        percentString[] = "xxx%";
-UShort        selectableLineSpacings[LINE_SPACING_GADGET_COUNT] = {0, 1, 2};
-int            _documentIndex = -1;
+UShort      selectableLineSpacings[LINE_SPACING_GADGET_COUNT] = {0, 1, 2};
+int         _documentIndex = -1;
 
 #ifdef ENABLE_AUTOSCROLL
 static Boolean      autoScrollEnabled = false;
@@ -413,11 +413,13 @@ static void _drawAutoScrollGadget()
 
 void MainForm_ToggleAutoScroll()
 {
+    Doc_pixelScrollClear();
+    if (!autoScrollEnabled)
+       Doc_prepareForPixelScrolling();
+
     autoScrollEnabled = ! autoScrollEnabled;
 
     _drawAutoScrollGadget();
-
-    Doc_pixelScrollClear();
 }
 
 void MainForm_UpdateAutoScroll()

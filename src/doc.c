@@ -495,7 +495,7 @@ static void _drawPage(RectanglePtr boundsPtr, Boolean drawOffscreenPart)
     WinEraseRectangle(boundsPtr, 0);
 
     if(drawOffscreenPart)
-        linesToShow = (boundsPtr->extent.y + _osExtraForAS) / _lineHeight;
+        linesToShow = (boundsPtr->extent.y + _osExtraForAS) / _lineHeight + 1;
     else
         linesToShow = (boundsPtr->extent.y) / _lineHeight;
 
@@ -506,6 +506,7 @@ static void _drawPage(RectanglePtr boundsPtr, Boolean drawOffscreenPart)
     if(drawOffscreenPart)
     {
 		int offscreenLines = linesToShow - (boundsPtr->extent.y) / _lineHeight;
+        offscreenLines ++; //Because we really want the last onscreen line too.
         // skip past all but the last line
         while((linesToShow > offscreenLines) && (charsOnRow = FntWordWrap(p, boundsPtr->extent.x)))
         {
@@ -847,6 +848,38 @@ static void _movePastWord()
 #endif
 
 #ifdef ENABLE_AUTOSCROLL
+void Doc_prepareForPixelScrolling()
+{
+    RectangleType fromRect;
+    WinHandle w;
+
+    if (_pixelOffset)
+        return;
+
+    //Draw the partial line at the bottom of the screen.
+
+    w = WinGetDrawWindow();
+    WinSetDrawWindow(osPageWindow);
+    WinEraseWindow();
+
+    _drawPage(&_apparentTextBounds, true);
+
+    WinSetDrawWindow(w);
+
+    fromRect.extent.x = _apparentTextBounds.extent.x;
+    fromRect.extent.y = _lineHeight;
+    fromRect.topLeft.x = 0;
+    fromRect.topLeft.y = _apparentTextBounds.extent.y-fromRect.extent.y;
+    WinCopyRectangle(osPageWindow, w, &fromRect,
+                     _textGadgetBounds.topLeft.x + fromRect.topLeft.x,
+                     _textGadgetBounds.topLeft.y + fromRect.topLeft.y,
+                     scrCopy);
+    RotCopyWindow(osPageWindow,
+                    _apparentTextBounds.extent.y-1-fromRect.extent.y,
+                    _apparentTextBounds.extent.y-1,
+                    _docPrefs.orient);
+}
+
 void Doc_pixelScroll()
 {
     RectangleType rect;
@@ -856,16 +889,17 @@ void Doc_pixelScroll()
     drawWindow = WinGetDrawWindow();
     WinSetDrawWindow(osPageWindow);
 
-    // increment pixel offset
-    _pixelOffset++;
-
     // if scrolled enough to draw a line, scroll down 1 and draw the page.
     if(_pixelOffset == _lineHeight)
     {
         Doc_linesDown(1);
+        WinEraseWindow();
         _drawPage(&_apparentTextBounds, true);
         _pixelOffset = 0;
     }
+
+    // increment pixel offset
+    _pixelOffset++;
 
     // Shift the spare row at the bottom of the offscreen image up.
     // todo: We don't need to shift it all, since the visible screen is scrolled below.
