@@ -33,5 +33,8 @@ Minor bug fixes from Daniel Zahn (sclug@sclug.org).
 11/21/1999
 
 Auto-scrolling from from Daniel Zahn (sclug@sclug.org).
+Czech translation from Ivo Panacek (ivop@regionet.cz).
 
+12/7/1999
+Released as 0.9
 
