@@ -38,9 +38,10 @@
 #include "docprefs.h"
 #include "tabbedtext.h"
 #include "bmk.h"
-#include <limits.h>
 
-#define WORD_MAX USHRT_MAX
+#define WORD_MAX 0xFFFF /* USHRT_MAX is coming from a Linux header, 
+			 * not a Palm one.*/
+
 ////////////////////////////////////////////////////////////////////////////////
 // private functions
 ////////////////////////////////////////////////////////////////////////////////
