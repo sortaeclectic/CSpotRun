@@ -293,11 +293,11 @@ begin
       "termes de la Licence Publique Générale GNU (GPL). Vous "\
       "pouvez trouver celle-ci sur www.gnu.org/copyleft/gpl.html .\n\n"\
       "Le code source et la dernière version sont disponibles sur "\
-      "www.pobox.com/~wtc/palmos/cspotrun/."\
+      "www.pobox.com/~wtc/palmos/cspotrun/.\n\n"\
       ""\
-      "Contributors:\n\n"\
-      "Vincent Poty\nvincent.poty@bigfoot.com\nFrench translation\n\n"\
-      "Daniel Zahn\nsclug@sclug.org\nAuto-scrolling\n"
+      "Remerciements à :\n\n"\
+      "Vincent Poty\n(vincent.poty@bigfoot.com)\npour la traduction en français\n\n"\
+      "Daniel Zahn\n(sclug@sclug.org)\npour le défilement automatique\n"
 
     "$$DELETE PROMPT"="Supprimer définitivement \"^1\" ?"
     "$$CONFIRM DELETE"="Confirmer la suppression"
@@ -315,7 +315,7 @@ begin
         "la dernière ligne de la page précédente lorsque vous changez de page.\n\n"\
         "L'option \'Tape' définit l'ampleur de défilement du texte lorsque "\
         "le stylet touche le document à l'écran.\n\n"\
-        "Le champ \'Vitesse de défilement\' spécifie la vitesse de défilement"\
+        "Le champ \'Vitesse de défilement\' spécifie la vitesse de défilement "\
         "automatique du texte en 100èmes de seconde (60-80 sont des valeurs recommandées)."
         
     "$$NO DOCS"="Aucun document au format DOC n'est installé !\n\n"\
@@ -334,9 +334,8 @@ begin
     "$$FIND BUTTON"="C"
     "$$FIND AGAIN BUTTON"="S"
 /*
-    // Want to internationalize the menu shortcuts.
-    // Need to fix pilrc to do this.
-    // List of shortcuts: A B C D E G L M N O P S T V 1 2 3 4
+    // For internationalizing the menu shortcuts...
+    // List of used shortcuts: A B C D E G L M N O P S T V 1 2 3 4
     "$$SC GOTO PER"="A"         // Aller
     "$$SC PICK DOC"="O"         // Ouvrir
     "$$SC FONT 1"="1"
