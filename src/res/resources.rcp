@@ -686,7 +686,7 @@ begin
 #ifdef ENABLE_AUTOSCROLL
     "$$AUTOSCROLL"="Auto Rolagem"
     "$$AUTOSCROLLSPEED"="Veloc. de Auto Rolagem:"
-    "$$TOGGLE AUTOSCROLL"="Autoscroll on Addr. Book Button"
+    "$$TOGGLE AUTOSCROLL"="Autorolagem com botão Addr. Book "
 #endif
 
     "$$ABOUT BODY"="CSpotRun @@CSR_VERSION@@\n"\
@@ -760,7 +760,7 @@ begin
     "$$FIND IN DOCUMENT"="Procurar no Documento"
     "$$FIND PROMPT"="Procurar:"
     "$$SEARCH FROM TOP"="Procurar a partir do topo"
-    "$$CASE SENSITIVE"="Sensível a caixa"
+    "$$CASE SENSITIVE"="Sensível a mais/minusculas"
     "$$FIND BUTTON"="B"
     "$$FIND AGAIN BUTTON"="BN"
 
