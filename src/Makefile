@@ -31,7 +31,7 @@ OBJS = pilotmain.o mainform.o doclist.o doc.o \
 		decode.o docprefs.o tabbedtext.o controlsform.o \
 		ucgui.o rotate.o prefsform.o searchform.o \
 		bmk.o bmknamefrm.o bmkedfrm.o \
-		cspotrun-sections.o
+		cspotrun-sections.o hyphenate.o
 
 STDDEP = Makefile resources.h app.h appstate.h callback.h
 
@@ -124,21 +124,22 @@ bmkedfrm.o: bmkedfrm.h bmk.h bmknamefrm.h callback.h resources.h segments.h
 bmknamefrm.o: bmk.h bmknamefrm.h callback.h resources.h segments.h
 bmk.o: appstate.h bmk.h doc.h docprefs.h resources.h rotate.h segments.h
 controlsform.o: app.h appstate.h callback.h controlsform.h docprefs.h
-controlsform.o: mainform.h resources.h ucgui.h
-decode.o: csrdrmlib.h decode.h
-doclist.o: app.h appstate.h doc.h doclist.h docprefs.h rotate.h
-doc.o: appstate.h bmk.h decode.h doc.h docprefs.h mainform.h resources.h
-doc.o: rotate.h segments.h tabbedtext.h
-docprefs.o: appstate.h doclist.h docprefs.h rotate.h
+controlsform.o: mainform.h resources.h segments.h ucgui.h
+decode.o: csrdrmlib.h decode.h segments.h
+doclist.o: app.h appstate.h doc.h doclist.h docprefs.h rotate.h segments.h
+doc.o: appstate.h bmk.h decode.h doc.h docprefs.h hyphenate.h mainform.h
+doc.o: resources.h rotate.h segments.h tabbedtext.h
+docprefs.o: appstate.h doclist.h docprefs.h rotate.h segments.h
+hyphenate.o: hyphenate.h segments.h
 mainform.o: app.h appstate.h bmk.h bmknamefrm.h callback.h doc.h doclist.h
 mainform.o: docprefs.h mainform.h resources.h rotate.h segments.h ucgui.h
 pilotmain.o: app.h appstate.h bmkedfrm.h bmk.h bmknamefrm.h controlsform.h
-pilotmain.o: decode.h docprefs.h mainform.h prefsform.h resources.h
-pilotmain.o: searchform.h segments.h tabbedtext.h ucgui.h
+pilotmain.o: decode.h docprefs.h hyphenate.h mainform.h prefsform.h
+pilotmain.o: resources.h searchform.h segments.h tabbedtext.h ucgui.h
 prefsform.o: app.h appstate.h callback.h controlsform.h doc.h docprefs.h
-prefsform.o: mainform.h resources.h rotate.h ucgui.h
-rotate.o: app.h rotate.h
+prefsform.o: mainform.h resources.h rotate.h segments.h ucgui.h
+rotate.o: app.h rotate.h segments.h
 searchform.o: app.h appstate.h callback.h doc.h docprefs.h mainform.h
-searchform.o: resources.h rotate.h searchform.h
+searchform.o: resources.h rotate.h searchform.h segments.h
 tabbedtext.o: segments.h tabbedtext.h
-ucgui.o: appstate.h docprefs.h resources.h ucgui.h
+ucgui.o: appstate.h docprefs.h resources.h segments.h ucgui.h

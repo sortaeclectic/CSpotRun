@@ -30,6 +30,7 @@
 #include "ucgui.h"
 #include "prefsform.h"
 #include "docprefs.h"
+#include "hyphenate.h"
 #ifdef ENABLE_SEARCH
 #include "searchform.h"
 #endif

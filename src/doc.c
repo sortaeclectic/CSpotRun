@@ -29,6 +29,7 @@
 #include "decode.h"
 #include "docprefs.h"
 #include "tabbedtext.h"
+#include "hyphenate.h"
 #include "bmk.h"
 
 #define min(a,b) ((a)<(b)?(a):(b))
@@ -774,7 +775,11 @@ static void _loadCurrentRecord()
         // Compare this decoded len to the one stored in the RECORD0
         // If we find a bug, recompute the table to fix it directly in the RECORD0
         if (gDoc.decodeLen != gDoc.recLens[recToLoad - 1]) {
-            gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens, true);
+            // Warning the last record is recorded with the \0 added in memory !!
+            if (recToLoad != gDoc.numRecs) {
+                gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens, true);
+            } else if (gDoc.decodeLen != (gDoc.recLens[recToLoad - 1]-1))
+                gDoc.fixedStoryLen = _fixStoryLen(gDoc.recLens, true);
         }
 
         gDoc.recordDecoded = _docPrefs.location.record;
@@ -826,21 +831,15 @@ static UInt32 _fixStoryLen(UInt16 *recLens, Boolean force)
     UInt32 storyLen = 0;
     UInt16 i, *a, *b;
 
-    // Compute just the first record
-
-    if (!force)
-        i = decodedRecordLen(gDoc.dbRef, gDoc.record0Ptr->wVersion, 1);
-
     // look if the wRecordsSize if filled and complete
     if ((!force)
         && (MemPtrSize (gDoc.record0Ptr) >= sizeof(struct RECORD0_STR))
         && (gDoc.record0Ptr->wRecordsSize[0])
-        && (i == gDoc.record0Ptr->wRecordsSize[0])
         )
     {
         a = recLens;
         b = &gDoc.record0Ptr->wRecordsSize[0];
-        for (i = gDoc.numRecs-1; i; i--) {
+        for (i = 0; i < gDoc.numRecs; i++) {
             *(a++) = *b;
             storyLen += *(b++);
         }
