@@ -27,6 +27,7 @@
 #include "controlsform.h"
 #include "ucgui.h"
 #include "mainform.h"
+#include "doc.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -118,14 +119,16 @@ static void _prefsToGui()
     for (i=0; i<TA_ACTION_COUNT; i++)
         CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, pushID_tapAction0+i)), i == appStatePtr->tapAction);
 
+#ifdef ENABLE_AUTOSCROLL
     for (i=0; i <ATYPE_COUNT; i++)
         CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, pushID_autoScrollType0+i)), i == appStatePtr->autoScrollType);
+#endif
 
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_reversePageButtons)), appStatePtr->reversePageUpDown);
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_showLine)), appStatePtr->showPreviousLine);
+#ifdef ENABLE_AUTOSCROLL
     CtlSetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_toggleAsAddButt)), appStatePtr->autoScrollButton);
 
-#ifdef ENABLE_AUTOSCROLL
     StrPrintF(scrollSpeedString0, "%d", (int)appStatePtr->autoScrollSpeed0);
 
     CtlSetLabel(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, popupID_autoScrollSpeed0)), scrollSpeedString0);
@@ -144,13 +147,21 @@ static void  _guiToPrefs()
         if (CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, pushID_tapAction0+i))))
             appStatePtr->tapAction = i;
 
+#ifdef ENABLE_AUTOSCROLL
     for (i=0; i<ATYPE_COUNT; i++)
         if (CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, pushID_autoScrollType0+i))))
             appStatePtr->autoScrollType = i;
+#endif
 
     appStatePtr->reversePageUpDown = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_reversePageButtons)));
     appStatePtr->showPreviousLine = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_showLine)));
+#ifdef ENABLE_AUTOSCROLL
     appStatePtr->autoScrollButton = CtlGetValue(FrmGetObjectPtr(formPtr, FrmGetObjectIndex(formPtr, checkboxID_toggleAsAddButt)));
+
+    Doc_pixelScrollClear();
+    Doc_prepareForPixelScrolling();
+    Doc_drawPage();
+#endif
 }
 
 

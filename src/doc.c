@@ -273,6 +273,9 @@ Boolean Doc_linesDown(Word linesToMove)
 
     FntSetFont(oldFont);
 
+#ifdef ENABLE_AUTOSCROLL
+    _locationChanged = true;
+#endif
     return true;
 }
 
@@ -313,6 +316,9 @@ void Doc_linesUp(Word linesToMove)
             return;
         }
     }
+#ifdef ENABLE_AUTOSCROLL
+    _locationChanged = true;
+#endif
 }
 
 void Doc_scroll(int dir, enum TAP_ACTION_ENUM ta)
